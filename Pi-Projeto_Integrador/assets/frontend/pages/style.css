@@ -2,7 +2,7 @@
 
 
 body{
-    background-image: url('../../../Design\ sem\ nome.gif');
+    background-image: url('../../image/output-onlinegiftools\ \(2\).gif');
     background-repeat:no-repeat;
     background-size: cover;
     background-position:center;
@@ -12,10 +12,55 @@ body{
     height:100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     box-shadow: 0 0 10px black;
+    overflow: hidden;
+    animation: sobrepor 1s forwards;
+    animation-delay: 1.2s;
+    filter:blur(8px);
+}
+.sobr{
+    position: fixed;
+    display:flex;
+    width:100vw;
+    height:100vh;
+    background-color:black;
+    z-index:100000;
+    transform: scale(1.2);
+    animation: dois 1.2s forwards;
+}
+@keyframes dois{
+    0%{
+        background-color: black;
+    }
+    99%{
+        background-color: transparent; 
+    }
+    100%{
+        display:none;
+        background-color: transparent;
+    }
+}
+@keyframes sobrepor{
+    0%{
+        filter:blur(8px);
+    }
+    100%{
+        filter: blur(0);
+    }
+}
+.background{
+    width:100vw;
+    height:100vh;
+    margin: 0 auto;
+    top:-1px;
+    position:fixed;
+  background:linear-gradient(to left,rgba(0, 0, 0, 0.689), rgba(145, 100, 3, 0.596), rgba(1, 51, 18, 0.663));
+  filter: blur(2px) contrast(120%) saturate(150%);;     
+  
 }
 
+
 .fundo{
-    background-color:rgba(19, 48, 7, 0.534);
+    background-color:rgba(27, 66, 10, 0.534);
     display:flex;
     align-items: center;
     flex-direction:column;
@@ -23,9 +68,11 @@ body{
     width: 420px;
     height:480px;
     border-radius: 25px;
-    border: 0.1px solid white;
     color:white;
-
+    border: 1px solid white;
+    z-index:10;
+    filter: contrast(120%) brightness(110%);
+    box-shadow: inset 0 0 45px rgb(69, 94, 69);
 }
 input::placeholder{
     color:rgb(156, 154, 154);
@@ -68,11 +115,10 @@ input {
     background-color: rgba(70, 70, 70, 0.425);
     padding: 5px 10px 5px 10px;
     transition: border 0.1s linear, box-shadow 0.2s linear;
+    color:white;
     
 }
-input::placeholder:hover{
-    
-}
+
 input:hover{
 border: 1.5px solid rgb(241, 252, 241);
 cursor: pointer;
@@ -108,9 +154,11 @@ box-shadow: 0 0 10px rgba(137, 167, 55, 0.479);
     
 }
 .entrar:hover{
+    color: black;
+    
     transform: scale(105%);
     height: 40px;
-    font-weight:540;
+    font-weight:740;
     box-shadow: 0 13px 30px rgba(0, 0, 0, 0.563);
     cursor: pointer;
     filter:brightness(120%);
@@ -151,4 +199,16 @@ box-shadow: 0 0 10px rgba(137, 167, 55, 0.479);
 .botao:hover{
     transform: scale(120%);
     box-shadow: 0 12px 20px rgba(0, 0, 0, 0.568);
+}
+
+.cadastramento{
+   
+    z-index: 1000;
+}
+.cadastro{
+    width:450px;
+    height:auto;
+   display:flex;
+   padding: 0;
+   display:none;
 }
