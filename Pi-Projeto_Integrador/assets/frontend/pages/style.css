@@ -1,0 +1,154 @@
+
+
+
+body{
+    background-image: url('../../../Design\ sem\ nome.gif');
+    background-repeat:no-repeat;
+    background-size: cover;
+    background-position:center;
+    justify-content: center;
+    align-items:center;
+    display:flex;
+    height:100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 0 10px black;
+}
+
+.fundo{
+    background-color:rgba(19, 48, 7, 0.534);
+    display:flex;
+    align-items: center;
+    flex-direction:column;
+    padding: 35px 0px 35px 0px;
+    width: 420px;
+    height:480px;
+    border-radius: 25px;
+    border: 0.1px solid white;
+    color:white;
+
+}
+input::placeholder{
+    color:rgb(156, 154, 154);
+    padding:10px;
+}
+
+.formulario{
+    display:flex;
+    flex-direction:column;  
+    margin:20px;
+
+    width:80%;
+}
+.formulario label{
+    color:white;
+    font-size: 0.9rem;
+    margin:none;
+}
+.cima h3{
+font-size: 2.1rem;
+margin-bottom:0px
+
+}
+.cima p{
+    font-size:0.8rem;
+
+}
+.cima{
+    align-items:center;
+    justify-content:center;
+    display:flex;
+    flex-direction:column;
+}
+
+input {
+    margin: 5px 8px;
+    height:27px;
+    border-radius:10px;
+    border: 1.2px solid gray;
+    background-color: rgba(70, 70, 70, 0.425);
+    padding: 5px 10px 5px 10px;
+    transition: border 0.1s linear, box-shadow 0.2s linear;
+    
+}
+input::placeholder:hover{
+    
+}
+input:hover{
+border: 1.5px solid rgb(241, 252, 241);
+cursor: pointer;
+box-shadow: 0 0 10px rgba(137, 167, 55, 0.479);
+}
+.formulario p{
+ margin: 0 auto;
+ margin-top: 25px;
+
+}
+.formulario p a{
+    color:rgb(6, 202, 6);
+    font-size: 1em;
+    font-weight:600;
+}
+.formulario p a:hover{
+    text-shadow: 0 0 10px rgb(6, 216, 6);
+}
+
+.entrar {
+    margin-top: 10px;
+    border-radius: 10px;
+    border: none;
+    padding: 5px 10px;
+    height: 35px;
+    background: linear-gradient( to right, green, orange);
+    color:white;
+    font-weight: 630;
+    transition: transform 0.2s linear, height 0.1s linear, box-shadow 0.1s linear, filter 0.2s linear;
+    font-weight: 540;
+    box-shadow: 0 13px 30px transparent;
+    filter: brightness(100%);
+    
+}
+.entrar:hover{
+    transform: scale(105%);
+    height: 40px;
+    font-weight:540;
+    box-shadow: 0 13px 30px rgba(0, 0, 0, 0.563);
+    cursor: pointer;
+    filter:brightness(120%);
+
+    
+
+}
+.aglomerado{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+}
+
+.aglomerado div{
+    background-color:rgb(27, 22, 13);
+    height:2px;
+    width: 40%;
+}
+.botoes{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+}
+.botoes .botao{
+    background-color:rgb(216, 238, 206);
+    padding:10px 20px;
+    margin:25px;
+    margin-bottom:0px;
+    margin-top: 5px;
+    border-radius:30px;
+    border:none;
+    transition: transform linear 0.1s, box-shadow linear 0.3s;
+    
+    
+}
+.botao:hover{
+    transform: scale(120%);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.568);
+}
