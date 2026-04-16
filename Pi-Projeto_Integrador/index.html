@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TerraFarr</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Adiciona a logo no site -->
+    <link rel="icon" href="WhatsApp Image 2026-02-03 at 14.30.47.jpeg">
+    <!-- importação de biblioteca de animações-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- importação de fontes-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- Container principal com perspectiva -->
+    <div class="d">
+        <!-- Card que vai girar -->
+        <div class="card">
+            <!-- Frente do card (GIF) -->
+            <div class="flip-card-front"></div>
+            <!-- Verso do card (Logo) -->
+            <div class="flip-card-back"></div>
+        </div>
+    </div>
+
+    <!-- Container onde estará a seção de login/cadastro -->
+    <div class="acessar" id="acessar">
+        <div class="login">
+            <div class="topo1">
+                <span class="lgn"> LOGIN </span>
+            </div>
+
+            <!-- conteúdos de login -->
+            <div class="informacoesLogin">
+                
+                    <label for="usuario" class="label"> Nome de usuário</label>
+                    <input type="text" name="usuario" id="usuarioL" class="informaL" placeholder="  Nome de usuário:">
+                        
+                    <label for="senhaL" class="label"> Senha </label>
+                    <input type="password" name="senha" id="senhaL" class="informaL" placeholder="  Senha:">
+             <button type="button" class="ir" id="ir">Acessar</button>
+               
+                <div class="botoes1">
+                     <a href="" class="linkA"> Não possui uma conta?</a>
+
+                </div>
+            </div>
+        </div>
+        <div class="cadastro"></div>
+        <!-- <div class="acesso1">
+            <div class="login"> <h1>Login</h1> </div>
+            <div class="local">
+                <div class="email" id="email"></div>
+                <div class="senha" id="senha"></div>
+            </div>
+        </div>
+
+        <div class="acesso2"></div> -->
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
