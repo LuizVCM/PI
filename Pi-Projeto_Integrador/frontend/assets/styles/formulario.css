@@ -6,7 +6,7 @@
 }
 
 body{
-    background-image: url('../../image/output-onlinegiftools\ \(2\).gif');
+    background-image: url('../image/output-onlinegiftools\ \(2\).gif');
     background-repeat:no-repeat;
     background-size: cover;
     background-position:center;
@@ -214,4 +214,12 @@ box-shadow: 0 0 10px rgba(137, 167, 55, 0.479);
    display:flex;
    padding: 0;
    display:none;
+}
+.tamanho{
+    height: 650px;
+    
+}
+.tamanho button{
+    height:30px;
+    border-radius: 15px;
 }
