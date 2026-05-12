@@ -8,3 +8,12 @@
      window.onload = function() {
       abrirPaginaComDelay(formulario.html, 5);
     };
+
+    const formulario = document.querySelectorAll(".formulario");
+    const link = document.getElementById("paragrafoLink");
+
+    link.addEventListener("click",() => {
+     formulario.forEach(element => {
+      element.classList.toggle("cadastro")
+     });
+    })

@@ -1,5 +1,9 @@
 
-
+*{
+    padding: 0;
+    margin:0;
+    box-sizing: border-box;
+}
 
 body{
     background-image: url('../../image/output-onlinegiftools\ \(2\).gif');
@@ -51,7 +55,6 @@ body{
     width:100vw;
     height:100vh;
     margin: 0 auto;
-    top:-1px;
     position:fixed;
   background:linear-gradient(to left,rgba(0, 0, 0, 0.689), rgba(145, 100, 3, 0.596), rgba(1, 51, 18, 0.663));
   filter: blur(2px) contrast(120%) saturate(150%);;     
