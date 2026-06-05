@@ -6,7 +6,7 @@
     }
 
      window.onload = function() {
-      abrirPaginaComDelay(formulario.html, 5);
+      abrirPaginaComDelay(formulario.html, 4.6);
     };
 
 
