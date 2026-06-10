@@ -65,7 +65,7 @@ main {
 
 aside {
     background-color: var(--verde-sidebar);
-    width: 50vw;
+    width: 25vw;
     height: 87vh;
     align-items: center;
     justify-content: center;
@@ -79,14 +79,15 @@ aside {
 
 .aside-encolhido {
     background-color: var(--verde-sidebar);
-    width: 0;
+    width: 2.1vw;
     height: 87vh;
-    gap: 27px;
+    ;
     display: flex;
     position: relative;
-
-
     transition: width 0.3s linear;
+}
+.aside-encolhido .opcao{
+    padding-left: 10px;
 }
 
 aside .opcao {
