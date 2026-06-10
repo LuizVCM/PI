@@ -141,7 +141,7 @@ box-shadow: 0 0 10px rgba(137, 167, 55, 0.479);
     text-shadow: 0 0 10px rgb(6, 216, 6);
 }
 
-.entrar {
+.entrar, .confirmar {
     margin-top: 10px;
     border-radius: 10px;
     border: none;
