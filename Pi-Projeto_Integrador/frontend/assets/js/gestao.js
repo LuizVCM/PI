@@ -51,3 +51,8 @@ btnPerfil.addEventListener("click", () => {
 })
 
 
+const gestao = document.querySelector(".gestao");
+
+gestao.addEventListener("click", () => {
+    window.location.href = "gestao.html";
+});
