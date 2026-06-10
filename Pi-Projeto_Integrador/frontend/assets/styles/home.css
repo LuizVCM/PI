@@ -150,6 +150,8 @@ main .content {
     height: 100px;
     position: absolute;
     right: -50px;
+    border-radius: 0 10px 10px 0 ;
     border: none;
+    outline: none;
 
 }
