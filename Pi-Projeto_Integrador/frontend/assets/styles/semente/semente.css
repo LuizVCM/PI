@@ -3,6 +3,9 @@
     padding:none;
     box-sizing:border-box;
 }
+main .content{
+    display:none;
+}
 :root {
     --verde-circulo: #7ECC5F;
     --verde-sidebar: #2D5C2F;
@@ -29,18 +32,16 @@
 .acessos .funcao{
     display:flex;
     align-items:center;
-    justify-content: space-around;
+    justify-content: space-between;
     width: 80%;
     height: 15%;
     background: linear-gradient(to right, #C8E6A0, #7b977f);
     border-radius: 10px;
     border: none;
-    padding: 20px;
+    padding: 50px;
     font-weight: 750;
     color:#0D1F0E;
     font-size: 1.5vw;
-
-    
 
     box-shadow: 6px 5px rgba(22, 78, 14, 0.897);
     align-items:center;
@@ -53,6 +54,14 @@
     display:flex;
     flex-direction: column;
     padding: 15px;
+}
+main .validade{
+    width: 100%;
+    height: 87vh;
+
+    display:flex;
+    background-color: white;
+
 }
 .funcao:hover{
     cursor: pointer;

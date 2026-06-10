@@ -118,6 +118,7 @@ aside .opcao {
 aside .selecao {
     display: flex;
    color: var(--verde-circulo);
+   transform: scale(1.2)
 }
 
 main .content {
