@@ -17,6 +17,10 @@
     height: 100%;
 }
 
+.content.hidden {
+    display: none;
+}
+
 .acessos .funcao {
     display: flex;
     align-items: center;
@@ -40,4 +44,14 @@
 .funcao i {
     transform: scale(1.2);
     color: var(--verde-profundo);
+}
+
+.form-novo-registro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.top, .bottom {
+    display: inline-block;
 }
