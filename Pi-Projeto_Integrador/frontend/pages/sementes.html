@@ -30,32 +30,114 @@
         </aside>
 
         <div class="content">
-                <h1 class="sementes">Gestão de Sementes</h1>
-                <div class="acessos">
-                    <button class="funcao funcao1">
-                        <span>Validade e tipo de semente</span> <i class="fa-solid fa-arrow-right"
-                            style="color: rgb(9, 37, 29);"></i>
-                    </button>
-                    <button class="funcao funcao2">
-                        <span>Lotes do plantio</span> <i class="fa-solid fa-arrow-right"
-                            style="color: rgb(9, 37, 29);"></i>
-                    </button>
-                    <button class="funcao funcao3">
-                        <span>Ver recomendações de plantio</span> <i class="fa-solid fa-arrow-right"
-                            style="color: rgb(9, 37, 29);"></i>
-                    </button>
-                    <button class="funcao funcao4">
-                        <span>Agendar plantação</span> <i class="fa-solid fa-arrow-right"
-                            style="color: rgb(9, 37, 29);"></i>
-                    </button>
-                </div>
+            <h1 class="sementes">Gestão de Sementes</h1>
+            <div class="acessos">
+                <button class="funcao funcao1">
+                    <span>Validade e tipo de semente</span> <i class="fa-solid fa-arrow-right"
+                        style="color: rgb(9, 37, 29);"></i>
+                </button>
+                <button class="funcao funcao2 toggle2">
+                    <span>Lotes do plantio</span> <i class="fa-solid fa-arrow-right" style="color: rgb(9, 37, 29);"></i>
+                </button>
+                <button class="funcao funcao3 toggle3 ">
+                    <span>Ver recomendações de plantio</span> <i class="fa-solid fa-arrow-right"
+                        style="color: rgb(9, 37, 29);"></i>
+                </button>
+                <button class="funcao funcao4 toggle4">
+                    <span>Agendar plantação</span> <i class="fa-solid fa-arrow-right"
+                        style="color: rgb(9, 37, 29);"></i>
+                </button>
+            </div>
         </div>
         <div class="validade">
-            dsdsdsds
+            <div class="modelagem">
+                <h1>Validade e tipo de Semente</h1>
+                <button class="editar"> Editar</button>
+                <button class="excluir"> Excluir</button>
+            </div>
+            <div class="pesquisar">
+                <label for="buscarLote"></label>
+                <input type="text" name="buscarLote" class="buscarLote" placeholder="Buscar lote ou tipo...">
+                <div class="select">
+                    <select name="select" id="tipoS">
+                        <option value="tipos de semente">Tipos de semente</option>
+                        <option value="milho">milho</option>
+                        <option value="feijão">feijão</option>
+                        <option value="trigo">trigo</option>
+                    </select>
+                    <button class="novaSemente">Nova semente</button>
+                </div>
+            </div>
+            <div class="verificacao">
+                trtrtrtrt
+            </div>
+            <!-- nn vai aparecer-->
+        <div class="secao">
+            <div class="pSuperior">
+            <div class="registroSemente">
+                <span>Nova semente</span>
+                <h5>Registrar novo lote</h5>
+            </div>
+            <div class="NovoLote">Novo lote</div>
+        </div>
+        <div class="cad1">
+            <div class="tsem">
+                <label for="TipoSemente"> TIPO DE SEMENTE</label>
+                <select name="TipoSemente" id="TS">
+                    <option value="Selecione...">Selecione...</option>
+                    <option value="Soja">Soja</option>
+                    <option value="Milho">Milho</option>
+                    <option value="Trigo">Trigo</option>
+                    <option value="Feijão">Feijão</option>
+                </select>
+            </div>
+            <div class="va">
+                <label for="validade"> VALIDADE </label>
+                <input type="date" name="validade" id="dVa">
+            </div>
+        </div>
+
+         <div class="cad1">
+            <div class="q">
+                <label for="quantidade"> QUANTIDADE</label>
+                <input type="text" name="quantidade" id="quantidade" class="quantidade" placeholder="Ex: 250">
+            </div>
+            <div class="kg">
+                <select name="peso" id="peso">
+                    <option value="kg">kg</option>
+                    <option value="sacas">sacas</option>
+                    <option value="ton">ton</option>
+                    <option value="litro">litros</option>
+                </select>
+            </div>
+        </div>
+
+         <div class="cad1">
+            <div class="tsem">
+                <label for="comprar"> COMPRADO EM</label>
+                <input type="date">
+            </div>
+            <div class="va">
+                <label for="fornecedor"> FORNECEDOR </label>
+                <input type="text" name="nome" id="nome" placeholder="Nome">
+            </div>
+        </div>
+
+         <div class="obs">
+           <div class="observacoes">
+            <label for="observacoes">OBSERVAÇÕES</label>
+            <textarea name="observacoes" id="observacao">Condiçõesde armazenamento, procedências...</textarea>
+           </div>
+        </div>
+        <div class="btn">
+            <button class="cancelar">Cancelar</button>
+            <button class="Salvarlote">Salvar lote</button>
+        </div>
+    </div>
         </div>
     </main>
 
-    <script src="../assets/js/home.js"></script>
+    <script src="../assets/js/semente.js"></script>
 </body>
 
 </html>
