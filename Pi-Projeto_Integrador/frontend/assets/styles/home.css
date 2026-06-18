@@ -14,15 +14,14 @@
     --conteudo-fundo: #F4FBF0;
     --verde-dark: #0D1F0E;
     --verde-opcao: #153117;
-
+    --green-box-shadow: 6px 5px #164e0ee5;
 }
 
 body {
-    background-color: black;
+    background-color: var(--verde-dark);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-
 }
 
 header {
@@ -60,7 +59,7 @@ main {
     display: flex;
     width: 100%;
     min-height: 100%;
-    background-color: yellow;
+    background-color: var(--verde-dark);
 }
 
 aside {
@@ -74,20 +73,25 @@ aside {
     display: flex;
     position: relative;
 
-    transition: width 0.3s linear;
+    transition: all 0.2s linear;
 }
 
 .aside-encolhido {
     background-color: var(--verde-sidebar);
-    width: 2.1vw;
-    height: 87vh;
-    ;
+    width: 3.5vw;
+    height: 87vh;;
     display: flex;
     position: relative;
-    transition: width 0.3s linear;
+    transition: all 0.2s linear;
+    padding: 0.5em
 }
 .aside-encolhido .opcao{
-    padding-left: 10px;
+    justify-content: center;
+    padding: 0.6em;
+}
+
+.aside-encolhido .opcao span {
+    display: none;
 }
 
 aside .opcao {
