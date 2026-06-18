@@ -1,13 +1,43 @@
-:root {
-    --verde-circulo: #7ECC5F;
-    --verde-sidebar: #2D5C2F;
-    --verde-opcoes-click: #3A7D44;
-    --verde-profundo: #1B4D1F;
-    --verde-topo: #C8E6A0;
-    --verde-selecionar: #D4EDCC;
-    --conteudo-fundo: #F4FBF0;
-    --verde-dark: #0D1F0E;
-    --verde-opcao: #153117;
-
+.content {
+    display: flex;
+    flex-direction: column;
 }
 
+.title {
+    margin-top: 1.5em;
+}
+
+.acessos {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.acessos .funcao {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 60%;
+    height: 15%;
+    background: var(--conteudo-fundo);
+    border-radius: 0.6rem;
+    border: none;
+    padding: 1em;
+    font-weight: 750;
+    color: var(--verde-dark);
+    font-size: 1.5vw;
+    box-shadow: var(--green-box-shadow);
+}
+
+.subtitle.content {
+    background: none;
+}
+
+.funcao i {
+    transform: scale(1.2);
+    color: var(--verde-profundo);
+}
