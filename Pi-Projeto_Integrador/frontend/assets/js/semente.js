@@ -10,3 +10,13 @@ entrarValidade.addEventListener("click", () => {
 // funções de 'nova semente'
 const novaSemente = document.querySelector(".novaSemente");
 
+const secao = document.querySelector(".secao");
+const cancelar = document.querySelector(".cancelar");
+
+cancelar.addEventListener("click", () => {
+    secao.classList.toggle("toggle1")
+})
+novaSemente.addEventListener("click", () => {
+    secao.classList.toggle("toggle1")
+})
+

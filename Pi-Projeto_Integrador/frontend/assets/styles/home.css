@@ -155,5 +155,6 @@ main .content {
     border-radius: 0 10px 10px 0 ;
     border: none;
     outline: none;
+    z-index:100000 !important;
 
 }
