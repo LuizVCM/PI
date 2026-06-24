@@ -62,7 +62,7 @@ main {
     display: flex;
     width: 100%;
     min-height: 100%;
-    background-color: var(--verde-dark);
+    
 }
 
 aside {
@@ -138,7 +138,7 @@ main .content {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--verde-selecionar);
+    background-color: black;
     width: 100%;
     font-size: 1.5rem;
     font-weight: 600;
