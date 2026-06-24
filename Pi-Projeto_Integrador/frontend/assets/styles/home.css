@@ -73,14 +73,22 @@ aside {
     gap: 27px;
     display: flex;
     position: relative;
+    
 
     transition: width 0.3s linear;
+}
+@media (max-width:600px) {
+    aside{
+        width:290%;
+    }
+    
 }
 
 .aside-encolhido {
     background-color: var(--verde-sidebar);
     width: 2.1vw;
     height: 87vh;
+    
     ;
     display: flex;
     position: relative;
@@ -156,5 +164,6 @@ main .content {
     border: none;
     outline: none;
     z-index:100000 !important;
+    border: 1px solid rgb(83, 139, 76);
 
 }

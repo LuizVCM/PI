@@ -4,8 +4,14 @@
     padding:none;
     box-sizing:border-box;
 }
+body{
+    overflow:hidden;
+}
 main .content{
     display:flex;
+    height:87vh;
+    overflow-y: auto;
+   
 }
 :root {
     --verde-circulo: #7ECC5F;
@@ -179,6 +185,12 @@ select{
     align-items:center;
     justify-content:center;
 }
+.content button{
+    z-index:200;
+   overflow: hidden;
+   overflow-x: auto;
+    
+}
 
 .novaSemente:hover{
 cursor: pointer;
@@ -187,7 +199,8 @@ cursor: pointer;
   display:flex;
   position: absolute;
   height:70vh;
-  width: 500px;
+  max-width: 500px;
+  min-width:100px;
   background-color: rgba(250, 250, 250, 0.5);
   z-index:10;
   right: 5vw;
@@ -196,9 +209,80 @@ cursor: pointer;
   padding:20px;
   flex-direction: column;
   font-family: 'DM Sans', 'sans-serif';
-  font-weight:600
+  font-weight:600;
+  overflow-y: auto;
+  font-size: 1.2vh !important;
 }
+@media (max-width:1200px) {
+    .navbar{
+        left:-50px;
+        z-index: 2000;
+        
+    }
+}
+@media (max-width:940px) {
+    .validade h1{
+        font-size: 3.5vw;
+        
+    } 
+    .content button span{
+            font-size: 4vw;
 
+            
+        }
+    @media (max-width: 700px) {
+        .secao{
+            width:90%;
+            display:flex;
+            position:static;
+            z-index:0;
+            background-color: rgb(125, 155, 125);
+            
+        }
+        .content h1{
+            font-size: 1.3rem;
+            
+        }
+
+        .validade span{
+            font-size: 1.5rem;
+        }
+        .pesquisar{
+            gap:none;
+            width:100%;
+            justify-content: space-between;
+            align-items: center;
+            font-size:1rem
+        }
+        
+        .buscarLote{
+            min-width:100px;
+        }
+        .pesquisar .select, .buscarLote, .novaSemente{
+            width:100%;
+        }
+         .cad1, .q, .va, .tsem, .obs{
+            padding: 0;
+            font-size:10px;
+            
+        }
+        #dVA, #data, #nome, #TS{
+           
+           width:100%;
+            padding: 0;
+            margin: 0;
+            font-size: 1rem;
+        }
+        .select .novaSemente{
+            font-size: 10px;
+            width:100%;
+            padding:1%;
+        }
+       
+ .content button span{
+            font-size: 22px;
+    }
+}}
 .pSuperior{
     display:flex;
     width: 100%;
@@ -207,7 +291,7 @@ cursor: pointer;
     border-bottom: 1px solid black;
 }
 .registroSemente span{
-    font-size: 1.3rem;
+   
     font-weight:700;
     font-family: 'DM Sans', "sans-serif";
 }
@@ -225,6 +309,7 @@ cursor: pointer;
 .tsem{
     display:flex;
     flex-direction: column;
+    font-size: 1.5vh;
 }
 .cad1{
     display:flex;
@@ -314,8 +399,4 @@ justify-content:center;
     color: white;
     border:none;   
     
-}
-.cancelar:hover{
-    transition: all 0.3s linear;
-    background-color: 
 }

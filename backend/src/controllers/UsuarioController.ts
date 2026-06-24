@@ -1,0 +1,3 @@
+// UsuarioController
+
+export class UsuarioController {}
