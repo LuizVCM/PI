@@ -1,10 +1,24 @@
+
+
+
+// páginas
 const content = document.querySelector(".content");
-const validade = document.querySelector(".validade")
+const validade = document.querySelector(".validade");
+const lote = document.querySelector(".lote");
+
+//botao de ação
 const entrarValidade = document.querySelector(".funcao1");
+const entrarLote = document.querySelector(".funcao2");
+
+
 entrarValidade.addEventListener("click", () => {
     content.classList.toggle("toggle1");
     validade.classList.toggle("valMovimento")
+});
 
+entrarLote.addEventListener("click", () => {
+    content.classList.toggle("toggle1");
+    lote.classList.toggle("valMovimento")
 });
 
 // funções de 'nova semente'
@@ -19,4 +33,6 @@ cancelar.addEventListener("click", () => {
 novaSemente.addEventListener("click", () => {
     secao.classList.toggle("toggle1")
 })
+
+
 
