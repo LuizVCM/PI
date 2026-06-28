@@ -1,0 +1,3 @@
+// Usuario
+
+export class Usuario {}

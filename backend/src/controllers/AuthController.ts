@@ -1,0 +1,3 @@
+// AuthController
+
+export class AuthController {}
