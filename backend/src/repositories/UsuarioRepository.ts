@@ -1,0 +1,3 @@
+// UsuarioRepository
+
+export class UsuarioRepository {}

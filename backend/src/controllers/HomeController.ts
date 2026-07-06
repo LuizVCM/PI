@@ -1,0 +1,3 @@
+// HomeController
+
+export class HomeController {}
