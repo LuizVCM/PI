@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TerraFarr</title>
+    <link rel="icon" href="../assets/image/logo.jpeg">
+    <link rel="stylesheet" href="./assets/styles/index.css">
+    <!-- adiciona a logo no site -->
+    <!-- importação de biblioteca de animações-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- importação de fontes-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- Container principal com perspectiva -->
+    <div class="d">
+        <!-- Card que vai girar -->
+        <div class="card">
+            <!-- Frente do card (GIF) -->
+            <div class="flip-card-front"></div>
+            <!-- Verso do card (Logo) -->
+            <div class="flip-card-back"></div>
+        </div>
+    </div>
+
+    
+    <script>
+ // Função para abrir a página 'formulario.html' após 5 segundos
+  function abrirFormulario() {
+    setTimeout(function() {
+      // Redireciona para a página 'formulario.html' na mesma pasta
+      window.location.href = "./pages/formulario.html";
+    }, 6200); // 6500 milissegundos = 6,2 segundos
+  }
+
+  // Executa quando a página carregar
+  window.onload = abrirFormulario;
+    </script>
+</body>
+
+</html>
