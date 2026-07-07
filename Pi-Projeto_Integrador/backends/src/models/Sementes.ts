@@ -1,5 +1,6 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./Usuario";
+import { Plantas } from "./Plantas";
 
 @Entity("seeds")
 export class Semente {
@@ -12,7 +13,7 @@ export class Semente {
     @Column({length: 100, nullable:false})
     nomePlanta: string;
 
-    @Column({type: 'timestamp with local time zone', nullable:false})
+    @Column({type: 'timestamp', nullable:false})
     dataPlantio: Date;
 
     @Column({type: 'int', nullable: false})
@@ -20,4 +21,7 @@ export class Semente {
 
     @ManyToOne(() => User, user => user.semente)
     user: User;
+
+    @OneToMany(() => Plantas, planta => planta.semente)
+    planta: Plantas
 }

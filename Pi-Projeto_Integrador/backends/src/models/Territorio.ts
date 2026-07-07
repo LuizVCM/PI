@@ -1,5 +1,6 @@
-import { Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./Usuario";
+import { Clima } from "./Clima";
 
 @Entity("territorios")
  export class Territorio {
@@ -14,5 +15,9 @@ import { User } from "./Usuario";
 
     @ManyToOne(() => User, user => user.territorio)
     user:User
-
+    
+   @OneToMany(() => Clima, clima => clima.territorio)
+   clima: Clima[]
  }
+
+

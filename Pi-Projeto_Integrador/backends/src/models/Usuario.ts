@@ -1,6 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Semente } from "./Sementes";
 import { Territorio } from "./Territorio";
+import { Financas } from "./Finanças";
 
 @Entity("users") 
 export class User {
@@ -29,5 +30,8 @@ export class User {
     semente: Semente[];
 
     @OneToMany(() => Territorio, territorio => territorio.user)
-    territorio: Territorio
+    territorio: Territorio[];
+
+    @OneToMany(() => Financas, financas => financas.user)
+    financas: Financas[]
 }
