@@ -3,7 +3,13 @@ import { User } from "../models/Usuario";
 
 const repo = AppDataSource.getRepository(User);
 export const UserRepository = {
-    // encontrar tudo
+    async findAll(){
+        return repo.find()
+    },
+    async findById(id:number){
+        return repo.findOne({where: {id}})
+    },
+    // encontrar tudo (com itens específicos)
     async findAllSementes(){
         return repo.find({relations: ['seeds']});
     },
@@ -14,14 +20,18 @@ export const UserRepository = {
         return repo.find({relations: ['financas']});
     },
 
+    async findByEmail(email: string){
+        return repo.findOne({where: {email}})
+    },
+
    // encontrar por ID
-    async findByIdSemente(id: number){
+    async findByIdWithSemente(id: number){
         return repo.findOne({where: { id }, relations: ['seeds']});
     }, 
-    async findByIdTerritorio(id: number){
+    async findByIdWithTerritorio(id: number){
         return repo.findOne({where: { id }, relations: ['territorios']});
     }, 
-    async findByIdFinancas(id: number){
+    async findByIdWithFinancas(id: number){
         return repo.findOne({where: { id }, relations: ['financas']});
     },
     // criar user 
