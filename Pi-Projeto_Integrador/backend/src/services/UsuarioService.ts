@@ -1,0 +1,3 @@
+// UsuarioService
+
+export class UsuarioService {}
