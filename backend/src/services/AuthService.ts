@@ -1,3 +1,0 @@
-// AuthService
-
-export class AuthService {}
