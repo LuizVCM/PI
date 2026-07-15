@@ -86,7 +86,7 @@ body {
 }
 
 .tamanho {
-  height: 650px;
+  height: fit-content;
 }
 
 .cima {
@@ -221,7 +221,7 @@ input:hover {
 
 /* Link de alternância */
 .formulario > p {
-  margin: 25px auto 0;
+  margin: 2em auto 0;
 }
 
 .formulario p a {
