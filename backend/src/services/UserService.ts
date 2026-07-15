@@ -2,7 +2,7 @@ import { UserRepository } from "../repositories/UserRepository";
 import bcrypt from 'bcrypt';
 import { omitPassword } from "../utils/omitPassword";
 import { generateToken } from "../utils/jwt";
-import { User } from "../models/Usuario";
+import { User } from "../models/User";
 
 
 

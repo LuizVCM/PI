@@ -1,5 +1,5 @@
 import { AppDataSource } from "../config/data-source";
-import { User } from "../models/Usuario";
+import { User } from "../models/User";
 
 const repo = AppDataSource.getRepository(User);
 export const UserRepository = {

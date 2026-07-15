@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Semente } from "./Sementes";
+import { Seed } from "./Seed";
 
 @Entity("plants")
 export class Plantas {
@@ -27,6 +27,6 @@ export class Plantas {
     @Column({type: 'double', nullable: false})
     potassio: number;
 
-    @ManyToOne(() => Semente, semente => semente.planta)
-    semente: Semente;
+    @ManyToOne(() => Seed, semente => semente.planta)
+    semente: Seed;
 }

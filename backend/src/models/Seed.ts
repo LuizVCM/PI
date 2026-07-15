@@ -1,9 +1,9 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { User } from "./Usuario";
+import { User } from "./User";
 import { Plantas } from "./Plantas";
 
-@Entity("seeds")
-export class Semente {
+@Entity("sementes")
+export class Seed {
     @PrimaryGeneratedColumn()
     id: number;
 

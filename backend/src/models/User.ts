@@ -1,9 +1,9 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Semente } from "./Sementes";
-import { Territorio } from "./Territorio";
-import { Financas } from "./Finanças";
+import { Seed } from "./Seed";
+import { Crop } from "./Crop";
+import { Finance } from "./Finance";
 
-@Entity("users") 
+@Entity("usuarios") 
 export class User {
     @PrimaryGeneratedColumn()
     id: number;
@@ -26,12 +26,12 @@ export class User {
     @Column({select: false})
     senha: string;
 
-    @OneToMany(() => Semente, semente => semente.user)
-    semente: Semente[];
+    @OneToMany(() => Seed, semente => semente.user)
+    semente: Seed[];
 
-    @OneToMany(() => Territorio, territorio => territorio.user)
-    territorio: Territorio[];
+    @OneToMany(() => Crop, territorio => territorio.user)
+    territorio: Crop[];
 
-    @OneToMany(() => Financas, financas => financas.user)
-    financas: Financas[]
+    @OneToMany(() => Finance, financas => financas.user)
+    financas: Finance[]
 }

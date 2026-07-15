@@ -1,9 +1,9 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { User } from "./Usuario";
+import { User } from "./User";
 import { Clima } from "./Clima";
 
 @Entity("territorios")
- export class Territorio {
+ export class Crop {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -19,5 +19,3 @@ import { Clima } from "./Clima";
    @OneToMany(() => Clima, clima => clima.territorio)
    clima: Clima[]
  }
-
-
