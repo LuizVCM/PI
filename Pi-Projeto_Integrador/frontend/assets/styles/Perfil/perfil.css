@@ -1,0 +1,111 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+}
+
+.content {
+    width: 100%;
+    height: 87vh;
+    background-color: #f5f7fa;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ===================== CABEÇALHO ===================== */
+
+.cabecalho-perfil {
+    width: 90%;
+    height: 200px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+
+    margin-top: 30px;
+}
+
+.foto-usuario {
+    width: 170px;
+    height: 170px;
+
+    border-radius: 50%;
+    background-color: #d9d9d9;
+    border: 4px solid #1d5c2f;
+}
+
+.dados-usuario {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.nome-usuario {
+    font-size: 40px;
+    color: #222;
+}
+
+.cargo-usuario {
+    font-size: 24px;
+    color: #666;
+    margin-top: 10px;
+}
+
+/* ===================== INFORMAÇÕES ===================== */
+
+.informacoes-perfil {
+    width: 80%;
+    max-width: 900px;
+
+    background: white;
+    border-radius: 15px;
+    padding: 40px;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,.15);
+
+    display: flex;
+    flex-direction: column;
+}
+
+.titulo-secao {
+    text-align: center;
+    font-size: 36px;
+    color: #222;
+
+    margin-bottom: 35px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+
+    padding: 18px 0;
+
+    border-bottom: 1px solid #ddd;
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-titulo {
+    width: 220px;
+
+    font-size: 26px;
+    font-weight: bold;
+    color: #222;
+}
+
+.info-valor {
+    flex: 1;
+
+    font-size: 24px;
+    color: #555;
+}
