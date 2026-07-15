@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"name": "PI",
+			"path": "."
+		}
+	],
+	"settings": {
+		"liveServer.settings.port": 5501
+	}
+}
