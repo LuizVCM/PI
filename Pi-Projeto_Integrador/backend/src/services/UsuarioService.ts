@@ -1,3 +1,0 @@
-// UsuarioService
-
-export class UsuarioService {}
