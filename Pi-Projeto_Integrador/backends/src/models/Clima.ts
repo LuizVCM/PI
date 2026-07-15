@@ -10,16 +10,16 @@ export class Clima {
     @Column({type: 'timestamp', nullable:false})
     data: Date;
 
-    @Column({type: 'double',  nullable: false })
+    @Column({ scale: 2, precision: 5, nullable: false })
     chuva: number;
 
-    @Column({ type: 'double', nullable: false})
+    @Column({ scale: 2, precision: 5, nullable: false})
     temperatura: number;
 
-    @Column({ type: 'double', nullable: false})
+    @Column({ scale: 2, precision: 5, nullable: false})
     vento: number;
 
-    @Column({type: 'int', nullable: false})
+    @Column({ scale: 2, precision: 5, nullable: false})
     umidade: number;
      
     @ManyToOne(() => Territorio, territorio => territorio.clima)
@@ -27,6 +27,5 @@ export class Clima {
 
     @OneToMany(() => Sensor, sensores => sensores.clima)
     sensores: Sensor
-
 
 }

@@ -12,13 +12,13 @@ export class Plantas {
     @Column({type: 'date', nullable: false})
     dataGerminacao: Date;
 
-    @Column({type: 'double', nullable: false})
+    @Column({scale: 2, precision:5, nullable: false})
     iluminacao: number;
 
-    @Column({length: 100, nullable: false})
+    @Column({ nullable: false})
     regiao: number;
 
-    @Column({type: 'double', nullable: false})
+    @Column({scale: 2, precision:5, nullable: false})
     enxofre: number;
 
     @Column({type: 'double', nullable: false})

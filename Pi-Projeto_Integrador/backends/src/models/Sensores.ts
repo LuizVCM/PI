@@ -10,7 +10,7 @@ export class Sensor {
     @Column({length: 100, nullable: false})
     funcao: string;
 
-    @Column({length:300, nullable: false})
+    @Column({ type: "text", nullable: false})
     dados: string;
 
     @ManyToOne(() => Clima, clima => clima.sensores)

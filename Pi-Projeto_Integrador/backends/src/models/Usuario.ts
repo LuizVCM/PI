@@ -23,7 +23,7 @@ export class User {
     @Column({length: 11, type: "char", nullable:false, unique: true})
     cpf:string;
 
-    @Column({select: false})
+    @Column({select: false, nullable: false, length: 255})
     senha: string;
 
     @OneToMany(() => Semente, semente => semente.user)
