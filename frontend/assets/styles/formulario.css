@@ -86,7 +86,7 @@ body {
 }
 
 .tamanho {
-  height: 650px;
+  height: fit-content;
 }
 
 .cima {
@@ -150,7 +150,7 @@ input:hover {
   border: none;
   padding: 5px 10px;
   height: 35px;
-  background: var(--verde-opcao);
+  background: var(--verde-sidebar);
   color: white;
   font-weight: 540;
   cursor: pointer;
@@ -201,7 +201,7 @@ input:hover {
 }
 
 .botao {
-  background: var(--verde-opcao);
+  background: var(--verde-sidebar);
   border: 1px solid rgba(255, 255, 255, 0.15);
   color: white;
   padding: 1em 2em;
@@ -221,7 +221,7 @@ input:hover {
 
 /* Link de alternância */
 .formulario > p {
-  margin: 25px auto 0;
+  margin: 2em auto 0;
 }
 
 .formulario p a {

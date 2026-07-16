@@ -1,3 +1,0 @@
-// UsuarioRepository
-
-export class UsuarioRepository {}

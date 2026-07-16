@@ -1,19 +1,15 @@
-import express from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
-
+import express, { Application } from "express";
+import * as dotenv from "dotenv";
+import { AppDataSource } from "./config/data-source";
+const app: Application = express();
 dotenv.config();
-
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-app.use(cors());
+const PORT = process.env.PORT;
 app.use(express.json());
-
-app.get('/', (req, res) => {
-    res.json({ message: 'API rodando!' });
-});
-
-app.listen(PORT, () => {
-    console.log(`🚀 Servidor na porta ${PORT}`);
-});
+AppDataSource.initialize()
+  .then(() => {
+    console.log("Banco conectado com sucesso");
+    app.listen(PORT, () => {
+      console.log(`Servidor rodando na porta ${PORT}`);
+    });
+  })
+  .catch((error) => console.log("Erro ao conectar com o banco: " + error));
