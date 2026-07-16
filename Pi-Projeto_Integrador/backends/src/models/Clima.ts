@@ -10,16 +10,16 @@ export class Clima {
     @Column({type: 'timestamp', nullable:false})
     data: Date;
 
-    @Column({ scale: 2, precision: 5, nullable: false })
+    @Column({  type: 'decimal',scale: 2, precision: 5, nullable: false })
     chuva: number;
 
-    @Column({ scale: 2, precision: 5, nullable: false})
+    @Column({  type: 'decimal',scale: 2, precision: 5, nullable: false})
     temperatura: number;
 
-    @Column({ scale: 2, precision: 5, nullable: false})
+    @Column({  type: 'decimal',scale: 2, precision: 5, nullable: false})
     vento: number;
 
-    @Column({ scale: 2, precision: 5, nullable: false})
+    @Column({ type: 'decimal', scale: 2, precision: 5, nullable: false})
     umidade: number;
      
     @ManyToOne(() => Territorio, territorio => territorio.clima)

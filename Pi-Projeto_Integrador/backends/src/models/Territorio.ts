@@ -10,7 +10,7 @@ import { Clima } from "./Clima";
     @Column({length: 8, type: 'char', nullable:false, unique:true})
     cep: string;
 
-    @Column({type: 'int', nullable: false})
+    @Column({ nullable: false})
     tamanho: number;
 
     @ManyToOne(() => User, user => user.territorio)

@@ -16,12 +16,12 @@ export class Semente {
     @Column({type: 'timestamp', nullable:false})
     dataPlantio: Date;
 
-    @Column({type: 'int', nullable: false})
+    @Column({ nullable: false})
     quantidade: number;
 
     @ManyToOne(() => User, user => user.semente)
     user: User;
 
     @OneToMany(() => Plantas, planta => planta.semente)
-    planta: Plantas
+    plantas: Plantas[]
 }

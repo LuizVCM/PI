@@ -7,10 +7,10 @@ export class Financas {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({type: 'double', nullable: false})
+    @Column({ type: 'decimal',scale: 2, precision:10, nullable: false})
     renda: number;
 
-    @Column({type: 'double', nullable: false})
+    @Column({ type: 'decimal',scale: 2, precision:10, nullable: false})
     quantidadeAdubo: number;
 
     @Column({type: 'timestamp', nullable: false})
@@ -19,10 +19,10 @@ export class Financas {
     @Column({type: 'timestamp', nullable: false})
     dataPerda: Date;
 
-    @Column({type: 'double', nullable: false})
+    @Column({ type: 'decimal',scale: 2, precision:6, nullable: false})
     quantidadeGanho: number;
 
-    @Column({type: 'double', nullable: false})
+    @Column({ type: 'decimal',scale: 2, precision:6, nullable: false})
     quantidadePerda: number
 
     @ManyToOne(() => User, user => user.financas)
