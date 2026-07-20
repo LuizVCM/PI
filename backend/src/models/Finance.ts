@@ -1,5 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { ManyToOne } from "typeorm/browser";
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
 import { User } from "./User";
 
 @Entity("financas")
@@ -10,12 +9,12 @@ export class Finance {
   @Column({ type: "double", nullable: false })
   valor: number;
 
-  @Column({ type: "enum", enum: "TipoFinança", nullable: false })
-  tipo: TipoFinanca;
+  @Column({ type: "varchar", nullable: false })
+  tipo: string;
 
   @Column({ type: "double", nullable: false })
   quantidade: number;
-  @Column({ type: "text", default: "Sem descrição" })
+  @Column({ type: "text", nullable: false })
   descricao: string;
 
   @Column({ type: "timestamp", nullable: false })
@@ -24,7 +23,7 @@ export class Finance {
   @ManyToOne(() => User, (user) => user.financas)
   user: User;
 }
-const enum TipoFinanca {
-  ganho = "Ganho",
-  gasto = "Gasto",
-}
+// const enum TipoFinanca {
+//   GANHO = "Ganho",
+//   GASTO = "Gasto",
+// }
