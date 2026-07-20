@@ -1,9 +1,11 @@
 import z from "zod";
-const financeSchema = z.object({
-    valor: z.number(),
-    tipo: z.enum(["Ganho", "Gasto"]),
-    quantidade: z.number(),
-    descricao: z.string(),
-    data: z.date()
+export const createFinanceSchema = z.object({
+  valor: z.number(),
+  tipo: z.enum(["Ganho", "Gasto"]),
+  quantidade: z.number(),
+  descricao: z.string(),
+  data: z.date(),
 });
-export const CreateFinanceDTO = financeSchema;
+export const updateFinanceSchema = createFinanceSchema.partial();
+export type CreateFinanceDTO = z.infer<typeof createFinanceSchema>;
+export type UpdateFinanceDTO = z.infer<typeof updateFinanceSchema>;
