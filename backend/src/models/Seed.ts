@@ -1,27 +1,33 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { User } from "./User";
-import { Plantas } from "./Plantas";
+import { Plant } from "./Plant";
 
 @Entity("sementes")
 export class Seed {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column({type: 'date', nullable: false})
-    dataCompra: Date;
+  @Column({ type: "date", nullable: false })
+  dataCompra: Date;
 
-    @Column({length: 100, nullable:false})
-    nomePlanta: string;
+  @Column({ length: 100, nullable: false })
+  nomePlanta: string;
 
-    @Column({type: 'timestamp', nullable:false})
-    dataPlantio: Date;
+  @Column({ type: "timestamp", nullable: false })
+  dataPlantio: Date;
 
-    @Column({type: 'int', nullable: false})
-    quantidade: number;
+  @Column({ type: "int", nullable: false })
+  quantidade: number;
 
-    @ManyToOne(() => User, user => user.semente)
-    user: User;
+  @ManyToOne(() => User, (user) => user.semente)
+  user: User;
 
-    @OneToMany(() => Plantas, planta => planta.semente)
-    planta: Plantas
+  @OneToMany(() => Plant, (planta) => planta.semente)
+  planta: Plant;
 }

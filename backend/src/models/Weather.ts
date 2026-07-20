@@ -1,9 +1,9 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Crop } from "./Crop";
-import { Sensor } from "./Sensores";
+import { Sensor } from "./Sensor";
 
-@Entity("weather")
-export class Clima {
+@Entity("registros_clima")
+export class Weather {
     @PrimaryGeneratedColumn()
     id:number;
 

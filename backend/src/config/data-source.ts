@@ -1,11 +1,11 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import * as dotenv from 'dotenv'
-import { Clima } from '../models/Clima';
+import { Clima } from '../models/Weather';
 import { User } from '../models/User';
 import { Crop } from '../models/Crop';
-import { Sensor } from '../models/Sensores';
-import { Plantas } from '../models/Plantas';
+import { Sensor } from '../models/Sensor';
+import { Plantas } from '../models/Plant';
 import { Finance } from '../models/Finance';
 import { Seed } from '../models/Seed';
 
