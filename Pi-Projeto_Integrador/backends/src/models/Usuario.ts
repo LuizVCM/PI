@@ -1,7 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Semente } from "./Sementes";
 import { Territorio } from "./Territorio";
-import { Financas } from "./Finanças";
+import { Financas } from "./Financas";
 
 @Entity("users") 
 export class User {

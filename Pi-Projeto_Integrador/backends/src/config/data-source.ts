@@ -6,7 +6,7 @@ import { User } from '../models/Usuario';
 import { Territorio } from '../models/Territorio';
 import { Sensor } from '../models/Sensores';
 import { Plantas } from '../models/Plantas';
-import { Financas } from '../models/Finanças';
+import { Financas } from '../models/Financas';
 import { Semente } from '../models/Sementes';
 
 dotenv.config();

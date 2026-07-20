@@ -13,16 +13,6 @@ export const UserRepository = {
     async findBy(field: string) {
         return repo.find({relations: [`${field}`]});   
     },
-    // encontrar tudo (com itens específicos)
-    // async findAllSementes(){
-    //     return repo.find({relations: ['seeds']});
-    // },
-    //  async findAllTerritorios(){
-    //      return repo.find({relations:['territorios']});
-    //  },
-    // async findAllFinancas(){
-    //     return repo.find({relations: ['financas']});
-    // },
 
     async findByEmail(email: string){
         return repo.findOne({where: {email}})
