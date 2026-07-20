@@ -9,22 +9,22 @@ export class Plant {
     @Column({length: 100, nullable: false})
     nome: string;
     
-    @Column({type: 'date', nullable: false})
+    @Column({type: 'datetime', nullable: false})
     dataGerminacao: Date;
 
-    @Column({type: 'double', nullable: false})
+    @Column({ type: 'decimal', scale: 2, precision:5, nullable: false})
     iluminacao: number;
 
     @Column({type: "varchar", nullable: false})
     regiao: string;
 
-    @Column({type: 'double', nullable: false})
+    @Column({ type: 'decimal', scale: 2, precision:5, nullable: false})
     enxofre: number;
 
-    @Column({type: 'double', nullable: false})
+    @Column({ type: 'decimal',scale: 2, precision:5, nullable: false})
     nitrogenio: number;
 
-    @Column({type: 'double', nullable: false})
+    @Column({ type: 'decimal',scale: 2, precision:5, nullable: false})
     potassio: number;
 
     @ManyToOne(() => Seed, semente => semente.planta)

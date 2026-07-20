@@ -10,16 +10,16 @@ export class Weather {
     @Column({type: 'timestamp', nullable:false})
     data: Date;
 
-    @Column({type: 'double',  nullable: false })
+    @Column({  type: 'decimal',scale: 2, precision: 5, nullable: false })
     chuva: number;
 
-    @Column({ type: 'double', nullable: false})
+    @Column({  type: 'decimal',scale: 2, precision: 5, nullable: false})
     temperatura: number;
 
-    @Column({ type: 'double', nullable: false})
+    @Column({  type: 'decimal',scale: 2, precision: 5, nullable: false})
     vento: number;
 
-    @Column({type: 'int', nullable: false})
+    @Column({ type: 'decimal', scale: 2, precision: 5, nullable: false})
     umidade: number;
      
     @ManyToOne(() => Crop, territorio => territorio.clima)
@@ -27,4 +27,6 @@ export class Weather {
 
     @OneToMany(() => Sensor, sensores => sensores.clima)
     sensores: Sensor
+
+
 }

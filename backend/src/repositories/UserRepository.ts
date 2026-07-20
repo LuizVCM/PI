@@ -9,31 +9,29 @@ export const UserRepository = {
     async findById(id:number){
         return repo.findOne({where: {id}})
     },
+
+    async findBy(field: string) {
+        return repo.find({relations: [`${field}`]});   
+    },
     // encontrar tudo (com itens específicos)
-    async findAllSementes(){
-        return repo.find({relations: ['seeds']});
-    },
-    async findAllTerritorios(){
-        return repo.find({relations:['territorios']});
-    },
-    async findAllFinancas(){
-        return repo.find({relations: ['financas']});
-    },
+    // async findAllSementes(){
+    //     return repo.find({relations: ['seeds']});
+    // },
+    //  async findAllTerritorios(){
+    //      return repo.find({relations:['territorios']});
+    //  },
+    // async findAllFinancas(){
+    //     return repo.find({relations: ['financas']});
+    // },
 
     async findByEmail(email: string){
         return repo.findOne({where: {email}})
     },
-
+     
    // encontrar por ID
-    async findByIdWithSemente(id: number){
-        return repo.findOne({where: { id }, relations: ['seeds']});
-    }, 
-    async findByIdWithTerritorio(id: number){
-        return repo.findOne({where: { id }, relations: ['territorios']});
-    }, 
-    async findByIdWithFinancas(id: number){
-        return repo.findOne({where: { id }, relations: ['financas']});
-    },
+   async findByIdWith(field: string, id:number){
+    return repo.findOne({where: {id}, relations: [field]})
+   },
     // criar user 
     async create(data: {nome: string, sobrenome: string, email: string,fone: string, cpf: string, senha: string}){
         const user = repo.create(data);
