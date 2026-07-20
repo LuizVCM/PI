@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Seed } from "./Seed";
 
-@Entity("plants")
+@Entity("plantas")
 export class Plantas {
     @PrimaryGeneratedColumn()
     id: number;
@@ -15,8 +15,8 @@ export class Plantas {
     @Column({type: 'double', nullable: false})
     iluminacao: number;
 
-    @Column({length: 100, nullable: false})
-    regiao: number;
+    @Column({type: "varchar", nullable: false})
+    regiao: string;
 
     @Column({type: 'double', nullable: false})
     enxofre: number;
