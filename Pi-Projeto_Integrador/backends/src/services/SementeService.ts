@@ -54,7 +54,7 @@ export class SementeService {
        if(data.nomePlanta) semente.nomePlanta = data.nomePlanta
        if(data.quantidade) semente.quantidade = data.quantidade
 
-        const sementeUpdate = await SementeRepository.create(semente)
+        const sementeUpdate = await SementeRepository.save(semente)
         return sementeUpdate
     }
     async delete(loggedUserId:number){

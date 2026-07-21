@@ -1,5 +1,6 @@
 import { AppDataSource } from "../config/data-source";
 import { Semente } from "../models/Sementes";
+import { User } from "../models/Usuario";
 
 const repo = AppDataSource.getRepository(Semente);
 
@@ -13,7 +14,7 @@ export const SementeRepository ={
     async findByUserId(userId: number){
         return repo.find({where: {user: {id:userId}}, relations: ['user']})
     },
-    async create(data:{dataCompra: Date, nomePlanta: string, dataPlantio:Date, quantidade: number}){
+    async create(data:{dataCompra: Date, nomePlanta: string, dataPlantio:Date, quantidade: number, user: User}){
        const semente = repo.create(data);
        return repo.save(semente)
     },
@@ -22,5 +23,8 @@ export const SementeRepository ={
     },
     async delete(id:number){
         return repo.delete(id)
-    }
+    },
+    async findOne(options: any) {
+        return await repo.findOne(options);
+}
 }

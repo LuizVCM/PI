@@ -1,5 +1,6 @@
 import { AppDataSource } from "../config/data-source";
 import { Financas } from "../models/Financas";
+import { User } from "../models/Usuario";
 
 const repo = AppDataSource.getRepository(Financas);
 
@@ -13,7 +14,7 @@ export const FinancasRepository = {
     async findByUserId(userId: number){
         return repo.find({where: {user: {id:userId}}, relations: ['user']})
     },
-    async create(data:{renda:number, quantidadeAdubo:number, dataGanho: Date, dataPerda: Date, quantidadeGanho:number, quantidadePerda:number}){
+    async create(data:{renda:number, quantidadeAdubo:number, dataGanho: Date, dataPerda: Date, quantidadeGanho:number, quantidadePerda:number, user: User}){
        const financa = repo.create(data);
        return repo.save(financa)
     },

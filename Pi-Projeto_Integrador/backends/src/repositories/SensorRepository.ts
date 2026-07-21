@@ -1,9 +1,8 @@
 import { AppDataSource } from "../config/data-source";
-import { Plantas } from "../models/Plantas";
-import { Semente } from "../models/Sementes";
+import { Sensor } from "../models/Sensores";
 import { User } from "../models/Usuario";
 
-const repo = AppDataSource.getRepository(Plantas);
+const repo = AppDataSource.getRepository(Sensor);
 
 export const PlantaRepository ={
     async findAll(){
@@ -12,10 +11,10 @@ export const PlantaRepository ={
     async findById(id:number){
         return repo.findOne({where: {id}})
     },
-    async findBySeedId(sementeId: number){
+    async findBy(sementeId: number){
         return repo.find({where: {semente: {id:sementeId}}, relations: ['seed']})
     },
-    async create(data:{nome:string, dataGerminacao: Date, iluminacao: number, regiao:number, enxofre:number, nitrogenio:number, potassio:number, semente: Semente}){
+    async create(data:{nome:string, dataGerminacao: Date, iluminacao: number, regiao:number, enxofre:number, nitrogenio:number, potassio:number, user:User}){
        const planta= repo.create(data);
        return repo.save(planta)
     },

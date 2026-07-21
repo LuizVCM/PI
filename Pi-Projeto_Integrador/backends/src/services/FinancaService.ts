@@ -1,6 +1,7 @@
 import { FinancasRepository } from "../repositories/FinancasRepository";
 import { NotFoundError } from "./UserService";
 import { ForbiddenError } from "./TerritorioService";
+import { UserRepository } from "../repositories/UserRepository";
 
 export class FinancaService {
     async listAll(){
@@ -26,7 +27,7 @@ export class FinancaService {
         if(!data.quantidadeAdubo){
             throw new Error("quantidade de adubo é obrigatório!")
         }
-        const user = await FinancasRepository.findById(loggedUserId);
+        const user = await UserRepository.findById(loggedUserId);
         if (!user) {
             throw new NotFoundError("Usuário não encontrado!")
         }
@@ -37,7 +38,7 @@ export class FinancaService {
             dataPerda: data.dataPerda,
             quantidadeGanho: data.quantidadeGanho,
             quantidadePerda: data.quantidadePerda,
-            user
+            user: user
         });
     }
     async update(id:number, data: {renda:number, quantidadeAdubo: number, dataGanho: Date, dataPerda: Date, quantidadeGanho:number, quantidadePerda: number},loggedUserId:number){

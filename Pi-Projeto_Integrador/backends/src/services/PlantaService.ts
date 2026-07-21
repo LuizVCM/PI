@@ -2,6 +2,7 @@ import { PlantaRepository } from "../repositories/PlantaRepository";
 import { NotFoundError } from "./UserService";
 import { ForbiddenError } from "./TerritorioService";
 import { UserRepository } from "../repositories/UserRepository";
+import { SementeRepository } from "../repositories/SementeRepository";
 
 export class PlantaService {
     async listAll(){
@@ -27,9 +28,25 @@ export class PlantaService {
         if(!data.regiao){
             throw new Error("região é obrigatória!")
         }
-        const user = await UserRepository.findById(loggedUserId);
-        if (!user) {
-            throw new NotFoundError("Usuário não encontrado!")
+          // Se forneceu um territorioId específico
+            let planta;
+            if (data.sementeId) {
+                semente = await TerritorioRepository.findOne({ 
+                    where: { id: data.territorioId, user: { id: loggedUserId } }
+                });
+            } else {
+                // Ou pega o primeiro
+                const territorios = await TerritorioRepository.findByUserId(loggedUserId);
+                territorio = territorios?.[0];
+            }
+            
+            if (!territorio) {
+                throw new NotFoundError("território não encontrado!");
+            }
+            
+        const semente = await SementeRepository.findByUserId(loggedUserId);
+        if (!semente) {
+            throw new NotFoundError("semente não encontrado!")
         }
         return PlantaRepository.create({
             nome: data.nome,
@@ -39,7 +56,7 @@ export class PlantaService {
             enxofre:data.enxofre,
             nitrogenio:data.nitrogenio,
             potassio:data.potassio,
-            user: user.semente
+            semente: semente
         });
     }
     async update(id:number, data: {nome:string, dataGerminacao: Date, iluminacao: number, regiao:number, enxofre:number, nitrogenio:number, potassio:number},loggedUserId:number){
@@ -48,7 +65,7 @@ export class PlantaService {
         if(!planta){
             throw new NotFoundError("planta não encontrada")
         }
-        if(planta.semente.id !== loggedUserId){
+        if(planta.semente.user.id !== loggedUserId){
             throw new ForbiddenError("Você não tem permissão para acessar esta planta!")
         }
       if(data.nome) planta.nome = data.nome
@@ -59,7 +76,7 @@ export class PlantaService {
       if(data.nitrogenio) planta.nitrogenio = data.nitrogenio
       if(data.potassio) planta.potassio = data.potassio
 
-        const plantaUpdate = await PlantaRepository.create(planta)
+        const plantaUpdate = await PlantaRepository.save(planta)
         return plantaUpdate
     }
     async delete(loggedUserId:number){
