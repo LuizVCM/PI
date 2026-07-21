@@ -4,74 +4,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../assets/styles/gestao.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <title>Gestão Rural</title>
+
+    <link rel="stylesheet" href="../assets/styles/gestao/all.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 </head>
 
 <body>
-    <header>
-        <div class="user"> Lv </div>
-        <span class="bem-vindo">Olá, usuário!</span>
-    </header>
-    <main>
-        <aside class="aside">
-            <button class="opcao clima"> <i class="fa-solid fa-cloud selecao"></i> Clima </button>
-            <button class="opcao gestao"> <i class="fa-brands fa-buffer selecao"></i> Gestão</button>
-            <button class="opcao segurancas"> <i class="fa-solid fa-building-shield selecao"></i> Segurança </button>
-            <button class="opcao sementes"> <i class="fa-solid fa-seedling selecao"></i> Sementes </button>
-            <button class="opcao financas"> <i class="fa-solid fa-building-columns selecao"></i> Finanças</button>
-            <button class="opcao suporte"> <i class="fa-solid fa-comments-dollar selecao"></i> Suporte </button>
-            <button class="opcao relatorio"> <i class="fa-solid fa-envelope-open selecao"></i> Relatório </button>
-            <button class="opcao perfil"> <i class="fa-solid fa-circle-user selecao"></i>Perfil </button>
 
+<header>
+    <div class="user">Lv</div>
+    <span class="bem-vindo">Olá, usuário!</span>
+</header>
 
-            <button class="navbar"> <i class="fa-solid fa-arrow-right"></i></button>
-        </aside>
+<main>
 
-        <div class="content">
+    <!-- SIDEBAR -->
+    <aside class="aside">
+        <button class="opcao clima"><i class="fa-solid fa-cloud"></i> Clima</button>
+        <button class="opcao gestao"><i class="fa-brands fa-buffer"></i> Gestão</button>
+        <button class="opcao segurancas"><i class="fa-solid fa-building-shield"></i> Segurança</button>
+        <button class="opcao sementes"><i class="fa-solid fa-seedling"></i> Sementes</button>
+        <button class="opcao financas"><i class="fa-solid fa-building-columns"></i> Finanças</button>
+        <button class="opcao suporte"><i class="fa-solid fa-comments-dollar"></i> Suporte</button>
+        <button class="opcao relatorio"><i class="fa-solid fa-envelope-open"></i> Relatório</button>
+        <button class="opcao perfil"><i class="fa-solid fa-circle-user"></i> Perfil</button>
 
-    <div class="painel-gestao">
-
-        <h2>Painel de Gestão Rural</h2>
-
-        <button class="funcao">
-            <span>Cadastrar nova plantação</span>
-            <i class="fa-solid fa-chevron-right"></i>
+        <button class="navbar">
+            <i class="fa-solid fa-arrow-right"></i>
         </button>
+    </aside>
 
-        <button class="funcao">
-            <span>Agenda de colheita</span>
-            <i class="fa-solid fa-chevron-right"></i>
-        </button>
+    <!-- TELA PRINCIPAL -->
+   <div id="tela-home" class="content tela ativa">
 
-        <button class="funcao">
-            <span>Insumos disponíveis</span>
-            <i class="fa-solid fa-chevron-right"></i>
-        </button>
+        <h1>Painel de Gestão Rural</h1>
 
-        <button class="funcao">
-            <span>Controle de estoque</span>
-            <i class="fa-solid fa-chevron-right"></i>
-        </button>
+        <div class="acessos">
+            <button class="funcao" id="btnCadastro">
+                <span>Cadastrar nova plantação</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
 
-        <button class="funcao">
-            <span>Histórico de produção</span>
-            <i class="fa-solid fa-chevron-right"></i>
-        </button>
+            <button class="funcao">
+                <span>Agenda de colheita</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
 
-        <button class="funcao">
-            <span>Relatórios</span>
-            <i class="fa-solid fa-chevron-right"></i>
-        </button>
+            <button class="funcao">
+                <span>Insumos disponíveis</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+
+            <button class="funcao">
+                <span>Controle de estoque</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- TELA CADASTRO -->
+<div id="tela-cadastro" class="cadastro tela hidden">
+
+    <h1>Cadastrar Nova Plantação</h1>
+
+    <button class="funcao voltar" id="btnVoltar">
+        <i class="fa-solid fa-arrow-left"></i>
+        Voltar
+    </button>
+
+    <div class="card">
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label for="nomeArea">Nome da área</label>
+                <input type="text" id="nomeArea" placeholder="Ex.: Talhão Norte">
+            </div>
+
+            <div class="form-group">
+                <label for="cultura">Cultura</label>
+                <select id="cultura">
+                    <option value="">Selecione</option>
+                    <option>Soja</option>
+                    <option>Milho</option>
+                    <option>Arroz</option>
+                    <option>Trigo</option>
+                    <option>Feijão</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="area">Área (ha)</label>
+                <input type="number" id="area" placeholder="0.00">
+            </div>
+
+            <div class="form-group">
+                <label for="plantio">Data de plantio</label>
+                <input type="date" id="plantio">
+            </div>
+
+            <div class="form-group">
+                <label for="colheita">Colheita prevista</label>
+                <input type="date" id="colheita">
+            </div>
+
+            <div class="form-group">
+                <label for="variedade">Variedade</label>
+                <input type="text" id="variedade" placeholder="Ex.: BRS 1001">
+            </div>
+
+            <div class="form-group">
+                <label for="responsavel">Responsável</label>
+                <input type="text" id="responsavel" placeholder="Nome do responsável">
+            </div>
+
+            <div class="form-group">
+                <label for="observacoes">Observações</label>
+                <input type="text" id="observacoes" placeholder="Informações adicionais">
+            </div>
+
+        </div>
+
+        <div class="acoes">
+            <button class="btn-salvar" id="btnSalvar">
+                Salvar Plantação
+            </button>
+        </div>
 
     </div>
 
 </div>
-        
-    </main>
 
-    <script src="../assets/js/gestao.js"></script>
+</main>
+
+<script src="../assets/js/gestao.js"></script>
+
 </body>
-
 </html>

@@ -51,8 +51,26 @@ btnPerfil.addEventListener("click", () => {
 })
 
 
-const gestao = document.querySelector(".gestao");
+// TELAS
+const telaHome = document.getElementById("tela-home");
+const telaCadastro = document.getElementById("tela-cadastro");
 
-gestao.addEventListener("click", () => {
-    window.location.href = "gestao.html";
+// BOTÕES
+const btnCadastro = document.getElementById("btnCadastro");
+const btnVoltar = document.getElementById("btnVoltar");
+
+btnCadastro.addEventListener("click", () => {
+    telaHome.classList.remove("ativa");
+    telaHome.classList.add("hidden");
+
+    telaCadastro.classList.remove("hidden");
+    telaCadastro.classList.add("ativa");
+});
+
+btnVoltar.addEventListener("click", () => {
+    telaCadastro.classList.remove("ativa");
+    telaCadastro.classList.add("hidden");
+
+    telaHome.classList.remove("hidden");
+    telaHome.classList.add("ativa");
 });
