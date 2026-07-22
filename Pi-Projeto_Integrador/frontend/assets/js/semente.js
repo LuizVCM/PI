@@ -21,7 +21,7 @@ entrarValidade.addEventListener("click", () => {
 
 entrarLote.addEventListener("click", () => {
     content.classList.toggle("toggle1");
-    lote.classList.toggle("valMovimento")
+    lote.classList.toggle("valMovimento");
 });
 
 recomendacaoPlantio.addEventListener("click", () => {
@@ -43,7 +43,23 @@ novaSemente.addEventListener("click", () => {
     secao.classList.toggle("toggle1")
 })
 
-// função de 'recomendação de plantio'
+
+const r1 = document.getElementById("retornar1");
+const r2 = document.getElementById("retornar2");
+const r3 = document.getElementById("retornar3");
+const r4 = document.getElementById("retornar4");
+
+
+// está com erro, mas a estrutura é assim 
+r1.addEventListener("click", ()=>{
+ content.classList.toggle("toggle1");
+    validade.classList.toggle("valMovimento")
+});
+// r2.addEventListener("click", ()=>{
+//  content.classList.toggle("toggle1");
+//  lote.classList.togg
+//     recomendacao.classList.toggle("valMovimento")
+// })
 
 
 
