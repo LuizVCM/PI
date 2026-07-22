@@ -1,6 +1,6 @@
-import { SementeRepository } from "../repositories/SementeRepository";
+import { SementeRepository } from "../repositories/SeedRepository";
 import { NotFoundError } from "./UserService";
-import { ForbiddenError } from "./TerritorioService";
+import { ForbiddenError } from "./CropService";
 import { UserRepository } from "../repositories/UserRepository";
 
 

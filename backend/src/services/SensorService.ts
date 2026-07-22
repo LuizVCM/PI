@@ -1,8 +1,8 @@
-import { PlantaRepository } from "../repositories/PlantaRepository";
+import { PlantaRepository } from "../repositories/PlantRepository";
 import { NotFoundError } from "./UserService";
 import { ForbiddenError } from "./TerritorioService";
 import { SensorRepository } from "../repositories/SensorRepository";
-import { ClimaRepository } from "../repositories/ClimaRepository";
+import { ClimaRepository } from "../repositories/WeatherRepository";
 import { Clima } from "../models/Clima";
 import { TerritorioRepository } from "../repositories/TerritorioRepository";
 

@@ -1,8 +1,8 @@
-import { PlantaRepository } from "../repositories/PlantaRepository";
+import { PlantaRepository } from "../repositories/PlantRepository";
 import { NotFoundError } from "./UserService";
 import { ForbiddenError } from "./TerritorioService";
 import { UserRepository } from "../repositories/UserRepository";
-import { SementeRepository } from "../repositories/SementeRepository";
+import { SementeRepository } from "../repositories/SeedRepository";
 import { Semente } from "../models/Sementes";
 
 export class PlantaService {

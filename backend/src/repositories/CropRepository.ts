@@ -23,4 +23,7 @@ export const CropRepository = {
   async delete(id: number) {
     return repo.delete(id);
   },
+  async findOne(options: any) {
+    return await repo.findOne(options);
+  },
 };

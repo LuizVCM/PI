@@ -1,12 +1,7 @@
-import { ClimaRepository } from "../repositories/ClimaRepository";
+import { ClimaRepository } from "../repositories/WeatherRepository";
 import { NotFoundError } from "./UserService";
-import { ForbiddenError } from "./TerritorioService";
-import { UserRepository } from "../repositories/UserRepository";
-import { Territorio } from "../models/Territorio";
-import { SementeRepository } from "../repositories/SementeRepository";
-import { TerritorioRepository } from "../repositories/TerritorioRepository";
-
-
+import { ForbiddenError } from "./CropService";
+import { CropRepository } from "../repositories/CropRepository";
 
 export class ClimaService {
     async listAll(){
@@ -38,12 +33,12 @@ async create(data: {data: Date, chuva:number, temperatura: number, vento: number
     // Se forneceu um territorioId específico
     let territorio;
     if (data.territorioId) {
-        territorio = await TerritorioRepository.findOne({ 
+        territorio = await CropRepository.findOne({ 
             where: { id: data.territorioId, user: { id: loggedUserId } }
         });
     } else {
         // Ou pega o primeiro
-        const territorios = await TerritorioRepository.findByUserId(loggedUserId);
+        const territorios = await CropRepository.findByUserId(loggedUserId);
         territorio = territorios?.[0];
     }
     

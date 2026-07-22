@@ -1,6 +1,6 @@
-import { FinancasRepository } from "../repositories/FinancasRepository";
+import { FinancasRepository } from "../repositories/FinanceRepository";
 import { NotFoundError } from "./UserService";
-import { ForbiddenError } from "./TerritorioService";
+import { ForbiddenError } from "./CropService";
 import { UserRepository } from "../repositories/UserRepository";
 
 export class FinancaService {
@@ -41,7 +41,7 @@ export class FinancaService {
             user: user
         });
     }
-    async update(id:number, data: {renda:number, quantidadeAdubo: number, dataGanho: Date, dataPerda: Date, quantidadeGanho:number, quantidadePerda: number},loggedUserId:number){
+    async update(id:number, data: {valor:number, tipo: string, quantidade: number, descricao: string, data: Date },loggedUserId:number){
         const financa = await FinancasRepository.findById(id)
 
         if(!financa){
@@ -50,12 +50,11 @@ export class FinancaService {
         if(financa.user.id !== loggedUserId){
             throw new ForbiddenError("Você não tem permissão para acessar esta Finança!")
         }
-      if(data.renda) financa.renda = data.renda
-      if(data.quantidadeAdubo) financa.quantidadeAdubo = data.quantidadeAdubo
-      if(data.dataGanho) financa.dataGanho = data.dataGanho
-      if(data.dataPerda) financa.dataPerda = data.dataPerda
-      if(data.quantidadeGanho) financa.quantidadeGanho = data.quantidadeGanho
-      if(data.quantidadePerda) financa.quantidadePerda = data.quantidadePerda
+      if(data.valor) financa.valor = data.valor
+      if(data.tipo) financa.tipo = data.tipo
+      if(data.quantidade) financa.quantidade = data.quantidade
+      if(data.descricao) financa.descricao = data.descricao
+      if(data.data) financa.data = data.data
 
         const financaUpdate = await FinancasRepository.save(financa)
         return financaUpdate

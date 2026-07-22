@@ -5,6 +5,7 @@ import { generateToken } from "../utils/jwt";
 import { NotFoundError } from "./UserService";
 import { Unauthorized } from "./UserService";
 
+export class ForbiddenError extends Error {}
 export class TerritorioService {
   async listAll() {
     return await CropRepository.findAll();
