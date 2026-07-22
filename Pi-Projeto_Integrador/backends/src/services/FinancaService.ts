@@ -16,7 +16,7 @@ export class FinancaService {
         }
         return financa;
     }
-    async listMyTerritorios(userId: number) {
+    async listMyFinances(userId: number) {
         return FinancasRepository.findByUserId(userId)
     }
 
@@ -57,7 +57,7 @@ export class FinancaService {
       if(data.quantidadeGanho) financa.quantidadeGanho = data.quantidadeGanho
       if(data.quantidadePerda) financa.quantidadePerda = data.quantidadePerda
 
-        const financaUpdate = await FinancasRepository.create(financa)
+        const financaUpdate = await FinancasRepository.save(financa)
         return financaUpdate
     }
     async delete(loggedUserId:number){

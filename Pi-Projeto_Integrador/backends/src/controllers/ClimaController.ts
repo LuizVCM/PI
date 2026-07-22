@@ -1,13 +1,12 @@
 import { Request, Response, NextFunction } from "express";
-import { PlantaService } from "../services/PlantaService";
-import { Semente } from "../models/Sementes";
+import { ClimaService } from "../services/ClimaService";
 
-export const plantaService = new PlantaService()
-export class PlantaController {
+export const climaService = new ClimaService()
+export class ClimaController {
   async list(req: Request, res: Response, next: NextFunction) {
         try {
-            const planta = await plantaService.listAll()
-            return res.json(planta)
+            const clima = await climaService.listAll()
+            return res.json(clima)
         } catch (error) {
             next(error)
         }
@@ -15,8 +14,8 @@ export class PlantaController {
     async getById(req: Request, res: Response, next: NextFunction) {
         try {
             const id = Number(req.params.id);
-            const planta = await plantaService.getById(id)
-            return res.json(planta)
+            const clima = await climaService.getById(id)
+            return res.json(clima)
         } catch (error) {
             next(error)
         }
@@ -25,10 +24,10 @@ export class PlantaController {
         try{
            const loggedUser = (req as any).user
             console.log(loggedUser)
-           const myPlants = await plantaService.listMyPlants(loggedUser.id)
+           const myWeathers = await climaService.listMyWeathers(loggedUser.id)
           
            return res.status(200).json(
-            myPlants
+            myWeathers
            )
 
         }catch(error){
@@ -37,13 +36,13 @@ export class PlantaController {
     }
     async create(req: Request, res: Response, next: NextFunction) {
         try {
-            const { nome, dataGerminacao, iluminacao, regiao, enxofre, nitrogenio, potassio } = req.body
+            const { data, chuva, temperatura, vento, umidade } = req.body
 
             const loggedUser = (req as any).user;
-            const semente:Semente = new Semente()
-            const planta = await plantaService.create({nome, dataGerminacao, iluminacao, regiao, enxofre, nitrogenio, potassio, sementeId:semente}, loggedUser.id)
 
-            return res.status(201).json(planta)
+            const clima = await climaService.create({data, chuva, temperatura, vento, umidade}, loggedUser.id)
+
+            return res.status(201).json(clima)
         } catch (error) {
             next(error)
         }
@@ -51,11 +50,11 @@ export class PlantaController {
     async update(req: Request, res: Response, next: NextFunction) {
         try {
             const id = Number(req.params.id)
-            const { nome, dataGerminacao, iluminacao, regiao, enxofre, nitrogenio, potassio } = req.body
+            const {data, chuva, temperatura, vento, umidade } = req.body
             const loggedUser = (req as any).user;
 
-            const planta = await plantaService.update(id, {nome, dataGerminacao, iluminacao, regiao, enxofre, nitrogenio, potassio}, loggedUser.id) 
-            return res.json(planta)
+            const clima = await climaService.update(id, {data, chuva, temperatura, vento, umidade}, loggedUser.id) 
+            return res.json(clima)
         } catch (error) {
             next(error)
         }
@@ -63,8 +62,8 @@ export class PlantaController {
     async delete(req: Request, res: Response, next: NextFunction) {
         try {
             const id = Number(req.params.id)
-           await plantaService.delete(id);
-            return res.status(204).send("Planta deletada com sucesso!!!")
+           await climaService.delete(id);
+            return res.status(204).send("clima deletado com sucesso!!!")
         } catch (erro) {
             next(erro)
         }

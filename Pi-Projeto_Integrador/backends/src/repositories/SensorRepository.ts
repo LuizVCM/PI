@@ -1,25 +1,25 @@
 import { AppDataSource } from "../config/data-source";
+import { Clima } from "../models/Clima";
 import { Sensor } from "../models/Sensores";
-import { User } from "../models/Usuario";
 
 const repo = AppDataSource.getRepository(Sensor);
 
-export const PlantaRepository ={
+export const SensorRepository ={
     async findAll(){
         return repo.find()
     },
     async findById(id:number){
         return repo.findOne({where: {id}})
     },
-    async findBy(sementeId: number){
-        return repo.find({where: {semente: {id:sementeId}}, relations: ['seed']})
+    async findByClimaId(climaId: number){
+        return repo.find({where: {clima: {id:climaId}}, relations: ['weather']})
     },
-    async create(data:{nome:string, dataGerminacao: Date, iluminacao: number, regiao:number, enxofre:number, nitrogenio:number, potassio:number, user:User}){
-       const planta= repo.create(data);
-       return repo.save(planta)
+    async create(data:{funcao:string, dados: string, clima: Clima}){
+       const sensor = repo.create(data);
+       return repo.save(sensor)
     },
-    async save(planta: Plantas){
-        return repo.save(planta);
+    async save(sensor: Sensor){
+        return repo.save(sensor);
     },
     async delete(id:number){
         return repo.delete(id)

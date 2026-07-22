@@ -21,6 +21,11 @@ export class ClimaService {
         }
         return clima;
     }
+    async findByTerritorioId(territorioId: number) {
+    return await ClimaRepository.findOne({ 
+        where: { territorioId: territorioId } 
+    });
+}
     async listMyWeathers(territorioId: number) {
         return await ClimaRepository.findByTerritorioId(territorioId)
     }

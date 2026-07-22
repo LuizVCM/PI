@@ -1,3 +1,0 @@
-// Usuario
-
-export class Usuario {}

@@ -22,10 +22,8 @@ export class TerritorioController {
     }
     async listMySeeds(req: Request, res: Response, next: NextFunction){
         try{
-            // Pega as infos do usuário que está logado, através da Request, que recebeu estas infos pelo token
            const loggedUser = (req as any).user
             console.log(loggedUser)
-           // Agora sim podemos listar os posts de um usuário logado
            const mySeeds = await sementeService.listMySeeds(loggedUser.id)
           
            return res.status(200).json(

@@ -17,6 +17,11 @@ export class TerritorioService {
         }
         return territorio;
     }
+    async findByUserId(userId: number) {
+    return await TerritorioRepository.findOne({ 
+        where: { usuarioId: userId } 
+    });
+}
     async listMyTerritorios(userId: number) {
         return TerritorioRepository.findByUserId(userId)
     }
@@ -50,8 +55,8 @@ export class TerritorioService {
         if(data.cep) territorio.cep = data.cep
         if(data.tamanho) territorio.tamanho = data.tamanho
 
-        const territorioUpdate = await TerritorioRepository.create(territorio)
-        return territorio
+        const territorioUpdate = await TerritorioRepository.save(territorio)
+        return territorioUpdate
     }
     async delete(loggedUserId:number){
         const territorio = await TerritorioRepository.delete(loggedUserId)

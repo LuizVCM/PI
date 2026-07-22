@@ -26,6 +26,6 @@ export class Clima {
     territorio: Territorio;
 
     @OneToMany(() => Sensor, sensores => sensores.clima)
-    sensores: Sensor
+    sensores: Sensor[]
 
 }

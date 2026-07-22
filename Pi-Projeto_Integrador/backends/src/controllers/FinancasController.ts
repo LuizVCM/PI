@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from "express";
-import { TerritorioService } from "../services/TerritorioService";
+import { FinancaService } from "../services/FinancaService";
 
-export const territorioService = new TerritorioService()
-export class TerritorioController {
+export const financaService = new FinancaService()
+export class FinancaController {
   async list(req: Request, res: Response, next: NextFunction) {
         try {
-            const territorio = await territorioService.listAll()
-            return res.json(territorio)
+            const financa = await financaService.listAll()
+            return res.json(financa)
         } catch (error) {
             next(error)
         }
@@ -14,8 +14,8 @@ export class TerritorioController {
     async getById(req: Request, res: Response, next: NextFunction) {
         try {
             const id = Number(req.params.id);
-            const territorio = await territorioService.getById(id)
-            return res.json(territorio)
+            const financa = await financaService.getById(id)
+            return res.json(financa)
         } catch (error) {
             next(error)
         }
@@ -24,10 +24,10 @@ export class TerritorioController {
         try{
            const loggedUser = (req as any).user
             console.log(loggedUser)
-           const myTerritorios = await territorioService.listMyTerritorios(loggedUser.id)
+           const myfinances = await financaService.listMyFinances(loggedUser.id)
           
            return res.status(200).json(
-            myTerritorios
+            myfinances
            )
 
         }catch(error){
@@ -36,11 +36,11 @@ export class TerritorioController {
     }
     async create(req: Request, res: Response, next: NextFunction) {
         try {
-            const { cep, tamanho } = req.body
+            const { renda, quantidadeAdubo, dataGanho, dataPerda, quantidadeGanho, quantidadePerda } = req.body
             const loggedUser = (req as any).user;
-            const territorio = await territorioService.create({cep, tamanho}, loggedUser.id)
+            const financa = await financaService.create({renda, quantidadeAdubo, dataGanho, dataPerda, quantidadeGanho, quantidadePerda}, loggedUser.id)
 
-            return res.status(201).json(territorio)
+            return res.status(201).json(financa)
         } catch (error) {
             next(error)
         }
@@ -48,11 +48,11 @@ export class TerritorioController {
     async update(req: Request, res: Response, next: NextFunction) {
         try {
             const id = Number(req.params.id)
-            const { cep, tamanho } = req.body
+            const { renda, quantidadeAdubo, dataGanho, dataPerda, quantidadeGanho, quantidadePerda } = req.body
             const loggedUser = (req as any).user;
 
-            const territorio = await territorioService.update(id, {cep, tamanho}, loggedUser.id) 
-            return res.json(territorio)
+            const financa = await financaService.update(id, {renda, quantidadeAdubo, dataGanho, dataPerda, quantidadeGanho, quantidadePerda}, loggedUser.id) 
+            return res.json(financa)
         } catch (error) {
             next(error)
         }
@@ -60,8 +60,8 @@ export class TerritorioController {
     async delete(req: Request, res: Response, next: NextFunction) {
         try {
             const id = Number(req.params.id)
-           await territorioService.delete(id);
-            return res.status(204).send("Território deletado com sucesso!!!")
+           await financaService.delete(id);
+            return res.status(204).send("finança deletada com sucesso!!!")
         } catch (erro) {
             next(erro)
         }

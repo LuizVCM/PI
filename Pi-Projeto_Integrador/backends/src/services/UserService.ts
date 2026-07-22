@@ -21,9 +21,15 @@ export class UserService {
         return await UserRepository.findBy(field)
     }
     async listByEmail(email: string) {
+        if (!email){
+            throw new NotFoundError("Informações não encontradas")
+        }
         return await UserRepository.findByEmail(email);
     }
     async getById(id: number) {
+         if (!id){
+            throw new NotFoundError("Usuario não foi encontrado")
+        }
         return await UserRepository.findById(id);
     }
 
@@ -68,7 +74,7 @@ export class UserService {
 
         if (data.senha) user.senha = await bcrypt.hash(data.senha, 10)
 
-        const updateUser = await UserRepository.create(user)
+        const updateUser = await UserRepository.save(user)
 
         return omitPassword(updateUser)
     }
