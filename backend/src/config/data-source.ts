@@ -1,11 +1,11 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import * as dotenv from 'dotenv'
-import { Clima } from '../models/Weather';
+import { Weather } from '../models/Weather';
 import { User } from '../models/User';
 import { Crop } from '../models/Crop';
 import { Sensor } from '../models/Sensor';
-import { Plantas } from '../models/Plant';
+import { Plant } from '../models/Plant';
 import { Finance } from '../models/Finance';
 import { Seed } from '../models/Seed';
 
@@ -23,5 +23,5 @@ export const AppDataSource = new DataSource({
 
     synchronize: true,
     logging: true,
-    entities: [Clima, User, Crop, Sensor, Plantas, Finance, Seed]
+    entities: [Weather, User, Crop, Sensor, Plant, Finance, Seed]
 });

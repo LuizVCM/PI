@@ -393,3 +393,9 @@ justify-content:center;
     border:none;   
     
 }
+
+@media (Max-width: 590px){
+    .modelagem h1{
+        font-size:3.4vw;
+    }
+}

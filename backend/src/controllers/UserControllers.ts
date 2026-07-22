@@ -22,10 +22,9 @@ export class UserController {
             next(error)
         }
     }
-    // POST /users/:id -> busca um cupinxa pelo id
     async create(req: Request, res: Response, next: NextFunction) {
         try {
-            const { nome, sobrenome, email, fone, cpf, senha } = req.body // pega name, email, password pelo corpo da requisição
+            const { nome, sobrenome, email, fone, cpf, senha } = req.body 
             const user = await userService.create({ nome, sobrenome, email, fone, cpf, senha })
             return res.status(201).json(user)
 
