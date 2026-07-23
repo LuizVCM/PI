@@ -87,7 +87,11 @@ main .validade, .lote, .recomendacoes, .agendar {
     height: 87vh;
     background-color: rgb(255, 255, 255);
 }
-
+#retornar1, #retornar2, #retornar3, #retornar4{
+    background-color:var(--verde-opcao);
+    width: 20%;
+    color: var(--verde-selecionar)
+}
 .modelagem{
    display:flex;
    align-items:center;
