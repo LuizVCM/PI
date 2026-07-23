@@ -1,5 +1,7 @@
 import { AppDataSource } from "../config/data-source";
 import { Crop } from "../models/Crop";
+import { User } from "../models/User";
+import { CreateCropDTO } from "../schemas/crop.schema";
 
 const repo = AppDataSource.getRepository(Crop);
 export const CropRepository = {
@@ -13,8 +15,8 @@ export const CropRepository = {
   async findByUserId(userId: number) {
     return repo.find({ where: { user: { id: userId } }, relations: ["user"] });
   },
-  async create(data: { cep: string; tamanho: number }) {
-    const territorio = repo.create(data);
+  async create(data: CreateCropDTO, user: User) {
+    const territorio = repo.create({ ...data, user});
     return repo.save(territorio);
   },
   async save(territorio: Crop) {
