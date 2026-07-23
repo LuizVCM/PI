@@ -50,27 +50,71 @@ btnPerfil.addEventListener("click", () => {
     window.location.href = "./Perfil.html"
 })
 
+// ================= TELAS =================
 
-// TELAS
+
+// Pegando as telas pelo ID do HTML
+// O JavaScript precisa encontrar essas partes para conseguir trocar entre elas
+
 const telaHome = document.getElementById("tela-home");
+
 const telaCadastro = document.getElementById("tela-cadastro");
 
-// BOTÕES
+const telaAgenda = document.getElementById("tela-agenda");
+
+
+
+
+
+// ================= BOTÕES =================
+
+
+// Pegando os botões pelo ID para conseguir colocar ações neles
+
 const btnCadastro = document.getElementById("btnCadastro");
+
 const btnVoltar = document.getElementById("btnVoltar");
 
-btnCadastro.addEventListener("click", () => {
-    telaHome.classList.remove("ativa");
-    telaHome.classList.add("hidden");
+const btnAgenda = document.getElementById("btnAgenda");
 
+const btnVoltarAgenda = document.getElementById("btnVoltarAgenda");
+
+// Quando clicar no botão cadastro
+btnCadastro.addEventListener("click", () => {
+    // Esconde a tela inicial
+    telaHome.classList.remove("ativa")
+    telaHome.classList.add("hidden");
+    // Mostra a tela de cadastro
     telaCadastro.classList.remove("hidden");
     telaCadastro.classList.add("ativa");
 });
 
+// Quando clicar no botão voltar do cadastro
 btnVoltar.addEventListener("click", () => {
+    // Esconde a tela de cadastro
     telaCadastro.classList.remove("ativa");
     telaCadastro.classList.add("hidden");
+    // Mostra novamente a tela inicial
+    telaHome.classList.remove("hidden");
+    telaHome.classList.add("ativa");
+});
 
+// Quando clicar no botão agenda
+btnAgenda.addEventListener("click", () => {
+    // Esconde a tela inicial
+    telaHome.classList.remove("ativa");
+    telaHome.classList.add("hidden");
+    // Mostra a tela de agenda
+    telaAgenda.classList.remove("hidden");
+    telaAgenda.classList.add("ativa");
+});
+
+// Quando clicar no botão voltar da agenda
+btnVoltarAgenda.addEventListener("click", () => {
+    // Esconde a tela agenda
+    telaAgenda.classList.remove("ativa");
+    telaAgenda.classList.add("hidden");
+    // Mostra a tela inicial novamente
     telaHome.classList.remove("hidden");
     telaHome.classList.add("ativa");
 });
