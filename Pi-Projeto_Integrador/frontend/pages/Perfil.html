@@ -1,42 +1,89 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="../assets/styles/home.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
-</head>
+    <link rel="stylesheet" href="../assets/styles/Perfil/all.css" />
+    <link rel="stylesheet" href="../assets/styles/home.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    />
+  </head>
 
-<body>
+  <body>
     <header>
-        <div class="user"> Lv </div>
-        <span class="bem-vindo">Olá, usuário!</span>
+      <div class="user">Lv</div>
+      <span class="bem-vindo">Olá, usuário!</span>
     </header>
     <main>
-        <aside class="aside">
-            <button class="opcao clima"> <i class="fa-solid fa-cloud selecao"></i> Clima </button>
-            <button class="opcao gestao"> <i class="fa-brands fa-buffer selecao"></i> Gestão</button>
-            <button class="opcao segurancas"> <i class="fa-solid fa-building-shield selecao"></i> Segurança </button>
-            <button class="opcao sementes"> <i class="fa-solid fa-seedling selecao"></i> Sementes </button>
-            <button class="opcao financas"> <i class="fa-solid fa-building-columns selecao"></i> Finanças</button>
-            <button class="opcao suporte"> <i class="fa-solid fa-comments-dollar selecao"></i> Suporte </button>
-            <button class="opcao relatorio"> <i class="fa-solid fa-envelope-open selecao"></i> Relatório </button>
-            <button class="opcao perfil"> <i class="fa-solid fa-circle-user selecao"></i>Perfil </button>
+      <aside class="aside">
+        <button class="opcao clima">
+          <i class="fa-solid fa-cloud selecao"></i> Clima
+        </button>
+        <button class="opcao gestao">
+          <i class="fa-brands fa-buffer selecao"></i> Gestão
+        </button>
+        <button class="opcao segurancas">
+          <i class="fa-solid fa-building-shield selecao"></i> Segurança
+        </button>
+        <button class="opcao sementes">
+          <i class="fa-solid fa-seedling selecao"></i> Sementes
+        </button>
+        <button class="opcao financas">
+          <i class="fa-solid fa-building-columns selecao"></i> Finanças
+        </button>
+        <button class="opcao suporte">
+          <i class="fa-solid fa-comments-dollar selecao"></i> Suporte
+        </button>
+        <button class="opcao relatorio">
+          <i class="fa-solid fa-envelope-open selecao"></i> Relatório
+        </button>
+        <button class="opcao perfil">
+          <i class="fa-solid fa-circle-user selecao"></i>Perfil
+        </button>
 
+        <button class="navbar"><i class="fa-solid fa-arrow-right"></i></button>
+      </aside>
 
-            <button class="navbar"> <i class="fa-solid fa-arrow-right"></i></button>
-        </aside>
+      <div class="content">
+        <section class="cabecalho-perfil">
+          <div class="foto-usuario"></div>
 
-        <div class="content">
-            <span>
-                Seleciona uma <br> Função no menu
-            </span>
-        </div>
+          <div class="dados-usuario">
+            <h1 class="nome-usuario">Jhon bananeiro da fresa</h1>
+            <p class="cargo-usuario">Gerente de Fazenda</p>
+          </div>
+        </section>
+
+        <section class="informacoes-perfil">
+          <h2 class="titulo-secao">Informações do Perfil</h2>
+
+          <div class="info-item">
+            <span class="info-titulo">EMAIL:</span>
+            <span class="info-valor">HAGO-ALINEADO@SENAC.RS.COM</span>
+          </div>
+
+          <div class="info-item">
+            <span class="info-titulo">LOCALIZAÇÃO:</span>
+            <span class="info-valor">Av. no teu coração, 01</span>
+          </div>
+
+          <div class="info-item">
+            <span class="info-titulo">TELEFONE:</span>
+            <span class="info-valor">+55 (51) 9 4002-8922</span>
+          </div>
+
+          <div class="info-item">
+            <span class="info-titulo">CARGO:</span>
+            <span class="info-valor">Gerente de Fazenda</span>
+          </div>
+        </section>
+      </div>
+      
     </main>
 
     <script src="../assets/js/home.js"></script>
-</body>
-
+  </body>
 </html>
