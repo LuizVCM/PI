@@ -1,10 +1,8 @@
-import { PlantaRepository } from "../repositories/PlantRepository";
-import { NotFoundError } from "./UserService";
-import { ForbiddenError } from "./TerritorioService";
 import { SensorRepository } from "../repositories/SensorRepository";
 import { ClimaRepository } from "../repositories/WeatherRepository";
-import { Clima } from "../models/Clima";
-import { TerritorioRepository } from "../repositories/TerritorioRepository";
+import { NotFoundError } from "../errors/NotFoundError";
+import { Weather } from "../models/Weather";
+import { ForbiddenError } from "../errors/ForbiddenError";
 
 export class SensorService {
     async listAll() {
@@ -33,7 +31,7 @@ export class SensorService {
             throw new Error("Função é obrigatória");
         }
 
-        let clima: Clima | null = null; // Aqui pode ter ou não um valor
+        let clima: Weather | null = null; // Aqui pode ter ou não um valor
 
         if (data.climaId) {
             // Busca o clima específico

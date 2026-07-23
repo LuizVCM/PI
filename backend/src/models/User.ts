@@ -18,7 +18,7 @@ export class User {
   email: string;
 
   @Column({ length: 20, type: "char", nullable: false, unique: true })
-  fone: string;
+  telefone: string;
 
   @Column({ length: 11, type: "char", nullable: false, unique: true })
   cpf: string;
