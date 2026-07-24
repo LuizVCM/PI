@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TerraFarr – Sementes</title>
     <link rel="icon" href="../assets/images/logo.jpeg" />
-    <link rel="stylesheet" href="../assets/styles/semente/all.css" />
+    <link rel="stylesheet" href="../assets/styles/home.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
@@ -56,41 +56,15 @@
       </aside>
 
       <div class="content">
-        <h1 class="sementes">Gestão de Sementes</h1>
-        <div class="acessos">
-          <button class="funcao funcao1">
-            <span>Validade e tipo de semente</span>
-            <i
-              class="fa-solid fa-arrow-right"
-              style="color: rgb(9, 37, 29)"
-            ></i>
-          </button>
-          <button class="funcao funcao2 toggle2">
-            <span>Lotes do plantio</span>
-            <i
-              class="fa-solid fa-arrow-right"
-              style="color: rgb(9, 37, 29)"
-            ></i>
-          </button>
-          <button class="funcao funcao3 toggle3">
-            <span>Ver recomendações de plantio</span>
-            <i
-              class="fa-solid fa-arrow-right"
-              style="color: rgb(9, 37, 29)"
-            ></i>
-          </button>
-          <button class="funcao funcao4 toggle4">
-            <span>Agendar plantação</span>
-            <i
-              class="fa-solid fa-arrow-right"
-              style="color: rgb(9, 37, 29)"
-            ></i>
-          </button>
-        </div>
+        <span>
+          Seleciona uma <br />
+          Função no menu
+        </span>
       </div>
       <!-- tela ao clicar para a 'Validade e Sementes'-->
       <div class="validade">
         <div class="modelagem">
+          <button class="editar" id="retornar1">Voltar</button>
           <h1>Validade e tipo de Semente</h1>
           <button class="editar">Editar</button>
           <button class="excluir">Excluir</button>
@@ -176,7 +150,7 @@
             <div class="observacoes">
               <label for="observacoes">OBSERVAÇÕES</label>
               <textarea name="observacoes" id="observacao">
-Condições de armazenamento, procedências...</textarea
+Condiçõesde armazenamento, procedências...</textarea
               >
             </div>
           </div>
@@ -189,6 +163,7 @@ Condições de armazenamento, procedências...</textarea
       <!-- Tela ao clicar em 'Lotes de Sementes'-->
       <div class="lote toggle1">
         <div class="modelagem">
+          <button class="editar" id="retornar2">Voltar</button>
           <h1>Lotes de Plantio</h1>
           <button class="editar">Editar</button>
           <button class="excluir">Excluir</button>
@@ -263,7 +238,7 @@ Condições de armazenamento, procedências...</textarea
             <div class="observacoes">
               <label for="observacoes">OBSERVAÇÕES</label>
               <textarea name="observacoes" id="observacao">
-Condiçõesde armazenamento, procedências...</textarea
+Condições de armazenamento, procedências...</textarea
               >
             </div>
           </div>
@@ -273,9 +248,84 @@ Condiçõesde armazenamento, procedências...</textarea
           </div>
         </div>
       </div>
+
+      <!-- recomendações de plantações-->
+      <div class="recomendacao toggle1">
+        <div class="modelagem" style="flex-direction: column">
+          <span>sementes / recomendação</span>
+          <div class="progresso">
+            <h1>recomendações de Plantio</h1>
+            <div class="analise">lote em análise</div>
+          </div>
+        </div>
+
+        <div class="dashboard">
+          <button class="item" onclick="window.location.href='';">
+            <div class="items">🌱</div>
+            <h4>Semente</h4>
+          </button>
+
+          <button class="item" onclick="window.location.href='';">
+            <div class="items">
+              <i
+                class="fa-solid fa-sun-plant-wilt"
+                style="color: rgb(191, 226, 202)"
+              ></i>
+            </div>
+            <h4>Plantação</h4>
+          </button>
+
+          <button class="item">
+            <div class="items">🌾</div>
+            Colheita
+          </button>
+        </div>
+        <button type="button" class="envia">Enviar informações</button>
+        <div class="dados">
+          <div class="dado">
+            <label for="semente" class="semente">SEMENTE</label>
+            <input type="text" name="semente" placeholder="Sua semente aqui" />
+          </div>
+          <div class="dado">
+            <label for="lote" class="loteD">LOTE RECOMENDADO</label>
+            <input
+              type="text"
+              name="lote"
+              placeholder="Sua identificacao de lote aqui"
+            />
+          </div>
+        </div>
+        <h3>Resultado</h3>
+        <div class="results">
+          <div class="dado">
+            <label for="date" class="date">Recomenda-se plantar em</label>
+            <input type="text" name="data" placeholder="Dia, mês e ano" />
+          </div>
+          <div class="dado">
+            <label for="estacao" class="estacao">Na estação</label>
+            <input
+              type="text"
+              name="semente"
+              placeholder="Estação da data prevista"
+            />
+          </div>
+        </div>
+        <div class="previsao">
+          <div class="dado">
+            <label for="estacao" class="estacao"
+              >Previsao de colheita, caso seja plantado na data prevista</label
+            >
+            <input
+              type="text"
+              name="semente"
+              placeholder="Estação da data prevista"
+            />
+          </div>
+        </div>
+        <button type="submit" class="salvarDados">Salvar</button>
+      </div>
     </main>
 
-    <script src="../assets/js/semente.js"></script>
     <script src="../assets/js/home.js"></script>
   </body>
 </html>
