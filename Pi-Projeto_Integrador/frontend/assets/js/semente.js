@@ -55,11 +55,10 @@ r1.addEventListener("click", ()=>{
  content.classList.toggle("toggle1");
     validade.classList.toggle("valMovimento")
 });
-// r2.addEventListener("click", ()=>{
-//  content.classList.toggle("toggle1");
-//  lote.classList.togg
-//     recomendacao.classList.toggle("valMovimento")
-// })
+r2.addEventListener("click", ()=>{
+ content.classList.toggle("toggle1");
+ lote.classList.toggle("valMovimento")
+})
 
 
 

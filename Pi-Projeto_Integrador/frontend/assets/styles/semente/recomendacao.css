@@ -1,22 +1,167 @@
 @import url(./semente.css);
 
-.progresso{
-    display:Flex;
-    flex-direction:row;
-    width:100%;
+.progresso {
+    display: Flex;
+    flex-direction: row;
+    width: 100%;
     align-items: center;
-    justify-content:space-between;
-    margin-top:30px
+    justify-content: space-between;
+    margin-top: 30px
 }
-.analise{
-    display:flex;
-    padding:5px 15px;
+
+.analise {
+    display: flex;
+    padding: 5px 15px;
     border-radius: 30px;
-    background-color:rgba(255, 192, 203, 0.712) ;
+    background-color: rgba(255, 192, 203, 0.712);
     border: 1px solid rgb(228, 93, 116)
 }
-.dashboard{
-    display:grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap:10px;
+
+.dashboard {
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+    background-color: rgba(8, 82, 14, 0.219);
+    display: flex;
+    height: 100px;
+    border-radius: 10px;
+
 }
+
+.recomendacao {
+    padding: 2% 5%;
+    flex-direction: column;
+    gap: 15%;
+    align-items: center;
+    z-index: 10;
+    overflow: auto;
+    padding-bottom: 50px;
+}
+
+.item {
+    background-color: transparent;
+    width: 110px;
+    height: 90px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    border: none;
+    flex-direction: column;
+    gap: 10%;
+    transform: scale(1.1);
+}
+
+.items {
+    display: flex;
+    background-color: rgb(7, 48, 16);
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer
+}
+
+.dados, .results {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 15px;
+    margin-top: -30px;
+}
+
+.dado {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--verde-sidebar);
+    color: black;
+    padding: 15px;
+    width: 40%;
+    gap: 15px;
+    border-radius: 10px;
+    box-shadow: 6px 6px rgba(1, 66, 26, 0.534);
+    color: white;
+    font-weight: 600;
+}
+
+.dado input {
+    height: 50px;
+    border-radius: 20px;
+    border: none;
+    padding: 10px;
+
+}
+
+@media (max-width: 850px) {
+    .dados, .previsao, .results{
+        flex-direction: column;
+        width: 100%;
+        gap: 20px;
+    }
+    .dado{
+        width:90%;
+    }
+    .envia{
+       right: 0;
+       margin-right: 20%;
+    }
+
+
+}
+.results{
+    background-color:rgba(186, 202, 186, 0.349);
+    margin-top: -60px;
+    border-radius: 30px;
+}
+.results .dado{
+    padding: 30px;
+    font-size: 1.2rem;
+}
+.previsao{
+    display:flex;
+    width:100%;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(186, 202, 186, 0.39);
+    padding:15px;
+    margin-top:-80px;
+    border-radius: 30px;
+}
+.previsao .dado{
+    width:85%;
+    font-size: 1.2rem;
+    
+}
+.salvarDados, .envia{
+    display:flex;
+    background-color: green;
+    color:white;
+    padding:15px;
+    width: 30%;
+    height:60px;
+    border-radius: 20px;
+    align-items:center;
+    justify-content:center;
+    border:none;
+    font-size: 1rem;
+    margin-top: -50px;
+    transition: all 0.3s linear;
+}
+.salvarDados:hover{
+    transition: all 0.3s linear;
+    box-shadow: 6px 12px rgba(3, 68, 3, 0.452);
+    cursor: pointer;
+}
+.envia{
+    height: 50px;
+    width:200px;
+    font-size: 1rem;
+    position:relative;
+    left:30%;
+    margin-top:-50px;
+    margin-bottom:-50px;
+
+}
+

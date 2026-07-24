@@ -16,14 +16,30 @@
     </header>
     <main>
         <aside class="aside">
-            <button class="opcao clima"> <i class="fa-solid fa-cloud selecao"></i> Clima </button>
-            <button class="opcao gestao"> <i class="fa-brands fa-buffer selecao"></i> Gestão</button>
-            <button class="opcao segurancas"> <i class="fa-solid fa-building-shield selecao"></i> Segurança </button>
-            <button class="opcao sementes"> <i class="fa-solid fa-seedling selecao"></i> Sementes </button>
-            <button class="opcao financas"> <i class="fa-solid fa-building-columns selecao"></i> Finanças</button>
-            <button class="opcao suporte"> <i class="fa-solid fa-comments-dollar selecao"></i> Suporte </button>
-            <button class="opcao relatorio"> <i class="fa-solid fa-envelope-open selecao"></i> Relatório </button>
-            <button class="opcao perfil"> <i class="fa-solid fa-circle-user selecao"></i>Perfil </button>
+            <button class="opcao clima"> <i class="fa-solid fa-cloud selecao"></i>
+                <p>Clima</p>
+            </button>
+            <button class="opcao gestao"> <i class="fa-brands fa-buffer selecao"></i>
+                <p>Gestão</p>
+            </button>
+            <button class="opcao segurancas"> <i class="fa-solid fa-building-shield selecao"></i>
+                <p>Segurança</p>
+            </button>
+            <button class="opcao sementes"> <i class="fa-solid fa-seedling selecao"></i>
+                <p>Sementes</p>
+            </button>
+            <button class="opcao financas"> <i class="fa-solid fa-building-columns selecao"></i>
+                <p>Finanças</p>
+            </button>
+            <button class="opcao suporte"> <i class="fa-solid fa-comments-dollar selecao"></i>
+                <p>Suporte</p>
+            </button>
+            <button class="opcao relatorio"> <i class="fa-solid fa-envelope-open selecao"></i>
+                <p>Relatório</p>
+            </button>
+            <button class="opcao perfil"> <i class="fa-solid fa-circle-user selecao"></i>
+                <p>Perfil</p>
+            </button>
 
 
             <button class="navbar"> <i class="fa-solid fa-arrow-right"></i></button>
@@ -33,6 +49,222 @@
             <span>
                 Seleciona uma <br> Função no menu
             </span>
+        </div>
+        <!-- tela ao clicar para a 'Validade e Sementes'-->
+        <div class="validade">
+            <div class="modelagem">
+                <button class="editar" id="retornar1">Voltar</button>
+                <h1>Validade e tipo de Semente</h1>
+                <button class="editar"> Editar</button>
+                <button class="excluir"> Excluir</button>
+            </div>
+            <div class="pesquisar">
+                <label for="buscarLote"></label>
+                <input type="text" name="buscarLote" class="buscarLote" placeholder="Buscar lote ou tipo...">
+                <div class="select">
+                    <select name="select" id="tipoS">
+                        <option value="tipos de semente">Tipos de semente</option>
+                        <option value="milho">milho</option>
+                        <option value="feijão">feijão</option>
+                        <option value="trigo">trigo</option>
+                    </select>
+                    <button class="novaSemente">Nova semente</button>
+                </div>
+            </div>
+            <div class="verificacao">
+                trtrtrtrt
+            </div>
+            <!-- nn vai aparecer-->
+            <div class="secao">
+                <div class="pSuperior">
+                    <div class="registroSemente">
+                        <span>Nova semente</span>
+                        <h5>Registrar novo lote</h5>
+                    </div>
+                    <div class="NovoLote">Novo lote</div>
+                </div>
+                <div class="cad1">
+                    <div class="tsem">
+                        <label for="TipoSemente"> TIPO DE SEMENTE</label>
+                        <select name="TipoSemente" id="TS">
+                            <option value="Selecione...">Selecione...</option>
+                            <option value="Soja">Soja</option>
+                            <option value="Milho">Milho</option>
+                            <option value="Trigo">Trigo</option>
+                            <option value="Feijão">Feijão</option>
+                        </select>
+                    </div>
+                    <div class="va">
+                        <label for="validade"> VALIDADE </label>
+                        <input type="date" name="validade" id="dVa">
+                    </div>
+                </div>
+
+                <div class="cad1">
+                    <div class="q">
+                        <label for="quantidade"> QUANTIDADE</label>
+                        <input type="text" name="quantidade" id="quantidade" class="quantidade" placeholder="Ex: 250">
+                    </div>
+                    <div class="kg">
+                        <select name="peso" id="peso">
+                            <option value="kg">kg</option>
+                            <option value="sacas">sacas</option>
+                            <option value="ton">ton</option>
+                            <option value="litro">litros</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="cad1">
+                    <div class="tsem">
+                        <label for="comprar"> COMPRADO EM</label>
+                        <input type="date" id="data">
+                    </div>
+                    <div class="va">
+                        <label for="fornecedor"> FORNECEDOR </label>
+                        <input type="text" name="nome" id="nome" placeholder="Nome">
+                    </div>
+                </div>
+
+                <div class="obs">
+                    <div class="observacoes">
+                        <label for="observacoes">OBSERVAÇÕES</label>
+                        <textarea name="observacoes"
+                            id="observacao">Condiçõesde armazenamento, procedências...</textarea>
+                    </div>
+                </div>
+                <div class="btn">
+                    <button class="cancelar">Cancelar</button>
+                    <button class="Salvarlote">Salvar lote</button>
+                </div>
+            </div>
+        </div>
+        <!-- Tela ao clicar em 'Lotes de Sementes'-->
+        <div class="lote toggle1">
+            <div class="modelagem">
+                <button class="editar" id="retornar2">Voltar</button>
+                <h1>Lotes de Plantio</h1>
+                <button class="editar"> Editar</button>
+                <button class="excluir"> Excluir</button>
+            </div>
+            <div class="pesquisar">
+                <label for="buscarLote"></label>
+                <input type="text" name="buscarLote" class="buscarLote" placeholder="Buscar lote ou cultura">
+                <div class="select">
+                    <select name="select" id="tipoS">
+                        <option value="tipos de semente">Disponível</option>
+                        <option value="milho">em plantio</option>
+                        <option value="feijão">colhido</option>
+                        <option value="trigo">pousio</option>
+                    </select>
+                    <button class="novaSemente">Novo Lote</button>
+                </div>
+            </div>
+            <div class="verificacao">
+                trtrtrtrt
+            </div>
+            <div class="secao">
+                <div class="pSuperior">
+                    <div class="registroSemente">
+                        <span>Novo Lote</span>
+                        <h5>Registrar área de plantio</h5>
+                    </div>
+                    <div class="NovoLote">Novo lote</div>
+                </div>
+                <div class="cad1 l">
+                    <div class="tsem">
+                        <label for="lote"> IDENTIFICACAO DO LOTE</label>
+                        <input type="text" name="lote" id="identificacao">
+                    </div>
+                </div>
+
+                <div class="cad1 l">
+                    <div class="q">
+                        <label for="quantidade"> QUANTIDADE</label>
+                        <input type="text" name="quantidade" id="quantidade" class="quantidade" placeholder="Ex: 250">
+                    </div>
+                    <div class="kg">
+                        <select name="peso" id="peso">
+                            <option value="kg">kg</option>
+                            <option value="sacas">sacas</option>
+                            <option value="ton">ton</option>
+                            <option value="litro">litros</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="cad1 l">
+                    <div class="tsem">
+                        <label for="comprar"> COMPRADO EM</label>
+                        <input type="date" id="data">
+                    </div>
+                    <div class="va">
+                        <label for="fornecedor"> FORNECEDOR </label>
+                        <input type="text" name="nome" id="nome" placeholder="Nome">
+                    </div>
+                </div>
+
+                <div class="obs">
+                    <div class="observacoes">
+                        <label for="observacoes">OBSERVAÇÕES</label>
+                        <textarea name="observacoes"
+                            id="observacao">Condições de armazenamento, procedências...</textarea>
+                    </div>
+                </div>
+                <div class="btn">
+                    <button class="cancelar">Cancelar</button>
+                    <button class="Salvarlote">Salvar lote</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- recomendações de plantações-->
+        <div class="recomendacao toggle1">
+            <div class="modelagem" style="flex-direction: column;">
+                <span>sementes / recomendação</span>
+                <div class="progresso">
+                    <h1>recomendações de Plantio</h1>
+                    <div class="analise">lote em análise</div>
+                </div>
+            </div>
+
+            <div class="dashboard">
+                <button class="item" onclick="window.location.href='';"><div class="items">🌱</div> <h4>Semente </h4></button>
+
+                <button class="item" onclick="window.location.href='';"><div class="items"><i class="fa-solid fa-sun-plant-wilt" style="color: rgb(191, 226, 202);"></i></div> <h4>Plantação</h4></button>
+
+                <button class="item"><div class="items">🌾</div> Colheita</button>
+            </div>
+            <button type="button" class="envia">Enviar informações</button>
+            <div class="dados">
+                <div class="dado">
+                    <label for="semente" class="semente">SEMENTE</label>
+                    <input type="text" name="semente" placeholder="Sua semente aqui">
+                </div>
+                <div class="dado">
+                    <label for="lote" class="loteD">LOTE RECOMENDADO</label>
+                    <input type="text" name="lote" placeholder="Sua identificacao de lote aqui">
+                </div>
+            </div>
+            <h3>Resultado</h3>
+            <div class="results">
+                 <div class="dado">
+                    <label for="date" class="date">Recomenda-se plantar em</label>
+                    <input type="text" name="data" placeholder="Dia, mês e ano">
+                </div>
+                 <div class="dado">
+                    <label for="estacao" class="estacao">Na estação</label>
+                    <input type="text" name="semente" placeholder="Estação da data prevista">
+                </div>
+            </div>
+                <div class="previsao">
+                    <div class="dado">
+                    <label for="estacao" class="estacao">Previsao de colheita, caso seja plantado na data prevista</label>
+                    <input type="text" name="semente" placeholder="Estação da data prevista">
+                </div>
+                </div>
+                <button type="submit" class="salvarDados">Salvar</button>
         </div>
     </main>
 
