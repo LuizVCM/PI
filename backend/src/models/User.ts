@@ -1,7 +1,16 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from "typeorm";
 import { Seed } from "./Seed";
 import { Crop } from "./Crop";
 import { Finance } from "./Finance";
+import { Stock } from "./Stock";
 
 @Entity("usuarios")
 export class User {
@@ -26,6 +35,15 @@ export class User {
   @Column({ select: false })
   senha: string;
 
+  @CreateDateColumn({ name: "created_at" })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: "updated_at" })
+  updatedAt: Date;
+
+  @DeleteDateColumn({ name: "deleted_at" })
+  deletedAt: Date;
+
   @OneToMany(() => Seed, (semente) => semente.user)
   semente: Seed[];
 
@@ -34,4 +52,7 @@ export class User {
 
   @OneToMany(() => Finance, (financas) => financas.user)
   financas: Finance[];
+
+  @OneToMany(() => Stock, (insumos) => insumos.usuario)
+  insumos: Stock[];
 }

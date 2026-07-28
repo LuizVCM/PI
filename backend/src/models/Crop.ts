@@ -7,6 +7,7 @@ import {
 } from "typeorm";
 import { User } from "./User";
 import { Weather } from "./Weather";
+import { Sensor } from "./Sensor";
 
 @Entity("territorios")
 export class Crop {
@@ -24,4 +25,7 @@ export class Crop {
 
   @OneToMany(() => Weather, (clima) => clima.territorio)
   clima: Weather[];
+
+  @OneToMany(() => Sensor, (sensor) => sensor.territorio)
+  sensores: Sensor[]
 }

@@ -19,7 +19,7 @@ export class Seed {
   @Column({ length: 100, nullable: false })
   nomePlanta: string;
 
-  @Column({ type: "timestamp", nullable: false })
+  @Column({ type: "date", nullable: false })
   dataPlantio: Date;
 
   @Column({ type: "int", nullable: false })

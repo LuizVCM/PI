@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn, UpdateDateColumn } from "typeorm";
 import { User } from "./User";
 
 @Entity("financas")
@@ -17,8 +17,14 @@ export class Finance {
   @Column({ type: "text", nullable: false })
   descricao: string;
 
-  @Column({ type: "timestamp", nullable: false })
+  @Column({ type: "date", nullable: false })
   data: Date;
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date
 
   @ManyToOne(() => User, (user) => user.financas)
   user: User;

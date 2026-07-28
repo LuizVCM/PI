@@ -8,7 +8,7 @@ import {
 import { Crop } from "./Crop";
 import { Sensor } from "./Sensor";
 
-@Entity("registros_clima")
+@Entity("dados_clima")
 export class Weather {
   @PrimaryGeneratedColumn()
   id: number;
@@ -17,7 +17,7 @@ export class Weather {
   data: Date;
 
   @Column({ type: "decimal", scale: 2, precision: 5, nullable: false })
-  chuva: number;
+  precipitacao: number;
 
   @Column({ type: "decimal", scale: 2, precision: 5, nullable: false })
   temperatura: number;
@@ -31,6 +31,6 @@ export class Weather {
   @ManyToOne(() => Crop, (territorio) => territorio.clima)
   territorio: Crop;
 
-  @OneToMany(() => Sensor, (sensores) => sensores.clima)
-  sensores: Sensor;
+  // @OneToMany(() => Sensor, (sensores) => sensores.clima)
+  // sensores: Sensor;
 }
