@@ -1,59 +1,58 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 :root {
-    --verde-circulo: #7ECC5F;
-    --verde-sidebar: #2D5C2F;
-    --verde-opcoes-click: #3A7D44;
-    --verde-profundo: #1B4D1F;
-    --verde-topo: #C8E6A0;
-    --verde-selecionar: #D4EDCC;
-    --conteudo-fundo: #F4FBF0;
-    --verde-dark: #0D1F0E;
-    --verde-opcao: #153117;
-
+  --verde-circulo: #7ecc5f;
+  --verde-sidebar: #2d5c2f;
+  --verde-opcoes-click: #3a7d44;
+  --verde-profundo: #1b4d1f;
+  --verde-topo: #9bbe6c;
+  --verde-selecionar: #d4edcc;
+  --conteudo-fundo: #f4fbf0;
+  --verde-dark: #0d1f0e;
+  --verde-opcao: #153117;
 }
 
 body {
-    background-color: black;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-
+  background-color: black;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 header {
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    width: 100%;
-    height: 120px;
-    background-color: var(--verde-topo);
-    padding: 30px;
-    font-size: 1.5rem;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: 700;
-    color: var(--verde-profundo);
-    gap: 20px;
-    overflow-x: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  height: 120px;
+  background-color: var(--verde-topo);
+  padding: 30px;
+  font-size: 1.5rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 700;
+  color: var(--verde-profundo);
+  gap: 20px;
+  overflow-x: hidden;
 }
 
 header .user {
-    display: flex;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-color: var(--verde-opcoes-click);
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.6rem;
-    color: white;
+  display: flex;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--verde-opcoes-click);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  color: white;
 }
 
 main {
@@ -64,95 +63,126 @@ main {
 }
 
 aside {
-    background-color: var(--verde-sidebar);
-    width: 25vw;
-    height: 87vh;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 27px;
-    display: flex;
-    position: relative;
+  background-color: var(--verde-opcao);
+  width: 17vw;
+  height: 87vh;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  display: flex;
+  position: relative;
 
-    transition: width 0.3s linear;
+  transition: width 0.3s linear;
+}
+
+@media (max-width: 600px) {
+  aside {
+    width: 290%;
+  }
 }
 
 .aside-encolhido {
-    background-color: var(--verde-sidebar);
-    width: 2.1vw;
-    height: 87vh;
-    ;
-    display: flex;
-    position: relative;
-    transition: width 0.3s linear;
+  background-color: var(--verde-sidebar);
+  width: 2.1vw;
+  height: 87vh;
+  display: flex;
+  position: relative;
+  transition: width 0.3s linear;
 }
-.aside-encolhido .opcao{
-    padding-left: 10px;
+.aside-encolhido .opcao {
+  padding-left: 10px;
 }
 
 aside .opcao {
-    display: flex;
-    border: none;
-    width: 95%;
-    height: 70px;
-    border-radius: 19px;
-    align-items:center;
-    font-size: 1.3rem;
-    font-weight: 700;
-    background-color: var(--verde-opcao);
-    color: var(--verde-selecionar);
-    padding-left: 10%;
-    gap: 15px;
+  display: flex;
+  border: none;
+  width: 98%;
+  height: 70px;
+  border-radius: 8px;
+  align-items: center;
+  font-size: 1.1rem;
+  /*     font-weight: 700; */
+  background-color: var(--verde-opcao);
+  color: var(--verde-selecionar);
+  padding-left: 10%;
+  gap: 15px;
+
 }
-.opcao:hover{
-    cursor: pointer;
+.opcao:hover {
+  cursor: pointer;
 }
-.opcao:focus .selecao{
-    color:white
+.opcao:focus .selecao {
+  color: white;
 }
-.opcao:focus{
-    background-color:var(--verde-circulo);
-    color: white
+.opcao:focus {
+  background-color: var(--verde-circulo);
+  color: white;
 }
 
 aside .selecao {
-    display: flex;
-   color: var(--verde-circulo);
+  display: flex;
+  color: var(--verde-circulo);
+  transform: scale(1.2);
 }
 
 main .content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--verde-selecionar);
-    width: 100%;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--verde-sidebar)
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: 600;
+  z-index: 100;
+  color: var(--verde-sidebar);
 }
 
 .fa-arrow-right {
-    color: var(--verde-selecionar);
-    transform: scale(1.8) scaleX(-1);
-    transition: transform 0.3s linear;
+  color: var(--verde-selecionar);
+  transform: scale(1.8) scaleX(-1);
+  transition: transform 0.3s linear;
 }
 
 .virado {
-    transform: scaleX(1) scale(1.8);
-    transition: transform 0.3s linear;
+  transform: scaleX(1) scale(1.8);
+  transition: transform 0.3s linear;
 }
 
 .navbar {
-    display: flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--verde-opcao);
+  width: 50px;
+  height: 100px;
+  position: absolute;
+  right: -50px;
+  top: 40%;
+  border-radius: 0 10px 10px 0  ;
+  border: none;
+  outline: none;
+  z-index: 100000 !important;
+  border: 1px solid rgb(83, 139, 76);
+}
+@media (max-width: 930px) {
+  .aside .opcao {
+    height: 13vw;
+    font-size: 100%;
+  }
+  .aside {
+    gap: 5vw;
+  }
+}
+@media (max-width: 600px) {
+  .aside .opcao {
+    width: 90vw;
     align-items: center;
     justify-content: center;
-    background-color: var(--verde-opcao);
-    width: 50px;
-    height: 100px;
-    position: absolute;
-    right: -50px;
-    border-radius: 0 10px 10px 0 ;
-    border: none;
-    outline: none;
-
+    padding: 0;
+    margin: 0;
+    overflow: none;
+  }
+  main {
+    overflow: hidden;
+  }
 }
