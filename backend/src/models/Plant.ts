@@ -28,5 +28,5 @@ export class Plant {
   potassio: number;
 
   @ManyToOne(() => Seed, (semente) => semente.planta)
-  semente: Seed;
+  sementes: Seed[];
 }

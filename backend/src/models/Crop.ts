@@ -1,9 +1,12 @@
 import {
   Column,
+  CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import { User } from "./User";
 import { Weather } from "./Weather";
@@ -19,6 +22,15 @@ export class Crop {
 
   @Column({ type: "int", nullable: false })
   tamanho: number;
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date
+
+  @DeleteDateColumn({ name: "deleted_at" })
+  deletedAt: Date;
 
   @ManyToOne(() => User, (user) => user.territorio)
   user: User;

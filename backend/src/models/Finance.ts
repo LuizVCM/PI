@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from "typeorm";
 import { User } from "./User";
 
 @Entity("financas")
@@ -9,11 +9,12 @@ export class Finance {
   @Column({ type: "double", nullable: false })
   valor: number;
 
-  @Column({ type: "varchar", nullable: false })
-  tipo: string;
+  @Column({ type: "enum", enum: ["gasto", "ganho"], nullable: false })
+  tipo: "gasto" | "ganho";
 
   @Column({ type: "double", nullable: false })
   quantidade: number;
+
   @Column({ type: "text", nullable: false })
   descricao: string;
 
@@ -25,6 +26,9 @@ export class Finance {
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date
+
+  @DeleteDateColumn({ name: "deleted_at" })
+  deletedAt: Date;
 
   @ManyToOne(() => User, (user) => user.financas)
   user: User;
