@@ -18,6 +18,7 @@ export const CropRepository = {
   async create(data: CreateCropDTO, user: User) {
     const territorio = repo.create({ ...data, user});
     return repo.save(territorio);
+    
   },
   async save(territorio: Crop) {
     return repo.save(territorio);

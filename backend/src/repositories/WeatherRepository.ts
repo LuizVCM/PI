@@ -4,7 +4,7 @@ import { Crop } from "../models/Crop";
 
 const repo = AppDataSource.getRepository(Weather);
 
-export const ClimaRepository ={
+export const WeatherRepository ={
     async findAll(){
         return repo.find()
     },

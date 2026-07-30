@@ -1,6 +1,7 @@
+import { Seed } from './../models/Seed';
 import { AppDataSource } from "../config/data-source";
 import { Plant } from "../models/Plant";
-import { Seed } from "../models/Seed";
+import { CreatePlantDTO } from "../schemas/plant.schema";
 
 const repo = AppDataSource.getRepository(Plant);
 
@@ -11,21 +12,13 @@ export const PlantaRepository = {
   async findById(id: number) {
     return repo.findOne({ where: { id } });
   },
-  async findBySeedId(sementeId: number) {
+  async findBySeedId(seedId: number) {
     return repo.find({
-      where: { semente: { id: sementeId } },
+      where: { sementes: { id: seedId } },
       relations: ["seed"],
     });
   },
-  async create(data: {
-    nome: string;
-    dataGerminacao: Date;
-    iluminacao: number;
-    regiao: string;
-    enxofre: number;
-    nitrogenio: number;
-    potassio: number;
-  }) {
+  async create(data: CreatePlantDTO) {
     const planta = repo.create(data);
     return repo.save(planta);
   },

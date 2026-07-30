@@ -1,5 +1,6 @@
 import { AppDataSource } from "../config/data-source";
 import { User } from "../models/User";
+import { CreateUserDTO } from "../schemas/user.schema";
 
 const repo = AppDataSource.getRepository(User);
 export const UserRepository = {
@@ -33,14 +34,7 @@ export const UserRepository = {
     return repo.findOne({ where: { id }, relations: [field] });
   },
   // criar user
-  async create(data: {
-    nome: string;
-    sobrenome: string;
-    email: string;
-    fone: string;
-    cpf: string;
-    senha: string;
-  }) {
+  async create(data: CreateUserDTO) {
     const user = repo.create(data);
     return repo.save(user);
   },
