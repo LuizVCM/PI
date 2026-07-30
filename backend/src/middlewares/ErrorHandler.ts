@@ -24,7 +24,7 @@ export function errorHandler(error: Error, _req: Request, res: Response, _next: 
 
         return res.status(400).json({
             success: false,
-            message: 'Erro de Validação',
+            message: 'Erro de validação',
             errors
         });
     }
