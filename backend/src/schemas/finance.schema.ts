@@ -1,7 +1,7 @@
 import z from "zod";
 export const createFinanceSchema = z.object({
   valor: z.number(),
-  tipo: z.enum(["Ganho", "Gasto"]),
+  tipo: z.enum(["ganho", "gasto"]),
   quantidade: z.number(),
   descricao: z.string(),
   data: z.date(),

@@ -1,4 +1,5 @@
 import z from "zod";
 export const createSensorSchema = z.object({
-  funcao: z.string()
+  tipo: z.enum(["umidade", "temperatura", "vento"]),
 });
+export type CreateSensorDTO = z.infer<typeof createSensorSchema>;
