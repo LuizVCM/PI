@@ -62,8 +62,7 @@ const telaCadastro = document.getElementById("tela-cadastro");
 
 const telaAgenda = document.getElementById("tela-agenda");
 
-
-
+const telaInsumos = document.getElementById("tela-insumos");
 
 
 // ================= BOTÕES =================
@@ -78,6 +77,10 @@ const btnVoltar = document.getElementById("btnVoltar");
 const btnAgenda = document.getElementById("btnAgenda");
 
 const btnVoltarAgenda = document.getElementById("btnVoltarAgenda");
+
+const btnInsumos = document.getElementById("btnInsumos");
+
+const btnVoltarInsumos = document.getElementById("btnVoltarInsumos");
 
 // Quando clicar no botão cadastro
 btnCadastro.addEventListener("click", () => {
@@ -115,6 +118,26 @@ btnVoltarAgenda.addEventListener("click", () => {
     telaAgenda.classList.remove("ativa");
     telaAgenda.classList.add("hidden");
     // Mostra a tela inicial novamente
+    telaHome.classList.remove("hidden");
+    telaHome.classList.add("ativa");
+});
+
+
+
+// Abrir tela de insumos
+btnInsumos.addEventListener("click", () => {
+    telaHome.classList.remove("ativa");
+    telaHome.classList.add("hidden");
+
+    telaInsumos.classList.remove("hidden");
+    telaInsumos.classList.add("ativa");
+});
+
+// Voltar para a tela inicial
+btnVoltarInsumos.addEventListener("click", () => {
+    telaInsumos.classList.remove("ativa");
+    telaInsumos.classList.add("hidden");
+
     telaHome.classList.remove("hidden");
     telaHome.classList.add("ativa");
 });
