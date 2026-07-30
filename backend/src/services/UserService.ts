@@ -47,11 +47,7 @@ export class UserService {
     const senhaHash = await bcrypt.hash(data.senha, 10);
 
     const user = await UserRepository.create({
-      nome: data.nome,
-      sobrenome: data.sobrenome,
-      email: data.email,
-      fone: data.telefone,
-      cpf: data.cpf,
+      ...data,
       senha: senhaHash,
     });
     return omitPassword(user);

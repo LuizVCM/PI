@@ -1,15 +1,15 @@
-import { ClimaRepository } from "../repositories/WeatherRepository";
-import { NotFoundError } from "./UserService";
-import { ForbiddenError } from "./CropService";
+import { WeatherRepository } from "../repositories/WeatherRepository";
 import { CropRepository } from "../repositories/CropRepository";
+import { ForbiddenError } from "../errors/ForbiddenError";
+import { NotFoundError } from "../errors/NotFoundError";
 
 export class ClimaService {
     async listAll(){
-        return await ClimaRepository.findAll()
+        return await WeatherRepository.findAll()
     }
 
     async getById(id:number){
-         const clima = await ClimaRepository.findById(id)
+         const clima = await WeatherRepository.findById(id)
 
         if (!clima) {
             throw new NotFoundError("Clima exato não encontrado!!")
@@ -17,12 +17,12 @@ export class ClimaService {
         return clima;
     }
     async findByTerritorioId(territorioId: number) {
-    return await ClimaRepository.findOne({ 
+    return await WeatherRepository.findOne({ 
         where: { territorioId: territorioId } 
     });
 }
     async listMyWeathers(territorioId: number) {
-        return await ClimaRepository.findByTerritorioId(territorioId)
+        return await WeatherRepository.findByTerritorioId(territorioId)
     }
 
 async create(data: {data: Date, chuva:number, temperatura: number, vento: number, umidade:number, territorioId?: number}, loggedUserId:number){
@@ -46,7 +46,7 @@ async create(data: {data: Date, chuva:number, temperatura: number, vento: number
         throw new NotFoundError("território não encontrado!");
     }
     
-    return await ClimaRepository.create({
+    return await WeatherRepository.create({
         data: data.data,
         chuva: data.chuva,
         temperatura: data.temperatura,
@@ -56,7 +56,7 @@ async create(data: {data: Date, chuva:number, temperatura: number, vento: number
     });
 }
     async update(id:number, data: {data: Date, chuva:number, temperatura: number, vento: number, umidade:number},loggedUserId:number){
-        const clima = await ClimaRepository.findById(id)
+        const clima = await WeatherRepository.findById(id)
 
         if(!clima){
             throw new NotFoundError("clima exato não encontrado")
@@ -66,17 +66,17 @@ async create(data: {data: Date, chuva:number, temperatura: number, vento: number
         }
 
         if(data.data) clima.data = data.data
-        if(data.chuva) clima.chuva = data.chuva
+        if(data.chuva) clima.precipitacao = data.chuva
         if(data.temperatura) clima.temperatura = data.temperatura
         if(data.vento) clima.vento = data.vento
         if(data.umidade) clima.umidade = data.umidade
    
 
-        const climaUpdate = await ClimaRepository.save(clima)
+        const climaUpdate = await WeatherRepository.save(clima)
         return climaUpdate
     }
     async delete(loggedUserId:number){
-        const clima = await ClimaRepository.delete(loggedUserId)
+        const clima = await WeatherRepository.delete(loggedUserId)
 
         if(clima.affected === 0){
             throw new NotFoundError("não foi encontrado Clima")
