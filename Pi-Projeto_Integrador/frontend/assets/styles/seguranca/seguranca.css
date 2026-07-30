@@ -1,0 +1,19 @@
+.content{
+    padding: 50px;
+    align-items:center;
+}
+
+
+.info{
+    display:flex;
+    flex-direction:column;
+    height: auto;
+    align-items:center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.9rem;
+}
+#sementeInfo{
+    font-size: 1.2rem;
+    height: 50px;
+}

@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../assets/styles/home.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link rel="stylesheet" href="../assets/styles/seguranca/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 </head>
 
 <body>
@@ -18,7 +18,7 @@
         <aside class="aside">
             <button class="opcao clima"> <i class="fa-solid fa-cloud selecao"></i> Clima </button>
             <button class="opcao gestao"> <i class="fa-brands fa-buffer selecao"></i> Gestão</button>
-            <button class="opcao segurancas"> <i class="fa-solid fa-building-shield selecao"></i> Segurança </button>
+            <button class="opcao segurancas"> <i class="fa-solid fa-building-shield selecao"></i> Informações </button>
             <button class="opcao sementes"> <i class="fa-solid fa-seedling selecao"></i> Sementes </button>
             <button class="opcao financas"> <i class="fa-solid fa-building-columns selecao"></i> Finanças</button>
             <button class="opcao suporte"> <i class="fa-solid fa-comments-dollar selecao"></i> Suporte </button>
@@ -30,9 +30,12 @@
         </aside>
 
         <div class="content">
-            <span>
-                Seleciona uma <br> Função no menu
-            </span>
+            <div class="info">
+                <label for="semente">Selecione aqui a sua planta</label>
+                <select name="semente" id="sementeInfo">
+                    <option value="Nenhuma planta encontrada">Nenhuma planta encontrada</option>
+                </select>
+            </div>
         </div>
     </main>
 
