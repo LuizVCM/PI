@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { ClimaService } from "../services/ClimaService";
+import { ClimaService } from "../services/WeatherService";
 
 export const climaService = new ClimaService()
 export class ClimaController {
