@@ -6,6 +6,7 @@ const content = document.querySelector(".content");
 const validade = document.querySelector(".validade");
 const lote = document.querySelector(".lote");
 const recomendacao = document.querySelector(".recomendacao")
+const agenda = document.querySelector(".agenda")
 
 //botao de ação
 const entrarValidade = document.querySelector(".funcao1");
@@ -29,8 +30,12 @@ recomendacaoPlantio.addEventListener("click", () => {
     recomendacao.classList.toggle("valMovimento");
 
 })
+agendarPlantio.addEventListener("click", ()=>{
+     content.classList.toggle("toggle1");
+    agenda.classList.toggle("valMovimento");
+})
 
-// funções de 'nova semente'
+// funções de 'nova semente' e outros
 const novaSemente = document.querySelector(".novaSemente");
 
 const secao = document.querySelector(".secao");
@@ -42,6 +47,10 @@ cancelar.addEventListener("click", () => {
 novaSemente.addEventListener("click", () => {
     secao.classList.toggle("toggle1")
 })
+
+
+
+
 
 
 const r1 = document.getElementById("retornar1");
@@ -58,7 +67,14 @@ r1.addEventListener("click", ()=>{
 r2.addEventListener("click", ()=>{
  content.classList.toggle("toggle1");
  lote.classList.toggle("valMovimento")
+});
+
+r4.addEventListener("click", ()=>{
+     content.classList.toggle("toggle1");
+    agenda.classList.toggle("valMovimento")
 })
+
+
 
 
 
