@@ -77,16 +77,17 @@ main .validade, .lote, .recomendacoes, .agendar {
 .funcao:hover{
     cursor: pointer;
 }
-
-.toggle1{
+/*IMPORTANTE PARA AS DEMAIS PÁGINAS!!!!!!!!!!*/
+      .toggle1{
     display:none !important;
-}
-.valMovimento{
+    }
+      .valMovimento{
     display: flex !important;
      width: 100%;
     height: 87vh;
     background-color: rgb(255, 255, 255);
-}
+   }
+/*Até aqui!!!!*/
 #retornar1, #retornar2, #retornar3, #retornar4{
     background-color:var(--verde-opcao);
     width: 20%;

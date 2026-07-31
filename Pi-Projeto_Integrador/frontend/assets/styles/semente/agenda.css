@@ -117,3 +117,14 @@ h3{
 
     
 }
+.btn{
+    transition: all 0.3s linear;
+    height: 30px
+}
+.btn:hover{
+    transition: all 0.3s linear;
+    filter: contrast(1.2);
+    border-radius: 0;
+    border: none;
+
+}

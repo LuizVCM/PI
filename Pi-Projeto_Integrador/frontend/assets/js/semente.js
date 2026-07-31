@@ -58,6 +58,7 @@ const r2 = document.getElementById("retornar2");
 const r3 = document.getElementById("retornar3");
 const r4 = document.getElementById("retornar4");
 
+const cancel = document.getElementById("cancel")
 
 // está com erro, mas a estrutura é assim 
 r1.addEventListener("click", ()=>{
@@ -71,6 +72,10 @@ r2.addEventListener("click", ()=>{
 
 r4.addEventListener("click", ()=>{
      content.classList.toggle("toggle1");
+    agenda.classList.toggle("valMovimento")
+})
+cancel.addEventListener("click", () =>{
+       content.classList.toggle("toggle1");
     agenda.classList.toggle("valMovimento")
 })
 
