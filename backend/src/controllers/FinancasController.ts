@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { FinancaService } from "../services/FinancaService";
+import { FinancaService } from "../services/FinanceService";
 
 export const financaService = new FinancaService()
 export class FinancaController {

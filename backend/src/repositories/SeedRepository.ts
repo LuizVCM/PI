@@ -5,7 +5,7 @@ import { CreateSeedDTO } from "../schemas/seed.schema";
 
 const repo = AppDataSource.getRepository(Seed);
 
-export const SementeRepository = {
+export const SeedRepository = {
   async findAll() {
     return repo.find();
   },

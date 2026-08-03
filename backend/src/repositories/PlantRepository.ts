@@ -5,7 +5,7 @@ import { CreatePlantDTO } from "../schemas/plant.schema";
 
 const repo = AppDataSource.getRepository(Plant);
 
-export const PlantaRepository = {
+export const PlantRepository = {
   async findAll() {
     return repo.find();
   },

@@ -5,7 +5,7 @@ import { CreateFinanceDTO } from "../schemas/finance.schema";
 
 const repo = AppDataSource.getRepository(Finance);
 
-export const FinancasRepository = {
+export const FinanceRepository = {
     async findAll(){
         return repo.find()
     },

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { PlantaService } from "../services/PlantaService";
+import { PlantaService } from "../services/PlantService";
 import { Seed } from "../models/Seed";
 
 export const plantaService = new PlantaService();

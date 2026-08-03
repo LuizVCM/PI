@@ -1,17 +1,16 @@
-import { PlantaRepository } from "../repositories/PlantRepository";
-import { NotFoundError } from "./UserService";
-import { ForbiddenError } from "./TerritorioService";
-import { UserRepository } from "../repositories/UserRepository";
-import { SementeRepository } from "../repositories/SeedRepository";
-import { Semente } from "../models/Sementes";
+import { PlantRepository } from "../repositories/PlantRepository";
+import { NotFoundError } from "../errors/NotFoundError";
+import { ForbiddenError } from "../errors/ForbiddenError";
+import { Seed } from "../models/Seed";
+import { SeedRepository } from "../repositories/SeedRepository";
 
 export class PlantaService {
     async listAll() {
-        return await PlantaRepository.findAll()
+        return await PlantRepository.findAll()
     }
 
     async getById(id: number) {
-        const planta = await PlantaRepository.findById(id)
+        const planta = await PlantRepository.findById(id)
 
         if (!planta) {
             throw new NotFoundError("Planta não encontrada!!")
@@ -19,15 +18,15 @@ export class PlantaService {
         return planta;
     }
     async listMyPlants(sementeId: number) {
-        return PlantaRepository.findBySeedId(sementeId)
+        return PlantRepository.findBySeedId(sementeId)
     }
 
     async create(data: {
-        sementeId: Semente;
+        sementeId: Seed;
         nome: string;
         dataGerminacao: Date;
         iluminacao: number;
-        regiao: number;
+        regiao: string;
         enxofre: number;
         nitrogenio: number;
         potassio: number;
@@ -44,7 +43,7 @@ export class PlantaService {
 
         if (data.sementeId) {
             // Busca a semente específica
-            seed = await SementeRepository.findOne({
+            seed = await SeedRepository.findOne({
                 where: {
                     id: data.sementeId,
                     user: { id: loggedUserId }
@@ -59,7 +58,7 @@ export class PlantaService {
 
         } else {
             // Busca a primeira semente do usuário
-            const sementes = await SementeRepository.findByUserId(loggedUserId);
+            const sementes = await SeedRepository.findByUserId(loggedUserId);
             seed = sementes?.[0] || null; // Pega a primeira ou null
 
             if (!seed) {
@@ -67,7 +66,7 @@ export class PlantaService {
             }
         }
 
-        return PlantaRepository.create({
+        return PlantRepository.create({
             nome: data.nome,
             dataGerminacao: data.dataGerminacao,
             iluminacao: data.iluminacao,
@@ -79,12 +78,12 @@ export class PlantaService {
         });
     }
     async update(id: number, data: { nome: string, dataGerminacao: Date, iluminacao: number, regiao: number, enxofre: number, nitrogenio: number, potassio: number }, loggedUserId: number) {
-        const planta = await PlantaRepository.findById(id)
+        const planta = await PlantRepository.findById(id)
 
         if (!planta) {
             throw new NotFoundError("planta não encontrada")
         }
-        if (planta.semente.user.id !== loggedUserId) {
+        if (planta.sementes.user.id !== loggedUserId) {
             throw new ForbiddenError("Você não tem permissão para acessar esta planta!")
         }
         if (data.nome) planta.nome = data.nome
@@ -95,11 +94,11 @@ export class PlantaService {
         if (data.nitrogenio) planta.nitrogenio = data.nitrogenio
         if (data.potassio) planta.potassio = data.potassio
 
-        const plantaUpdate = await PlantaRepository.save(planta)
+        const plantaUpdate = await PlantRepository.save(planta)
         return plantaUpdate
     }
     async delete(loggedUserId: number) {
-        const planta = await PlantaRepository.delete(loggedUserId)
+        const planta = await PlantRepository.delete(loggedUserId)
 
         if (planta.affected === 0) {
             throw new NotFoundError("não foi encontrado planta")
