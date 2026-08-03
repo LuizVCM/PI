@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
-import * as dotenv from 'dotenv'
+import * as dotenv from 'dotenv';
 import { Clima } from '../models/Clima';
 import { User } from '../models/Usuario';
 import { Territorio } from '../models/Territorio';
