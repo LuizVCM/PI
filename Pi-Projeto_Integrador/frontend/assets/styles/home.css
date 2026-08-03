@@ -38,10 +38,9 @@ header .user {
 }
 
 main {
-    display: flex;
-    width: 100%;
-    min-height: 100%;
-    
+  display: flex;
+  width: 100%;
+  min-height: 100%;
 }
 
 aside {
@@ -123,6 +122,22 @@ main .content {
   color: var(--verde-sidebar);
 }
 
+.acessos .funcao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 60%;
+  height: 15%;
+  background: var(--botoes-gradiente);
+  border-radius: 0.6rem;
+  border: none;
+  padding: 1em;
+  font-weight: 750;
+  color: var(--verde-dark);
+  font-size: 1.5vw;
+  box-shadow: var(--green-box-shadow);
+}
+
 .fa-arrow-right {
   color: var(--verde-selecionar);
   transform: scale(1.8) scaleX(-1);
@@ -144,7 +159,7 @@ main .content {
   position: absolute;
   right: -50px;
   top: 40%;
-  border-radius: 0 10px 10px 0  ;
+  border-radius: 0 10px 10px 0;
   border: none;
   outline: none;
   z-index: 100000 !important;

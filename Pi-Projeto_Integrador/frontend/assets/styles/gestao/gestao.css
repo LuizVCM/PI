@@ -41,26 +41,7 @@
     width: 100%;
    flex: 1;
 }
-.acessos .funcao{
-    display:flex;
-    align-items:center;
-    justify-content: space-around;
-    width: 80%;
-    height: 15%;
-    background: linear-gradient(to right, #C8E6A0, #7b977f);
-    border-radius: 10px;
-    border: none;
-    padding: 20px;
-    font-weight: 750;
-    color:#0D1F0E;
-    font-size: 1.5vw;
 
-    
-
-    box-shadow: 6px 5px rgba(22, 78, 14, 0.897);
-    align-items:center;
-
-}
 .funcao:hover {
     transform: translateY(-2px);
 }

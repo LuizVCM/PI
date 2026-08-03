@@ -17,7 +17,7 @@
     --verde-dark:         #0D1F0E;
     --verde-opcao:        #153117;
     --green-box-shadow: 6px 5px #164e0ee5;
-    --botoes-gradiente: linear-gradient(135deg, #2D5C2F, #0D1F0E);
+    --botoes-gradiente: linear-gradient(to right, #C8E6A0, #7b977f);
     --fonte-principal: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     --transicao-padrao: 0.2s linear;
 }

@@ -21,22 +21,6 @@
   display: none;
 }
 
-.acessos .funcao {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 60%;
-  height: 15%;
-  background: var(--conteudo-fundo);
-  border-radius: 0.6rem;
-  border: none;
-  padding: 1em;
-  font-weight: 750;
-  color: var(--verde-dark);
-  font-size: 1.5vw;
-  box-shadow: var(--green-box-shadow);
-}
-
 .top,
 .bottom {
   display: flex;
