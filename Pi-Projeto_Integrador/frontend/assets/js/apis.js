@@ -44,3 +44,8 @@ async function previsao2(cidade) {
 
 // Exemplo
 previsao2("São Leopoldo");
+
+
+
+// API de Análise / Consultas Embrapa
+

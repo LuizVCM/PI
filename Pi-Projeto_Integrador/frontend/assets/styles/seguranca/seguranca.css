@@ -1,44 +1,386 @@
 @import url(../semente/semente.css);
 
-.content{
+
+:root {
+    --bg: #f5f1e2;
+    --bg-card: #fffdf6;
+    --verde-900: #223f24;
+    --verde-700: #3c6b40;
+    --amarelo-400: #e8c15c;
+    --amarelo-600: #c99a2e;
+    --texto-fraco: #736c58;
+    --linha: #e2dac2;
+    --sombra: 0 2px 10px rgba(43, 40, 25, 0.06);
+
+
+    --fonte-display: 'Fraunces', serif;
+    --fonte-texto: 'Work Sans', sans-serif;
+    --fonte-dado: 'JetBrains Mono', monospace;
+}
+
+.content {
     padding: 50px;
-    align-items:center;
+    align-items: center;
+    z-index: 10;
 }
 
 
-.info{
-    display:flex;
-    flex-direction:column;
+.info {
+    display: flex;
+    flex-direction: column;
     height: auto;
-    align-items:center;
+    align-items: center;
     justify-content: center;
     font-weight: 700;
     font-size: 1.9rem;
 }
-#sementeInfo{
+
+#sementeInfo {
     font-size: 1.2rem;
     height: 50px;
 }
 
-.acessando{
-    display:flex;
+.acessando {
+    display: flex;
     margin-top: 50px;
     background-color: rgb(81, 185, 81);
-    padding:30px;
-    border:none;
+    padding: 30px;
+    border: none;
     border-radius: 20px;
     width: 15vw;
-    align-items:center;
-    justify-content:center;
+    align-items: center;
+    justify-content: center;
     font-size: 1.2rem;
-    font-weight:700;
+    font-weight: 700;
     transform: scale(0.8);
-  transition: all 0.3s linear
+    transition: all 0.3s linear
 }
 
-.acessando:hover{
-        width: 20vw;
-        cursor: pointer;
-        box-shadow: 0 12px darkgreen;
-        font-size: 1.3rem;
+.acessando:hover {
+    width: 20vw;
+    cursor: pointer;
+    box-shadow: 0 12px darkgreen;
+    font-size: 1.3rem;
+}
+
+.informations {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+    height: 87.2vh;
+    z-index: 50;
+    padding: 25px;
+    overflow: auto;
+}
+
+@media (max-width: 860px) {
+    .td{
+        flex-direction:column;
+    }
+}
+@media (max-width: 769px) {
+     h3{
+        font-size: 1rem;
+     }
+     h1{
+        font-size: 1.2rem;
+     }
+     h4{
+        font-size: 0.8rem
+     }
+     .faixa-umidade span{
+        font-size: 0.1rem;
+     }
+     .name{
+        align-items:center;
+        justify-content:center; 
+     }
+}
+@media (max-width: 650px) {
+    .agrupamento1{
+        flex-direction: column;
+        
+    }
+     .faixa-umidade span{
+        font-size: 0.1rem;
+     }
+}
+
+.expectativaVida {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 15px;
+    background-color: lightgreen;
+    border: 1px solid green;
+    border-radius: 20px;
+}
+
+.informacaoNome {
+    display: flex;
+    flex-direction: column;
+}
+
+.plantImage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: darkgreen;
+    width: 65px;
+    height: 65px;
+    border-radius: 100%;
+    font-size: 1.2rem;
+}
+
+.name {
+    display: flex;
+    gap: 20px;
+}
+
+.agrupamento1 {
+    display: flex;
+    width: 80%;
+    align-items: center;
+    justify-content: space-around;
+    gap: 20px;
+    padding: 30px 10px;
+    background-color: azure;
+    border-radius: 20px;
+    box-shadow: 6px 12px 30px rgba(0, 0, 0, 0.204);
+
+}
+
+.agrupamento2 {
+    display: flex;
+    flex-direction: column;
+    background-color: azure;
+    box-shadow: 6px 12px 30px rgba(0, 0, 0, 0.204);
+    border-radius: 20px;
+    align-items:center;
+    justify-content:center;
+    height: 300px;
+    font-size: 1.2rem;
+
+
+}
+
+#chart {
+    max-width: 650px;
+}
+
+.td {
+    display: flex;
+    gap: 20px;
+    width: 80%;
+
+
+}
+
+.agrupamento3 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    border-radius: 20px;
+}
+
+.cartao-umidade {
+    height: 100%;
+    min-width: 100%;
+    max-width: 360px;
+    background-color: azure;
+    border: 1px solid var(--linha);
+    border-radius: 16px;
+    box-shadow: 6px 12px 30px rgba(0, 0, 0, 0.204);
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.cartao-umidade span {
+    font-size: 1.5rem;
+}
+@media (max-width: 550px){
+    .cartao-umidade span {
+        font-size: 0.9rem
+    }
+}
+
+.titulo-linha {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.cartao-umidade h2 {
+    font-family: var(--fonte-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--verde-900);
+}
+
+.valor-grande {
+    font-family: var(--fonte-dado);
+    font-size: 1.6rem;
+    color: var(--verde-700);
+}
+
+.barra-umidade-trilho {
+    width: 100%;
+    height: 16px;
+    background: #eee7d3;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.barra-umidade-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--amarelo-400), var(--verde-700));
+    border-radius: 999px;
+    transition: width .7s ease;
+}
+
+.faixa-umidade {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.72rem;
+    color: var(--texto-fraco);
+}
+
+.alerta-rega {
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    height: 100px;
+    box-shadow: 6px 12px 30px rgba(0, 0, 0, 0.204);
+
+}
+
+.alerta-rega.ok {
+    background: #eaf3e2;
+    color: var(--verde-900);
+    border: 1px solid #9fc48c;
+}
+
+.alerta-rega.atencao {
+    background: #fdf1d8;
+    color: #7a5a12;
+    border: 1px solid var(--amarelo-600);
+}
+
+.secao-npk {
+    display: flex;
+    flex-direction: column;
+    min-width: 100%;
+    max-width: 480px;
+    background-color: azure;
+    border: 1px solid var(--linha);
+    border-radius: 16px;
+    box-shadow: var(--sombra);
+    padding: 22px;
+    height: 100%;
+}
+
+.secao-npk h2 {
+    font-family: var(--fonte-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--verde-900);
+    margin-bottom: 16px;
+}
+
+.grade-npk {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+@media (max-width: 420px) {
+    .grade-npk {
+        grid-template-columns: 1fr;
+    }
+}
+
+.coluna-solo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.tubo-solo {
+    width: 46px;
+    height: 130px;
+    border-radius: 999px;
+    background: #eee7d3;
+    border: 1px solid var(--linha);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+}
+
+.tubo-solo-fill {
+    width: 100%;
+    border-radius: 999px 999px 0 0;
+    transition: height .7s ease;
+}
+
+.coluna-solo .nutriente-nome {
+    font-family: var(--fonte-display);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.coluna-solo .nutriente-valor {
+    font-family: var(--fonte-dado);
+    font-size: 0.85rem;
+    color: var(--texto-fraco);
+}
+
+.coluna-solo .nutriente-status {
+    font-size: 0.72rem;
+    padding: 2px 10px;
+    border-radius: 999px;
+}
+
+.status-ideal {
+    background: #eaf3e2;
+    color: var(--verde-900);
+}
+
+.status-baixo {
+    background: #fdf1d8;
+    color: #7a5a12;
+}
+
+.status-alto {
+    background: #f5e3d6;
+    color: var(--marrom-600);
+}
+
+.agrupamento4 {
+    display: flex;
+    background-color: azure;
+    width: 80%;
+    border-radius: 20px;
+    box-shadow: 6px 12px 30px rgba(0, 0, 0, 0.204);
+    height: 500px;
+
+}
+
+.agrupamento5 {
+    display: flex;
+    background-color: azure;
+    box-shadow: 6px 12px 30px rgba(0, 0, 0, 0.204);
+    width: 80%;
+    flex-direction:column;
+    gap: 15px;
+    padding: 25px;
 }

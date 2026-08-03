@@ -7,6 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="../assets/styles/seguranca/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
 
 <body>
@@ -39,16 +40,74 @@
                 <button type="button" class="acessando"> Acessar</button>
             </div>
         </div>
-          
+
         <!-- Seção onde irá aparecer as informações do momento atual da plantação escolhida -->
-            <div class="informations toggle1">
-                dndfnvrtninvneruififneurfndkjnfjherhkjnfgjhernhfjdnfuie4hfhjrbf
+        <div class="informations toggle1">
+            <div class="agrupamento1">
+                <div class="name">
+                    <div class="plantImage">🌱</div>
+                    <div class="informacaoNome">
+                        <h1>Nome planta</h1>
+                        <h3 class="lot">lote plantado</h3>
+                    </div>
+                </div>
+                <div class="expectativaVida">
+                    <h4>Expectativa de Vida: </h4>
+                    <span>tempo vida</span>
+                </div>
+            </div>
+            <div class="td">
+                <div class="agrupamento2">
+                    <h5>.</h5>
+                    <div id="chart"></div>
+                </div>
+                <div class="agrupamento3">
+
+                    <div class="cartao-umidade">
+                        <div class="titulo-linha">
+                            <h2>💧 Umidade do solo</h2>
+                            <span class="valor-grande" id="valorUmidade">--%</span>
+                        </div>
+
+                        <div class="barra-umidade-trilho">
+                            <div class="barra-umidade-fill" id="barraUmidade" style="width:50%"></div>
+                        </div>
+                        <div class="faixa-umidade">
+                            <span>seco</span>
+                            <span>ideal</span>
+                            <span>encharcado</span>
+                        </div>
+
+                        <div class="alerta-rega" id="alertaRega">Nenhum alerta atual</div>
+                    </div>
+
+                </div>
 
             </div>
+            <div class="agrupamento4">
+                <section class="secao-npk">
+                    <h2>Nutrientes do solo (NPK)</h2>
+                    <div class="grade-npk" id="gradeNpk"></div>
+                </section>
+            </div>
+            <div class="agrupamento5">
+                <h2>ℹ️ Sugestões para este plantio: </h2>
+                <span> 🍃
+                    Umidade abaixo de 45% — programar rega nas próximas 6 horas.</span>
+                <span>🍃 Nitrogênio baixo: considerar adubação nitrogenada leve nesta semana.</span>
+                <span>🍃
+                    Potássio acima do ideal — evitar fertilizante potássico no próximo ciclo.</span>
+                <span>🍃
+                    Temperatura do solo estável, sem ação necessária.</span>
+            </div>
+        </div>
     </main>
 
     <script src="../assets/js/home.js"></script>
     <script src="../assets/js/seguranca.js"></script>
+    <script src="../assets/js/chart2.js"></script>
+    <script src="../assets/js/chart.js"></script>
+
 </body>
 
 </html>
