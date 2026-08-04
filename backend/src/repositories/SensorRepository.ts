@@ -2,6 +2,7 @@ import { AppDataSource } from "../config/data-source";
 import { Weather } from "../models/Weather";
 import { Sensor } from "../models/Sensor";
 import { CreateSensorDTO } from "../schemas/sensor.schema";
+import { Crop } from "../models/Crop";
 
 const repo = AppDataSource.getRepository(Sensor);
 
@@ -22,9 +23,11 @@ export const SensorRepository = {
   //   const sensor = repo.create(data);
   //   return repo.save(sensor);
   // },
-
-  async create(data: CreateSensorDTO) {
-    return repo.create(data);
+  async findByCropId(cropId: number) {
+    return repo.find({ where: { territorio: { id: cropId } } });
+  },
+  async create(data: CreateSensorDTO, crop: Crop) {
+    return repo.create({ ...data, territorio: crop});
   },
   async save(sensor: Sensor) {
     return repo.save(sensor);

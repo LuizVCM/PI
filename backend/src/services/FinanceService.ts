@@ -4,7 +4,7 @@ import { FinanceRepository } from "../repositories/FinanceRepository";
 import { UserRepository } from "../repositories/UserRepository";
 import { CreateFinanceDTO, UpdateFinanceDTO } from "../schemas/finance.schema";
 
-export class FinancaService {
+export class FinanceService {
   async listAll() {
     return await FinanceRepository.findAll();
   }
@@ -17,7 +17,7 @@ export class FinancaService {
     }
     return financa;
   }
-  async listMyFinances(userId: number) {
+  async listByUserId(userId: number) {
     return FinanceRepository.findByUserId(userId);
   }
 
@@ -39,7 +39,7 @@ export class FinancaService {
     if (!financa) {
       throw new NotFoundError("Finança não encontrada");
     }
-    if (financa.user.id !== loggedUserId) {
+    if (financa.usuario.id !== loggedUserId) {
       throw new ForbiddenError(
         "Você não tem permissão para acessar esta Finança!"
       );

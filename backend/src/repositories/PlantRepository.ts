@@ -1,4 +1,4 @@
-import { Seed } from './../models/Seed';
+import { Seed } from "./../models/Seed";
 import { AppDataSource } from "../config/data-source";
 import { Plant } from "../models/Plant";
 import { CreatePlantDTO } from "../schemas/plant.schema";
@@ -15,7 +15,7 @@ export const PlantRepository = {
   async findBySeedId(seedId: number) {
     return repo.find({
       where: { sementes: { id: seedId } },
-      relations: ["seed"],
+      relations: { sementes: true },
     });
   },
   async create(data: CreatePlantDTO) {

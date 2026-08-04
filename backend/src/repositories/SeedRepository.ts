@@ -13,10 +13,13 @@ export const SeedRepository = {
     return repo.findOne({ where: { id } });
   },
   async findByUserId(userId: number) {
-    return repo.find({ where: { user: { id: userId } }, relations: ["user"] });
+    return repo.findOne({
+      where: { usuario: { id: userId } },
+      relations: { usuario: true },
+    });
   },
   async create(data: CreateSeedDTO, user: User) {
-    const semente = repo.create({...data, user});
+    const semente = repo.create({ ...data, usuario: user});
     return repo.save(semente);
   },
   async save(semente: Seed) {

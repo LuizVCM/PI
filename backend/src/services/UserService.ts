@@ -2,7 +2,7 @@ import { UserRepository } from "../repositories/UserRepository";
 import bcrypt from "bcrypt";
 import { omitPassword } from "../utils/omitPassword";
 import { generateToken } from "../utils/jwt";
-import { CreateUserDTO, UpdateUserDTO } from "../schemas/user.schema";
+import { CreateUserDTO, LoginUserDTO, UpdateUserDTO } from "../schemas/user.schema";
 import { NotFoundError } from "../errors/NotFoundError";
 
 export class UserService {
@@ -82,7 +82,7 @@ export class UserService {
     }
   }
 
-  async login(data: { email: string; senha: string }) {
+  async login(data: LoginUserDTO) {
     const user = await UserRepository.findByEmail(data.email);
     if (!user) {
       throw new Error("Uusário não cadastrado ou deletado");

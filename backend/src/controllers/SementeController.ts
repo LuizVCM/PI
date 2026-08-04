@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from "express";
-import { SementeService } from "../services/SementeService";
+import { SeedService } from "../services/SeedService";
 
-export const sementeService = new SementeService()
+const seedService = new SeedService()
 export class TerritorioController {
   async list(req: Request, res: Response, next: NextFunction) {
         try {
-            const semente = await sementeService.listAll()
+            const semente = await seedService.listAll()
             return res.json(semente)
         } catch (error) {
             next(error)
@@ -14,7 +14,7 @@ export class TerritorioController {
     async getById(req: Request, res: Response, next: NextFunction) {
         try {
             const id = Number(req.params.id);
-            const semente = await sementeService.getById(id)
+            const semente = await seedService.getById(id)
             return res.json(semente)
         } catch (error) {
             next(error)
@@ -24,7 +24,7 @@ export class TerritorioController {
         try{
            const loggedUser = (req as any).user
             console.log(loggedUser)
-           const mySeeds = await sementeService.listMySeeds(loggedUser.id)
+           const mySeeds = await seedService.listMySeeds(loggedUser.id)
           
            return res.status(200).json(
             mySeeds
@@ -38,7 +38,7 @@ export class TerritorioController {
         try {
             const { dataCompra, nomePlanta, dataPlantio, quantidade } = req.body
             const loggedUser = (req as any).user;
-            const semente = await sementeService.create({dataCompra, nomePlanta, dataPlantio, quantidade}, loggedUser.id)
+            const semente = await seedService.create({dataCompra, nomePlanta, dataPlantio, quantidade}, loggedUser.id)
 
             return res.status(201).json(semente)
         } catch (error) {
@@ -51,7 +51,7 @@ export class TerritorioController {
             const { dataCompra, nomePlanta, dataPlantio, quantidade} = req.body
             const loggedUser = (req as any).user;
 
-            const semente = await sementeService.update(id, {dataCompra, nomePlanta, dataPlantio, quantidade}, loggedUser.id) 
+            const semente = await seedService.update(id, {dataCompra, nomePlanta, dataPlantio, quantidade}, loggedUser.id) 
             return res.json(semente)
         } catch (error) {
             next(error)
@@ -60,7 +60,7 @@ export class TerritorioController {
     async delete(req: Request, res: Response, next: NextFunction) {
         try {
             const id = Number(req.params.id)
-           await sementeService.delete(id);
+           await seedService.delete(id);
             return res.status(204).send("Semente deletada com sucesso!!!")
         } catch (erro) {
             next(erro)

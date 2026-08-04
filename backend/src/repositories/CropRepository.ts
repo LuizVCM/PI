@@ -13,12 +13,14 @@ export const CropRepository = {
   },
 
   async findByUserId(userId: number) {
-    return repo.find({ where: { user: { id: userId } }, relations: ["user"] });
+    return repo.find({
+      where: { usuario: { id: userId } },
+      relations: { usuario: true },
+    });
   },
   async create(data: CreateCropDTO, user: User) {
-    const territorio = repo.create({ ...data, user});
+    const territorio = repo.create({ ...data, usuario: user });
     return repo.save(territorio);
-    
   },
   async save(territorio: Crop) {
     return repo.save(territorio);
