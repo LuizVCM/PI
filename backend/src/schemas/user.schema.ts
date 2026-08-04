@@ -1,21 +1,47 @@
 import z from "zod";
+import { parsePhoneNumberFromString } from "libphonenumber-js";
+import { cpf } from "cpf-cnpj-validator";
+
+const telefoneSchema = z.string().transform((valor, ctx) => {
+  const telefone = parsePhoneNumberFromString(valor, "BR");
+  if (!telefone?.isValid()) {
+    ctx.addIssue({
+      code: "custom",
+      message: "Telefone inválido",
+    });
+    return z.NEVER;
+  }
+  return telefone.number; // retorna em e164 (ex: +5551999999999)
+});
+
+const cpfSchema = z.string().transform((valor, ctx) => {
+  const cpfLimpo = cpf.strip(valor);
+  if (!cpf.isValid(cpfLimpo)) {
+    ctx.addIssue({
+      code: "custom",
+      message: "CPF inválido",
+    });
+    return z.NEVER;
+  }
+  return cpfLimpo;
+});
+
+export const passwordSchema = z
+  .string()
+  .min(6, "A senha deve ter pelo menos 6 caracteres")
+  .regex(/[A-Z]/, "A senha deve ter pelo menos uma letra maiúscula")
+  .regex(/[a-z]/, "A senha deve ter pelo menos uma letra minúscula")
+  .regex(/[0-9]/, "A senha deve ter pelo menos um dígito")
+  .regex(/[^a-zA-Z0-9\s]/, "A senha deve ter pelo menos um caractere especial")
+  .max(255);
+
 export const createUserSchema = z.object({
-  nome: z.string().min(3).max(100),
-  sobrenome: z.string().min(3).max(100),
+  nome: z.string().trim().min(3).max(100),
+  sobrenome: z.string().trim().min(3).max(100),
   email: z.email(),
-  telefone: z.e164(),
-  cpf: z.string(),
-  senha: z
-    .string()
-    .min(6, "A senha deve ter pelo menos 6 caracteres")
-    .regex(/^(?=.*[A-Z])/, "A senha deve ter pelo menos uma letra maiúscula")
-    .regex(/^(?=.*[a-z])/, "A senha deve ter pelo menos uma letra minúscula")
-    .regex(/^(?=.*[0-9])/, "A senha deve ter pelo menos um dígito (0-9)")
-    .regex(
-      /^(?=.*[@%!&*_])/,
-      "A senha deve ter pelo menos um caractere especial (@, %, !. &, * ou _)"
-    )
-    .max(255),
+  telefone: telefoneSchema,
+  cpf: cpfSchema,
+  senha: passwordSchema,
 });
 export const updateUserSchema = createUserSchema.partial();
 export const loginUserSchema = z.object({
