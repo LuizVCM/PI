@@ -1,11 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  ManyToOne,
+} from "typeorm";
 import { User } from "./User";
+import { BaseModel } from "./BaseModel";
 
 @Entity("financas")
-export class Finance {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Finance extends BaseModel {
   @Column({ type: "double", nullable: false })
   valor: number;
 
@@ -18,22 +20,9 @@ export class Finance {
   @Column({ type: "text", nullable: false })
   descricao: string;
 
-  @Column({ type: "date", nullable: false })
+  @Column({ name: "data_criacao", type: "date", nullable: false })
   data: Date;
 
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date
-
-  @DeleteDateColumn({ name: "deleted_at" })
-  deletedAt: Date;
-
-  @ManyToOne(() => User, (user) => user.financas)
-  user: User;
+  @ManyToOne(() => User, (usuario) => usuario.financas)
+  usuario: User;
 }
-// const enum TipoFinanca {
-//   GANHO = "Ganho",
-//   GASTO = "Gasto",
-// }

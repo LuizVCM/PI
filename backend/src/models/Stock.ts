@@ -1,10 +1,9 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, Entity, ManyToOne } from "typeorm";
 import { User } from "./User";
+import { BaseModel } from "./BaseModel";
 
 @Entity("estoque_insumos")
-export class Stock {
-  @PrimaryGeneratedColumn()
-  id: number;
+export class Stock extends BaseModel {
   @Column({ name: "nome_insumo" })
   nomeInsumo: string;
   @Column({ type: "decimal", scale: 2, precision: 5, nullable: false })
@@ -13,14 +12,6 @@ export class Stock {
   unidade: "litros" | "quilogramas";
   @Column({ name: "data_validade", type: "date" })
   dataValidade: Date;
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date
-
-  @DeleteDateColumn({ name: "deleted_at" })
-  deletedAt: Date;
   @ManyToOne(() => User, (usuario) => usuario.insumos)
   usuario: User;
 }

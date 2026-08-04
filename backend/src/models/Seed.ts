@@ -1,21 +1,14 @@
 import {
   Column,
-  CreateDateColumn,
-  DeleteDateColumn,
   Entity,
   ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from "typeorm";
 import { User } from "./User";
 import { Plant } from "./Plant";
+import { BaseModel } from "./BaseModel";
 
 @Entity("sementes")
-export class Seed {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Seed extends BaseModel {
   @Column({ type: "date", nullable: false })
   dataCompra: Date;
 
@@ -28,18 +21,9 @@ export class Seed {
   @Column({ type: "int", nullable: false })
   quantidade: number;
 
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date
+  @ManyToOne(() => User, (usuario) => usuario.sementes)
+  usuario: User;
 
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date
-
-  @DeleteDateColumn({ name: "deleted_at" })
-  deletedAt: Date;
-
-  @ManyToOne(() => User, (user) => user.semente)
-  user: User;
-
-  @OneToMany(() => Plant, (planta) => planta.sementes)
+  @ManyToOne(() => Plant, (planta) => planta.sementes)
   planta: Plant;
 }

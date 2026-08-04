@@ -1,12 +1,11 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 import { Weather } from "./Weather";
 import { DataSensor } from "./DataSensor";
 import { Crop } from "./Crop";
+import { BaseModel } from "./BaseModel";
 
 @Entity("sensores")
-export class Sensor {
-  @PrimaryGeneratedColumn()
-  id: number;
+export class Sensor extends BaseModel {
   @Column({
     type: "enum",
     enum: ["umidade", "temperatura", "vento"],
@@ -22,7 +21,7 @@ export class Sensor {
   // @ManyToOne(() => Weather, (clima) => clima.sensores)
   // clima: Weather;
   @ManyToOne(() => Crop, (territorio) => territorio.sensores)
-  territorio: Crop
+  territorio: Crop;
   @OneToMany(() => DataSensor, (data) => data.sensor)
   dados: DataSensor[];
 }

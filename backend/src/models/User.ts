@@ -1,22 +1,16 @@
 import {
   Column,
-  CreateDateColumn,
-  DeleteDateColumn,
   Entity,
   OneToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from "typeorm";
 import { Seed } from "./Seed";
 import { Crop } from "./Crop";
 import { Finance } from "./Finance";
 import { Stock } from "./Stock";
+import { BaseModel } from "./BaseModel";
 
 @Entity("usuarios")
-export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class User extends BaseModel {
   @Column({ length: 100, nullable: false })
   nome: string;
 
@@ -35,22 +29,13 @@ export class User {
   @Column({ select: false })
   senha: string;
 
-  @CreateDateColumn({ name: "created_at" })
-  createdAt: Date;
+  @OneToMany(() => Seed, (semente) => semente.usuario)
+  sementes: Seed[];
 
-  @UpdateDateColumn({ name: "updated_at" })
-  updatedAt: Date;
+  @OneToMany(() => Crop, (territorio) => territorio.usuario)
+  territorios: Crop[];
 
-  @DeleteDateColumn({ name: "deleted_at" })
-  deletedAt: Date;
-
-  @OneToMany(() => Seed, (semente) => semente.user)
-  semente: Seed[];
-
-  @OneToMany(() => Crop, (territorio) => territorio.user)
-  territorio: Crop[];
-
-  @OneToMany(() => Finance, (financas) => financas.user)
+  @OneToMany(() => Finance, (financas) => financas.usuario)
   financas: Finance[];
 
   @OneToMany(() => Stock, (insumos) => insumos.usuario)
