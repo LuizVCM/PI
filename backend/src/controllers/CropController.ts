@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { CropService } from "../services/CropService";
 
 export const territorioService = new CropService();
-export class TerritorioController {
+export class CropController {
   async list(req: Request, res: Response, next: NextFunction) {
     try {
       const territorio = await territorioService.listAll();
