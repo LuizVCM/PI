@@ -1,34 +1,24 @@
-import { AppDataSource } from "../config/data-source";
 import { Crop } from "../models/Crop";
 import { User } from "../models/User";
 import { CreateCropDTO } from "../schemas/crop.schema";
+import { createBaseRepository } from "./BaseRepository";
 
-const repo = AppDataSource.getRepository(Crop);
+const base = createBaseRepository(Crop);
+
 export const CropRepository = {
-  async findAll() {
-    return repo.find();
-  },
-  async findById(id: number) {
-    return repo.findOne({ where: { id } });
-  },
+  ...base,
 
-  async findByUserId(userId: number) {
-    return repo.find({
+  /** buscar todos os territórios de um usuário */
+  async findByUserId(userId: number): Promise<Crop[]> {
+    return base.getRepository().find({
       where: { usuario: { id: userId } },
       relations: { usuario: true },
     });
   },
-  async create(data: CreateCropDTO, user: User) {
-    const territorio = repo.create({ ...data, usuario: user });
-    return repo.save(territorio);
-  },
-  async save(territorio: Crop) {
-    return repo.save(territorio);
-  },
-  async delete(id: number) {
-    return repo.delete(id);
-  },
-  async findOne(options: any) {
-    return await repo.findOne(options);
+
+  /** criar um novo território associado a um usuário */
+  async create(data: CreateCropDTO, user: User): Promise<Crop> {
+    const crop = base.create({ ...data, usuario: user });
+    return base.save(crop);
   },
 };

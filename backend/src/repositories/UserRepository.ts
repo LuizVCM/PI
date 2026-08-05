@@ -1,47 +1,25 @@
-import { AppDataSource } from "../config/data-source";
 import { User } from "../models/User";
 import { CreateUserDTO } from "../schemas/user.schema";
+import { createBaseRepository } from "./BaseRepository";
 
-const repo = AppDataSource.getRepository(User);
+const base = createBaseRepository(User);
+
 export const UserRepository = {
-  async findAll() {
-    return repo.find();
-  },
-  async findById(id: number) {
-    return repo.findOne({ where: { id } });
+  ...base,
+
+  /** buscar usuário por email (único) */
+  async findByEmail(email: string): Promise<User | null> {
+    return base.findOne({ where: { email } });
   },
 
-  async findBy(field: string) {
-    return repo.find({ relations: [`${field}`] });
-  },
-  // encontrar tudo (com itens específicos)
-  // async findAllSementes(){
-  //     return repo.find({relations: ['seeds']});
-  // },
-  //  async findAllTerritorios(){
-  //      return repo.find({relations:['territorios']});
-  //  },
-  // async findAllFinancas(){
-  //     return repo.find({relations: ['financas']});
-  // },
-
-  async findByEmail(email: string) {
-    return repo.findOne({ where: { email } });
+  /** buscar usuários por ID com uma relação específica (ex: 'seeds', 'territorios') */
+  async findByIdWithRelation(id: number, relation: string): Promise<User | null> {
+    return base.findById(id, { relations: [relation] });
   },
 
-  // encontrar por ID
-  async findByIdWith(field: string, id: number) {
-    return repo.findOne({ where: { id }, relations: [field] });
-  },
-  // criar user
-  async create(data: CreateUserDTO) {
-    const user = repo.create(data);
-    return repo.save(user);
-  },
-  async save(user: User) {
-    return repo.save(user);
-  },
-  async delete(id: number) {
-    return repo.delete(id);
+  /** cria um novo usuário */
+  async create(data: CreateUserDTO): Promise<User> {
+    const user = base.create(data);
+    return base.save(user);
   },
 };
