@@ -1,48 +1,47 @@
-import { UserRepository } from "../repositories/UserRepository";
 import bcrypt from "bcrypt";
+import { UserRepository } from "../repositories/UserRepository";
 import { omitPassword } from "../utils/omitPassword";
 import { generateToken } from "../utils/jwt";
-import { CreateUserDTO, LoginUserDTO, UpdateUserDTO } from "../schemas/user.schema";
+import {
+  CreateUserDTO,
+  LoginUserDTO,
+  UpdateUserDTO,
+} from "../schemas/user.schema";
 import { NotFoundError } from "../errors/NotFoundError";
 
 export class UserService {
   async listAll() {
-    return await UserRepository.findAll();
+    return UserRepository.findAll();
   }
 
-  async listAllBy(field: string) {
-    if (
-      !field ||
-      (field !== "territorio" && field !== "seeds" && field !== "finances")
-    ) {
-      throw new NotFoundError("Informaçõs não encontradas");
-    }
-    return await UserRepository.findBy(field);
-  }
   async listByEmail(email: string) {
     if (!email) {
       throw new NotFoundError("Informações não encontradas");
     }
-    return await UserRepository.findByEmail(email);
+
+    return UserRepository.findByEmail(email);
   }
+
   async getById(id: number) {
-    if (!id) {
-      throw new NotFoundError("Usuario não foi encontrado");
+    const user = await UserRepository.findById(id);
+
+    if (!user) {
+      throw new NotFoundError("Usuário não encontrado");
     }
-    return await UserRepository.findById(id);
+
+    return omitPassword(user);
   }
 
   async listByIdWith(field: string, id: number) {
-    if (
-      !field ||
-      (field !== "territorio" && field !== "seeds" && field !== "finances")
-    ) {
-      throw new NotFoundError("Informaçõs não encontradas");
+    const relations = ["territorio", "seeds", "finances"];
+
+    if (!relations.includes(field)) {
+      throw new NotFoundError("Informações não encontradas");
     }
-    return await UserRepository.findByIdWith(field, id);
+
+    return UserRepository.findByIdWithRelation(id, field);
   }
 
-  // criar
   async create(data: CreateUserDTO) {
     const senhaHash = await bcrypt.hash(data.senha, 10);
 
@@ -50,6 +49,7 @@ export class UserService {
       ...data,
       senha: senhaHash,
     });
+
     return omitPassword(user);
   }
 
@@ -57,44 +57,51 @@ export class UserService {
     const user = await UserRepository.findById(id);
 
     if (!user) {
-      throw new NotFoundError("Usuário não encontrado!!!!!");
+      throw new NotFoundError("Usuário não encontrado");
     }
-    // Só vamos alterar/atualizar os campos que vieram
-    // Assim, podemos atualizar só o nome, ou só o email, ou só o nome e senha, etc
 
-    if (data.nome) user.nome = data.nome;
-    if (data.sobrenome) user.sobrenome = data.sobrenome;
-    if (data.email) user.email = data.email;
-    if (data.telefone) user.telefone = data.telefone;
-    if (data.cpf) user.cpf = data.cpf;
+    Object.assign(user, {
+      ...(data.nome && { nome: data.nome }),
+      ...(data.sobrenome && { sobrenome: data.sobrenome }),
+      ...(data.email && { email: data.email }),
+      ...(data.telefone && { telefone: data.telefone }),
+      ...(data.cpf && { cpf: data.cpf }),
+    });
 
-    if (data.senha) user.senha = await bcrypt.hash(data.senha, 10);
+    if (data.senha) {
+      user.senha = await bcrypt.hash(data.senha, 10);
+    }
 
-    const updateUser = await UserRepository.save(user);
+    const updatedUser = await UserRepository.save(user);
 
-    return omitPassword(updateUser);
+    return omitPassword(updatedUser);
   }
 
   async delete(id: number) {
-    const user = await UserRepository.delete(id);
-    if (user.affected === 0) {
-      throw new NotFoundError("Erro ao encontrar usuário");
+    const result = await UserRepository.delete(id);
+
+    if (result.affected === 0) {
+      throw new NotFoundError("Usuário não encontrado");
     }
   }
 
   async login(data: LoginUserDTO) {
     const user = await UserRepository.findByEmail(data.email);
+
     if (!user) {
-      throw new Error("Uusário não cadastrado ou deletado");
+      throw new NotFoundError("Usuário não encontrado");
     }
+
     const validCredentials = await bcrypt.compare(data.senha, user.senha);
 
     if (!validCredentials) {
-      throw new NotFoundError("informações incorretas");
+      throw new NotFoundError("Informações incorretas");
     }
 
-    const token = generateToken({ id: user.id, email: user.email });
-    console.log(token);
+    const token = generateToken({
+      id: user.id,
+      email: user.email,
+    });
 
     return {
       user: omitPassword(user),
