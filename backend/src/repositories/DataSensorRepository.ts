@@ -1,31 +1,22 @@
-import { AppDataSource } from "../config/data-source";
 import { DataSensor } from "../models/DataSensor";
 import { Sensor } from "../models/Sensor";
 import { CreateDataSensorDTO } from "../schemas/data-sensor.schema";
+import { createBaseRepository } from "./BaseRepository";
 
-const repo = AppDataSource.getRepository(DataSensor);
+const base = createBaseRepository(DataSensor);
 
 export const DataSensorRepository = {
-  async findAll() {
-    return repo.find();
-  },
-  async findById(id: number) {
-    return repo.findOne({ where: { id } });
-  },
-  async findBySensorId(sensorId: number) {
-    return repo.findOne({
+  ...base,
+
+  async findBySensorId(sensorId: number): Promise<DataSensor | null> {
+    return base.findOne({
       where: { sensor: { id: sensorId } },
       relations: { sensor: true },
     });
   },
-  async create(data: CreateDataSensorDTO, sensor: Sensor) {
-    const dataSensor = repo.create({ ...data, sensor: sensor });
-    return repo.save(dataSensor);
+
+  async create(data: CreateDataSensorDTO, sensor: Sensor): Promise<DataSensor> {
+    const dataSensor = base.create({ ...data, sensor });
+    return base.save(dataSensor);
   },
-  async save(data: DataSensor) {
-    return repo.save(data);
-  },
-  async delete(id: number) {
-    return repo.softDelete(id);
-  }
 };

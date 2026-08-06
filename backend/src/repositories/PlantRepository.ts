@@ -1,31 +1,21 @@
-import { Seed } from "./../models/Seed";
-import { AppDataSource } from "../config/data-source";
 import { Plant } from "../models/Plant";
 import { CreatePlantDTO } from "../schemas/plant.schema";
+import { createBaseRepository } from "./BaseRepository";
 
-const repo = AppDataSource.getRepository(Plant);
+const base = createBaseRepository(Plant);
 
 export const PlantRepository = {
-  async findAll() {
-    return repo.find();
-  },
-  async findById(id: number) {
-    return repo.findOne({ where: { id } });
-  },
-  async findBySeedId(seedId: number) {
-    return repo.find({
+  ...base,
+
+  async findBySeedId(seedId: number): Promise<Plant[]> {
+    return base.getRepository().find({
       where: { sementes: { id: seedId } },
       relations: { sementes: true },
     });
   },
-  async create(data: CreatePlantDTO) {
-    const planta = repo.create(data);
-    return repo.save(planta);
-  },
-  async save(planta: Plant) {
-    return repo.save(planta);
-  },
-  async delete(id: number) {
-    return repo.delete(id);
+
+  async create(data: CreatePlantDTO): Promise<Plant> {
+    const plant = base.create(data);
+    return base.save(plant);
   },
 };

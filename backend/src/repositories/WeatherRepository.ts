@@ -1,34 +1,22 @@
-import { AppDataSource } from "../config/data-source";
 import { Weather } from "../models/Weather";
 import { Crop } from "../models/Crop";
 import { CreateWeatherDTO } from "../schemas/weather.schema";
+import { createBaseRepository } from "./BaseRepository";
 
-const repo = AppDataSource.getRepository(Weather);
+const base = createBaseRepository(Weather);
 
 export const WeatherRepository = {
-  async findAll() {
-    return repo.find();
-  },
-  async findById(id: number) {
-    return repo.findOne({ where: { id } });
-  },
-  async findByTerritorioId(territorioId: number) {
-    return repo.find({
-      where: { territorio: { id: territorioId } },
-      relations: ["territorio"],
+  ...base,
+
+  async findByCropId(cropId: number): Promise<Weather[]> {
+    return base.getRepository().find({
+      where: { territorio: { id: cropId } },
+      relations: { territorio: true },
     });
   },
-  async create(data: CreateWeatherDTO, territorio: Crop) {
-    const clima = repo.create({ ...data, territorio: territorio });
-    return repo.save(clima);
-  },
-  async save(clima: Weather) {
-    return repo.save(clima);
-  },
-  async delete(id: number) {
-    return repo.delete(id);
-  },
-  async findOne(options: any) {
-    return await repo.findOne(options);
+
+  async create(data: CreateWeatherDTO, crop: Crop): Promise<Weather> {
+    const weather = base.create({ ...data, territorio: crop });
+    return base.save(weather);
   },
 };

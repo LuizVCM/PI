@@ -1,31 +1,23 @@
-import { AppDataSource } from "../config/data-source";
+import { DeleteResult } from "typeorm";
 import { Finance } from "../models/Finance";
 import { User } from "../models/User";
 import { CreateFinanceDTO } from "../schemas/finance.schema";
+import { createBaseRepository } from "./BaseRepository";
 
-const repo = AppDataSource.getRepository(Finance);
+const base = createBaseRepository(Finance);
 
 export const FinanceRepository = {
-  async findAll() {
-    return repo.find();
-  },
-  async findById(id: number) {
-    return repo.findOne({ where: { id } });
-  },
-  async findByUserId(userId: number) {
-    return repo.find({
+  ...base,
+
+  async findByUserId(userId: number): Promise<Finance[]> {
+    return base.getRepository().find({
       where: { usuario: { id: userId } },
       relations: { usuario: true },
     });
   },
-  async create(data: CreateFinanceDTO, user: User) {
-    const financa = repo.create({ ...data, usuario: user });
-    return repo.save(financa);
-  },
-  async save(financa: Finance) {
-    return repo.save(financa);
-  },
-  async delete(id: number) {
-    return repo.delete(id);
+
+  async create(data: CreateFinanceDTO, user: User): Promise<Finance> {
+    const finance = base.create({ ...data, usuario: user });
+    return base.save(finance);
   },
 };
