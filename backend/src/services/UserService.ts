@@ -60,16 +60,18 @@ export class UserService {
       throw new NotFoundError("Usuário não encontrado");
     }
 
-    Object.assign(user, {
-      ...(data.nome && { nome: data.nome }),
-      ...(data.sobrenome && { sobrenome: data.sobrenome }),
-      ...(data.email && { email: data.email }),
-      ...(data.telefone && { telefone: data.telefone }),
-      ...(data.cpf && { cpf: data.cpf }),
-    });
+    const { senha, ...rest } = data;
 
-    if (data.senha) {
-      user.senha = await bcrypt.hash(data.senha, 10);
+
+    Object.assign(
+      user,
+      Object.fromEntries(
+        Object.entries(rest).filter(([, value]) => value !== undefined)
+      )
+    );
+
+    if (senha) {
+      user.senha = await bcrypt.hash(senha, 10);
     }
 
     const updatedUser = await UserRepository.save(user);
