@@ -51,7 +51,7 @@ export class CropService {
     return territorioUpdate;
   }
   async delete(id: number) {
-    const territorio = await CropRepository.delete(id);
+    const territorio = await CropRepository.softDelete(id);
 
     if (territorio.affected === 0) {
       throw new NotFoundError("não foi encontrado território");
