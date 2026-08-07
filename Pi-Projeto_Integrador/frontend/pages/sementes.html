@@ -23,7 +23,7 @@
                 <p>Gestão</p>
             </button>
             <button class="opcao segurancas"> <i class="fa-solid fa-building-shield selecao"></i>
-                <p>Segurança</p>
+                <p>Informações</p>
             </button>
             <button class="opcao sementes"> <i class="fa-solid fa-seedling selecao"></i>
                 <p>Sementes</p>
@@ -245,11 +245,20 @@
             </div>
 
             <div class="dashboard">
-                <button class="item" onclick="window.location.href='';"><div class="items">🌱</div> <h4>Semente </h4></button>
+                <button class="item" onclick="window.location.href='';">
+                    <div class="items">🌱</div>
+                    <h4>Semente </h4>
+                </button>
 
-                <button class="item" onclick="window.location.href='';"><div class="items"><i class="fa-solid fa-sun-plant-wilt" style="color: rgb(191, 226, 202);"></i></div> <h4>Plantação</h4></button>
+                <button class="item" onclick="window.location.href='';">
+                    <div class="items"><i class="fa-solid fa-sun-plant-wilt" style="color: rgb(191, 226, 202);"></i>
+                    </div>
+                    <h4>Plantação</h4>
+                </button>
 
-                <button class="item"><div class="items">🌾</div> Colheita</button>
+                <button class="item">
+                    <div class="items">🌾</div> Colheita
+                </button>
             </div>
             <button type="button" class="envia">Enviar informações</button>
             <div class="dados">
@@ -264,27 +273,80 @@
             </div>
             <h3>Resultado</h3>
             <div class="results">
-                 <div class="dado">
+                <div class="dado">
                     <label for="date" class="date">Recomenda-se plantar em</label>
                     <input type="text" name="data" placeholder="Dia, mês e ano">
                 </div>
-                 <div class="dado">
+                <div class="dado">
                     <label for="estacao" class="estacao">Na estação</label>
                     <input type="text" name="semente" placeholder="Estação da data prevista">
                 </div>
             </div>
-                <div class="previsao">
-                    <div class="dado">
-                    <label for="estacao" class="estacao">Previsao de colheita, caso seja plantado na data prevista</label>
+            <div class="previsao">
+                <div class="dado">
+                    <label for="estacao" class="estacao">Previsao de colheita, caso seja plantado na data
+                        prevista</label>
                     <input type="text" name="semente" placeholder="Estação da data prevista">
                 </div>
+            </div>
+            <button type="submit" class="salvarDados">Salvar</button>
+        </div>
+        <!-- Agenda de plantação -->
+        <div class="agenda toggle1">
+            <div class="modelagem">
+                <button class="editar" id="retornar4">Voltar</button>
+                <h1>Agendamento</h1>
+                <button class="editar"> Editar</button>
+                <button class="excluir"> Excluir</button>
+            </div>
+            <div class="elements">
+                <h1 class="titulo">Agendar plantação</h1>
+                <div class="novaAgenda">Nova agenda</div>
+            </div>
+            <div class="dados">
+                <div class="dado">
+                    <label for="semente" class="semente">SEMENTE</label>
+                    <select name="semente" id="data">
+                        <option value="Nenhuma semente cadastrada">Nenhuma semente cadastrada</option>
+                    </select>
                 </div>
-                <button type="submit" class="salvarDados">Salvar</button>
+                <div class="dado">
+                    <label for="data" class="data">Data da Plantação</label>
+                    <input name="lote" placeholder="Dia, mês e ano" onfocus="(this.type='date')"
+                        onblur="(this.type=this.value?'date':'text')">
+                </div>
+            </div>
+
+            <div class="dados">
+                <div class="dado">
+                    <label for="loteP" class="lotep">Lote em que será plantado</label>
+                    <select name="data" id="data">
+                        <option value="Nenhum lote cadastrado">Nenhum lote cadastrado</option>
+                    </select>
+                </div>
+                <div class="extensao">
+                    <span>Extensão em que será plantada</span>
+                    <div class="infos">
+                        <label for="valor"></label>
+                        <input type="number" placeholder="Insira o valor" class="valor">
+                        <select name="tipoPlano" id="tipoTerra" class="valor">
+                            <option value="hectar">Hectare</option>
+                            <option value="metro quadrado"> Metro quadrado</option>
+                            <option value="alqueires"> Alqueires</option>
+                        </select>
+                    </div>
+                </div>
+            </div> 
+            <h3>Observações</h3>
+                <textarea name="observações" id="obs" placeholder="Insira suas observações sobre esta planta aqui"></textarea>
+
+                <div class="aceites">
+                    <button type="button" class="btn" id="cancel">Cancelar</button>
+                    <button type="button" class="btn" id="aceite"> Agendar Plantação</button>
+                </div>
         </div>
     </main>
-
     <script src="../assets/js/semente.js"></script>
     <script src="../assets/js/home.js"></script>
 </body>
-
 </html>

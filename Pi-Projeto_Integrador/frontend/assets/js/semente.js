@@ -6,6 +6,7 @@ const content = document.querySelector(".content");
 const validade = document.querySelector(".validade");
 const lote = document.querySelector(".lote");
 const recomendacao = document.querySelector(".recomendacao")
+const agenda = document.querySelector(".agenda")
 
 //botao de ação
 const entrarValidade = document.querySelector(".funcao1");
@@ -29,8 +30,12 @@ recomendacaoPlantio.addEventListener("click", () => {
     recomendacao.classList.toggle("valMovimento");
 
 })
+agendarPlantio.addEventListener("click", ()=>{
+     content.classList.toggle("toggle1");
+    agenda.classList.toggle("valMovimento");
+})
 
-// funções de 'nova semente'
+// funções de 'nova semente' e outros
 const novaSemente = document.querySelector(".novaSemente");
 
 const secao = document.querySelector(".secao");
@@ -44,11 +49,16 @@ novaSemente.addEventListener("click", () => {
 })
 
 
+
+
+
+
 const r1 = document.getElementById("retornar1");
 const r2 = document.getElementById("retornar2");
 const r3 = document.getElementById("retornar3");
 const r4 = document.getElementById("retornar4");
 
+const cancel = document.getElementById("cancel")
 
 // está com erro, mas a estrutura é assim 
 r1.addEventListener("click", ()=>{
@@ -58,7 +68,18 @@ r1.addEventListener("click", ()=>{
 r2.addEventListener("click", ()=>{
  content.classList.toggle("toggle1");
  lote.classList.toggle("valMovimento")
+});
+
+r4.addEventListener("click", ()=>{
+     content.classList.toggle("toggle1");
+    agenda.classList.toggle("valMovimento")
 })
+cancel.addEventListener("click", () =>{
+       content.classList.toggle("toggle1");
+    agenda.classList.toggle("valMovimento")
+})
+
+
 
 
 
