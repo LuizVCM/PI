@@ -55,13 +55,14 @@
                     <i class="fa-solid fa-arrow-right"></i>
                 </button>
 
-                <button class="funcao">
+                <button class="funcao" id="btnEstoque">
                     <span>Controle de estoque</span>
                     <i class="fa-solid fa-arrow-right"></i>
                 </button>
             </div>
 
         </div>
+
         <!-- Tela de cadastro de uma nova plantação -->
         <div id="tela-cadastro" class="cadastro tela hidden">
 
@@ -69,7 +70,7 @@
             <div class="cabecalho-cadastro">
                 <!-- Título e descrição da tela -->
                 <div class="titulo-cadastro">
-                    <h1>🌱 Cadastro de Plantação</h1>
+                    <h1>Cadastro de Plantação</h1>
                     <p>Cadastre uma nova área de cultivo para acompanhar todo o ciclo produtivo.</p>
                 </div>
 
@@ -140,13 +141,13 @@
                         <div class="form-group">
                             <label>Data de Plantio</label>
                             <!-- type date para criar um calendário para escolher a data -->
-                            <input type="date" id="plantio">
+                            <input type="date">
                         </div>
 
                         <!-- Data prevista para colher -->
                         <div class="form-group">
                             <label>Colheita Prevista</label>
-                            <input type="date" id="colheita">
+                            <input type="date">
                         </div>
 
                         <!-- Pessoa responsável pela plantação -->
@@ -197,12 +198,13 @@
 
 
         </div>
+
         <!-- Tela de agenda de colheita -->
         <div id="tela-agenda" class="agenda tela hidden">
             <!-- Cabeçalho da página -->
             <div class="cabecalho-agenda">
                 <div>
-                    <h1>📅 Agenda de Colheita</h1>
+                    <h1>Agenda de Colheita</h1>
                     <p>Acompanhe todas as colheitas cadastradas.</p>
                 </div>
 
@@ -332,10 +334,7 @@
         </div>
         <!-- Tela de insumos disponiveis -->
         <div id="tela-insumos" class="insumos tela hidden">
-
             <div class="cabecalho-insumos">
-
-
 
                 <h2>Insumos Disponíveis</h2>
 
@@ -428,10 +427,68 @@
 
         </div>
 
-
+        <div id="tela-estoque" class="estoque tela hidden">
+            <div class="cabecalho-estoque">
+                
+                </button>
+                <h2>Controle de Estoque</h2>
+                <button class="btn-novo">
+                    <i class="fa-solid fa-plus"></i>
+                    Nova Movimentação
+                </button>
+                <button id="btnVoltarEstoque" class="btn-voltar">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Voltar
+                </button>
+            </div>
+            <div class="cards-estoque">
+                <div class="card-estoque">
+                    <h3>120</h3>
+                    <p>Entradas</p>
+                </div>
+                <div class="card-estoque">
+                    <h3>85</h3>
+                    <p>Saídas</p>
+                </div>
+                <div class="card-estoque">
+                    <h3>35</h3>
+                    <p>Saldo Atual</p>
+                </div>
+            </div>
+            <table class="tabela-estoque">
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Movimentação</th>
+                        <th>Quantidade</th>
+                        <th>Data</th>
+                        <th>Responsável</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Milho</td>
+                        <td><span class="entrada">Entrada</span></td>
+                        <td>50 Kg</td>
+                        <td>29/07/2026</td>
+                        <td>John</td>
+                        <td><button class="btn-editar">Editar</button></td>
+                    </tr>
+                    <tr>
+                        <td>Adubo NPK</td>
+                        <td><span class="saida">Saída</span></td>
+                        <td>10 Sacos</td>
+                        <td>28/07/2026</td>
+                        <td>John</td>
+                        <td><button class="btn-editar">Editar</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </main>
-
     <script src="../assets/js/gestao.js"></script>
+    <script src="../assets/js/home.js"></script>
 
 </body>
 

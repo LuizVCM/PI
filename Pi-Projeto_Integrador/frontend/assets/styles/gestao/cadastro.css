@@ -30,8 +30,7 @@
     margin-bottom:20px;
 }
 
-/* Controla todas as telas */
-.tela{
+.tela-suporte{
     display:flex;/* Usa flex para organizar os elementos */
     height:87vh;/* Altura da tela */
     overflow:auto; /* Caso o conteúdo passe do tamanho, cria uma barra de rolagem */

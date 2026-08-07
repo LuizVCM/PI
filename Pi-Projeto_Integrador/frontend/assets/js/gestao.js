@@ -1,56 +1,3 @@
-const navbar = document.querySelector(".navbar");
-const aside = document.querySelector(".aside");
-const arrow = document.querySelector(".fa-arrow-right")
-// IMPORTANDO MENU
-const btnClima = document.querySelector(".clima")
-const btnGestao = document.querySelector(".gestao")
-const btnSegurancas = document.querySelector(".segurancas")
-const btnSementes = document.querySelector(".sementes")
-const btnfinancas = document.querySelector(".financas")
-const btnSuporte = document.querySelector(".suporte")
-const btnRelatorio = document.querySelector(".relatorio")
-const btnPerfil = document.querySelector(".perfil")
-
-navbar.addEventListener("click", () => {
-    aside.classList.toggle("aside-encolhido");
-    arrow.classList.toggle("virado")
-})
-
-// BOTEOES E QUE DIRECIONAN NAS NECESSIDADES
-
-btnClima.addEventListener("click", () => {
-    window.location.href = "./Clima.html"
-})
-
-btnGestao.addEventListener("click", () => {
-    window.location.href = "./Gestao.html"
-})
-
-btnSegurancas.addEventListener("click", () => {
-    window.location.href = "./Seguranca.html"
-})
-
-btnSementes.addEventListener("click", () => {
-    window.location.href = "./Sementes.html"
-})
-
-btnfinancas.addEventListener("click", () => {
-    window.location.href = "./Financas.html"
-})
-
-btnSuporte.addEventListener("click", () => {
-    window.location.href = "./Suporte.html"
-})
-
-btnRelatorio.addEventListener("click", () => {
-    window.location.href = "./Relatorio.html"
-})
-
-btnPerfil.addEventListener("click", () => {
-    window.location.href = "./Perfil.html"
-})
-
-// ================= TELAS =================
 
 
 // Pegando as telas pelo ID do HTML
@@ -64,9 +11,10 @@ const telaAgenda = document.getElementById("tela-agenda");
 
 const telaInsumos = document.getElementById("tela-insumos");
 
+const telaEstoque = document.getElementById("tela-estoque");
+
 
 // ================= BOTÕES =================
-
 
 // Pegando os botões pelo ID para conseguir colocar ações neles
 
@@ -81,6 +29,10 @@ const btnVoltarAgenda = document.getElementById("btnVoltarAgenda");
 const btnInsumos = document.getElementById("btnInsumos");
 
 const btnVoltarInsumos = document.getElementById("btnVoltarInsumos");
+
+const btnEstoque = document.getElementById("btnEstoque");
+
+const btnVoltarEstoque = document.getElementById("btnVoltarEstoque");
 
 // Quando clicar no botão cadastro
 btnCadastro.addEventListener("click", () => {
@@ -140,4 +92,26 @@ btnVoltarInsumos.addEventListener("click", () => {
 
     telaHome.classList.remove("hidden");
     telaHome.classList.add("ativa");
+});
+
+// Abrir tela
+btnEstoque.addEventListener("click", () => {
+
+    telaHome.classList.remove("ativa");
+    telaHome.classList.add("hidden");
+
+    telaEstoque.classList.remove("hidden");
+    telaEstoque.classList.add("ativa");
+
+});
+
+// Voltar
+btnVoltarEstoque.addEventListener("click", () => {
+
+    telaEstoque.classList.remove("ativa");
+    telaEstoque.classList.add("hidden");
+
+    telaHome.classList.remove("hidden");
+    telaHome.classList.add("ativa");
+
 });
