@@ -14,7 +14,7 @@ export class PlantService {
     const planta = await PlantRepository.findById(id);
 
     if (!planta) {
-      throw new NotFoundError("Planta não encontrada!!");
+      throw new NotFoundError("planta");
     }
     return planta;
   }
@@ -23,29 +23,12 @@ export class PlantService {
   }
 
   async create(data: CreatePlantDTO, loggedUserId: number, seedId: number) {
-    if (!data.nome) {
-      throw new Error("Nome é obrigatório");
-    }
-    if (!data.regiao) {
-      throw new Error("região é obrigatória!");
-    }
-
-    if (seedId) {
-      // Busca a semente específica
       const seed = await SeedRepository.findById(seedId);
       if (!seed) {
-        throw new NotFoundError("Semente não encontrada!");
+        throw new NotFoundError("semente");
       }
-    } else {
-      // Busca a primeira semente do usuário
-      const sementes = await SeedRepository.findByUserId(loggedUserId);
+      /// finalizar
 
-      if (!sementes) {
-        throw new NotFoundError(
-          "Nenhuma semente encontrada para este usuário!"
-        );
-      }
-    }
 
     return PlantRepository.create(data);
   }
@@ -72,19 +55,19 @@ export class PlantService {
         "Você não tem permissão para acessar esta planta!"
       );
     }
-    if (data.nome) planta.nome = data.nome;
-    if (data.dataGerminacao) planta.dataGerminacao = data.dataGerminacao;
-    if (data.iluminacao) planta.iluminacao = data.iluminacao;
-    if (data.regiao) planta.regiao = data.regiao;
-    if (data.enxofre) planta.enxofre = data.enxofre;
-    if (data.nitrogenio) planta.nitrogenio = data.nitrogenio;
-    if (data.potassio) planta.potassio = data.potassio;
+
+    Object.assign(
+      planta,
+      Object.fromEntries(
+        Object.entries(data).filter(([, value]) => value !== undefined)
+      )
+    );
 
     const plantaUpdate = await PlantRepository.save(planta);
     return plantaUpdate;
   }
-  async delete(loggedUserId: number) {
-    const planta = await PlantRepository.delete(loggedUserId);
+  async delete(id: number) {
+    const planta = await PlantRepository.delete(id);
 
     if (planta.affected === 0) {
       throw new NotFoundError("não foi encontrado planta");

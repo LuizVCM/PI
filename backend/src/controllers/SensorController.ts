@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import { SensorService } from "../services/SensorService";
 import { climaService } from "./ClimaController";
-import { CropService } from "../services/CropService";
 import { CreateSensorDTO, createSensorSchema } from "../schemas/sensor.schema";
+import { UserService } from "../services/UserService";
 
-const cropService = new CropService();
+const userService = new UserService();
 const sensorService = new SensorService();
 export class SensorController {
   async list(req: Request, res: Response, next: NextFunction) {
@@ -38,7 +38,7 @@ export class SensorController {
     const loggedUser = (req as any).user;
 
     // procura os id para relação (só assim deu certo)
-    const territorio = await cropService.listByUserId(loggedUser);
+    const territorio = await userService.exists(loggedUser.id);
     const clima = await climaService.findByTerritorioId(loggedUser.id);
     if (!clima) {
       throw new Error("Território não possui um clima cadastrado");
@@ -51,32 +51,29 @@ export class SensorController {
 
       const loggedUser = (req as any).user;
 
-      const sensor = await sensorService.create(
-        sensorData,
-        loggedUser.id
-      );
+      const sensor = await sensorService.create(sensorData, loggedUser.id);
 
       return res.status(201).json(sensor);
     } catch (error) {
       next(error);
     }
   }
-//   async update(req: Request, res: Response, next: NextFunction) {
-//     try {
-//       const id = Number(req.params.id);
-//       const { funcao, dados } = req.body;
-//       const loggedUser = (req as any).user;
+  //   async update(req: Request, res: Response, next: NextFunction) {
+  //     try {
+  //       const id = Number(req.params.id);
+  //       const { funcao, dados } = req.body;
+  //       const loggedUser = (req as any).user;
 
-//       const sensor = await sensorService.update(
-//         id,
-//         { funcao, dados },
-//         loggedUser.id
-//       );
-//       return res.json(sensor);
-//     } catch (error) {
-//       next(error);
-//     }
-//   }
+  //       const sensor = await sensorService.update(
+  //         id,
+  //         { funcao, dados },
+  //         loggedUser.id
+  //       );
+  //       return res.json(sensor);
+  //     } catch (error) {
+  //       next(error);
+  //     }
+  //   }
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id);

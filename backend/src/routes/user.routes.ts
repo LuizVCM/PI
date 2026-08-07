@@ -1,7 +1,7 @@
-import { validateUserUpdate } from '../middlewares/validateUser';
+import { validateUserUpdate } from '../middlewares/validate-user';
 import { Router } from "express";
 import { UserController } from "../controllers/UserController";
-import { validateUserCreate } from "../middlewares/validateUser";
+import { validateUserCreate } from "../middlewares/validate-user";
 
 const userRoutes = Router() 
 const userController = new UserController()

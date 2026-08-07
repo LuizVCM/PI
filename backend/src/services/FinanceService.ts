@@ -10,54 +10,51 @@ export class FinanceService {
   }
 
   async getById(id: number) {
-    const financa = await FinanceRepository.findById(id);
+    const finance = await FinanceRepository.findById(id);
 
-    if (!financa) {
-      throw new NotFoundError("Finança não encontrada!!");
+    if (!finance) {
+      throw new NotFoundError("registro financeiro");
     }
-    return financa;
+    return finance;
   }
   async listByUserId(userId: number) {
     return FinanceRepository.findByUserId(userId);
   }
 
   async create(data: CreateFinanceDTO, loggedUserId: number) {
-    if (!data.valor) {
-      throw new Error("Valor é obrigatório");
-    }
-    if (!data.tipo) {
-      throw new Error("Tipo é obrigatório");
-    }
     const user = await UserRepository.findById(loggedUserId);
     if (!user) {
-      throw new NotFoundError("Usuário não encontrado!");
+      throw new NotFoundError("usuário");
     }
     return FinanceRepository.create(data, user);
   }
   async update(id: number, data: UpdateFinanceDTO, loggedUserId: number) {
-    const financa = await FinanceRepository.findById(id);
-    if (!financa) {
-      throw new NotFoundError("Finança não encontrada");
+    const finance = await FinanceRepository.findById(id);
+    if (!finance) {
+      throw new NotFoundError("registro financeiro");
     }
-    if (financa.usuario.id !== loggedUserId) {
+    if (finance.usuario.id !== loggedUserId) {
       throw new ForbiddenError(
-        "Você não tem permissão para acessar esta Finança!"
+        "registros financeiros",
+        "tentativa de alterar dados de outro usuário"
       );
     }
-    if (data.valor) financa.valor = data.valor;
-    if (data.tipo) financa.tipo = data.tipo;
-    if (data.quantidade) financa.quantidade = data.quantidade;
-    if (data.descricao) financa.descricao = data.descricao;
-    if (data.data) financa.data = data.data;
 
-    const financaUpdate = await FinanceRepository.save(financa);
-    return financaUpdate;
+    Object.assign(
+      finance,
+      Object.fromEntries(
+        Object.entries(data).filter(([, value]) => value !== undefined)
+      )
+    );
+
+    const financeUpdate = await FinanceRepository.save(finance);
+    return financeUpdate;
   }
-  async delete(loggedUserId: number) {
-    const territorio = await FinanceRepository.delete(loggedUserId);
+  async delete(id: number) {
+    const finance = await FinanceRepository.softDelete(id);
 
-    if (territorio.affected === 0) {
-      throw new NotFoundError("não foi encontrado finança");
+    if (finance.affected === 0) {
+      throw new NotFoundError("registro financeiro");
     }
   }
 }

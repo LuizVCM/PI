@@ -6,6 +6,7 @@ import {
   UpdateUserDTO,
   updateUserSchema,
 } from "../schemas/user.schema";
+import { UnauthorizedError } from "../errors/UnauthorizedError";
 
 const userService = new UserService();
 export class UserController {
@@ -22,6 +23,19 @@ export class UserController {
       const id = Number(req.params.id);
       const user = await userService.getById(id);
       return res.json(user);
+    } catch (error) {
+      next(error);
+    }
+  }
+  async listByIdWith(req: Request, res: Response, next: NextFunction) {
+    try {
+      if (!req.user?.id) {
+        throw new UnauthorizedError();
+      }
+      const id = req.user.id;
+      const relation: string = req.body.relation;
+      const data = await userService.listByIdWith(relation, id);
+      return res.json(data);
     } catch (error) {
       next(error);
     }
@@ -48,9 +62,8 @@ export class UserController {
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id);
-
-      const user = await userService.delete(id);
-      return res.status(204).send("Usuário deletado com sucesso!!");
+      await userService.delete(id);
+      return res.status(204).send("Usuário deletado com sucesso");
     } catch (error) {
       next(error);
     }

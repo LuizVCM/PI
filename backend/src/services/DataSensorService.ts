@@ -10,20 +10,20 @@ export class DataSensorService {
   async getById(id: number) {
     const data = await DataSensorRepository.findById(id);
     if (!data) {
-      throw new NotFoundError("Dados não encontrados");
+      throw new NotFoundError("dados do sensor");
     }
     return data;
   }
   async listBySensor(sensorId: number) {
     const data = await DataSensorRepository.findBySensorId(sensorId);
     if (!data) {
-      throw new NotFoundError("Dados não encontrados");
+      throw new NotFoundError("dados do sensor");
     }
   }
   async create(data: CreateDataSensorDTO, sensorId: number) {
     const sensor = await SensorRepository.findById(sensorId);
     if (!sensor) {
-      throw new NotFoundError("Sensor não encontrado");
+      throw new NotFoundError("sensor");
     }
     return await DataSensorRepository.create(data, sensor);
   }

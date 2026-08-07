@@ -1,48 +1,57 @@
 import bcrypt from "bcrypt";
 import { UserRepository } from "../repositories/UserRepository";
 import { omitPassword } from "../utils/omitPassword";
-import { generateToken } from "../utils/jwt";
+import { generateToken } from "../auth/json-web-token";
 import {
   CreateUserDTO,
   LoginUserDTO,
   UpdateUserDTO,
 } from "../schemas/user.schema";
 import { NotFoundError } from "../errors/NotFoundError";
+import { User } from "../models/User";
+import { BadRequestError } from "../errors/BadRequestError";
+import { UnauthorizedError } from "../errors/UnauthorizedError";
 
 export class UserService {
-  async listAll() {
+  async exists(id: number): Promise<boolean> {
+    return UserRepository.exists(id);
+  }
+  async listAll(): Promise<User[]> {
     return UserRepository.findAll();
   }
-
   async listByEmail(email: string) {
     if (!email) {
-      throw new NotFoundError("Informações não encontradas");
+      throw new NotFoundError("");
     }
-
     return UserRepository.findByEmail(email);
   }
-
   async getById(id: number) {
     const user = await UserRepository.findById(id);
 
     if (!user) {
-      throw new NotFoundError("Usuário não encontrado");
+      throw new NotFoundError("usuário");
     }
 
     return omitPassword(user);
   }
 
+  /** buscar um usuário por ID com uma relação específica (ex: 'sementes', 'territorios', 'financas' ou 'insumos') */
   async listByIdWith(field: string, id: number) {
-    const relations = ["territorio", "seeds", "finances"];
+    const relations = ["sementes", "territorios", "financas", "insumos"];
 
     if (!relations.includes(field)) {
-      throw new NotFoundError("Informações não encontradas");
+      throw new BadRequestError("relação com a entidade incorreta", field);
     }
 
     return UserRepository.findByIdWithRelation(id, field);
   }
 
   async create(data: CreateUserDTO) {
+    const { cpf, telefone, email } = data;
+    const inUse = await UserRepository.findUniqueKeys({ cpf, telefone, email });
+    if (inUse) {
+      inUse.map((value) => value)
+    }
     const senhaHash = await bcrypt.hash(data.senha, 10);
 
     const user = await UserRepository.create({
@@ -57,11 +66,10 @@ export class UserService {
     const user = await UserRepository.findById(id);
 
     if (!user) {
-      throw new NotFoundError("Usuário não encontrado");
+      throw new NotFoundError("usuário");
     }
 
     const { senha, ...rest } = data;
-
 
     Object.assign(
       user,
@@ -80,10 +88,10 @@ export class UserService {
   }
 
   async delete(id: number) {
-    const result = await UserRepository.delete(id);
+    const result = await UserRepository.softDelete(id);
 
     if (result.affected === 0) {
-      throw new NotFoundError("Usuário não encontrado");
+      throw new NotFoundError("usuário");
     }
   }
 
@@ -91,13 +99,13 @@ export class UserService {
     const user = await UserRepository.findByEmail(data.email);
 
     if (!user) {
-      throw new NotFoundError("Usuário não encontrado");
+      throw new NotFoundError("usuário");
     }
 
     const validCredentials = await bcrypt.compare(data.senha, user.senha);
 
     if (!validCredentials) {
-      throw new NotFoundError("Informações incorretas");
+      throw new UnauthorizedError("credenciais inválidas");
     }
 
     const token = generateToken({

@@ -2,69 +2,76 @@ import { WeatherRepository } from "../repositories/WeatherRepository";
 import { CropRepository } from "../repositories/CropRepository";
 import { ForbiddenError } from "../errors/ForbiddenError";
 import { NotFoundError } from "../errors/NotFoundError";
-import { CreateWeatherDTO, UpdateWeatherDTO } from "../schemas/weather.schema";
+import { CreateWeatherDTO } from "../schemas/weather.schema";
+import { UserRepository } from "../repositories/UserRepository";
 
 export class WeatherService {
-    async listAll(){
-        return await WeatherRepository.findAll()
-    }
+  async listAll() {
+    return await WeatherRepository.findAll();
+  }
 
-    async getById(id:number){
-         const clima = await WeatherRepository.findById(id)
+  async getById(id: number) {
+    const data = await WeatherRepository.findById(id);
 
-        if (!clima) {
-            throw new NotFoundError("Clima exato não encontrado!!")
-        }
-        return clima;
+    if (!data) {
+      throw new NotFoundError("registro climático");
     }
-    async findByTerritorioId(territorioId: number) {
-    return await WeatherRepository.findOne({ 
-        where: { territorioId: territorioId } 
+    return data;
+  }
+  async findByCropId(cropId: number) {
+    return await WeatherRepository.findByCropId(cropId);
+  }
+  async listByUserLogged(userId: number) {
+    const user = await UserRepository.findById(userId);
+    if (!user) {
+      throw new NotFoundError("usuário");
+    }
+    const weatherData = await WeatherRepository.findAll({
+      where: { territorio: { usuario: user } },
+      relations: { territorio: true },
     });
-}
-    async listMyWeathers(territorioId: number) {
-        return await WeatherRepository.findByTerritorioId(territorioId)
+    return weatherData;
+  }
+
+  async create(data: CreateWeatherDTO, loggedUserId: number, cropId: number) {
+    const crop = await CropRepository.findById(cropId);
+
+    if (!crop) {
+      throw new NotFoundError("território");
     }
 
-async create(data: CreateWeatherDTO, loggedUserId:number, territorioId: number){
-    // if (!data.data) {
-    //     throw new Error("Informe a data do clima!");
-    // }
-    // Se forneceu um territorioId específico
-
-    const territorio = await CropRepository.findById(territorioId);
-    
-    if (!territorio) {
-        throw new NotFoundError("território não encontrado!");
+    if (crop.usuario.id !== loggedUserId) {
+      throw new ForbiddenError("territórios");
     }
-    
-    return await WeatherRepository.create(data, territorio);
-}
-    async update(id:number, data: UpdateWeatherDTO, loggedUserId:number){
-        const clima = await WeatherRepository.findById(id)
 
-        if(!clima){
-            throw new NotFoundError("clima exato não encontrado")
-        }
-        if(clima.territorio.usuario.id !== loggedUserId){
-            throw new ForbiddenError("Você não tem permissão para acessar este clima!")
-        }
+    return await WeatherRepository.create(data, crop);
+  }
+  //   async update(id: number, data: UpdateWeatherDTO, loggedUserId: number) {
+  //     const weatherData = await WeatherRepository.findById(id);
 
-        if(data.data) clima.data = data.data
-        if(data.chuva) clima.precipitacao = data.chuva
-        if(data.temperatura) clima.temperatura = data.temperatura
-        if(data.vento) clima.vento = data.vento
-        if(data.umidade) clima.umidade = data.umidade
-   
+  //     if (!weatherData) {
+  //       throw new NotFoundError("registro climático");
+  //     }
+  //     if (weatherData.territorio.usuario.id !== loggedUserId) {
+  //       throw new ForbiddenError(
+  //         "registros climáticos",
+  //         "tentativa de alterar dados de outro usuário"
+  //       );
+  //     }
+  //     Object.assign(
+  //       weatherData,
+  //       Object.fromEntries(
+  //         Object.entries(data).filter(([, value]) => value !== undefined)
+  //       )
+  //     );
+  //     const weatherUpdated = await WeatherRepository.save(weatherData);
+  //     return weatherUpdated;
+  //   }
+  async delete(weatherId: number) {
+    const weatherData = await WeatherRepository.softDelete(weatherId);
 
-        const climaUpdate = await WeatherRepository.save(clima)
-        return climaUpdate
+    if (weatherData.affected === 0) {
+      throw new NotFoundError("registro climático");
     }
-    async delete(loggedUserId:number){
-        const clima = await WeatherRepository.delete(loggedUserId)
-
-        if(clima.affected === 0){
-            throw new NotFoundError("não foi encontrado Clima")
-        }
-    }
+  }
 }

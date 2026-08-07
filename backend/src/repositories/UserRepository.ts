@@ -6,14 +6,32 @@ const base = createBaseRepository(User);
 
 export const UserRepository = {
   ...base,
-
-  /** buscar usuário por email (único) */
-  async findByEmail(email: string): Promise<User | null> {
-    return base.findOne({ where: { email } });
+  /** buscar por chaves únicas, a fim de validar um cadastro */
+  async findUniqueKeys(keys: { cpf: string; telefone: string; email: string }) {
+    return base.findAll({
+      where: keys,
+      select: { cpf: true, telefone: true, email: true },
+    });
   },
-
-  /** buscar usuários por ID com uma relação específica (ex: 'seeds', 'territorios') */
-  async findByIdWithRelation(id: number, relation: string): Promise<User | null> {
+  /** busca apenas por e-mail */
+  async findByEmail(email: string) {
+    return base.findOne({
+      where: { email },
+      select: { id: true, email: true },
+    });
+  },
+  /** busca por e-mail para ser utilizado ao logar. APENAS no login, pois aqui a senha é retornada */
+  async findByEmailWithPassword(email: string) {
+    return base.findOne({
+      where: { email },
+      select: { id: true, email: true, senha: true },
+    });
+  },
+  /** buscar um usuário por ID com uma relação específica (ex: 'sementes', 'territorios', 'financas' ou 'insumos') */
+  async findByIdWithRelation(
+    id: number,
+    relation: string
+  ): Promise<User | null> {
     return base.findById(id, { relations: [relation] });
   },
 

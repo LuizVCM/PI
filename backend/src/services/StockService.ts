@@ -35,17 +35,20 @@ export class StockService {
     if (stock.usuario.id !== loggedUserId) {
       throw new ForbiddenError("Sem permissão");
     }
-    Array(data).forEach((value) => {
-        if(value) {
-
-        }
-    })
+    Object.assign(
+      stock,
+      Object.fromEntries(
+        Object.entries(data).filter(([, value]) => value !== undefined)
+      )
+    );
+    const stockUpdated = await StockRepository.save(stock);
+    return stockUpdated;
   }
   async delete(id: number) {
-    const territorio = await StockRepository.delete(id);
+    const stock = await StockRepository.softDelete(id);
 
-    if (territorio.affected === 0) {
-      throw new NotFoundError("não foi encontrado território");
+    if (stock.affected === 0) {
+      throw new NotFoundError("Registro não encontrado");
     }
   }
 }

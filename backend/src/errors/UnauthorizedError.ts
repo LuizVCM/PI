@@ -1,6 +1,6 @@
 import { AppError } from "./AppError";
 export class UnauthorizedError extends AppError {
-    constructor(message = 'Unauthorized') {
-        super(message, 401)
-    }
+  constructor(readonly info?: string) {
+    super(info ? `Não autorizado: ${info}` : "Não autorizado", 401);
+  }
 }

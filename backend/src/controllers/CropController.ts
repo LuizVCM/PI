@@ -1,7 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import { CropService } from "../services/CropService";
+import { UserService } from "../services/UserService";
 
-export const territorioService = new CropService();
+const userService = new UserService();
+const territorioService = new CropService();
 export class CropController {
   async list(req: Request, res: Response, next: NextFunction) {
     try {
@@ -20,13 +22,11 @@ export class CropController {
       next(error);
     }
   }
-  async listMyPosts(req: Request, res: Response, next: NextFunction) {
+  async listMyCrops(req: Request, res: Response, next: NextFunction) {
     try {
       const loggedUser = (req as any).user;
-      console.log(loggedUser);
-      const myTerritorios = await territorioService.listByUserId(loggedUser.id);
-
-      return res.status(200).json(myTerritorios);
+      const myCrops = await userService.listByIdWith("territorios", loggedUser.id);
+      return res.status(200).json(myCrops);
     } catch (error) {
       next(error);
     }
