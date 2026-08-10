@@ -39,16 +39,16 @@ export const passwordSchema = z
   .max(255);
 
 export const createUserSchema = z.object({
-  nome: z.string().trim().min(3).max(100),
-  sobrenome: z.string().trim().min(3).max(100),
-  email: z.email(),
+  nome: z.string().trim().min(3, "O nome é muito curto").max(100, "O nome é muito longo"),
+  sobrenome: z.string().trim().min(3, "O sobrenome é muito curto").max(100, "O sobrenome é muito longo"),
+  email: z.email("E-mail inválido"),
   telefone: telefoneSchema,
   cpf: cpfSchema,
   senha: passwordSchema,
 });
 export const updateUserSchema = createUserSchema.partial();
 export const loginUserSchema = z.object({
-  email: z.email(),
+  email: z.email("E-mail inválido"),
   senha: z.string().min(1, "A senha é obrigatória"),
 });
 export type CreateUserDTO = z.infer<typeof createUserSchema>;
