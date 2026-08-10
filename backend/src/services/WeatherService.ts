@@ -2,7 +2,7 @@ import { WeatherRepository } from "../repositories/WeatherRepository";
 import { CropRepository } from "../repositories/CropRepository";
 import { ForbiddenError } from "../errors/ForbiddenError";
 import { NotFoundError } from "../errors/NotFoundError";
-import { CreateWeatherDTO } from "../schemas/weather.schema";
+import { CreateWeatherDTO, UpdateWeatherDTO } from "../schemas/weather.schema";
 import { UserRepository } from "../repositories/UserRepository";
 
 export class WeatherService {
@@ -46,27 +46,27 @@ export class WeatherService {
 
     return await WeatherRepository.create(data, crop);
   }
-  //   async update(id: number, data: UpdateWeatherDTO, loggedUserId: number) {
-  //     const weatherData = await WeatherRepository.findById(id);
+  async update(id: number, data: UpdateWeatherDTO, loggedUserId: number) {
+    const weatherData = await WeatherRepository.findById(id);
 
-  //     if (!weatherData) {
-  //       throw new NotFoundError("registro climático");
-  //     }
-  //     if (weatherData.territorio.usuario.id !== loggedUserId) {
-  //       throw new ForbiddenError(
-  //         "registros climáticos",
-  //         "tentativa de alterar dados de outro usuário"
-  //       );
-  //     }
-  //     Object.assign(
-  //       weatherData,
-  //       Object.fromEntries(
-  //         Object.entries(data).filter(([, value]) => value !== undefined)
-  //       )
-  //     );
-  //     const weatherUpdated = await WeatherRepository.save(weatherData);
-  //     return weatherUpdated;
-  //   }
+    if (!weatherData) {
+      throw new NotFoundError("registro climático");
+    }
+    if (weatherData.territorio.usuario.id !== loggedUserId) {
+      throw new ForbiddenError(
+        "registros climáticos",
+        "tentativa de alterar dados de outro usuário"
+      );
+    }
+    Object.assign(
+      weatherData,
+      Object.fromEntries(
+        Object.entries(data).filter(([, value]) => value !== undefined)
+      )
+    );
+    const weatherUpdated = await WeatherRepository.save(weatherData);
+    return weatherUpdated;
+  }
   async delete(weatherId: number) {
     const weatherData = await WeatherRepository.softDelete(weatherId);
 

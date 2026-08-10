@@ -2,7 +2,6 @@ import { Weather } from "../models/Weather";
 import { Crop } from "../models/Crop";
 import { CreateWeatherDTO } from "../schemas/weather.schema";
 import { createBaseRepository } from "./BaseRepository";
-import { User } from "../models/User";
 
 const base = createBaseRepository(Weather);
 
