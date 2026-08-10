@@ -20,7 +20,7 @@ export class User extends BaseModel {
   @Column({ length: 100, nullable: false, unique: true })
   email: string;
 
-  @Column({ length: 20, type: "char", nullable: false, unique: true })
+  @Column({ length: 20, type: "varchar", nullable: false, unique: true })
   telefone: string;
 
   @Column({ length: 11, type: "char", nullable: false, unique: true })

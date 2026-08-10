@@ -1,16 +1,19 @@
 import z from "zod";
-import { parsePhoneNumberFromString } from "libphonenumber-js";
+import { parsePhoneNumberFromString } from "libphonenumber-js/max";
 import { cpf } from "cpf-cnpj-validator";
 
 const telefoneSchema = z.string().transform((valor, ctx) => {
+  const tiposAceitos = ["MOBILE", "FIXED_LINE", "FIXED_LINE_OR_MOBILE"];
   const telefone = parsePhoneNumberFromString(valor, "BR");
-  if (!telefone?.isValid()) {
+  console.log(telefone?.getType())
+  if (!telefone?.isValid() || !tiposAceitos.includes(telefone.getType() ?? "")) {
     ctx.addIssue({
       code: "custom",
       message: "Telefone inválido",
     });
-    return z.NEVER;
+    return z.NEVER; 
   }
+
   return telefone.number; // retorna em e164 (ex: +5551999999999)
 });
 
