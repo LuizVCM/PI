@@ -66,11 +66,11 @@ export class UserService {
         throw new ConflictError(fields);
       }
     }
-    const senhaHash = await bcrypt.hash(data.senha, 10);
+    const passHash = await bcrypt.hash(data.senha, 10);
 
     const user = await UserRepository.create({
       ...data,
-      senha: senhaHash,
+      senha: passHash,
     });
 
     return omitPassword(user);
@@ -113,7 +113,7 @@ export class UserService {
     const userRegistered = await UserRepository.findByEmail(data.email);
 
     if (!userRegistered) {
-      throw new NotFoundError("usuário", "e-mail não cadastrado");
+      throw new UnauthorizedError("credenciais inválidas");
     }
 
     const user = await UserRepository.findByEmailWithPassword(data.email);

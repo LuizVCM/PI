@@ -14,7 +14,13 @@ export const SensorRepository = {
     });
   },
 
-  create(data: CreateSensorDTO, crop: Crop): Promise<Sensor> {
+  async findByUserId(userId: number): Promise<Sensor[]> {
+    return base
+      .getRepository()
+      .find({ where: { territorio: { usuario: { id: userId } } } });
+  },
+
+  async create(data: CreateSensorDTO, crop: Crop): Promise<Sensor> {
     const sensor = base.create({ ...data, territorio: crop });
     return base.save(sensor);
   },

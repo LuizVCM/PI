@@ -13,17 +13,17 @@ export class StockService {
   async getById(id: number) {
     const stock = await StockRepository.findById(id);
     if (!stock) {
-      throw new NotFoundError("Registro não encontrado");
+      throw new NotFoundError("registro de insumo");
     }
     return stock;
   }
-  async listByUserId(userId: number) {
+  async listByUserLogged(userId: number) {
     return await StockRepository.findByUserId(userId);
   }
   async create(data: CreateStockDTO, loggedUserId: number) {
     const user = await UserRepository.findById(loggedUserId);
     if (!user) {
-      throw new NotFoundError("Usuário não encontrado");
+      throw new NotFoundError("usuário");
     }
     const stock = await StockRepository.create(data, user);
     return { ...stock, user: omitPassword(user) };
@@ -31,11 +31,15 @@ export class StockService {
   async update(id: number, data: UpdateStockDTO, loggedUserId: number) {
     const stock = await StockRepository.findById(id);
     if (!stock) {
-      throw new NotFoundError("Registro não encontrado");
+      throw new NotFoundError("registro de insumo");
     }
-    if (stock.usuario.id !== loggedUserId) {
-      throw new ForbiddenError("Sem permissão");
-    }
+
+    AuthorizationService.ensureOwnership(
+      stock,
+      loggedUserId,
+      "registros de insumos"
+    );
+
     Object.assign(
       stock,
       Object.fromEntries(
@@ -48,18 +52,18 @@ export class StockService {
   async delete(id: number, loggedUserId: number) {
     const stock = await StockRepository.findById(id);
     if (!stock) {
-      throw new NotFoundError("Registro não encontrado");
+      throw new NotFoundError("registro de insumos");
     }
 
     AuthorizationService.ensureOwnership(
       stock,
       loggedUserId,
-      "estoque de insumos"
+      "registros de insumos"
     );
 
     const result = await StockRepository.softDelete(id);
     if (result.affected === 0) {
-      throw new NotFoundError("Registro não encontrado");
+      throw new NotFoundError("registro de insumos");
     }
   }
 }

@@ -1,6 +1,5 @@
 import { PlantRepository } from "../repositories/PlantRepository";
 import { NotFoundError } from "../errors/NotFoundError";
-import { ForbiddenError } from "../errors/ForbiddenError";
 import { SeedRepository } from "../repositories/SeedRepository";
 import { CreatePlantDTO, UpdatePlantDTO } from "../schemas/plant.schema";
 
@@ -10,66 +9,61 @@ export class PlantService {
   }
 
   async getById(id: number) {
-    const planta = await PlantRepository.findById(id);
+    const plant = await PlantRepository.findById(id);
 
-    if (!planta) {
+    if (!plant) {
       throw new NotFoundError("planta");
     }
-    return planta;
+    return plant;
   }
-  async listMyPlants(sementeId: number) {
-    return PlantRepository.findBySeedId(sementeId);
+  async listBySeedId(seedId: number) {
+    const plants = await PlantRepository.findBySeedId(seedId);
+    if (!plants) {
+      throw new NotFoundError("plantas");
+    }
+    return plants;
   }
-
-  async create(data: CreatePlantDTO, loggedUserId: number, seedId: number) {
-      const seed = await SeedRepository.findById(seedId);
-      if (!seed) {
-        throw new NotFoundError("semente");
-      }
-      /// finalizar
-
-
+  async listByUserLogged(userId: number) {
+    const plants = await PlantRepository.findByUserId(userId);
+    if (!plants) {
+      throw new NotFoundError("plantas");
+    }
+    return plants;
+  }
+  async create(id: number, data: CreatePlantDTO) {
+    const seed = await SeedRepository.findById(id);
+    if (!seed) {
+      throw new NotFoundError("semente");
+    }
     return PlantRepository.create(data);
   }
-  async update(
-    id: number,
-    data: UpdatePlantDTO,
-    loggedUserId: number,
-    seedId: number
-  ) {
-    const planta = await PlantRepository.findById(id);
+  async update(id: number, data: UpdatePlantDTO, seedId: number) {
+    const plant = await PlantRepository.findById(id);
 
-    if (!planta) {
-      throw new NotFoundError("Planta não encontrada");
+    if (!plant) {
+      throw new NotFoundError("planta");
     }
 
-    const semente = await SeedRepository.findById(seedId);
+    const seed = await SeedRepository.findById(seedId);
 
-    if (!semente) {
-      throw new NotFoundError("Semente não encontrada");
-    }
-
-    if (semente.usuario.id !== loggedUserId) {
-      throw new ForbiddenError(
-        "Você não tem permissão para acessar esta planta!"
-      );
+    if (!seed) {
+      throw new NotFoundError("semente");
     }
 
     Object.assign(
-      planta,
+      plant,
       Object.fromEntries(
         Object.entries(data).filter(([, value]) => value !== undefined)
       )
     );
 
-    const plantaUpdate = await PlantRepository.save(planta);
+    const plantaUpdate = await PlantRepository.save(plant);
     return plantaUpdate;
   }
   async delete(id: number) {
-    const planta = await PlantRepository.delete(id);
-
-    if (planta.affected === 0) {
-      throw new NotFoundError("não foi encontrado planta");
+    const result = await PlantRepository.delete(id);
+    if (result.affected === 0) {
+      throw new NotFoundError("planta");
     }
   }
 }
