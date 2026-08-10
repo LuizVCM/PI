@@ -47,8 +47,8 @@ export class FinanceService {
       )
     );
 
-    const financeUpdate = await FinanceRepository.save(finance);
-    return financeUpdate;
+    const financeUpdated = await FinanceRepository.save(finance);
+    return financeUpdated;
   }
   async delete(id: number) {
     const finance = await FinanceRepository.softDelete(id);

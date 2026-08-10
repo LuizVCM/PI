@@ -13,7 +13,7 @@ export class SeedService {
     const seed = await SeedRepository.findById(id);
 
     if (!seed) {
-      throw new NotFoundError("seed não encontrada");
+      throw new NotFoundError("semente");
     }
     return seed;
   }
@@ -24,7 +24,7 @@ export class SeedService {
   async create(data: CreateSeedDTO, loggedUserId: number) {
     const user = await UserRepository.findById(loggedUserId);
     if (!user) {
-      throw new NotFoundError("Usuário não encontrado!");
+      throw new NotFoundError("usuário");
     }
     return SeedRepository.create(data, user);
   }
@@ -32,11 +32,12 @@ export class SeedService {
     const seed = await SeedRepository.findById(id);
 
     if (!seed) {
-      throw new NotFoundError("Semente não encontrada");
+      throw new NotFoundError("semente");
     }
     if (seed.usuario.id !== loggedUserId) {
       throw new ForbiddenError(
-        "Você não tem permissão para alterar e acessar esses dados"
+        "sementes",
+        "tentativa de alterar dados de outro usuário"
       );
     }
     Object.assign(
@@ -53,7 +54,7 @@ export class SeedService {
     const seed = await SeedRepository.delete(id);
 
     if (seed.affected === 0) {
-      throw new NotFoundError("não foi encontrado semente");
+      throw new NotFoundError("semente");
     }
   }
 }

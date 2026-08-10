@@ -1,7 +1,6 @@
 import { PlantRepository } from "../repositories/PlantRepository";
 import { NotFoundError } from "../errors/NotFoundError";
 import { ForbiddenError } from "../errors/ForbiddenError";
-import { Seed } from "../models/Seed";
 import { SeedRepository } from "../repositories/SeedRepository";
 import { CreatePlantDTO, UpdatePlantDTO } from "../schemas/plant.schema";
 

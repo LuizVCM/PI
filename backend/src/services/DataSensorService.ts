@@ -19,6 +19,7 @@ export class DataSensorService {
     if (!data) {
       throw new NotFoundError("dados do sensor");
     }
+    return data;
   }
   async create(data: CreateDataSensorDTO, sensorId: number) {
     const sensor = await SensorRepository.findById(sensorId);
