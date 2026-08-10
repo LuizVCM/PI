@@ -4,6 +4,7 @@ import { StockRepository } from "../repositories/StockRepository";
 import { UserRepository } from "../repositories/UserRepository";
 import { CreateStockDTO, UpdateStockDTO } from "../schemas/stock.schema";
 import { omitPassword } from "../utils/omitPassword";
+import { AuthorizationService } from "./AuthorizationService";
 
 export class StockService {
   async listAll() {
@@ -44,10 +45,20 @@ export class StockService {
     const stockUpdated = await StockRepository.save(stock);
     return stockUpdated;
   }
-  async delete(id: number) {
-    const stock = await StockRepository.softDelete(id);
+  async delete(id: number, loggedUserId: number) {
+    const stock = await StockRepository.findById(id);
+    if (!stock) {
+      throw new NotFoundError("Registro não encontrado");
+    }
 
-    if (stock.affected === 0) {
+    AuthorizationService.ensureOwnership(
+      stock,
+      loggedUserId,
+      "estoque de insumos"
+    );
+
+    const result = await StockRepository.softDelete(id);
+    if (result.affected === 0) {
       throw new NotFoundError("Registro não encontrado");
     }
   }

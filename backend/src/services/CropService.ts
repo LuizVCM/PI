@@ -1,10 +1,9 @@
-import { deprecate } from "util";
-import { ForbiddenError } from "../errors/ForbiddenError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { CropRepository } from "../repositories/CropRepository";
 import { UserRepository } from "../repositories/UserRepository";
 import { CreateCropDTO, UpdateCropDTO } from "../schemas/crop.schema";
 import { omitPassword } from "../utils/omitPassword";
+import { AuthorizationService } from "./AuthorizationService";
 
 export class CropService {
   async listAll() {
@@ -18,9 +17,8 @@ export class CropService {
     }
     return crop;
   }
-  // será usado findByIdWithRelation do UserRepository, qualquer relação de user pode ser listado com esse método
-  async listByUserId(userId: number) {
-    return await CropRepository.findById(userId);
+  async listByUserLogged(userId: number) {
+    return await UserRepository.findByIdWithRelation(userId, "territorios");
   }
   async create(data: CreateCropDTO, loggedUserId: number) {
     const user = await UserRepository.findById(loggedUserId);
@@ -36,9 +34,9 @@ export class CropService {
     if (!crop) {
       throw new NotFoundError("território");
     }
-    if (crop.usuario.id !== loggedUserId) {
-      throw new ForbiddenError("territórios", "tentativa de alterar dados de outro usuário");
-    }
+
+    AuthorizationService.ensureOwnership(crop, loggedUserId, "territórios");
+
     Object.assign(
       crop,
       Object.fromEntries(
@@ -49,10 +47,16 @@ export class CropService {
     const cropUpdated = await CropRepository.save(crop);
     return cropUpdated;
   }
-  async delete(id: number) {
-    const crop = await CropRepository.softDelete(id);
+  async delete(id: number, loggedUserId: number) {
+    const crop = await CropRepository.findById(id);
+    if (!crop) {
+      throw new NotFoundError("território");
+    }
 
-    if (crop.affected === 0) {
+    AuthorizationService.ensureOwnership(crop, loggedUserId, "territórios");
+
+    const result = await CropRepository.softDelete(id);
+    if (result.affected === 0) {
       throw new NotFoundError("território");
     }
   }
