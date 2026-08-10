@@ -7,11 +7,27 @@ const base = createBaseRepository(User);
 export const UserRepository = {
   ...base,
   /** buscar por chaves únicas, a fim de validar um cadastro */
-  async findUniqueKeys(keys: { cpf: string; telefone: string; email: string }) {
-    return base.findAll({
-      where: keys,
-      select: { cpf: true, telefone: true, email: true },
+  async findConflicts(keys: { cpf: string; telefone: string; email: string }) {
+    const users = await base.findAll({
+      where: [
+        { cpf: keys.cpf },
+        { telefone: keys.telefone },
+        { email: keys.email },
+      ],
+      select: { id: true, cpf: true, telefone: true, email: true },
     });
+    // mapeia quais campos estão em uso
+    const conflicts = {
+      cpf: false,
+      telefone: false,
+      email: false,
+    };
+    for (const user of users) {
+      if (user.cpf === keys.cpf) conflicts.cpf = true;
+      if (user.telefone === keys.telefone) conflicts.telefone = true;
+      if (user.email === keys.email) conflicts.email = true;
+    }
+    return conflicts;
   },
   /** busca apenas por e-mail */
   async findByEmail(email: string) {

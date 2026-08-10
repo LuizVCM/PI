@@ -11,6 +11,8 @@ import { NotFoundError } from "../errors/NotFoundError";
 import { User } from "../models/User";
 import { BadRequestError } from "../errors/BadRequestError";
 import { UnauthorizedError } from "../errors/UnauthorizedError";
+import { ConflictError } from "../errors/ConflictError";
+import { InternalServerError } from "../errors/InternalServerError";
 
 export class UserService {
   async exists(id: number): Promise<boolean> {
@@ -48,9 +50,21 @@ export class UserService {
 
   async create(data: CreateUserDTO) {
     const { cpf, telefone, email } = data;
-    const inUse = await UserRepository.findUniqueKeys({ cpf, telefone, email });
-    if (inUse) {
-      inUse.map((value) => value)
+    const alreadyInUse = await UserRepository.findConflicts({
+      cpf,
+      telefone,
+      email,
+    });
+    if (alreadyInUse) {
+      const fields: string[] = [];
+
+      if (alreadyInUse.cpf) fields.push("CPF");
+      if (alreadyInUse.telefone) fields.push("telefone");
+      if (alreadyInUse.email) fields.push("e-mail");
+
+      if (fields.length > 0) {
+        throw new ConflictError(fields);
+      }
     }
     const senhaHash = await bcrypt.hash(data.senha, 10);
 
@@ -88,7 +102,7 @@ export class UserService {
   }
 
   async delete(id: number) {
-    const result = await UserRepository.softDelete(id);
+    const result = await UserRepository.delete(id);
 
     if (result.affected === 0) {
       throw new NotFoundError("usuário");
@@ -96,10 +110,16 @@ export class UserService {
   }
 
   async login(data: LoginUserDTO) {
-    const user = await UserRepository.findByEmail(data.email);
+    const userRegistered = await UserRepository.findByEmail(data.email);
+
+    if (!userRegistered) {
+      throw new NotFoundError("usuário", "e-mail não cadastrado");
+    }
+
+    const user = await UserRepository.findByEmailWithPassword(data.email);
 
     if (!user) {
-      throw new NotFoundError("usuário");
+      throw new InternalServerError("Ocorreu um erro inesperado");
     }
 
     const validCredentials = await bcrypt.compare(data.senha, user.senha);
@@ -117,5 +137,16 @@ export class UserService {
       user: omitPassword(user),
       token,
     };
+  }
+  async checkUserPassword(email: string, pass: string) {
+    const user = await UserRepository.findByEmailWithPassword(email);
+    if (!user) {
+      throw new NotFoundError("usuário");
+    }
+    const passwordIsValid = await bcrypt.compare(pass, user.senha);
+    if (!passwordIsValid) {
+      throw new UnauthorizedError();
+    }
+    return { user: omitPassword(user) };
   }
 }
