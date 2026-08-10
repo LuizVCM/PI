@@ -1,86 +1,115 @@
 import { Request, Response, NextFunction } from "express";
 import { SensorService } from "../services/SensorService";
-import { climaService } from "./ClimaController";
-import { CreateSensorDTO, createSensorSchema } from "../schemas/sensor.schema";
 import { UserService } from "../services/UserService";
+import {
+  CreateSensorDTO,
+  createSensorSchema,
+  UpdateSensorDTO,
+  updateSensorSchema,
+} from "../schemas/sensor.schema";
+import { UnauthorizedError } from "../errors/UnauthorizedError";
+import { BadRequestError } from "../errors/BadRequestError";
 
-const userService = new UserService();
-const sensorService = new SensorService();
 export class SensorController {
+  private sensorService = new SensorService();
+  private userService = new UserService();
+
   async list(req: Request, res: Response, next: NextFunction) {
     try {
-      const sensor = await sensorService.listAll();
-      return res.json(sensor);
+      const sensors = await this.sensorService.listAll();
+
+      return res.json(sensors);
     } catch (error) {
       next(error);
     }
   }
+
   async getById(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id);
-      const sensor = await sensorService.getById(id);
+
+      const sensor = await this.sensorService.getById(id);
+
       return res.json(sensor);
     } catch (error) {
       next(error);
     }
   }
+
   async listMySensors(req: Request, res: Response, next: NextFunction) {
     try {
-      const loggedUser = (req as any).user;
-      console.log(loggedUser);
-      const mySensors = await sensorService.listMySensors(loggedUser.id);
-      return res.status(200).json(mySensors);
+      if (!req.user?.id) {
+        throw new UnauthorizedError("não autenticado");
+      }
+
+      const sensors = await this.sensorService.listMySensors(req.user.id);
+
+      return res.status(200).json(sensors);
     } catch (error) {
       next(error);
     }
   }
-  async create(req: Request, res: Response, next: NextFunction) {
-    const loggedUser = (req as any).user;
 
-    // procura os id para relação (só assim deu certo)
-    const territorio = await userService.exists(loggedUser.id);
-    const clima = await climaService.findByTerritorioId(loggedUser.id);
-    if (!clima) {
-      throw new Error("Território não possui um clima cadastrado");
-    }
-    if (!territorio) {
-      throw new Error("Usuário não possui um território cadastrado");
-    }
+  async create(req: Request, res: Response, next: NextFunction) {
     try {
+      if (!req.user?.id) {
+        throw new UnauthorizedError("não autenticado");
+      }
+
+      const user = await this.userService.getById(req.user.id);
+      
+
+      if (!territory) {
+        throw new BadRequestError(
+          "Usuário não possui um território cadastrado"
+        );
+      }
+
+      if (!weather) {
+        throw new BadRequestError("Território não possui um clima cadastrado");
+      }
+
       const sensorData: CreateSensorDTO = createSensorSchema.parse(req.body);
 
-      const loggedUser = (req as any).user;
-
-      const sensor = await sensorService.create(sensorData, loggedUser.id);
+      const sensor = await this.sensorService.create(sensorData, req.user.id);
 
       return res.status(201).json(sensor);
     } catch (error) {
       next(error);
     }
   }
-  //   async update(req: Request, res: Response, next: NextFunction) {
-  //     try {
-  //       const id = Number(req.params.id);
-  //       const { funcao, dados } = req.body;
-  //       const loggedUser = (req as any).user;
 
-  //       const sensor = await sensorService.update(
-  //         id,
-  //         { funcao, dados },
-  //         loggedUser.id
-  //       );
-  //       return res.json(sensor);
-  //     } catch (error) {
-  //       next(error);
-  //     }
-  //   }
+  async update(req: Request, res: Response, next: NextFunction) {
+    try {
+      const id = Number(req.params.id);
+
+      if (!req.user?.id) {
+        throw new UnauthorizedError("não autenticado");
+      }
+
+      const sensorData: UpdateSensorDTO = updateSensorSchema.parse(req.body);
+
+      const sensor = await this.sensorService.update(
+        id,
+        sensorData,
+        req.user.id
+      );
+
+      return res.json(sensor);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id);
-      await sensorService.delete(id);
-      return res.status(204).send("sensor deletado do sistema com sucesso!!!");
-    } catch (erro) {
-      next(erro);
+
+      await this.sensorService.delete(id);
+
+      return res.status(204).send();
+    } catch (error) {
+      next(error);
     }
   }
 }

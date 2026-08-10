@@ -1,15 +1,25 @@
-import { validateUserUpdate } from '../middlewares/validate-user';
+import {
+  validateUserCreate,
+  validateUserUpdate,
+} from "../middlewares/validate-user";
 import { Router } from "express";
 import { UserController } from "../controllers/UserController";
-import { validateUserCreate } from "../middlewares/validate-user";
 
-const userRoutes = Router() 
-const userController = new UserController()
+const userRoutes = Router();
+const userController = new UserController();
 
-userRoutes.get('/', userController.list.bind(userController))
-userRoutes.get('/:id', userController.getById.bind(userController))
-userRoutes.post('/', validateUserCreate, userController.create.bind(userController))
-userRoutes.put('/:id',  validateUserUpdate, userController.update.bind(userController))
-userRoutes.delete('/:id', userController.delete.bind(userController))
+userRoutes.get("/", userController.list.bind(userController));
+userRoutes.get("/:id", userController.getById.bind(userController));
+userRoutes.post(
+  "/",
+  validateUserCreate,
+  userController.create.bind(userController)
+);
+userRoutes.put(
+  "/:id",
+  validateUserUpdate,
+  userController.update.bind(userController)
+);
+userRoutes.delete("/:id", userController.delete.bind(userController));
 
-export default userRoutes
+export default userRoutes;

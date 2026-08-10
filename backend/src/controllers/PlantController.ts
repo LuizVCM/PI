@@ -1,14 +1,21 @@
 import { Request, Response, NextFunction } from "express";
-import { StockService } from "../services/StockService";
+import { PlantService } from "../services/PlantService";
+import {
+  CreatePlantDTO,
+  UpdatePlantDTO,
+  createPlantSchema,
+  updatePlantSchema,
+} from "../schemas/plant.schema";
 import { UnauthorizedError } from "../errors/UnauthorizedError";
 
-export class StockController {
-  private stockService = new StockService();
+export class PlantaController {
+  private plantService = new PlantService();
 
   async list(req: Request, res: Response, next: NextFunction) {
     try {
-      const stocks = await this.stockService.listAll();
-      return res.json(stocks);
+      const plants = await this.plantService.listAll();
+
+      return res.json(plants);
     } catch (error) {
       next(error);
     }
@@ -17,23 +24,24 @@ export class StockController {
   async getById(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id);
-      const stock = await this.stockService.getById(id);
 
-      return res.json(stock);
+      const plant = await this.plantService.getById(id);
+
+      return res.json(plant);
     } catch (error) {
       next(error);
     }
   }
 
-  async listMyStocks(req: Request, res: Response, next: NextFunction) {
+  async listMyPlants(req: Request, res: Response, next: NextFunction) {
     try {
       if (!req.user?.id) {
         throw new UnauthorizedError("não autenticado");
       }
 
-      const stocks = await this.stockService.listByUserId(req.user.id);
+      const plants = await this.plantService.listMyPlants(req.user.id);
 
-      return res.status(200).json(stocks);
+      return res.status(200).json(plants);
     } catch (error) {
       next(error);
     }
@@ -41,15 +49,22 @@ export class StockController {
 
   async create(req: Request, res: Response, next: NextFunction) {
     try {
+      const plantData: CreatePlantDTO = createPlantSchema.parse(req.body);
+
       if (!req.user?.id) {
         throw new UnauthorizedError("não autenticado");
       }
 
-      const loggedUser = req.user.id;
+      const { sementeId } = req.body;
 
-      const stock = await this.stockService.create(req.body, loggedUser);
+      const plant = await this.plantService.create(
+        plantData,
+        sementeId,
 
-      return res.status(201).json(stock);
+        req.user.id
+      );
+
+      return res.status(201).json(plant);
     } catch (error) {
       next(error);
     }
@@ -59,15 +74,22 @@ export class StockController {
     try {
       const id = Number(req.params.id);
 
+      const plantData: UpdatePlantDTO = updatePlantSchema.parse(req.body);
+
       if (!req.user?.id) {
         throw new UnauthorizedError("não autenticado");
       }
 
-      const loggedUser = req.user.id;
+      const { sementeId } = req.body;
 
-      const stock = await this.stockService.update(id, req.body, loggedUser);
+      const plant = await this.plantService.update(
+        id,
+        plantData,
+        req.user.id,
+        sementeId
+      );
 
-      return res.json(stock);
+      return res.json(plant);
     } catch (error) {
       next(error);
     }
@@ -77,13 +99,7 @@ export class StockController {
     try {
       const id = Number(req.params.id);
 
-      if (!req.user?.id) {
-        throw new UnauthorizedError("não autenticado");
-      }
-
-      const loggedUser = req.user.id;
-
-      await this.stockService.delete(id, loggedUser);
+      await this.plantService.delete(id);
 
       return res.status(204).send();
     } catch (error) {

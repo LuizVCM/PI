@@ -8,8 +8,8 @@ const base = createBaseRepository(DataSensor);
 export const DataSensorRepository = {
   ...base,
 
-  async findBySensorId(sensorId: number): Promise<DataSensor | null> {
-    return base.findOne({
+  async findBySensorId(sensorId: number): Promise<DataSensor[] | null> {
+    return base.findAll({
       where: { sensor: { id: sensorId } },
       relations: { sensor: true },
     });

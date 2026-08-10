@@ -1,14 +1,15 @@
 import { Request, Response, NextFunction } from "express";
-import { StockService } from "../services/StockService";
+import { SeedService } from "../services/SeedService";
 import { UnauthorizedError } from "../errors/UnauthorizedError";
 
-export class StockController {
-  private stockService = new StockService();
+export class SeedController {
+  private seedService = new SeedService();
 
   async list(req: Request, res: Response, next: NextFunction) {
     try {
-      const stocks = await this.stockService.listAll();
-      return res.json(stocks);
+      const seeds = await this.seedService.listAll();
+
+      return res.json(seeds);
     } catch (error) {
       next(error);
     }
@@ -17,23 +18,26 @@ export class StockController {
   async getById(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id);
-      const stock = await this.stockService.getById(id);
 
-      return res.json(stock);
+      const seed = await this.seedService.getById(id);
+
+      return res.json(seed);
     } catch (error) {
       next(error);
     }
   }
 
-  async listMyStocks(req: Request, res: Response, next: NextFunction) {
+  async listMySeeds(req: Request, res: Response, next: NextFunction) {
     try {
       if (!req.user?.id) {
         throw new UnauthorizedError("não autenticado");
       }
 
-      const stocks = await this.stockService.listByUserId(req.user.id);
+      const seeds = await this.seedService.listMySeeds(
+        req.user.id
+      );
 
-      return res.status(200).json(stocks);
+      return res.status(200).json(seeds);
     } catch (error) {
       next(error);
     }
@@ -45,11 +49,24 @@ export class StockController {
         throw new UnauthorizedError("não autenticado");
       }
 
-      const loggedUser = req.user.id;
+      const {
+        dataCompra,
+        nomePlanta,
+        dataPlantio,
+        quantidade,
+      } = req.body;
 
-      const stock = await this.stockService.create(req.body, loggedUser);
+      const seed = await this.seedService.create(
+        {
+          dataCompra,
+          nomePlanta,
+          dataPlantio,
+          quantidade,
+        },
+        req.user.id
+      );
 
-      return res.status(201).json(stock);
+      return res.status(201).json(seed);
     } catch (error) {
       next(error);
     }
@@ -63,11 +80,25 @@ export class StockController {
         throw new UnauthorizedError("não autenticado");
       }
 
-      const loggedUser = req.user.id;
+      const {
+        dataCompra,
+        nomePlanta,
+        dataPlantio,
+        quantidade,
+      } = req.body;
 
-      const stock = await this.stockService.update(id, req.body, loggedUser);
+      const seed = await this.seedService.update(
+        id,
+        {
+          dataCompra,
+          nomePlanta,
+          dataPlantio,
+          quantidade,
+        },
+        req.user.id
+      );
 
-      return res.json(stock);
+      return res.json(seed);
     } catch (error) {
       next(error);
     }
@@ -77,13 +108,7 @@ export class StockController {
     try {
       const id = Number(req.params.id);
 
-      if (!req.user?.id) {
-        throw new UnauthorizedError("não autenticado");
-      }
-
-      const loggedUser = req.user.id;
-
-      await this.stockService.delete(id, loggedUser);
+      await this.seedService.delete(id);
 
       return res.status(204).send();
     } catch (error) {

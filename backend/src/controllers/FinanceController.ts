@@ -6,71 +6,97 @@ import {
   UpdateFinanceDTO,
   updateFinanceSchema,
 } from "../schemas/finance.schema";
+import { UnauthorizedError } from "../errors/UnauthorizedError";
 
-export const financaService = new FinanceService();
-export class FinancaController {
+export class FinanceController {
+  private financeService = new FinanceService();
+
   async list(req: Request, res: Response, next: NextFunction) {
     try {
-      const financa = await financaService.listAll();
-      return res.json(financa);
+      const finances = await this.financeService.listAll();
+
+      return res.json(finances);
     } catch (error) {
       next(error);
     }
   }
+
   async getById(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id);
-      const financa = await financaService.getById(id);
-      return res.json(financa);
+
+      const finance = await this.financeService.getById(id);
+
+      return res.json(finance);
     } catch (error) {
       next(error);
     }
   }
+
   async listMyFinances(req: Request, res: Response, next: NextFunction) {
     try {
-      const loggedUser = (req as any).user;
-      console.log(loggedUser);
-      const myfinances = await financaService.listByUserId(loggedUser.id);
+      if (!req.user?.id) {
+        throw new UnauthorizedError("não autenticado");
+      }
 
-      return res.status(200).json(myfinances);
+      const finances = await this.financeService.listByUserId(req.user.id);
+
+      return res.status(200).json(finances);
     } catch (error) {
       next(error);
     }
   }
+
   async create(req: Request, res: Response, next: NextFunction) {
     try {
       const financeData: CreateFinanceDTO = createFinanceSchema.parse(req.body);
-      const loggedUser = (req as any).user;
-      const financa = await financaService.create(financeData, loggedUser.id);
 
-      return res.status(201).json(financa);
+      if (!req.user?.id) {
+        throw new UnauthorizedError("não autenticado");
+      }
+
+      const finance = await this.financeService.create(
+        financeData,
+        req.user.id
+      );
+
+      return res.status(201).json(finance);
     } catch (error) {
       next(error);
     }
   }
+
   async update(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id);
-      const financeData: UpdateFinanceDTO = updateFinanceSchema.parse(req.body);
-      const loggedUser = (req as any).user;
 
-      const financa = await financaService.update(
+      const financeData: UpdateFinanceDTO = updateFinanceSchema.parse(req.body);
+
+      if (!req.user?.id) {
+        throw new UnauthorizedError("não autenticado");
+      }
+
+      const finance = await this.financeService.update(
         id,
         financeData,
-        loggedUser.id
+        req.user.id
       );
-      return res.json(financa);
+
+      return res.json(finance);
     } catch (error) {
       next(error);
     }
   }
+
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id);
-      await financaService.delete(id);
-      return res.status(204).send("finança deletada com sucesso!!!");
-    } catch (erro) {
-      next(erro);
+
+      await this.financeService.delete(id);
+
+      return res.status(204).send();
+    } catch (error) {
+      next(error);
     }
   }
 }
