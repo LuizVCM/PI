@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import { AppError } from "../errors/AppError";
-import { BadRequestError } from "../errors/BadRequestError";
 
 export function errorHandler(
   error: Error,
@@ -9,10 +8,7 @@ export function errorHandler(
   _next: NextFunction
 ) {
   if (error instanceof AppError) {
-    return res.status(error.statusCode).json({
-      success: false,
-      message: error.message, ...(error instanceof BadRequestError && error.details ? { errors: error.details } : {}),
-    });
+    return res.status(error.statusCode).json(error.toJSON());
   }
 
   console.error(error);
