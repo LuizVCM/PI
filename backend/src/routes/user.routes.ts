@@ -1,7 +1,7 @@
 import {
   validateUserCreate,
   validateUserUpdate,
-} from "../middlewares/validate-user";
+} from "../middlewares/index.validate";
 import { Router } from "express";
 import { UserController } from "../controllers/UserController";
 
@@ -21,5 +21,4 @@ userRoutes.put(
   userController.update.bind(userController)
 );
 userRoutes.delete("/:id", userController.delete.bind(userController));
-
 export default userRoutes;
