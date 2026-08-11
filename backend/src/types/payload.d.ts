@@ -1,4 +1,4 @@
-import { IPayload } from '../auth/IPayload';
+import { IPayload } from '../auth/json-web-token';
 
 declare global {
   namespace Express {

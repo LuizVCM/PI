@@ -1,6 +1,10 @@
 import jwt from "jsonwebtoken";
 import * as dotenv from "dotenv";
-import { IPayload } from "./IPayload";
+
+export interface IPayload {
+  id: number;
+  email: string;
+}
 
 dotenv.config();
 

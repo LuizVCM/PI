@@ -1,4 +1,4 @@
-import { IPayload } from "../auth/IPayload";
+import { IPayload } from "../auth/json-web-token";
 import { generateToken, verifyToken } from "../auth/json-web-token";
 export class AuthService {
   generate(payload: IPayload) {
