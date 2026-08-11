@@ -1,6 +1,6 @@
 import z from "zod";
 import { AreaUnit } from "../utils/area-converter";
-export const createCropSchema = z.object({
+export const createTerritorySchema = z.object({
   cep: z
     .string()
     .transform((value) => value.replace(/\D/g, ""))
@@ -10,6 +10,6 @@ export const createCropSchema = z.object({
   tamanho: z.coerce.number().positive(),
   unidade: z.enum(AreaUnit),
 });
-export const updateCropSchema = createCropSchema.partial();
-export type CreateCropDTO = z.infer<typeof createCropSchema>;
-export type UpdateCropDTO = z.infer<typeof updateCropSchema>;
+export const updateTerritorySchema = createTerritorySchema.partial();
+export type CreateTerritoryDTO = z.infer<typeof createTerritorySchema>;
+export type UpdateTerritoryDTO = z.infer<typeof updateTerritorySchema>;

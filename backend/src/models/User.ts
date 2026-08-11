@@ -4,7 +4,7 @@ import {
   OneToMany,
 } from "typeorm";
 import { Seed } from "./Seed";
-import { Crop } from "./Territory";
+import { Territory } from "./Territory";
 import { Finance } from "./Finance";
 import { Stock } from "./Stock";
 import { BaseModel } from "./BaseModel";
@@ -32,8 +32,8 @@ export class User extends BaseModel {
   @OneToMany(() => Seed, (semente) => semente.usuario)
   sementes: Seed[];
 
-  @OneToMany(() => Crop, (territorio) => territorio.usuario)
-  territorios: Crop[];
+  @OneToMany(() => Territory, (territorio) => territorio.usuario)
+  territorios: Territory[];
 
   @OneToMany(() => Finance, (financas) => financas.usuario)
   financas: Finance[];

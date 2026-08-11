@@ -4,7 +4,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Crop } from "./Territory";
+import { Territory } from "./Territory";
 import { Sensor } from "./Sensor";
 
 @Entity("dados_clima")
@@ -27,8 +27,8 @@ export class Weather {
   @Column({ type: "decimal", scale: 2, precision: 5, nullable: false })
   umidade: number;
 
-  @ManyToOne(() => Crop, (territorio) => territorio.clima)
-  territorio: Crop;
+  @ManyToOne(() => Territory, (territorio) => territorio.clima)
+  territorio: Territory;
 
   // @OneToMany(() => Sensor, (sensores) => sensores.clima)
   // sensores: Sensor;

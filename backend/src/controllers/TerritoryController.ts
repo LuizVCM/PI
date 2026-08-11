@@ -1,13 +1,14 @@
 import { Request, Response, NextFunction } from "express";
-import { CropService } from "../services/CropService";
+import { TerritoryService } from "../services/TerritoryService";
 import { UnauthorizedError } from "../errors/UnauthorizedError";
+import { CreateTerritoryDTO, UpdateTerritoryDTO } from "../schemas/territory.schema";
 
-export class CropController {
-  private cropService = new CropService();
+export class TerritoryController {
+  private territoryService = new TerritoryService();
   async list(req: Request, res: Response, next: NextFunction) {
     try {
-      const crop = await this.cropService.listAll();
-      return res.json(crop);
+      const territory = await this.territoryService.listAll();
+      return res.json(territory);
     } catch (error) {
       next(error);
     }
@@ -15,37 +16,37 @@ export class CropController {
   async getById(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id);
-      const crop = await this.cropService.getById(id);
-      return res.json(crop);
+      const territory = await this.territoryService.getById(id);
+      return res.json(territory);
     } catch (error) {
       next(error);
     }
   }
-  async listMyCrops(req: Request, res: Response, next: NextFunction) {
+  async listMyTerritories(req: Request, res: Response, next: NextFunction) {
     try {
       if (!req.user?.id) {
         throw new UnauthorizedError("não autenticado");
       }
       const id = req.user.id;
-      const myCrops = await this.cropService.listByUserLogged(id);
-      return res.status(200).json(myCrops);
+      const myTerritories = await this.territoryService.listByUserLogged(id);
+      return res.status(200).json(myTerritories);
     } catch (error) {
       next(error);
     }
   }
   async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const { cep, tamanho } = req.body;
       if (!req.user?.id) {
         throw new UnauthorizedError("não autenticado");
       }
       const id = req.user.id;
-      const territorio = await this.cropService.create(
-        { cep, tamanho },
+      const createTerritoryData = req.body as CreateTerritoryDTO;
+      const territory = await this.territoryService.create(
+        createTerritoryData,
         id
       );
 
-      return res.status(201).json(territorio);
+      return res.status(201).json(territory);
     } catch (error) {
       next(error);
     }
@@ -53,13 +54,17 @@ export class CropController {
   async update(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id);
-      const { cep, tamanho } = req.body;
       if (!req.user?.id) {
         throw new UnauthorizedError("não autenticado");
       }
       const loggedUser = req.user.id;
-      const crop = await this.cropService.update(id, { cep, tamanho }, loggedUser);
-      return res.json(crop);
+      const updateTerritoryData = req.body as UpdateTerritoryDTO;
+      const Territory = await this.territoryService.update(
+        id,
+        updateTerritoryData,
+        loggedUser
+      );
+      return res.json(Territory);
     } catch (error) {
       next(error);
     }
@@ -71,7 +76,7 @@ export class CropController {
         throw new UnauthorizedError("não autenticado");
       }
       const loggedUser = req.user.id;
-      await this.cropService.delete(id, loggedUser);
+      await this.territoryService.delete(id, loggedUser);
       return res.status(204).send();
     } catch (error) {
       next(error);

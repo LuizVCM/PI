@@ -1,5 +1,5 @@
 import { WeatherRepository } from "../repositories/WeatherRepository";
-import { CropRepository } from "../repositories/CropRepository";
+import { TerritoryRepository } from "../repositories/TerritoryRepository";
 import { NotFoundError } from "../errors/NotFoundError";
 import { CreateWeatherDTO, UpdateWeatherDTO } from "../schemas/weather.schema";
 import { UserRepository } from "../repositories/UserRepository";
@@ -34,7 +34,7 @@ export class WeatherService {
   }
 
   async create(data: CreateWeatherDTO, cropId: number) {
-    const crop = await CropRepository.findById(cropId);
+    const crop = await TerritoryRepository.findById(cropId);
 
     if (!crop) {
       throw new NotFoundError("território");

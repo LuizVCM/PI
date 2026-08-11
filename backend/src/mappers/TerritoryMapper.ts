@@ -1,21 +1,21 @@
 import { Territory } from "../models/Territory";
-import { CreateCropDTO } from "../schemas/crop.schema";
+import { CreateTerritoryDTO } from "../schemas/territory.schema";
 import { fromSquareMeters, toSquareMeters } from "../utils/area-converter";
 
-export class CropMapper {
-  static toResponse(crop: Crop) {
+export class territoryMapper {
+  static toResponse(territory: Territory) {
     return {
-      id: crop.id,
-      cep: crop.cep,
+      id: territory.id,
+      cep: territory.cep,
       tamanho: fromSquareMeters(
-        Number(crop.areaM2),
-        crop.unidadeArea
+        Number(territory.areaM2),
+        territory.unidadeArea
       ),
-      unidade: crop.unidadeArea,
+      unidade: territory.unidadeArea,
     };
   }
 
-  static toEntity(data: CreateCropDTO) {
+  static toEntity(data: CreateTerritoryDTO) {
     return {
       cep: data.cep,
       areaM2: toSquareMeters(data.tamanho, data.unidade),

@@ -1,5 +1,5 @@
 import { Sensor } from "../models/Sensor";
-import { Crop } from "../models/Territory";
+import { Territory } from "../models/Territory";
 import { CreateSensorDTO } from "../schemas/sensor.schema";
 import { createBaseRepository } from "./BaseRepository";
 
@@ -8,9 +8,9 @@ const base = createBaseRepository(Sensor);
 export const SensorRepository = {
   ...base,
 
-  async findByCropId(cropId: number): Promise<Sensor[]> {
+  async findByTerritoryId(territoryId: number): Promise<Sensor[]> {
     return base.getRepository().find({
-      where: { territorio: { id: cropId } },
+      where: { territorio: { id: territoryId } },
     });
   },
 
@@ -20,8 +20,8 @@ export const SensorRepository = {
       .find({ where: { territorio: { usuario: { id: userId } } } });
   },
 
-  async create(data: CreateSensorDTO, crop: Crop): Promise<Sensor> {
-    const sensor = base.create({ ...data, territorio: crop });
+  async create(data: CreateSensorDTO, territory: Territory): Promise<Sensor> {
+    const sensor = base.create({ ...data, territorio: territory });
     return base.save(sensor);
   },
 };

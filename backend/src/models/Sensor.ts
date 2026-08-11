@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 import { Weather } from "./Weather";
 import { DataSensor } from "./DataSensor";
-import { Crop } from "./Territory";
+import { Territory } from "./Territory";
 import { BaseModel } from "./BaseModel";
 
 @Entity("sensores")
@@ -20,8 +20,8 @@ export class Sensor extends BaseModel {
 
   // @ManyToOne(() => Weather, (clima) => clima.sensores)
   // clima: Weather;
-  @ManyToOne(() => Crop, (territorio) => territorio.sensores)
-  territorio: Crop;
+  @ManyToOne(() => Territory, (territorio) => territorio.sensores)
+  territorio: Territory;
   @OneToMany(() => DataSensor, (data) => data.sensor)
   dados: DataSensor[];
 }

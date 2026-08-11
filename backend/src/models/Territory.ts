@@ -20,7 +20,7 @@ export class Territory extends BaseModel {
     precision: 10,
     scale: 2,
   })
-  tamanho: number;
+  area: number;
   @Column("decimal", {
     precision: 12,
     scale: 2,

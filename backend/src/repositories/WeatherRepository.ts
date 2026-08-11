@@ -1,5 +1,5 @@
 import { Weather } from "../models/Weather";
-import { Crop } from "../models/Territory";
+import { Territory } from "../models/Territory";
 import { CreateWeatherDTO } from "../schemas/weather.schema";
 import { createBaseRepository } from "./BaseRepository";
 
@@ -15,8 +15,8 @@ export const WeatherRepository = {
     });
   },
   
-  async create(data: CreateWeatherDTO, crop: Crop): Promise<Weather> {
-    const weather = base.create({ ...data, territorio: crop });
+  async create(data: CreateWeatherDTO, territory: Territory): Promise<Weather> {
+    const weather = base.create({ ...data, territorio: territory });
     return base.save(weather);
   },
 };

@@ -39,7 +39,7 @@ export class PlantaController {
         throw new UnauthorizedError("não autenticado");
       }
 
-      const plants = await this.plantService.listMyPlants(req.user.id);
+      const plants = await this.plantService.listByUserLogged(req.user.id);
 
       return res.status(200).json(plants);
     } catch (error) {
@@ -47,53 +47,51 @@ export class PlantaController {
     }
   }
 
-  async create(req: Request, res: Response, next: NextFunction) {
-    try {
-      const plantData: CreatePlantDTO = createPlantSchema.parse(req.body);
+  // async create(req: Request, res: Response, next: NextFunction) {
+  //   try {
+  //     const plantData: CreatePlantDTO = createPlantSchema.parse(req.body);
 
-      if (!req.user?.id) {
-        throw new UnauthorizedError("não autenticado");
-      }
+  //     if (!req.user?.id) {
+  //       throw new UnauthorizedError("não autenticado");
+  //     }
 
-      const { sementeId } = req.body;
+  //     const { sementeId } = req.body;
 
-      const plant = await this.plantService.create(
-        plantData,
-        sementeId,
+  //     const plant = await this.plantService.create(
+  //       plantData,
+  //       sementeId,
+  //     );
 
-        req.user.id
-      );
+  //     return res.status(201).json(plant);
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
 
-      return res.status(201).json(plant);
-    } catch (error) {
-      next(error);
-    }
-  }
+  // async update(req: Request, res: Response, next: NextFunction) {
+  //   try {
+  //     const id = Number(req.params.id);
 
-  async update(req: Request, res: Response, next: NextFunction) {
-    try {
-      const id = Number(req.params.id);
+  //     const plantData: UpdatePlantDTO = updatePlantSchema.parse(req.body);
 
-      const plantData: UpdatePlantDTO = updatePlantSchema.parse(req.body);
+  //     if (!req.user?.id) {
+  //       throw new UnauthorizedError("não autenticado");
+  //     }
 
-      if (!req.user?.id) {
-        throw new UnauthorizedError("não autenticado");
-      }
+  //     const { sementeId } = req.body;
 
-      const { sementeId } = req.body;
+  //     const plant = await this.plantService.update(
+  //       id,
+  //       plantData,
+  //       req.user.id,
+  //       sementeId
+  //     );
 
-      const plant = await this.plantService.update(
-        id,
-        plantData,
-        req.user.id,
-        sementeId
-      );
-
-      return res.json(plant);
-    } catch (error) {
-      next(error);
-    }
-  }
+  //     return res.json(plant);
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
 
   async delete(req: Request, res: Response, next: NextFunction) {
     try {

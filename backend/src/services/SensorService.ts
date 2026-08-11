@@ -1,7 +1,7 @@
 import { SensorRepository } from "../repositories/SensorRepository";
 import { NotFoundError } from "../errors/NotFoundError";
 import { CreateSensorDTO, UpdateSensorDTO } from "../schemas/sensor.schema";
-import { CropRepository } from "../repositories/CropRepository";
+import { TerritoryRepository } from "../repositories/TerritoryRepository";
 import { AuthorizationService } from "./AuthorizationService";
 
 export class SensorService {
@@ -17,8 +17,8 @@ export class SensorService {
     }
     return sensor;
   }
-  async listByCropId(cropId: number) {
-    const sensors = await SensorRepository.findByCropId(cropId);
+  async listByTerritoryId(territoryId: number) {
+    const sensors = await SensorRepository.findByTerritoryId(territoryId);
 
     if (!sensors) {
       throw new NotFoundError(
@@ -38,12 +38,12 @@ export class SensorService {
     }
     return sensors;
   }
-  async create(data: CreateSensorDTO, cropId: number) {
-    const crop = await CropRepository.findById(cropId);
-    if (!crop) {
+  async create(data: CreateSensorDTO, territoryId: number) {
+    const territory = await TerritoryRepository.findById(territoryId);
+    if (!territory) {
       throw new NotFoundError("território");
     }
-    return await SensorRepository.create(data, crop);
+    return await SensorRepository.create(data, territory);
   }
 
   async update(id: number, data: UpdateSensorDTO, loggedUserId: number) {
@@ -85,7 +85,7 @@ export class SensorService {
     const result = await SensorRepository.softDelete(id);
 
     if (result.affected === 0) {
-      throw new NotFoundError("não foi encontrado o sensor");
+      throw new NotFoundError("sensor");
     }
   }
 }
