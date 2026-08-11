@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 import { Weather } from "./Weather";
 import { DataSensor } from "./DataSensor";
-import { Crop } from "./Crop";
+import { Crop } from "./Territory";
 import { BaseModel } from "./BaseModel";
 
 @Entity("sensores")

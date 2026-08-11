@@ -1,5 +1,5 @@
 import { Sensor } from "../models/Sensor";
-import { Crop } from "../models/Crop";
+import { Crop } from "../models/Territory";
 import { CreateSensorDTO } from "../schemas/sensor.schema";
 import { createBaseRepository } from "./BaseRepository";
 

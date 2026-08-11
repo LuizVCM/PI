@@ -1,5 +1,5 @@
 import { Weather } from "../models/Weather";
-import { Crop } from "../models/Crop";
+import { Crop } from "../models/Territory";
 import { CreateWeatherDTO } from "../schemas/weather.schema";
 import { createBaseRepository } from "./BaseRepository";
 

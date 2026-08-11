@@ -1,4 +1,4 @@
-import { Crop } from "../models/Crop";
+import { Crop } from "../models/Territory";
 import { User } from "../models/User";
 import { CreateCropDTO } from "../schemas/crop.schema";
 import { createBaseRepository } from "./BaseRepository";

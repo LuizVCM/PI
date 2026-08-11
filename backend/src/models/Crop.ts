@@ -1,23 +1,43 @@
-import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
-import { User } from "./User";
-import { Weather } from "./Weather";
-import { Sensor } from "./Sensor";
+import { Entity, Column, ManyToOne } from "typeorm";
 import { BaseModel } from "./BaseModel";
+import { Territory } from "./Territory"
 
-@Entity("territorios")
+export enum CropStatus {
+  PLANEJADA = "planejada",
+  EM_ANDAMENTO = "em_andamento",
+  CONCLUIDA = "concluida",
+  CANCELADA = "cancelada",
+}
+
+@Entity("plantacoes")
 export class Crop extends BaseModel {
-  @Column({ length: 8, type: "char", nullable: false, unique: true })
-  cep: string;
+  @Column({ length: 100 })
+  nome: string;
 
-  @Column({ type: "int", nullable: false })
-  tamanho: number;
+  @Column({ length: 100 })
+  cultura: string;
 
-  @ManyToOne(() => User, (usuario) => usuario.territorios)
-  usuario: User;
+  @Column({ length: 100 })
+  variedade: string;
 
-  @OneToMany(() => Weather, (clima) => clima.territorio)
-  clima: Weather[];
+  @Column({ type: "date" })
+  dataPlantio: Date;
 
-  @OneToMany(() => Sensor, (sensor) => sensor.territorio)
-  sensores: Sensor[];
+  @Column({ type: "date", nullable: true })
+  colheitaPrevista: Date | null;
+
+  @Column({ length: 100 })
+  responsavel: string;
+
+  @Column({
+    type: "enum",
+    enum: CropStatus,
+  })
+  status: CropStatus;
+
+  @Column({ type: "text", nullable: true })
+  observacoes: string | null;
+
+  @ManyToOne(() => Territory, (territorio) => territorio.plantacoes)
+  territorio: Territory;
 }

@@ -4,7 +4,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Crop } from "./Crop";
+import { Crop } from "./Territory";
 import { Sensor } from "./Sensor";
 
 @Entity("dados_clima")

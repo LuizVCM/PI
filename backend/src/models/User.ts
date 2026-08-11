@@ -4,7 +4,7 @@ import {
   OneToMany,
 } from "typeorm";
 import { Seed } from "./Seed";
-import { Crop } from "./Crop";
+import { Crop } from "./Territory";
 import { Finance } from "./Finance";
 import { Stock } from "./Stock";
 import { BaseModel } from "./BaseModel";
