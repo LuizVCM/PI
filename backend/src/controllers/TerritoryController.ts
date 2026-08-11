@@ -5,7 +5,7 @@ import { CreateTerritoryDTO, UpdateTerritoryDTO } from "../schemas/territory.sch
 
 export class TerritoryController {
   private territoryService = new TerritoryService();
-  async list(req: Request, res: Response, next: NextFunction) {
+  async listAll(req: Request, res: Response, next: NextFunction) {
     try {
       const territory = await this.territoryService.listAll();
       return res.json(territory);

@@ -16,6 +16,16 @@ export const TerritoryRepository = {
     });
   },
 
+  async findAllCropsRelatedByUser(userId: number) {
+    return base
+      .getRepository()
+      .find({
+        where: { usuario: { id: userId } },
+        relations: { plantacoes: true },
+        select: { plantacoes: true },
+      });
+  },
+
   /** criar um novo território associado a um usuário */
   async create(data: CreateTerritoryDTO, user: User): Promise<Territory> {
     const territory = base.create({ ...data, usuario: user });

@@ -20,6 +20,9 @@ export class TerritoryService {
   async listByUserLogged(userId: number) {
     return await TerritoryRepository.findByUserId(userId);
   }
+  async listCropsRelated(userId: number) {
+    return await TerritoryRepository.findAllCropsRelatedByUser(userId);
+  }
   async create(data: CreateTerritoryDTO, loggedUserId: number) {
     const user = await UserRepository.findById(loggedUserId);
     if (!user) {
@@ -44,8 +47,8 @@ export class TerritoryService {
       )
     );
 
-    const TerritoryUpdated = await TerritoryRepository.save(territory);
-    return TerritoryUpdated;
+    const territoryUpdated = await TerritoryRepository.save(territory);
+    return territoryUpdated;
   }
   async delete(id: number, loggedUserId: number) {
     const territory = await TerritoryRepository.findById(id);
