@@ -36,10 +36,13 @@ export class CropController {
   async create(req: Request, res: Response, next: NextFunction) {
     try {
       const { cep, tamanho } = req.body;
-      const loggedUser = (req as any).user;
+      if (!req.user?.id) {
+        throw new UnauthorizedError("não autenticado");
+      }
+      const id = req.user.id;
       const territorio = await this.cropService.create(
         { cep, tamanho },
-        loggedUser.id
+        id
       );
 
       return res.status(201).json(territorio);

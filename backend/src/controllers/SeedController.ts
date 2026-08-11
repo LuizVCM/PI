@@ -33,9 +33,7 @@ export class SeedController {
         throw new UnauthorizedError("não autenticado");
       }
 
-      const seeds = await this.seedService.listMySeeds(
-        req.user.id
-      );
+      const seeds = await this.seedService.listByUserLogged(req.user.id);
 
       return res.status(200).json(seeds);
     } catch (error) {
@@ -49,12 +47,7 @@ export class SeedController {
         throw new UnauthorizedError("não autenticado");
       }
 
-      const {
-        dataCompra,
-        nomePlanta,
-        dataPlantio,
-        quantidade,
-      } = req.body;
+      const { dataCompra, nomePlanta, dataPlantio, quantidade } = req.body;
 
       const seed = await this.seedService.create(
         {
@@ -80,12 +73,9 @@ export class SeedController {
         throw new UnauthorizedError("não autenticado");
       }
 
-      const {
-        dataCompra,
-        nomePlanta,
-        dataPlantio,
-        quantidade,
-      } = req.body;
+      const loggedUser = req.user.id;
+
+      const { dataCompra, nomePlanta, dataPlantio, quantidade } = req.body;
 
       const seed = await this.seedService.update(
         id,
@@ -95,7 +85,7 @@ export class SeedController {
           dataPlantio,
           quantidade,
         },
-        req.user.id
+        loggedUser
       );
 
       return res.json(seed);
@@ -108,7 +98,13 @@ export class SeedController {
     try {
       const id = Number(req.params.id);
 
-      await this.seedService.delete(id);
+      if (!req.user?.id) {
+        throw new UnauthorizedError("não autenticado");
+      }
+
+      const loggedUser = req.user.id;
+
+      await this.seedService.delete(id, loggedUser);
 
       return res.status(204).send();
     } catch (error) {

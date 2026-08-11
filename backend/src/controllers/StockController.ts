@@ -25,13 +25,13 @@ export class StockController {
     }
   }
 
-  async listMyStocks(req: Request, res: Response, next: NextFunction) {
+  async listMyStock(req: Request, res: Response, next: NextFunction) {
     try {
       if (!req.user?.id) {
         throw new UnauthorizedError("não autenticado");
       }
 
-      const stocks = await this.stockService.listByUserId(req.user.id);
+      const stocks = await this.stockService.listByUserLogged(req.user.id);
 
       return res.status(200).json(stocks);
     } catch (error) {
