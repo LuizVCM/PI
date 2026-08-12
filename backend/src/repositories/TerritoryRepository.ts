@@ -1,6 +1,6 @@
 import { Territory } from "../models/Territory";
 import { User } from "../models/User";
-import { CreateTerritoryDTO } from "../schemas/territory.schema";
+import { AreaUnit } from "../utils/area-converter";
 import { createBaseRepository } from "./BaseRepository";
 
 const base = createBaseRepository(Territory);
@@ -16,18 +16,24 @@ export const TerritoryRepository = {
     });
   },
 
-  async findAllCropsRelatedByUser(userId: number) {
-    return base
-      .getRepository()
-      .find({
-        where: { usuario: { id: userId } },
-        relations: { plantacoes: true },
-        select: { plantacoes: true },
-      });
+  async findWithCropsByUserId(userId: number): Promise<Territory[]> {
+    return base.getRepository().find({
+      where: { usuario: { id: userId } },
+      relations: {
+        plantacoes: true,
+      },
+    });
   },
 
   /** criar um novo território associado a um usuário */
-  async create(data: CreateTerritoryDTO, user: User): Promise<Territory> {
+  async create(
+    data: {
+      cep: string;
+      areaM2: number;
+      unidadeArea: AreaUnit;
+    },
+    user: User
+  ): Promise<Territory> {
     const territory = base.create({ ...data, usuario: user });
     return base.save(territory);
   },

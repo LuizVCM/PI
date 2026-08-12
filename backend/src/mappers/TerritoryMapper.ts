@@ -1,25 +1,43 @@
+import {
+  CreateTerritoryDTO,
+  UpdateTerritoryDTO,
+} from "./../schemas/territory.schema";
 import { Territory } from "../models/Territory";
-import { CreateTerritoryDTO } from "../schemas/territory.schema";
 import { fromSquareMeters, toSquareMeters } from "../utils/area-converter";
 
-export class territoryMapper {
+export class TerritoryMapper {
   static toResponse(territory: Territory) {
     return {
       id: territory.id,
       cep: territory.cep,
-      tamanho: fromSquareMeters(
-        Number(territory.areaM2),
-        territory.unidadeArea
-      ),
-      unidade: territory.unidadeArea,
+      area: fromSquareMeters(Number(territory.areaM2), territory.unidadeArea),
+      unidadeArea: territory.unidadeArea,
     };
   }
 
-  static toEntity(data: CreateTerritoryDTO) {
+  static toResponseList(territories: Territory[]) {
+    return territories.map(this.toResponse);
+  }
+
+  static toCreateEntity(data: CreateTerritoryDTO) {
     return {
       cep: data.cep,
-      areaM2: toSquareMeters(data.tamanho, data.unidade),
-      unidadeArea: data.unidade,
+      unidadeArea: data.unidadeArea,
+      areaM2: toSquareMeters(data.area, data.unidadeArea),
     };
+  }
+  static toUpdateEntity(data: UpdateTerritoryDTO) {
+    const result: Partial<Territory> = {};
+
+    if (data.cep !== undefined) {
+      result.cep = data.cep;
+    }
+
+    if (data.area !== undefined && data.unidadeArea !== undefined) {
+      result.areaM2 = toSquareMeters(data.area, data.unidadeArea!);
+      result.unidadeArea = data.unidadeArea!;
+    }
+
+    return result;
   }
 }

@@ -8,8 +8,6 @@ import { Crop } from "./Crop";
 
 @Entity("territorios")
 export class Territory extends BaseModel {
-  @Column({ type: "varchar", length: 100 })
-  nome: string;
   @Column({ type: "char", length: 8 })
   cep: string;
   @Column({ length: 100 })
@@ -20,15 +18,10 @@ export class Territory extends BaseModel {
     precision: 10,
     scale: 2,
   })
-  area: number;
+  areaM2: number;
   @Column("decimal", {
     precision: 12,
     scale: 2,
-  })
-  areaM2: number;
-  @Column({
-    type: "enum",
-    enum: AreaUnit,
   })
   unidadeArea: AreaUnit;
   @OneToMany(() => Crop, (plantacao) => plantacao.territorio)

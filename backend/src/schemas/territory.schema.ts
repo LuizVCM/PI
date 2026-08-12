@@ -7,9 +7,21 @@ export const createTerritorySchema = z.object({
     .refine((value) => /^\d{8}$/.test(value), {
       message: "CEP inválido",
     }),
-  tamanho: z.coerce.number().positive(),
-  unidade: z.enum(AreaUnit),
+  area: z.coerce.number().positive(),
+  unidadeArea: z.enum(AreaUnit),
 });
-export const updateTerritorySchema = createTerritorySchema.partial();
+const updateTerritorySchema = z
+  .object({
+    cep: z.string().optional(),
+    area: z.number().positive().optional(),
+    unidadeArea: z.enum(AreaUnit).optional(),
+  })
+  .refine(
+    (data) =>
+      (data.unidadeArea === undefined && data.unidadeArea === undefined),
+    {
+      error: "tamanho e unidade devem ser informados juntos",
+    }
+  );
 export type CreateTerritoryDTO = z.infer<typeof createTerritorySchema>;
 export type UpdateTerritoryDTO = z.infer<typeof updateTerritorySchema>;
