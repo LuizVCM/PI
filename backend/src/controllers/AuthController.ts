@@ -10,12 +10,10 @@ export class AuthController {
 
   async login(req: Request, res: Response) {
     const loginData = req.body as LoginUserDTO;
-
     const loggedUser = await this.userService.login(loginData);
-
     const token = this.authService.generate({
-      id: loggedUser.user.id,
-      email: loggedUser.user.email,
+      id: loggedUser.usuario.id,
+      email: loggedUser.usuario.email,
     });
 
     // console.log("Token:", token);
@@ -30,7 +28,7 @@ export class AuthController {
     // console.log("Headers:", res.getHeaders());
 
     return res.status(200).json({
-      message: "Login realizado com sucesso",
+      success: true,
     });
   }
 
@@ -51,6 +49,6 @@ export class AuthController {
     if (!passwordIsValid) {
       throw new UnauthorizedError("credenciais inválidas");
     }
-    return res.status(200).json({ message: "senha válida" });
+    return res.status(200).json({ success: true });
   }
 }

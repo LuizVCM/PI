@@ -4,6 +4,7 @@ import {
 } from "./../schemas/territory.schema";
 import { Territory } from "../models/Territory";
 import { fromSquareMeters, toSquareMeters } from "../utils/area-converter";
+import { UserMapper } from "./UserMapper";
 
 export class TerritoryMapper {
   static toResponse(territory: Territory) {
@@ -12,6 +13,7 @@ export class TerritoryMapper {
       cep: territory.cep,
       area: fromSquareMeters(Number(territory.areaM2), territory.unidadeArea),
       unidadeArea: territory.unidadeArea,
+      usuario: UserMapper.toResponse(territory.usuario)
     };
   }
 

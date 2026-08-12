@@ -1,24 +1,29 @@
 import { User } from "../models/User";
 
 export class UserMapper {
-  static toResponseCreated(user: User) {
+  static toResponseSavedUser(usuario: User) {
     return {
-      nome: user.nome,
-      sobrenome: user.sobrenome,
-      email: user.email,
-      telefone: user.telefone,
-      cpf: user.cpf,
+      nome: usuario.nome,
+      sobrenome: usuario.sobrenome,
+      email: usuario.email,
+      telefone: usuario.telefone,
+      cpf: usuario.cpf,
     };
   }
-  static toResponse(user: User) {
+  static toResponse(usuario: User) {
     return {
-      nome: user.nome,
-      sobrenome: user.sobrenome,
-      email: user.email,
-      territorios: user.territorios,
-      sementes: user.sementes,
-      financas: user.financas,
-      insumos: user.insumos,
+      nome: usuario.nome,
+      sobrenome: usuario.sobrenome,
+      email: usuario.email,
+      telefone: usuario.telefone,
+      cpf: usuario.cpf,
+      territorios: usuario.territorios,
+      sementes: usuario.sementes,
+      financas: usuario.financas,
+      insumos: usuario.insumos,
     };
+  }
+  static toResponseList(usuarios: User[]) {
+    return usuarios.map(this.toResponse);
   }
 }

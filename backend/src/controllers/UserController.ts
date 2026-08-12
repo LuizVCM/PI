@@ -25,7 +25,7 @@ export class UserController {
   async listByIdWith(req: Request, res: Response, next: NextFunction) {
     try {
       if (!req.user?.id) {
-        throw new UnauthorizedError();
+        throw new UnauthorizedError("não autenticado");
       }
       const id = req.user.id;
       const relation: string = req.body.relation;
@@ -38,8 +38,8 @@ export class UserController {
   async create(req: Request, res: Response, next: NextFunction) {
     try {
       const createUserData = req.body as CreateUserDTO;
-      await this.userService.create(createUserData);
-      return res.status(201);
+      const created = await this.userService.create(createUserData);
+      return res.status(201).json(created);
     } catch (error) {
       next(error);
     }
@@ -47,7 +47,7 @@ export class UserController {
   async update(req: Request, res: Response, next: NextFunction) {
     try {
       if (!req.user?.id) {
-        throw new UnauthorizedError();
+        throw new UnauthorizedError("não autenticado");
       }
       const id = req.user.id;
       const updateUserData = req.body as UpdateUserDTO;
@@ -60,11 +60,13 @@ export class UserController {
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
       if (!req.user?.id) {
-        throw new UnauthorizedError();
+        throw new UnauthorizedError("não autenticado");
       }
       const id = req.user.id;
       await this.userService.delete(id);
-      return res.status(204).send("Usuário deletado com sucesso");
+      return res.status(204).json({
+        success: true,
+      });
     } catch (error) {
       next(error);
     }

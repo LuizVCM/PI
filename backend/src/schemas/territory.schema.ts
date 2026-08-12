@@ -5,23 +5,30 @@ export const createTerritorySchema = z.object({
     .string()
     .transform((value) => value.replace(/\D/g, ""))
     .refine((value) => /^\d{8}$/.test(value), {
-      message: "CEP inválido",
+      error: "CEP inválido",
     }),
-  area: z.coerce.number().positive(),
-  unidadeArea: z.enum(AreaUnit),
+  area: z.coerce
+    .number("A área deve ser um número")
+    .positive("A área não pode ser um número negativo"),
+  unidadeArea: z.enum(AreaUnit, "Unidade de área inválida"),
 });
-const updateTerritorySchema = z
+export const updateTerritorySchema = z
   .object({
-    cep: z.string().optional(),
-    area: z.number().positive().optional(),
-    unidadeArea: z.enum(AreaUnit).optional(),
+    cep: z
+      .string()
+      .transform((value) => value.replace(/\D/g, ""))
+      .refine((value) => /^\d{8}$/.test(value), {
+        error: "CEP inválido",
+      })
+      .optional(),
+    area: z
+      .number("A área deve ser um número")
+      .positive("A área não pode ser um número negativo")
+      .optional(),
+    unidadeArea: z.enum(AreaUnit, "Unidade de área inválida").optional(),
   })
-  .refine(
-    (data) =>
-      (data.unidadeArea === undefined && data.unidadeArea === undefined),
-    {
-      error: "tamanho e unidade devem ser informados juntos",
-    }
-  );
+  .refine((data) => data.unidadeArea === undefined && data.area === undefined, {
+    error: "a área e unidade dela devem ser informadas juntas",
+  });
 export type CreateTerritoryDTO = z.infer<typeof createTerritorySchema>;
 export type UpdateTerritoryDTO = z.infer<typeof updateTerritorySchema>;

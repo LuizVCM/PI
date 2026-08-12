@@ -1,3 +1,4 @@
+import { FindOperator } from "typeorm";
 import { User } from "../models/User";
 import { CreateUserDTO } from "../schemas/user.schema";
 import { createBaseRepository } from "./BaseRepository";
@@ -50,7 +51,6 @@ export const UserRepository = {
   ): Promise<User | null> {
     return base.findById(id, { relations: [relation] });
   },
-
   /** cria um novo usuário */
   async create(data: CreateUserDTO): Promise<User> {
     const user = base.create(data);

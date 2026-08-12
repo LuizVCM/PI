@@ -18,7 +18,6 @@ export class Crop extends BaseModel {
   cultura: string;
   @Column({ length: 100 })
   variedade: string;
-  area: number;
   @Column("decimal", {
     precision: 12,
     scale: 2,
