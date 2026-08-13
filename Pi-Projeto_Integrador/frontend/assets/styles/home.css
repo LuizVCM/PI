@@ -56,9 +56,10 @@ header .user {
 }
 
 main {
-  display: flex;
-  width: 100%;
-  min-height: 100%;
+    display: flex;
+    width: 100%;
+    min-height: 100%;
+    
 }
 
 aside {

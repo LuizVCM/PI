@@ -46,7 +46,11 @@
 .filtros-insumos input{
     flex:1;
 }
-
+.tela{
+    display:flex;/* Usa flex para organizar os elementos */
+    height:87vh;/* Altura da tela */
+    overflow:auto; /* Caso o conteúdo passe do tamanho, cria uma barra de rolagem */
+}
 .cards-insumos{
     display:grid;
     grid-template-columns:repeat(3,1fr);
