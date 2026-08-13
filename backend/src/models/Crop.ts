@@ -9,13 +9,23 @@ export enum CropStatus {
   CONCLUIDA = "concluida",
   CANCELADA = "cancelada",
 }
+export enum CropCulture {
+  MILHO = "milho",
+  SOJA = "soja",
+  TRIGO = "trigo",
+  ARROZ = "arroz",
+  FEIJAO = "feijao",
+}
 
 @Entity("plantacoes")
 export class Crop extends BaseModel {
   @Column({ length: 100 })
   nome: string;
-  @Column({ length: 100 })
-  cultura: string;
+  @Column({
+    type: "enum",
+    enum: CropCulture,
+  })
+  cultura: CropCulture;
   @Column({ length: 100 })
   variedade: string;
   @Column("decimal", {
