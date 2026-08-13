@@ -7,8 +7,8 @@ export class TerritoryController {
   private territoryService = new TerritoryService();
   async listAll(req: Request, res: Response, next: NextFunction) {
     try {
-      const territory = await this.territoryService.listAll();
-      return res.json(territory);
+      const territories = await this.territoryService.listAll();
+      return res.json(territories);
     } catch (error) {
       next(error);
     }
@@ -45,7 +45,6 @@ export class TerritoryController {
         createTerritoryData,
         id
       );
-
       return res.status(201).json(territory);
     } catch (error) {
       next(error);
@@ -59,12 +58,12 @@ export class TerritoryController {
       }
       const loggedUser = req.user.id;
       const updateTerritoryData = req.body as UpdateTerritoryDTO;
-      const Territory = await this.territoryService.update(
+      const territory = await this.territoryService.update(
         id,
         updateTerritoryData,
         loggedUser
       );
-      return res.json(Territory);
+      return res.json(territory);
     } catch (error) {
       next(error);
     }

@@ -21,7 +21,7 @@ export class User extends BaseModel {
   senha: string;
   @OneToMany(() => Seed, (semente) => semente.usuario)
   sementes: Seed[];
-  @OneToMany(() => Territory, (territorio) => territorio.usuario, {onDelete: "CASCADE"})
+  @OneToMany(() => Territory, (territorio) => territorio.usuario)
   territorios: Territory[];
   @OneToMany(() => Finance, (financas) => financas.usuario)
   financas: Finance[];

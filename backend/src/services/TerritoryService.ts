@@ -61,6 +61,7 @@ export class TerritoryService {
     if (!territory) {
       throw new NotFoundError("território");
     }
+    console.log(territory);
     AuthorizationService.ensureOwnership(
       territory,
       loggedUserId,
@@ -70,5 +71,6 @@ export class TerritoryService {
     if (result.affected === 0) {
       throw new NotFoundError("território");
     }
+    return result;
   }
 }

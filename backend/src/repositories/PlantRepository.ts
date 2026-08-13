@@ -1,7 +1,6 @@
 import { Plant } from "../models/Plant";
 import { CreatePlantDTO } from "../schemas/plant.schema";
 import { createBaseRepository } from "./BaseRepository";
-import { UserRepository } from "./UserRepository";
 
 const base = createBaseRepository(Plant);
 

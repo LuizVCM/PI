@@ -26,8 +26,8 @@ export class Crop extends BaseModel {
     enum: CropCulture,
   })
   cultura: CropCulture;
-  @Column({ length: 100 })
-  variedade: string;
+  @Column({ type: "varchar", length: 100, nullable: true })
+  variedade: string | null ;
   @Column("decimal", {
     precision: 12,
     scale: 2,
@@ -38,12 +38,12 @@ export class Crop extends BaseModel {
     enum: AreaUnit,
   })
   unidadeArea: AreaUnit;
-  @Column({ type: "date" })
-  dataPlantio: Date;
+  @Column({ type: "date", nullable: true  })
+  dataPlantio: Date | null;
   @Column({ type: "date", nullable: true })
   colheitaPrevista: Date | null;
-  @Column({ length: 100 })
-  responsavel: string;
+  @Column({ type: "varchar", length: 100, nullable: true  })
+  responsavel: string | null;
   @Column({
     type: "enum",
     enum: CropStatus,

@@ -5,6 +5,7 @@ import {
 import { Territory } from "../models/Territory";
 import { fromSquareMeters, toSquareMeters } from "../utils/area-converter";
 import { UserMapper } from "./UserMapper";
+import { dataFilter } from "../utils/data-filter";
 
 export class TerritoryMapper {
   static toResponse(territory: Territory) {
@@ -16,11 +17,9 @@ export class TerritoryMapper {
       usuario: UserMapper.toResponse(territory.usuario)
     };
   }
-
   static toResponseList(territories: Territory[]) {
     return territories.map(this.toResponse);
   }
-
   static toCreateEntity(data: CreateTerritoryDTO) {
     return {
       cep: data.cep,
@@ -30,16 +29,11 @@ export class TerritoryMapper {
   }
   static toUpdateEntity(data: UpdateTerritoryDTO) {
     const result: Partial<Territory> = {};
-
-    if (data.cep !== undefined) {
-      result.cep = data.cep;
-    }
-
+    dataFilter(result, data)
     if (data.area !== undefined && data.unidadeArea !== undefined) {
       result.areaM2 = toSquareMeters(data.area, data.unidadeArea!);
       result.unidadeArea = data.unidadeArea!;
     }
-
     return result;
   }
 }

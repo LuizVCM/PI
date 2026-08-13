@@ -10,13 +10,13 @@ export function AuthMiddleware(
   const token = req.cookies.token;
 
   if (!token) {
-    throw new UnauthorizedError();
+    throw new UnauthorizedError("não autenticado");
   }
 
   const payload = verifyToken(token);
 
   if (!payload) {
-    throw new UnauthorizedError();
+    throw new UnauthorizedError("não autenticado");
   }
 
   req.user = payload;

@@ -5,6 +5,12 @@ import { createBaseRepository } from "./BaseRepository";
 
 const base = createBaseRepository(Territory);
 
+interface TerritoryData {
+  cep: string;
+  areaM2: number;
+  unidadeArea: AreaUnit;
+}
+
 export const TerritoryRepository = {
   ...base,
 
@@ -27,11 +33,7 @@ export const TerritoryRepository = {
 
   /** criar um novo território associado a um usuário */
   async create(
-    data: {
-      cep: string;
-      areaM2: number;
-      unidadeArea: AreaUnit;
-    },
+    data: TerritoryData,
     user: User
   ): Promise<Territory> {
     const territory = base.create({ ...data, usuario: user });

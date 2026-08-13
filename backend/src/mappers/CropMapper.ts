@@ -1,0 +1,52 @@
+import { Crop } from "../models/Crop";
+import { CreateCropDTO, UpdateCropDTO } from "../schemas/crop.schema";
+import { fromSquareMeters, toSquareMeters } from "../utils/area-converter";
+import { TerritoryMapper } from "./TerritoryMapper";
+
+export class CropMapper {
+  static toResponse(crop: Crop) {
+    return {
+      id: crop.id,
+      nome: crop.nome,
+      cultura: crop.cultura,
+      variedade: crop.variedade,
+      area: fromSquareMeters(crop.areaM2, crop.unidadeArea),
+      unidadeArea: crop.unidadeArea,
+      dataPlantio: crop.dataPlantio ? crop.dataPlantio : "Data não informada",
+      colheitaPrevista: crop.colheitaPrevista
+        ? crop.colheitaPrevista
+        : "Data não informada",
+      responsavel: crop.responsavel
+        ? crop.responsavel
+        : "Responsável não informado",
+      status: crop.status,
+      observacoes: crop.observacoes ? crop.observacoes : "Sem observações",
+      territorio: TerritoryMapper.toResponse(crop.territorio),
+    };
+  }
+  static toResponseList(crops: Crop[]) {
+    return crops.map(this.toResponse);
+  }
+  static toCreateEntity(data: CreateCropDTO) {
+    return {
+      nome: data.nome,
+      cultura: data.cultura,
+      variedade: data.variedade,
+      areaM2: toSquareMeters(data.area, data.unidadeArea),
+      unidadeArea: data.unidadeArea,
+      dataPlantio: data.dataPlantio,
+      colheitaPrevista: data.colheitaPrevista,
+      responsavel: data.responsavel,
+      status: data.status,
+      observacoes: data.observacoes,
+    };
+  }
+  static toUpdateEntity(data: UpdateCropDTO) {
+    const result: Partial<Crop> = {};
+    if (data.area !== undefined && data.unidadeArea !== undefined) {
+      result.areaM2 = toSquareMeters(data.area, data.unidadeArea!);
+      result.unidadeArea = data.unidadeArea!;
+    }
+    return result;
+  }
+}
