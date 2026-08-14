@@ -13,7 +13,13 @@ interface TerritoryData {
 
 export const TerritoryRepository = {
   ...base,
-
+  async findAllWithUser() {
+    return base.findAll({
+      relations: {
+        usuario: true,
+      },
+    });
+  },
   /** buscar todos os territórios de um usuário */
   async findByUserId(userId: number): Promise<Territory[]> {
     return base.getRepository().find({
@@ -21,7 +27,9 @@ export const TerritoryRepository = {
       relations: { usuario: true },
     });
   },
-
+  async findByIdWithUser(id: number) {
+    return base.findById(id, { relations: { usuario: true } });
+  },
   async findWithCropsByUserId(userId: number): Promise<Territory[]> {
     return base.getRepository().find({
       where: { usuario: { id: userId } },
@@ -30,12 +38,8 @@ export const TerritoryRepository = {
       },
     });
   },
-
   /** criar um novo território associado a um usuário */
-  async create(
-    data: TerritoryData,
-    user: User
-  ): Promise<Territory> {
+  async create(data: TerritoryData, user: User): Promise<Territory> {
     const territory = base.create({ ...data, usuario: user });
     return base.save(territory);
   },
