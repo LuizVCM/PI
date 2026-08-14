@@ -9,18 +9,18 @@ export class CropMapper {
       id: crop.id,
       nome: crop.nome,
       cultura: crop.cultura,
-      variedade: crop.variedade,
+      variedade: crop.variedade ? crop.variedade : "variadade não informada",
       area: fromSquareMeters(crop.areaM2, crop.unidadeArea),
       unidadeArea: crop.unidadeArea,
-      dataPlantio: crop.dataPlantio ? crop.dataPlantio : "Data não informada",
+      dataPlantio: crop.dataPlantio ? crop.dataPlantio : "data não informada",
       colheitaPrevista: crop.colheitaPrevista
         ? crop.colheitaPrevista
-        : "Data não informada",
+        : "data não informada",
       responsavel: crop.responsavel
         ? crop.responsavel
-        : "Responsável não informado",
+        : "responsável não informado",
       status: crop.status,
-      observacoes: crop.observacoes ? crop.observacoes : "Sem observações",
+      observacoes: crop.observacoes ? crop.observacoes : "sem observações",
       territorio: TerritoryMapper.toResponse(crop.territorio),
     };
   }

@@ -17,6 +17,7 @@ export class TerritoryMapper {
       usuario: territory.usuario
       ? UserMapper.toResponse(territory.usuario)
       : "usuário indisponível",
+      plantacoes: territory.plantacoes ? territory.plantacoes : "plantações indisponíveis"
     };
   }
   static toResponseList(territories: Territory[]) {
