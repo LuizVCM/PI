@@ -15,6 +15,7 @@ export const UserRepository = {
         { telefone: keys.telefone },
         { email: keys.email },
       ],
+      withDeleted: true,
       select: { id: true, cpf: true, telefone: true, email: true },
     });
     // mapeia quais campos estão em uso
