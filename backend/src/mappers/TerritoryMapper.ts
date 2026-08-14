@@ -14,7 +14,9 @@ export class TerritoryMapper {
       cep: territory.cep,
       area: fromSquareMeters(Number(territory.areaM2), territory.unidadeArea),
       unidadeArea: territory.unidadeArea,
-      usuario: UserMapper.toResponse(territory.usuario)
+      usuario: territory.usuario
+      ? UserMapper.toResponse(territory.usuario)
+      : "usuário indisponível",
     };
   }
   static toResponseList(territories: Territory[]) {
@@ -29,7 +31,7 @@ export class TerritoryMapper {
   }
   static toUpdateEntity(data: UpdateTerritoryDTO) {
     const result: Partial<Territory> = {};
-    dataFilter(result, data)
+    dataFilter(result, data);
     if (data.area !== undefined && data.unidadeArea !== undefined) {
       result.areaM2 = toSquareMeters(data.area, data.unidadeArea!);
       result.unidadeArea = data.unidadeArea!;

@@ -10,8 +10,10 @@ import { AuthorizationService } from "./AuthorizationService";
 
 export class TerritoryService {
   async listAll() {
-    const territories = await TerritoryRepository.findAll();
-    return TerritoryMapper.toResponseList(territories)
+
+    const territories = await TerritoryRepository.findAllWithUser();
+    console.log(territories)
+    return TerritoryMapper.toResponseList(territories);
   }
   async getById(id: number) {
     const territory = await TerritoryRepository.findById(id);
@@ -25,7 +27,7 @@ export class TerritoryService {
   }
   async listWithCropsByUser(userId: number) {
     const territories = await TerritoryRepository.findWithCropsByUserId(userId);
-    return TerritoryMapper.toResponseList(territories)
+    return TerritoryMapper.toResponseList(territories);
   }
   async create(data: CreateTerritoryDTO, loggedUserId: number) {
     const user = await UserRepository.findById(loggedUserId);
@@ -44,7 +46,7 @@ export class TerritoryService {
     AuthorizationService.ensureOwnership(
       territory,
       loggedUserId,
-      "territórios"
+      "território"
     );
     Object.assign(
       territory,
@@ -57,7 +59,7 @@ export class TerritoryService {
     return TerritoryMapper.toResponse(territoryUpdated);
   }
   async delete(id: number, loggedUserId: number) {
-    const territory = await TerritoryRepository.findById(id);
+    const territory = await TerritoryRepository.findByIdWithUser(id);
     if (!territory) {
       throw new NotFoundError("território");
     }
@@ -65,7 +67,7 @@ export class TerritoryService {
     AuthorizationService.ensureOwnership(
       territory,
       loggedUserId,
-      "territórios"
+      "território"
     );
     const result = await TerritoryRepository.softDelete(id);
     if (result.affected === 0) {
