@@ -27,8 +27,11 @@ export const updateTerritorySchema = z
       .optional(),
     unidadeArea: z.enum(AreaUnit, "Unidade de área inválida").optional(),
   })
-  .refine((data) => data.unidadeArea === undefined && data.area === undefined, {
-    error: "a área e unidade dela devem ser informadas juntas",
-  });
+  .refine(
+    (data) => (data.area === undefined) === (data.unidadeArea === undefined),
+    {
+      error: "a área e unidade dela devem ser informadas juntas",
+    }
+  );
 export type CreateTerritoryDTO = z.infer<typeof createTerritorySchema>;
 export type UpdateTerritoryDTO = z.infer<typeof updateTerritorySchema>;

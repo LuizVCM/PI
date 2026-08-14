@@ -52,7 +52,7 @@ export const updateCropSchema = z
     status: z.enum(CropStatus).optional(),
     observacoes: z.string().nullable().optional(),
   })
-  .refine((data) => data.unidadeArea === undefined && data.area === undefined, {
+  .refine((data) => (data.area === undefined) === (data.unidadeArea === undefined), {
     error: "a área e unidade dela devem ser informadas juntas",
   });
 export type CreateCropDTO = z.infer<typeof createCropSchema>;
