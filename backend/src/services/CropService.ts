@@ -1,7 +1,6 @@
 import { InternalServerError } from "../errors/InternalServerError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { CropMapper } from "../mappers/CropMapper";
-import { Territory } from "../models/Territory";
 import { CropRepository } from "../repositories/CropRepository";
 import { TerritoryRepository } from "../repositories/TerritoryRepository";
 import { UserRepository } from "../repositories/UserRepository";
@@ -10,7 +9,7 @@ import { AuthorizationService } from "./AuthorizationService";
 
 export class CropService {
   async listAll() {
-    const crops = await CropRepository.findAll();
+    const crops = await CropRepository.findAllWithTerritory();
     return CropMapper.toResponseList(crops);
   }
   async getById(id: number) {
@@ -39,16 +38,17 @@ export class CropService {
     if (!user) {
       throw new InternalServerError("Ocorreu um erro inesperado");
     }
-    const territory = await TerritoryRepository.findById(territoryId);
+    const territory = await TerritoryRepository.findByIdWithUser(territoryId);
     if (!territory) {
       throw new NotFoundError("território");
     }
     AuthorizationService.ensureOwnership(
       territory,
       loggedUserId,
-      "territórios"
+      "território"
     );
     const cropData = CropMapper.toCreateEntity(data);
-    const crop = await CropRepository.create(cropData, territory)
+    const crop = await CropRepository.create(cropData, territory);
+    return CropMapper.toResponse(crop);
   }
 }
