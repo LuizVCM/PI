@@ -16,14 +16,14 @@ interface BaseEntity extends ObjectLiteral {
 
 export interface BaseRepository<T extends BaseEntity> {
   getRepository(): Repository<T>;
-
+  /** o findAll sozinho, sem especificar opções, retorna apenas a lista de objetos daquela entidade, sem as relações */
   findAll(options?: FindManyOptions<T>): Promise<T[]>;
-
+  /** o findById sozinho, sem especificar opções, retorna apenas o objeto daquela entidade, sem as relações */
   findById(
     id: number,
     options?: Omit<FindOneOptions<T>, "where">
   ): Promise<T | null>;
-
+  /** o findOne sozinho, sem especificar opções, retorna apenas o objeto daquela entidade, sem as relações */
   findOne(options: FindOneOptions<T>): Promise<T | null>;
 
   create(data: DeepPartial<T>): T;
