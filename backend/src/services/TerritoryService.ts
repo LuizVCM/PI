@@ -16,7 +16,7 @@ export class TerritoryService {
     return TerritoryMapper.toResponseList(territories);
   }
   async getById(id: number) {
-    const territory = await TerritoryRepository.findById(id);
+    const territory = await TerritoryRepository.findByIdWithUser(id);
     if (!territory) {
       throw new NotFoundError("território");
     }
