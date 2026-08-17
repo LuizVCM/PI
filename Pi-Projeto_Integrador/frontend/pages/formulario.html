@@ -15,7 +15,7 @@
 
     </div>
     </div>
-    <!-- cria atalho para cadastro -->
+    <!-- cria atalho para cadastro
     <div class="cadastramento">
         <div class="fundo cadastro tamanho">
             <div class="cima">
@@ -50,101 +50,118 @@
                 <p>Já possui conta? <a href="#" id="entra3">Entre aqui</a></p>
             </form>
         </div>
-    </div>
+    </div> -->
 
-    <!--cadastramento de territorio-->
-    <div class="cadastramento">
-        <div class="fundo territorio tamanho">
-            <div class="cima">
-                <img src="" alt="" class="logo">
-                <h3>Bem-vindo</h3>
-                <p>Faça o seu cadastro</p>
-            </div>
-            <form action="" class="formulario" id="territorio">
-                <label for="nome">Nome</label>
-                <input type="text" name="nome" id="nome" placeholder="João">
-                <label for="sobrenome">Sobrenome</label>
-                <input type="text" name="sobrenome" id="sobrenome" placeholder="Silva">
-                <label for="email">E-mail</label>
-                <input type="email" name="email" id="email" placeholder="example@domain.com">
-                <label for="telefone">Telefone</label>
-                <input type="tel" name="telefone" id="telefone" placeholder="519000-0000">
-                <label for="cpf">CPF</label>
-                <input type="number" name="cpf" id="cpf" placeholder="000-000-000-00">
-                <label for="senha">Senha</label>
-                <input type="password" name="senha" id="senha" placeholder="6 caracteres">
-                <button type="button" class="confirmar" id="territorio">Cadastrar usuário</button>
-                <div class="aglomerado">
-                    <div class="parte1"></div>
-                    <p>ou</p>
-                    <div class="parte2"></div>
-                </div>
 
-                <div class="botoes">
-                    <button class="botao">Google</button>
-                    <button class="botao">Github</button>
-                </div>
-                <p>Já possui conta? <a href="#" id="entra2">Entre aqui</a></p>
-            </form>
-        </div>
-    </div>
-
-    <!-- Cadastramento de sensores -->
-     <div class="cadastramento">
-        <div class="fundo sensor tamanho">
-            <div class="cima">
-                <img src="" alt="" class="logo">
-                <h3>Bem-vindo</h3>
-                <p>Faça o seu cadastro</p>
-            </div>
-            <form action="" class="formulario" id="territorio">
-                <label for="nome">Nome</label>
-                <input type="text" name="nome" id="nome" placeholder="João">
-
-                <label for="sobrenome">Sobrenome</label>
-                <input type="text" name="sobrenome" id="sobrenome" placeholder="Silva">
-                
-                <label for="email">E-mail</label>
-                <input type="email" name="email" id="email" placeholder="example@domain.com">
-
-                <label for="telefone">Telefone</label>
-                <input type="tel" name="telefone" id="telefone" placeholder="519000-0000">
-
-                <label for="cpf">CPF</label>
-                <input type="number" name="cpf" id="cpf" placeholder="000-000-000-00">
-
-                <label for="senha">Senha</label>
-                <input type="password" name="senha" id="senha" placeholder="6 caracteres">
-
-                <button type="button" class="confirmar" id="sensor">Cadastrar usuário</button>
-                <div class="aglomerado">
-                    <div class="parte1"></div>
-                    <p>ou</p>
-                    <div class="parte2"></div>
-                </div>
-
-                <div class="botoes">
-                    <button class="botao">Google</button>
-                    <button class="botao">Github</button>
-                </div>
-                <p>Já possui conta? <a href="#" id="entra2">Entre aqui</a></p>
-            </form>
-        </div>
-    </div>
-    <div class="fundo">
+    <!-- Cria usuário -->
+    <div class="fundo cadastro sumir">
         <div class="cima">
-            <img src="" alt="" class="logo">
+            <h3>Bem-Vindo</h3>
+            <p>cadastre o seu usuário</p>
+        </div>
+        <form action="#" class="formulario" id="tres">
+            <label for="nome">Digite o seu nome</label>
+            <input type="text" name="nome" id="nome" placeholder="Ex: Lorenzo">
+
+            <label for="sobrenome">Digite o seu sobrenome</label>
+            <input type="text" name="sobrenome" id="sobrenome" placeholder="Ex: da Silva">
+
+            <label for="email">Digite um email válido</label>
+            <input type="email" name="email" id="email2" placeholder="Ex: ......@gmail.com">
+
+            <label for="cpf">Digite o seu CPF</label>
+            <input type="text" name="cpf" id="cpf" placeholder="Ex: 123.456.678-90">
+
+            <label for="telefone">Digite o seu telefone</label>
+            <input type="number" name="telefone" id="fone" placeholder="Ex: 51999233312">
+
+            <label for="senha">Crie uma senha</label>
+            <input type="password" name="senha" id="password"
+                placeholder="mínimo de 6 caracteres, 1 algarismo especial, uma letra maiúscula e um número">
+
+            <label for="confirmarSenha">Digite novamente a sua senha</label>
+            <input type="password" name="confirmarSenha">
+
+            <button type="button" class="entrar" id="cadastrarUsuario">Cadastrar usuário</button>
+            <p>Já possui conta? <a href="#" id="voltarLogin1">Entre aqui</a></p>
+        </form>
+    </div>
+
+    <!-- Cria territorio relacionado aos dados do user -->
+    <div class="fundo territorio sumir">
+        <div class="cima">
+            <h3>Bem-Vindo</h3>
+            <p>Cadastre o seu território</p>
+        </div>
+        <form action="#" class="formulario" id="quatro">
+            <label for="cep">Digite o teu CEP</label>
+            <input type="string" name="cep" id="cep" placeholder="Ex: 75712-710">
+
+            <label for="area">Digite a extensão em número de seu território</label>
+            <input type="number" name="area" id="area" placeholder="ex:  6000">
+
+            <label for="unidade">Escolha a unidade da extensão</label>
+            <select name="unidade" id="unidade" placeholder="Escolha uma das opções abaixo">
+                <option value="m2"> metros quadrados (m2)</option>
+                <option value="km2"> kilômetros quadrados (km2)</option>
+                <option value="hectare">hectare</option>
+
+            </select>
+
+            <button type="button" class="entrar" id="cadastrarTerritorio">Cadastrar território</button>
+        </form>
+    </div>
+
+    <!-- cadastrar sensor-->
+    <div class="fundo sensor sumir">
+        <div class="cima">
+            <h3>Bem-Vindo</h3>
+            <p>Cadastre seu/seus sensor/sensores</p>
+        </div>
+        <form action="#" class="formulario" id="cinco">
+
+            <label for="tipo">Cadastre a função do sensor</label>
+            <select name="tipo" id="tipos">
+                <option value="umidade">umidade de solo</option>
+                <option value="temperatura">temperatura ambiente e de solo</option>
+                <option value="vento">vento e umidade de ambiente</option>
+            </select>
+
+            <label for="nomeSensor">Cadastre o nome de sensor</label>
+            <input type="text" name="nomeSensor" id="nomeSensor" placeholder="Ex: DHT11, BMP280... ">
+
+            <button type="button" class="entrar" id="btnCadastrarSensor">Cadastrar sensor</button>
+        </form>
+    </div>
+
+    <!-- Tela para perguntar se quer cadastrar mais sensores-->
+     <div class="fundo pergunta sumir">
+        <div class="cima">
+            <h3>Bem-Vindo</h3>
+            <p>Confirme suas escolhas</p>
+        </div>
+        <div class="certeza" id="seis">
+            <span>Gostaria de cadastrar mais algum sensor?</span>
+        </div>
+       <div class="btns">
+        <button type="button" class="entrarLogin">Ir para a tela de login</button>
+        <button type="button" class="cadastrarMaisSensores">Cadastrar mais sensores</button>
+       </div>
+
+     </div>
+    <!-- loga com usuário já existente -->
+    <div class="fundo login">
+        <div class="cima">
             <h3>Bem-Vindo</h3>
             <p>Acesse sua plantação</p>
         </div>
-        <form action="" class="formulario" id="dois">
+        <form action="#" class="formulario" id="dois">
 
             <label for="email">E-MAIL</label>
             <input type="email" name="email" id="email" placeholder="....@gmail.com">
             <label for="senha">SENHA</label>
             <input type="password" name="senha" id="senha" placeholder=" Digite sua senha:">
-            <button type="submit" class="entrar"><a href="home.html"
-                    style="color: rgb(0, 0, 0); text-decoration: none">ENTRAR</a></button>
+            <button type="submit" class="entrar"><a href="home.html">ENTRAR</a></button>
 
             <div class="aglomerado">
                 <div class="parte1"></div>
@@ -156,7 +173,7 @@
                 <button class="botao"> Google</button>
                 <button class="botao"> Github</button>
             </div>
-            <p> Novo usuário? <a href="#" id="paragrafoLink"> Comece agora </a></p>
+            <p> Novo usuário? <a href="#" id="paragrafoLink"> Comece agora </a></button>
         </form>
 
 
