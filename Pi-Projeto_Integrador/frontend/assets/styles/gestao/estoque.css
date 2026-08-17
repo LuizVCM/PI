@@ -4,7 +4,7 @@
     display: none;
     width: 100%;
     height: 87vh;
-    padding: 25px 35px;
+    padding: 50px 50px;
     background: var(--conteudo-fundo);
     overflow-y: auto;
 }
@@ -23,7 +23,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 25px;
-    color: #068822;
+    color: #054d15;
 }
 
 
