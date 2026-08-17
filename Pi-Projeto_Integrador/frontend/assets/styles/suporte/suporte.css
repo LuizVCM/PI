@@ -1,76 +1,93 @@
+.gestao-suporte {
+    width: 100%;
+    max-width: auto;
+    padding: 25px 30px;
+    background: #F4FBF0;
+    height: 87vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
 
-.suporte{
-    flex: 1;
-   padding: 25px 35px;
-   background: #F4FBF0;
-    height:87vh;
-    overflow:auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.suporte h1{
-    color:var(--verde-profundo);
-    margin-bottom:10px;
+.gestao-suporte h1 {
+    color: var(--verde-profundo);
+    margin-bottom: 10px;
 }
 
-.descricao{
-    color:#666;
-    margin-bottom:25px;
+.descricao {
+    color: #666;
+    margin-bottom: 25px;
 }
 
-.pesquisa{
-    margin-bottom:30px;
+.pesquisa {
+    width: 100%;
+    max-width: 700px;
+    margin-bottom: 30px;
 }
 
-.pesquisa input{
-    width:85%;
-    padding:12px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    font-size:15px;
+.pesquisa input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    box-sizing: border-box;
 }
 
-.suporte h2{
-    color:var(--verde-profundo);
-    margin-bottom:15px;
+.gestao-suporte h2 {
+    color: var(--verde-profundo);
+    margin-bottom: 15px;
 }
 
-.pergunta{
-    background:#fff;
-    padding:18px;
-    border-radius:8px;
-    border-left:5px solid var(--verde-profundo);
-    margin-bottom:15px;
-    cursor:pointer;
+.pergunta {
+    width: 100%;
+    max-width: 900px;
+    background: #fff;
+    padding: 18px;
+    border-radius: 8px;
+    border-left: 5px solid var(--verde-profundo);
+    margin-bottom: 10px;
+    cursor: pointer;
+    box-sizing: border-box;
 }
 
-.pergunta h3{
-    margin-bottom:10px;
+.pergunta h3 {
+    margin-bottom: 10px;
 }
 
-.pergunta p{
-    display:none;
-    color:#555;
+.pergunta p {
+    display: none;
+    color: #555;
 }
 
-.pergunta.ativa p{
-    display:block;
+.pergunta.ativa p {
+    display: block;
 }
 
-.contato{
-    margin-top:30px;
+.contato {
+    width: 100%;
+    max-width: 900px;
+    margin-top: 30px;
 }
 
-.card-contato{
-    display:flex;
-    align-items:center;
-    gap:15px;
-    background:#fff;
-    padding:15px;
-    border-radius:8px;
-    margin-bottom:15px;
+.card-contato {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
 }
 
-.card-contato i{
-    color:var(--verde-profundo);
-    font-size:20px;
+.card-contato i {
+    color: var(--verde-profundo);
+    font-size: 20px;
+    flex-shrink: 0;
 }
