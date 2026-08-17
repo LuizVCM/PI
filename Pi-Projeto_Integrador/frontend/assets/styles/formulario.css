@@ -156,9 +156,8 @@ box-shadow: 0 0 10px rgba(137, 167, 55, 0.479);
     filter: brightness(100%);
     
 }
-.entrar:hover{
+.entrar:hover, .confirmar:hover{
     color: black;
-    
     transform: scale(105%);
     height: 40px;
     font-weight:740;
@@ -208,7 +207,7 @@ box-shadow: 0 0 10px rgba(137, 167, 55, 0.479);
    
     z-index: 1000;
 }
-.cadastro{
+.cadastro, .territorio, .sensor{
     width:450px;
     height:auto;
    display:flex;
