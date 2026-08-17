@@ -15,22 +15,23 @@ import { UserMapper } from "../mappers/UserMapper";
 import { omitPassword } from "../utils/omitPassword";
 
 export class UserService {
+  private repo = new UserRepository();
   async listAll() {
-    const users = await UserRepository.findAll();
+    const users = await this.repo.base.findAll();
     return UserMapper.toResponseList(users);
   }
   async listByEmail(email: string) {
     if (!email) {
       throw new BadRequestError("e-mail não fornecido");
     }
-    const user = await UserRepository.findByEmail(email);
+    const user = await this.repo.findByEmail(email);
     if (!user) {
       throw new NotFoundError("usuário");
     }
     return UserMapper.toResponse(user);
   }
   async getById(id: number) {
-    const user = await UserRepository.findById(id);
+    const user = await this.repo.findUserWithRelations(id);
     if (!user) {
       throw new NotFoundError("usuário");
     }
@@ -42,7 +43,7 @@ export class UserService {
     if (!relations.includes(field)) {
       throw new BadRequestError("relação com a entidade incorreta", field);
     }
-    const user = await UserRepository.findByIdWithRelation(id, field);
+    const user = await this.repo.findByIdWithRelation(id, field);
     if (!user) {
       throw new NotFoundError("usuário");
     }
@@ -50,7 +51,7 @@ export class UserService {
   }
   async create(data: CreateUserDTO) {
     const { cpf, telefone, email } = data;
-    const alreadyInUse = await UserRepository.findConflicts({
+    const alreadyInUse = await this.repo.findConflicts({
       cpf,
       telefone,
       email,
@@ -65,14 +66,14 @@ export class UserService {
       }
     }
     const passHash = await bcrypt.hash(data.senha, 10);
-    const user = await UserRepository.create({
+    const user = await this.repo.create({
       ...data,
       senha: passHash,
     });
     return UserMapper.toResponseSavedUser(user);
   }
   async update(id: number, data: UpdateUserDTO) {
-    const user = await UserRepository.findById(id);
+    const user = await this.repo.base.findById(id);
     if (!user) {
       throw new NotFoundError("usuário");
     }
@@ -86,22 +87,22 @@ export class UserService {
     if (senha) {
       user.senha = await bcrypt.hash(senha, 10);
     }
-    const updatedUser = await UserRepository.save(user);
+    const updatedUser = await this.repo.base.save(user);
     return UserMapper.toResponseSavedUser(updatedUser);
   }
   async delete(id: number) {
-    const result = await UserRepository.softDelete(id);
+    const result = await this.repo.base.softDelete(id);
     if (result.affected === 0) {
       throw new NotFoundError("usuário");
     }
     return result;
   }
   async login(data: LoginUserDTO) {
-    const userRegistered = await UserRepository.findByEmail(data.email);
+    const userRegistered = await this.repo.findByEmail(data.email);
     if (!userRegistered) {
       throw new UnauthorizedError("credenciais inválidas");
     }
-    const user = await UserRepository.findByEmailWithPassword(data.email);
+    const user = await this.repo.findByEmailWithPassword(data.email);
     if (!user) {
       throw new InternalServerError("Ocorreu um erro inesperado");
     }
@@ -119,7 +120,7 @@ export class UserService {
     };
   }
   async checkUserPassword(email: string, pass: string) {
-    const user = await UserRepository.findByEmailWithPassword(email);
+    const user = await this.repo.findByEmailWithPassword(email);
     if (!user) {
       throw new NotFoundError("usuário");
     }

@@ -6,6 +6,7 @@ import { Territory } from "../models/Territory";
 import { fromSquareMeters, toSquareMeters } from "../utils/area-converter";
 import { UserMapper } from "./UserMapper";
 import { dataFilter } from "../utils/data-filter";
+import { CropMapper } from "./CropMapper";
 
 export class TerritoryMapper {
   static toResponse(territory: Territory) {
@@ -15,9 +16,9 @@ export class TerritoryMapper {
       area: fromSquareMeters(Number(territory.areaM2), territory.unidadeArea),
       unidadeArea: territory.unidadeArea,
       usuario: territory.usuario
-      ? UserMapper.toResponse(territory.usuario)
-      : "usuário indisponível",
-      plantacoes: territory.plantacoes ? territory.plantacoes : "plantações indisponíveis"
+        ? UserMapper.toResponse(territory.usuario)
+        : "usuário indisponível",
+      plantacoes: territory.plantacoes
     };
   }
   static toResponseList(territories: Territory[]) {

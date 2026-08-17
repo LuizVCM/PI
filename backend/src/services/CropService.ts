@@ -8,47 +8,46 @@ import { CreateCropDTO } from "../schemas/crop.schema";
 import { AuthorizationService } from "./AuthorizationService";
 
 export class CropService {
+  private repo = new CropRepository();
+  private userRepo = new UserRepository();
+  private territoryRepo = new TerritoryRepository();
   async listAll() {
-    const crops = await CropRepository.findAllWithTerritory();
+    const crops = await this.repo.findAllWithTerritory();
     return CropMapper.toResponseList(crops);
   }
   async getById(id: number) {
-    const crop = await CropRepository.findById(id);
+    const crop = await this.repo.base.findById(id);
     if (!crop) {
       throw new NotFoundError("plantação");
     }
     return CropMapper.toResponse(crop);
   }
   async listByUserLogged(userId: number) {
-    const crops = await CropRepository.findByUserId(userId);
+    const crops = await this.repo.findByUserId(userId);
     if (!crops) {
       throw new NotFoundError("plantações");
     }
     return CropMapper.toResponseList(crops);
   }
   async listByTerritoryId(territoryId: number) {
-    const crops = await CropRepository.findByTerritoryId(territoryId);
+    const crops = await this.repo.findByTerritoryId(territoryId);
     if (!crops) {
       throw new NotFoundError("plantações");
     }
     return CropMapper.toResponseList(crops);
   }
   async create(data: CreateCropDTO, territoryId: number, loggedUserId: number) {
-    const user = await UserRepository.findById(loggedUserId);
+    const user = await this.userRepo.base.findById(loggedUserId);
     if (!user) {
       throw new InternalServerError("Ocorreu um erro inesperado");
     }
-    const territory = await TerritoryRepository.findByIdWithUser(territoryId);
+    const territory = await this.territoryRepo.findByIdWithUser(territoryId);
     if (!territory) {
       throw new NotFoundError("território");
     }
-    AuthorizationService.ensureOwnership(
-      territory,
-      loggedUserId,
-      "território"
-    );
+    AuthorizationService.ensureOwnership(territory, loggedUserId, "território");
     const cropData = CropMapper.toCreateEntity(data);
-    const crop = await CropRepository.create(cropData, territory);
+    const crop = await this.repo.create(cropData, territory);
     return CropMapper.toResponse(crop);
   }
 }

@@ -6,20 +6,14 @@ import { BaseModel } from "./BaseModel";
 
 @Entity("sensores")
 export class Sensor extends BaseModel {
+  @Column({ type: "varchar" })
+  modelo: string;
   @Column({
     type: "enum",
     enum: ["umidade", "temperatura", "vento"],
     nullable: false,
   })
   tipo: "umidade" | "temperatura" | "vento";
-  // @Column({ length: 100, nullable: false })
-  // funcao: string;
-
-  // @Column({ length: 300, nullable: false })
-  // dados: string;
-
-  // @ManyToOne(() => Weather, (clima) => clima.sensores)
-  // clima: Weather;
   @ManyToOne(() => Territory, (territorio) => territorio.sensores)
   territorio: Territory;
   @OneToMany(() => DataSensor, (data) => data.sensor)

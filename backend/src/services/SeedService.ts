@@ -5,12 +5,13 @@ import { CreateSeedDTO, UpdateSeedDTO } from "../schemas/seed.schema";
 import { AuthorizationService } from "./AuthorizationService";
 
 export class SeedService {
+  private repo = new SeedRepository();
+  private userRepo = new UserRepository();
   async listAll() {
-    return await SeedRepository.findAll();
+    return await this.repo.base.findAll();
   }
-
   async getById(id: number) {
-    const seed = await SeedRepository.findById(id);
+    const seed = await this.repo.base.findById(id);
 
     if (!seed) {
       throw new NotFoundError("semente");
@@ -18,17 +19,17 @@ export class SeedService {
     return seed;
   }
   async listByUserLogged(userId: number) {
-    return SeedRepository.findByUserId(userId);
+    return this.repo.findByUserId(userId);
   }
   async create(data: CreateSeedDTO, loggedUserId: number) {
-    const user = await UserRepository.findById(loggedUserId);
+    const user = await this.userRepo.base.findById(loggedUserId);
     if (!user) {
       throw new NotFoundError("usuário");
     }
-    return SeedRepository.create(data, user);
+    return this.repo.create(data, user);
   }
   async update(id: number, data: UpdateSeedDTO, loggedUserId: number) {
-    const seed = await SeedRepository.findById(id);
+    const seed = await this.repo.base.findById(id);
     if (!seed) {
       throw new NotFoundError("semente");
     }
@@ -42,11 +43,11 @@ export class SeedService {
       )
     );
 
-    const seedUpdated = await SeedRepository.save(seed);
+    const seedUpdated = await this.repo.base.save(seed);
     return seedUpdated;
   }
   async delete(id: number, loggedUserId: number) {
-    const seed = await SeedRepository.findById(id);
+    const seed = await this.repo.base.findById(id);
 
     if (!seed) {
       throw new NotFoundError("semente");
@@ -54,7 +55,7 @@ export class SeedService {
 
     AuthorizationService.ensureOwnership(seed, loggedUserId, "sementes");
 
-    const result = await SeedRepository.softDelete(id);
+    const result = await this.repo.base.softDelete(id);
 
     if (result.affected === 0) {
       throw new NotFoundError("semente");

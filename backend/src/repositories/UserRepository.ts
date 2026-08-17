@@ -1,15 +1,12 @@
-import { FindOperator } from "typeorm";
 import { User } from "../models/User";
 import { CreateUserDTO } from "../schemas/user.schema";
 import { createBaseRepository } from "./BaseRepository";
 
-const base = createBaseRepository(User);
-
-export const UserRepository = {
-  ...base,
+export class UserRepository {
+  public base = createBaseRepository(User);
   /** buscar por chaves únicas, a fim de validar um cadastro */
   async findConflicts(keys: { cpf: string; telefone: string; email: string }) {
-    const users = await base.findAll({
+    const users = await this.base.findAll({
       where: [
         { cpf: keys.cpf },
         { telefone: keys.telefone },
@@ -30,31 +27,41 @@ export const UserRepository = {
       if (user.email === keys.email) conflicts.email = true;
     }
     return conflicts;
-  },
+  }
+  async findUserWithRelations(id: number) {
+    return this.base.findById(id, {
+      relations: {
+        financas: true,
+        insumos: true,
+        sementes: true,
+        territorios: true,
+      },
+    });
+  }
   /** busca apenas por e-mail */
   async findByEmail(email: string) {
-    return base.findOne({
+    return this.base.findOne({
       where: { email },
       select: { id: true, email: true },
     });
-  },
+  }
   /** busca por e-mail para ser utilizado ao logar. APENAS no login, pois aqui a senha é retornada */
   async findByEmailWithPassword(email: string) {
-    return base.findOne({
+    return this.base.findOne({
       where: { email },
       select: { id: true, email: true, senha: true },
     });
-  },
+  }
   /** buscar um usuário por ID com uma relação específica (ex: 'sementes', 'territorios', 'financas' ou 'insumos') */
   async findByIdWithRelation(
     id: number,
     relation: string
   ): Promise<User | null> {
-    return base.findById(id, { relations: [relation] });
-  },
+    return this.base.findById(id, { relations: [relation] });
+  }
   /** cria um novo usuário */
   async create(data: CreateUserDTO): Promise<User> {
-    const user = base.create(data);
-    return base.save(user);
-  },
-};
+    const user = this.base.create(data);
+    return this.base.save(user);
+  }
+}

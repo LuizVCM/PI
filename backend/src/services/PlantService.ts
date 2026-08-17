@@ -4,12 +4,13 @@ import { SeedRepository } from "../repositories/SeedRepository";
 import { CreatePlantDTO, UpdatePlantDTO } from "../schemas/plant.schema";
 
 export class PlantService {
+  private repo = new PlantRepository();
+  private seedRepo = new SeedRepository();
   async listAll() {
-    return await PlantRepository.findAll();
+    return await this.repo.base.findAll();
   }
-
   async getById(id: number) {
-    const plant = await PlantRepository.findById(id);
+    const plant = await this.repo.base.findById(id);
 
     if (!plant) {
       throw new NotFoundError("planta");
@@ -17,34 +18,34 @@ export class PlantService {
     return plant;
   }
   async listBySeedId(seedId: number) {
-    const plants = await PlantRepository.findBySeedId(seedId);
+    const plants = await this.repo.findBySeedId(seedId);
     if (!plants) {
       throw new NotFoundError("plantas");
     }
     return plants;
   }
   async listByUserLogged(userId: number) {
-    const plants = await PlantRepository.findByUserId(userId);
+    const plants = await this.repo.findByUserId(userId);
     if (!plants) {
       throw new NotFoundError("plantas");
     }
     return plants;
   }
   async create(id: number, data: CreatePlantDTO) {
-    const seed = await SeedRepository.findById(id);
+    const seed = await this.seedRepo.base.findById(id);
     if (!seed) {
       throw new NotFoundError("semente");
     }
-    return PlantRepository.create(data);
+    return this.repo.create(data);
   }
   async update(id: number, data: UpdatePlantDTO, seedId: number) {
-    const plant = await PlantRepository.findById(id);
+    const plant = await this.repo.base.findById(id);
 
     if (!plant) {
       throw new NotFoundError("planta");
     }
 
-    const seed = await SeedRepository.findById(seedId);
+    const seed = await this.seedRepo.base.findById(seedId);
 
     if (!seed) {
       throw new NotFoundError("semente");
@@ -57,11 +58,11 @@ export class PlantService {
       )
     );
 
-    const plantaUpdate = await PlantRepository.save(plant);
+    const plantaUpdate = await this.repo.base.save(plant);
     return plantaUpdate;
   }
   async delete(id: number) {
-    const result = await PlantRepository.delete(id);
+    const result = await this.repo.base.delete(id);
     if (result.affected === 0) {
       throw new NotFoundError("planta");
     }

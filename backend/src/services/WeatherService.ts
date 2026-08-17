@@ -6,44 +6,46 @@ import { UserRepository } from "../repositories/UserRepository";
 import { AuthorizationService } from "./AuthorizationService";
 
 export class WeatherService {
+  private repo = new WeatherRepository();
+  private userRepo = new UserRepository();
+  private territoryRepo = new TerritoryRepository();
   async listAll() {
-    return await WeatherRepository.findAll();
+    return await this.repo.base.findAll();
   }
-
   async getById(id: number) {
-    const data = await WeatherRepository.findById(id);
+    const data = await this.repo.base.findById(id);
 
     if (!data) {
       throw new NotFoundError("registro climático");
     }
     return data;
   }
-  async findByCropId(cropId: number) {
-    return await WeatherRepository.findByCropId(cropId);
+  async findByTerritoryId(territoryId: number) {
+    return await this.repo.findByTerritoryId(territoryId);
   }
   async listByUserLogged(userId: number) {
-    const user = await UserRepository.findById(userId);
+    const user = await this.userRepo.base.findById(userId);
     if (!user) {
       throw new NotFoundError("usuário");
     }
-    const weatherData = await WeatherRepository.findAll({
+    const weatherData = await this.repo.base.findAll({
       where: { territorio: { usuario: user } },
       relations: { territorio: true },
     });
     return weatherData;
   }
 
-  async create(data: CreateWeatherDTO, cropId: number) {
-    const crop = await TerritoryRepository.findById(cropId);
+  async create(data: CreateWeatherDTO, territoryId: number) {
+    const territory = await this.territoryRepo.base.findById(territoryId);
 
-    if (!crop) {
+    if (!territory) {
       throw new NotFoundError("território");
     }
 
-    return await WeatherRepository.create(data, crop);
+    return await this.repo.create(data, territory);
   }
   async update(id: number, data: UpdateWeatherDTO, loggedUserId: number) {
-    const weatherData = await WeatherRepository.findById(id);
+    const weatherData = await this.repo.base.findById(id);
     if (!weatherData) {
       throw new NotFoundError("registro climático");
     }
@@ -60,11 +62,11 @@ export class WeatherService {
         Object.entries(data).filter(([, value]) => value !== undefined)
       )
     );
-    const weatherUpdated = await WeatherRepository.save(weatherData);
+    const weatherUpdated = await this.repo.base.save(weatherData);
     return weatherUpdated;
   }
   async delete(id: number, loggedUserId: number) {
-    const weatherData = await WeatherRepository.findById(id);
+    const weatherData = await this.repo.base.findById(id);
 
     if (!weatherData) {
       throw new NotFoundError("registro climático");
@@ -75,7 +77,7 @@ export class WeatherService {
       "registros climáticos"
     );
 
-    const result = await WeatherRepository.softDelete(id);
+    const result = await this.repo.base.softDelete(id);
 
     if (result.affected === 0) {
       throw new NotFoundError("registro climático");
