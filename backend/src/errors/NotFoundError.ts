@@ -1,6 +1,13 @@
 import { AppError } from "./AppError";
 export class NotFoundError extends AppError {
-  constructor(field: string, info?: string) {
-    super(info ? `Não encontrado: ${field}, ${info}` : `Não encontrado: ${field}`, 404);
+  constructor(readonly field: string, readonly info?: string) {
+    super(`Não encontrado: ${field}`, 404);
+  }
+  override toJSON() {
+    return {
+      success: false,
+      message: this.message,
+      info: this.info,
+    };
   }
 }
