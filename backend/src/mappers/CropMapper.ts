@@ -9,23 +9,42 @@ export class CropMapper {
       id: crop.id,
       nome: crop.nome,
       cultura: crop.cultura,
-      variedade: crop.variedade ? crop.variedade : "variadade não informada",
+      variedade: crop.variedade ? crop.variedade : "variedade não informada",
+
       area: fromSquareMeters(crop.areaM2, crop.unidadeArea),
       unidadeArea: crop.unidadeArea,
+
       dataPlantio: crop.dataPlantio ? crop.dataPlantio : "data não informada",
+
       colheitaPrevista: crop.colheitaPrevista
         ? crop.colheitaPrevista
         : "data não informada",
+
       responsavel: crop.responsavel
         ? crop.responsavel
         : "responsável não informado",
+
       status: crop.status,
+
       observacoes: crop.observacoes ? crop.observacoes : "sem observações",
-      territorio: TerritoryMapper.toResponse(crop.territorio),
+
+      territorio: crop.territorio
+        ? TerritoryMapper.toSummaryResponse(crop.territorio)
+        : "território indisponível",
     };
   }
+
+  static toSummaryResponse(crop: Crop) {
+    return {
+      id: crop.id,
+      nome: crop.nome,
+      cultura: crop.cultura,
+      status: crop.status,
+    };
+  }
+
   static toResponseList(crops: Crop[]) {
-    return crops.map(this.toResponse);
+    return crops.map((crop) => CropMapper.toResponse(crop));
   }
   static toCreateEntity(data: CreateCropDTO) {
     return {

@@ -15,14 +15,35 @@ export class TerritoryMapper {
       cep: territory.cep,
       area: fromSquareMeters(Number(territory.areaM2), territory.unidadeArea),
       unidadeArea: territory.unidadeArea,
+
       usuario: territory.usuario
-        ? UserMapper.toResponse(territory.usuario)
+        ? UserMapper.toSummaryResponse(territory.usuario)
         : "usuário indisponível",
+
       plantacoes: territory.plantacoes
+        ? territory.plantacoes.map(CropMapper.toSummaryResponse)
+        : "plantações indisponíveis",
     };
   }
+
+  static toSummaryResponse(territory: Territory) {
+    return {
+      id: territory.id,
+      cep: territory.cep,
+      area: fromSquareMeters(Number(territory.areaM2), territory.unidadeArea),
+      unidadeArea: territory.unidadeArea,
+    };
+  }
+
   static toResponseList(territories: Territory[]) {
-    return territories.map(this.toResponse);
+    return territories.map((territory) =>
+      TerritoryMapper.toResponse(territory)
+    );
+  }
+  static toSummaryResponseList(territories: Territory[]) {
+    return territories.map((territory) =>
+      TerritoryMapper.toSummaryResponse(territory)
+    );
   }
   static toCreateEntity(data: CreateTerritoryDTO) {
     return {
