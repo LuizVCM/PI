@@ -5,24 +5,27 @@ import { UnauthorizedError } from "../errors/UnauthorizedError";
 
 export class UserController {
   private userService = new UserService();
-  async list(_req: Request, res: Response, next: NextFunction) {
+  async listAllWithRelations(_req: Request, res: Response, next: NextFunction) {
     try {
-      const users = await this.userService.listAll();
+      const users = await this.userService.listAllWithRelations();
       return res.status(200).json(users);
     } catch (error) {
       next(error);
     }
   }
-  async getById(req: Request, res: Response, next: NextFunction) {
+  async getInfoUserLogged(req: Request, res: Response, next: NextFunction) {
     try {
-      const id = Number(req.params.id);
-      const user = await this.userService.getById(id);
+      if (!req.user?.id) {
+        throw new UnauthorizedError("não autenticado");
+      }
+      const id = req.user.id;
+      const user = await this.userService.getInfoUser(id);
       return res.json(user);
     } catch (error) {
       next(error);
     }
   }
-  async listByIdWith(req: Request, res: Response, next: NextFunction) {
+  async getRelationUserLogged(req: Request, res: Response, next: NextFunction) {
     try {
       if (!req.user?.id) {
         throw new UnauthorizedError("não autenticado");

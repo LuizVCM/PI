@@ -9,8 +9,8 @@ import { AuthMiddleware } from "../middlewares/auth-middleware";
 const userRoutes = Router();
 const userController = new UserController();
 
-userRoutes.get("/", userController.list.bind(userController));
-userRoutes.get("/:id", AuthMiddleware, userController.getById.bind(userController));
+userRoutes.get("/all", userController.listAllWithRelations.bind(userController));
+userRoutes.get("/", AuthMiddleware, userController.getInfoUserLogged.bind(userController));
 userRoutes.post(
   "/",
   validateUserCreate,

@@ -2,8 +2,26 @@ import { User } from "../models/User";
 import { CreateUserDTO } from "../schemas/user.schema";
 import { createBaseRepository } from "./BaseRepository";
 
+interface UserRelations {
+  financas: true;
+  insumos: true;
+  sementes: true;
+  territorios: true;
+}
+
 export class UserRepository {
   public base = createBaseRepository(User);
+  /** listar todos os usuários com todas as relações */
+  async listAllWithRelations() {
+    return this.base.findAll({
+      relations: {
+        financas: true,
+        insumos: true,
+        sementes: true,
+        territorios: true,
+      },
+    });
+  }
   /** buscar por chaves únicas, a fim de validar um cadastro */
   async findConflicts(keys: { cpf: string; telefone: string; email: string }) {
     const users = await this.base.findAll({

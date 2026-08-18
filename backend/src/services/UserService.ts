@@ -16,8 +16,8 @@ import { omitPassword } from "../utils/omitPassword";
 
 export class UserService {
   private repo = new UserRepository();
-  async listAll() {
-    const users = await this.repo.base.findAll();
+  async listAllWithRelations() {
+    const users = await this.repo.listAllWithRelations();
     return UserMapper.toResponseList(users);
   }
   async listByEmail(email: string) {
@@ -30,7 +30,7 @@ export class UserService {
     }
     return UserMapper.toResponse(user);
   }
-  async getById(id: number) {
+  async getInfoUser(id: number) {
     const user = await this.repo.findUserWithRelations(id);
     if (!user) {
       throw new NotFoundError("usuário");
