@@ -4,13 +4,13 @@ import {
 } from "../middlewares/index.validate";
 import { Router } from "express";
 import { UserController } from "../controllers/UserController";
-import { AuthMiddleware } from "../middlewares/auth-middleware";
+import { authMiddleware } from "../middlewares/auth-middleware";
 
 const userRoutes = Router();
 const userController = new UserController();
 
 userRoutes.get("/all", userController.listAllWithRelations.bind(userController));
-userRoutes.get("/", AuthMiddleware, userController.getInfoUserLogged.bind(userController));
+userRoutes.get("/", authMiddleware, userController.getInfoUserLogged.bind(userController));
 userRoutes.post(
   "/",
   validateUserCreate,
@@ -18,9 +18,9 @@ userRoutes.post(
 );
 userRoutes.put(
   "/",
-  AuthMiddleware,
+  authMiddleware,
   validateUserUpdate,
   userController.update.bind(userController)
 );
-userRoutes.delete("/", AuthMiddleware, userController.delete.bind(userController));
+userRoutes.delete("/", authMiddleware, userController.delete.bind(userController));
 export default userRoutes;

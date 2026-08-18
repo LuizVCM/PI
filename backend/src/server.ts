@@ -1,7 +1,7 @@
 import express, { Application } from "express";
 import * as dotenv from "dotenv";
 import { AppDataSource } from "./config/data-source";
-import router from "./routes";
+import router from "./routes/index.routes";
 import { errorHandler } from "./middlewares/error-handler";
 import cookieParser from "cookie-parser";
 const app: Application = express();
