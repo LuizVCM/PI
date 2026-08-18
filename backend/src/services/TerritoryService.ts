@@ -38,7 +38,7 @@ export class TerritoryService {
     return TerritoryMapper.toResponse(territory);
   }
   async update(id: number, data: UpdateTerritoryDTO, loggedUserId: number) {
-    const territory = await this.repo.base.findById(id);
+    const territory = await this.repo.findByIdWithUser(id);
     if (!territory) {
       throw new NotFoundError("território");
     }
