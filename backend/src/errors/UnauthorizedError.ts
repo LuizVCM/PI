@@ -5,8 +5,7 @@ export class UnauthorizedError extends AppError {
   }
   override toJSON() {
     return {
-      success: false,
-      message: this.message,
+      ...super.toJSON(),
       info: this.info,
     };
   }

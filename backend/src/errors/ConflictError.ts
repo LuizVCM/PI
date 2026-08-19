@@ -10,8 +10,7 @@ export class ConflictError extends AppError {
   }
   override toJSON() {
     return {
-      success: false,
-      message: this.message,
+      ...super.toJSON(),
       fields: this.fields,
     };
   }

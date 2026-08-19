@@ -7,6 +7,7 @@ export abstract class AppError extends Error {
     return {
       success: false,
       message: this.message,
+      cause: this.cause
     };
   }
 }

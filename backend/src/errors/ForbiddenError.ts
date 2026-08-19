@@ -1,6 +1,6 @@
 import { AppError } from "./AppError";
 export class ForbiddenError extends AppError {
-  constructor(readonly field: string, readonly info?: string) {
+  constructor(readonly field: string, readonly info?: string, readonly cause?: string) {
     super(
       `Acesso restrito: sem permissão para alterar e acessar ${field}`,
       403
@@ -8,9 +8,10 @@ export class ForbiddenError extends AppError {
   }
   override toJSON() {
     return {
-      success: false,
-      message: this.message,
+      ...super.toJSON(),
+      field: this.field,
       info: this.info,
+      cause: this.cause
     };
   }
 }

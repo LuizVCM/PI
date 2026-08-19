@@ -5,8 +5,8 @@ export class NotFoundError extends AppError {
   }
   override toJSON() {
     return {
-      success: false,
-      message: this.message,
+      ...super.toJSON(),
+      field: this.field,
       info: this.info,
     };
   }
