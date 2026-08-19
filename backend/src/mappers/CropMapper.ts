@@ -10,39 +10,41 @@ export class CropMapper {
       nome: crop.nome,
       cultura: crop.cultura,
       variedade: crop.variedade ? crop.variedade : "variedade não informada",
-
       area: fromSquareMeters(crop.areaM2, crop.unidadeArea),
       unidadeArea: crop.unidadeArea,
-
       dataPlantio: crop.dataPlantio ? crop.dataPlantio : "data não informada",
-
       colheitaPrevista: crop.colheitaPrevista
         ? crop.colheitaPrevista
         : "data não informada",
-
       responsavel: crop.responsavel
         ? crop.responsavel
         : "responsável não informado",
-
       status: crop.status,
-
       observacoes: crop.observacoes ? crop.observacoes : "sem observações",
-
       territorio: crop.territorio
         ? TerritoryMapper.toSummaryResponse(crop.territorio)
         : "território indisponível",
     };
   }
-
   static toSummaryResponse(crop: Crop) {
     return {
       id: crop.id,
       nome: crop.nome,
       cultura: crop.cultura,
+      variedade: crop.variedade ? crop.variedade : "variedade não informada",
+      area: fromSquareMeters(crop.areaM2, crop.unidadeArea),
+      unidadeArea: crop.unidadeArea,
+      dataPlantio: crop.dataPlantio ? crop.dataPlantio : "data não informada",
+      colheitaPrevista: crop.colheitaPrevista
+        ? crop.colheitaPrevista
+        : "data não informada",
+      responsavel: crop.responsavel
+        ? crop.responsavel
+        : "responsável não informado",
       status: crop.status,
+      observacoes: crop.observacoes ? crop.observacoes : "sem observações",
     };
   }
-
   static toResponseList(crops: Crop[]) {
     return crops.map((crop) => CropMapper.toResponse(crop));
   }

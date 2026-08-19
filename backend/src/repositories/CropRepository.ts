@@ -21,16 +21,28 @@ export class CropRepository {
   async findAllWithTerritory() {
     return this.base.findAll({ relations: { territorio: true } });
   }
+  /** retorna o usuário */
   async findByTerritoryId(territoryId: number) {
     return this.base.getRepository().find({
       where: { territorio: { id: territoryId } },
       relations: { territorio: true },
+      select: { territorio: { usuario: true } },
     });
   }
-  async findByUserId(userId: number) {
-    return this.base
-      .getRepository()
-      .find({ where: { territorio: { usuario: { id: userId } } } });
+  /** retorna o usuário */
+  async findByIdWithTerritory(id: number) {
+    return this.base.findById(id, {
+      relations: { territorio: true },
+      select: { territorio: { usuario: true } },
+    });
+  }
+  /** retorna o usuário */
+  async findAllByUserId(userId: number) {
+    return this.base.findAll({
+      where: { territorio: { usuario: { id: userId } } },
+      relations: { territorio: true },
+      select: { territorio: { usuario: true } },
+    });
   }
   async create(data: CropData, territory: Territory) {
     const crop = this.base.create({ ...data, territorio: territory });
