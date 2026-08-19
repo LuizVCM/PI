@@ -13,10 +13,10 @@ export class Finance extends BaseModel {
   tipo: FinanceType;
   @Column({ type: "double", nullable: false })
   valor: number;
-  @Column({ type: "text", nullable: false })
-  observacoes: string;
-  @Column({ type: "text", nullable: false })
-  detalhes: string;
+  @Column({ type: "text", nullable: true })
+  observacoes: string | null;
+  @Column({ type: "text", nullable: true })
+  detalhes: string | null;
   @Column({ name: "data_criacao", type: "date", nullable: false })
   data: Date;
   @ManyToOne(() => User, (usuario) => usuario.financas)
