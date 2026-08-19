@@ -5,7 +5,6 @@ import {
 import { Territory } from "../models/Territory";
 import { fromSquareMeters, toSquareMeters } from "../utils/area-converter";
 import { UserMapper } from "./UserMapper";
-import { dataFilter } from "../utils/data-filter";
 import { CropMapper } from "./CropMapper";
 
 export class TerritoryMapper {
@@ -15,17 +14,14 @@ export class TerritoryMapper {
       cep: territory.cep,
       area: fromSquareMeters(Number(territory.areaM2), territory.unidadeArea),
       unidadeArea: territory.unidadeArea,
-
       usuario: territory.usuario
         ? UserMapper.toSummaryResponse(territory.usuario)
         : "usuário indisponível",
-
       plantacoes: territory.plantacoes
         ? territory.plantacoes.map(CropMapper.toSummaryResponse)
         : "plantações indisponíveis",
     };
   }
-
   static toSummaryResponse(territory: Territory) {
     return {
       id: territory.id,
@@ -34,7 +30,6 @@ export class TerritoryMapper {
       unidadeArea: territory.unidadeArea,
     };
   }
-
   static toResponseList(territories: Territory[]) {
     return territories.map((territory) =>
       TerritoryMapper.toResponse(territory)
@@ -54,7 +49,6 @@ export class TerritoryMapper {
   }
   static toUpdateEntity(data: UpdateTerritoryDTO) {
     const result: Partial<Territory> = {};
-    dataFilter(result, data);
     if (data.area !== undefined && data.unidadeArea !== undefined) {
       result.areaM2 = toSquareMeters(data.area, data.unidadeArea!);
       result.unidadeArea = data.unidadeArea!;

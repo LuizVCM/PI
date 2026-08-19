@@ -6,6 +6,7 @@ import {
   CreateTerritoryDTO,
   UpdateTerritoryDTO,
 } from "../schemas/territory.schema";
+import { dataFilter } from "../utils/data-filter";
 import { AuthorizationService } from "./AuthorizationService";
 
 export class TerritoryService {
@@ -13,7 +14,6 @@ export class TerritoryService {
   private userRepo = new UserRepository();
   async listAll() {
     const territories = await this.repo.findAllWithUser();
-    console.log(territories);
     return TerritoryMapper.toResponseList(territories);
   }
   async getById(id: number) {
@@ -25,7 +25,6 @@ export class TerritoryService {
   }
   async listByUserLogged(userId: number) {
     const territories = await this.repo.findByUserIdWithRelations(userId);
-    console.log(territories);
     return TerritoryMapper.toResponseList(territories);
   }
   async create(data: CreateTerritoryDTO, loggedUserId: number) {
@@ -43,22 +42,16 @@ export class TerritoryService {
       throw new NotFoundError("território");
     }
     AuthorizationService.ensureOwnership(territory, loggedUserId, "território");
-    Object.assign(
-      territory,
-      Object.fromEntries(
-        Object.entries(data).filter(([, value]) => value !== undefined)
-      )
-    );
-    const territoryData = TerritoryMapper.toUpdateEntity(territory);
-    const territoryUpdated = await this.repo.base.save(territoryData);
-    return TerritoryMapper.toResponse(territoryUpdated);
+    const territoryData = TerritoryMapper.toUpdateEntity(data);
+    dataFilter(territory, territoryData);
+    const territoryUpdated = await this.repo.base.save(territory);
+    return TerritoryMapper.toSummaryResponse(territoryUpdated);
   }
   async delete(id: number, loggedUserId: number) {
     const territory = await this.repo.findByIdWithUser(id);
     if (!territory) {
       throw new NotFoundError("território");
     }
-    console.log(territory);
     AuthorizationService.ensureOwnership(territory, loggedUserId, "território");
     const result = await this.repo.base.softDelete(id);
     if (result.affected === 0) {
