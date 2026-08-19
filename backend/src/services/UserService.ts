@@ -110,13 +110,9 @@ export class UserService {
     if (!validCredentials) {
       throw new UnauthorizedError("credenciais inválidas");
     }
-    const token = generateToken({
-      id: user.id,
-      email: user.email,
-    });
     return {
-      usuario: omitPassword(user),
-      token,
+      id: user.id,
+      email: user.email
     };
   }
   async checkUserPassword(email: string, pass: string) {

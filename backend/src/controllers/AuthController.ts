@@ -12,8 +12,8 @@ export class AuthController {
     const loginData = req.body as LoginUserDTO;
     const loggedUser = await this.userService.login(loginData);
     const token = this.authService.generate({
-      id: loggedUser.usuario.id,
-      email: loggedUser.usuario.email,
+      id: loggedUser.id,
+      email: loggedUser.email,
     });
 
     // console.log("Token:", token);
