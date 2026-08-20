@@ -8,13 +8,28 @@ export class AuthorizationService {
     if (!entity.usuario) {
       throw new ForbiddenError(
         entityName,
-        `Este ${entityName} não possui um proprietário ativo`
+        `${entityName} não possui um proprietário ativo`
       );
     }
     if (entity.usuario.id !== loggedUserId) {
       throw new ForbiddenError(
         entityName,
         "tentativa de acessar dados de outro usuário"
+      );
+    }
+  }
+  static ensureRelationActive(
+    relation: unknown,
+    entityName: string,
+    relationName: string | string[]
+  ) {
+    if (!relation) {
+      throw new ForbiddenError(
+        entityName,
+        `${entityName} não está ativo(a)`,
+        Array(relationName).length > 1
+          ? `${Array(relationName).join(", ")} associados(as) não estão disponíveis`
+          : `${relationName} associado(a) não está disponível`
       );
     }
   }
