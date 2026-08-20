@@ -6,7 +6,7 @@ import { validateTerritoryCreate, validateTerritoryUpdate } from "../middlewares
 const territoryRoutes = Router();
 const territoryController = new TerritoryController();
 
-territoryRoutes.get("/", territoryController.listAll.bind(territoryController));
+territoryRoutes.get("/all", territoryController.listAll.bind(territoryController));
 territoryRoutes.get(
   "/me",
   authMiddleware,

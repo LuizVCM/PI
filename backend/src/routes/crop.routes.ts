@@ -9,7 +9,7 @@ import {
 const cropRoutes = Router();
 const cropController = new CropController();
 
-cropRoutes.get("/", cropController.listAll.bind(cropController));
+cropRoutes.get("/all", cropController.listAll.bind(cropController));
 cropRoutes.get(
   "/me",
   authMiddleware,

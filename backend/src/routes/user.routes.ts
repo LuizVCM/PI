@@ -10,7 +10,7 @@ const userRoutes = Router();
 const userController = new UserController();
 
 userRoutes.get("/all", userController.listAllWithRelations.bind(userController));
-userRoutes.get("/", authMiddleware, userController.getInfoUserLogged.bind(userController));
+userRoutes.get("/me", authMiddleware, userController.getInfoUserLogged.bind(userController));
 userRoutes.post(
   "/",
   validateUserCreate,
