@@ -1,5 +1,6 @@
 import { Territory } from "../models/Territory";
 import { User } from "../models/User";
+import { FinanceMapper } from "./FinanceMapper";
 import { TerritoryMapper } from "./TerritoryMapper";
 
 export class UserMapper {
@@ -24,7 +25,7 @@ export class UserMapper {
       cpf: usuario.cpf,
       territorios: usuario.territorios ? TerritoryMapper.toSummaryResponseList(usuario.territorios) : [],
       sementes: usuario.sementes ?? [],
-      financas: usuario.financas ?? [],
+      financas: usuario.financas ? FinanceMapper.toSummaryResponseList(usuario.financas) : [],
       insumos: usuario.insumos ?? [],
     };
   }
