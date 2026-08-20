@@ -17,7 +17,7 @@ export class CropService {
     return CropMapper.toResponseList(crops);
   }
   async getById(id: number) {
-    const crop = await this.repo.base.findById(id);
+    const crop = await this.repo.findByIdWithTerritory(id);
     if (!crop) {
       throw new NotFoundError("plantação");
     }
@@ -25,8 +25,8 @@ export class CropService {
   }
   async listByUserLogged(userId: number) {
     const crops = await this.repo.findAllByUserId(userId);
-    if (!crops) {
-      throw new NotFoundError("plantações");
+    if (crops.length === 0) {
+      throw new NotFoundError("plantações", "não há plantações cadastradas");
     }
     return CropMapper.toResponseList(crops);
   }

@@ -13,6 +13,7 @@ import { ConflictError } from "../errors/ConflictError";
 import { InternalServerError } from "../errors/InternalServerError";
 import { UserMapper } from "../mappers/UserMapper";
 import { omitPassword } from "../utils/omitPassword";
+import { dataFilter } from "../utils/data-filter";
 
 export class UserService {
   private repo = new UserRepository();
@@ -78,12 +79,7 @@ export class UserService {
       throw new NotFoundError("usuário");
     }
     const { senha, ...rest } = data;
-    Object.assign(
-      user,
-      Object.fromEntries(
-        Object.entries(rest).filter(([, value]) => value !== undefined)
-      )
-    );
+    dataFilter(user, rest);
     if (senha) {
       user.senha = await bcrypt.hash(senha, 10);
     }
@@ -93,7 +89,7 @@ export class UserService {
   async delete(id: number) {
     const result = await this.repo.base.softDelete(id);
     if (result.affected === 0) {
-      throw new NotFoundError("usuário");
+      throw new InternalServerError("Não foi possível deletar");
     }
     return result;
   }
@@ -112,7 +108,7 @@ export class UserService {
     }
     return {
       id: user.id,
-      email: user.email
+      email: user.email,
     };
   }
   async checkUserPassword(email: string, pass: string) {
@@ -122,7 +118,7 @@ export class UserService {
     }
     const passwordIsValid = await bcrypt.compare(pass, user.senha);
     if (!passwordIsValid) {
-      throw new UnauthorizedError();
+      throw new UnauthorizedError("credenciais inválidas");
     }
     return { usuario: UserMapper.toResponse(user) };
   }

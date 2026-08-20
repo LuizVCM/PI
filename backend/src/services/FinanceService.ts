@@ -1,72 +1,71 @@
+import { InternalServerError } from "../errors/InternalServerError";
 import { NotFoundError } from "../errors/NotFoundError";
+import { FinanceMapper } from "../mappers/FinanceMapper";
 import { FinanceRepository } from "../repositories/FinanceRepository";
 import { UserRepository } from "../repositories/UserRepository";
 import { CreateFinanceDTO, UpdateFinanceDTO } from "../schemas/finance.schema";
+import { dataFilter } from "../utils/data-filter";
 import { AuthorizationService } from "./AuthorizationService";
 
 export class FinanceService {
   private repo = new FinanceRepository();
   private userRepo = new UserRepository();
   async listAll() {
-    return await this.repo.base.findAll();
+    const finances = await this.repo.findAllWithUser();
+    return FinanceMapper.toResponseList(finances);
   }
   async getById(id: number) {
-    const finance = await this.repo.base.findById(id);
-
+    const finance = await this.repo.findByIdWithUser(id);
     if (!finance) {
       throw new NotFoundError("registro financeiro");
     }
-    return finance;
+    return FinanceMapper.toResponse(finance);
   }
   async listByUserLogged(userId: number) {
-    return await this.repo.findByUserId(userId);
+    const finances = await this.repo.findAllByUserId(userId);
+    if (finances.length === 0) {
+      throw new NotFoundError(
+        "registros financeiros",
+        "não há registros cadastrados"
+      );
+    }
+    return FinanceMapper.toResponseList(finances);
   }
   async create(data: CreateFinanceDTO, loggedUserId: number) {
     const user = await this.userRepo.base.findById(loggedUserId);
     if (!user) {
-      throw new NotFoundError("usuário");
+      throw new InternalServerError("Ocorreu um erro inesperado");
     }
-    return this.repo.create(data, user);
+    const finance = await this.repo.create(data, user);
+    return FinanceMapper.toResponse(finance);
   }
   async update(id: number, data: UpdateFinanceDTO, loggedUserId: number) {
-    const finance = await this.repo.base.findById(id);
+    const finance = await this.repo.findByIdWithUser(id);
     if (!finance) {
       throw new NotFoundError("registro financeiro");
     }
-
     AuthorizationService.ensureOwnership(
       finance,
       loggedUserId,
       "registros financeiros"
     );
-
-    Object.assign(
-      finance,
-      Object.fromEntries(
-        Object.entries(data).filter(([, value]) => value !== undefined)
-      )
-    );
-
+    dataFilter(finance, data);
     const financeUpdated = await this.repo.base.save(finance);
-    return financeUpdated;
+    return FinanceMapper.toSummaryResponse(financeUpdated);
   }
   async delete(id: number, loggedUserId: number) {
-    const finance = await this.repo.base.findById(id);
-
+    const finance = await this.repo.findByIdWithUser(id);
     if (!finance) {
       throw new NotFoundError("registro financeiro");
     }
-
     AuthorizationService.ensureOwnership(
       finance,
       loggedUserId,
       "registros financeiros"
     );
-
     const result = await this.repo.base.softDelete(id);
-
     if (result.affected === 0) {
-      throw new NotFoundError("registro financeiro");
+      throw new InternalServerError("Não foi possível deletar");
     }
   }
 }

@@ -8,10 +8,10 @@ export class FinanceRepository {
   async findAllWithUser() {
     return this.base.findAll({ relations: { usuario: true } });
   }
-  async findByIdwithUser(id: number) {
+  async findByIdWithUser(id: number) {
     return this.base.findById(id, { relations: { usuario: true } });
   }
-  async findByUserId(userId: number): Promise<Finance[]> {
+  async findAllByUserId(userId: number): Promise<Finance[]> {
     return this.base.getRepository().find({
       where: { usuario: { id: userId } },
       relations: { usuario: true },

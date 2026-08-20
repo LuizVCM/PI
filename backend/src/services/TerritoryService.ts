@@ -1,3 +1,4 @@
+import { InternalServerError } from "../errors/InternalServerError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { TerritoryMapper } from "../mappers/TerritoryMapper";
 import { TerritoryRepository } from "../repositories/TerritoryRepository";
@@ -61,7 +62,7 @@ export class TerritoryService {
     AuthorizationService.ensureOwnership(territory, loggedUserId, "território");
     const result = await this.repo.base.softDelete(id);
     if (result.affected === 0) {
-      throw new NotFoundError("território");
+      throw new InternalServerError("Não foi possível deletar");
     }
     return result;
   }
