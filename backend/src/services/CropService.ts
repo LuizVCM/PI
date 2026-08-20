@@ -1,4 +1,3 @@
-import { ForbiddenError } from "../errors/ForbiddenError";
 import { InternalServerError } from "../errors/InternalServerError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { CropMapper } from "../mappers/CropMapper";
@@ -57,9 +56,11 @@ export class CropService {
     if (!crop) {
       throw new NotFoundError("plantação");
     }
-    if (!crop.territorio) {
-      throw new ForbiddenError("plantação", `Esta plantação não está ativa`, "O território associado a ela foi deletado");
-    }
+    AuthorizationService.ensureRelationActive(
+      crop.territorio,
+      "plantação",
+      "território"
+    );
     AuthorizationService.ensureOwnership(
       crop.territorio,
       loggedUserId,
@@ -75,9 +76,11 @@ export class CropService {
     if (!crop) {
       throw new NotFoundError("plantação");
     }
-    if (!crop.territorio) {
-      throw new ForbiddenError("plantação", `Esta plantação não está ativa`, "O território associado a ela foi deletado");
-    }
+    AuthorizationService.ensureRelationActive(
+      crop.territorio,
+      "plantação",
+      "território"
+    );
     AuthorizationService.ensureOwnership(
       crop.territorio,
       loggedUserId,
