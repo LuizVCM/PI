@@ -1,16 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import { SensorService } from "../services/SensorService";
-import { UserService } from "../services/UserService";
 import {
   CreateSensorDTO,
-  createSensorSchema,
   UpdateSensorDTO,
-  updateSensorSchema,
 } from "../schemas/sensor.schema";
-import { UnauthorizedError } from "../errors/UnauthorizedError";
 import { TerritoryService } from "../services/TerritoryService";
-import { NotFoundError } from "../errors/NotFoundError";
-import { AuthorizationService } from "../services/AuthorizationService";
 
 export class SensorController {
   private sensorService = new SensorService();
@@ -29,9 +23,7 @@ export class SensorController {
   async getById(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id);
-
       const sensor = await this.sensorService.getById(id);
-
       return res.json(sensor);
     } catch (error) {
       next(error);
@@ -40,12 +32,8 @@ export class SensorController {
 
   async listMySensors(req: Request, res: Response, next: NextFunction) {
     try {
-      if (!req.user?.id) {
-        throw new UnauthorizedError("não autenticado");
-      }
-
-      const sensors = await this.sensorService.listByUserLogged(req.user.id);
-
+      const id = req.user!.id;
+      const sensors = await this.sensorService.listByUserLogged(id);
       return res.status(200).json(sensors);
     } catch (error) {
       next(error);
@@ -54,28 +42,11 @@ export class SensorController {
 
   async create(req: Request, res: Response, next: NextFunction) {
     try {
-      if (!req.user?.id) {
-        throw new UnauthorizedError("não autenticado");
-      }
-      const loggedUserId = req.user.id;
+      const loggedUser = req.user!.id;
+      await this.territoryService.listByUserLogged(loggedUser);
       const territoryId = Number(req.params.id);
-      const territories = await this.territoryService.listByUserLogged(loggedUserId);
-
-      if (!territories) {
-        throw new NotFoundError(
-          "territórios",
-          "usuário não possui territórios cadastrados"
-        );
-      }
-
-      territories.forEach((item) =>
-        AuthorizationService.ensureOwnership(item, loggedUserId, "territórios")
-      );
-
-      const sensorData: CreateSensorDTO = createSensorSchema.parse(req.body);
-
-      const sensor = await this.sensorService.create(sensorData, territoryId);
-
+      const createSensorData = req.body as CreateSensorDTO;
+      const sensor = await this.sensorService.create(createSensorData, territoryId);
       return res.status(201).json(sensor);
     } catch (error) {
       next(error);
@@ -85,19 +56,13 @@ export class SensorController {
   async update(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id);
-
-      if (!req.user?.id) {
-        throw new UnauthorizedError("não autenticado");
-      }
-
-      const sensorData: UpdateSensorDTO = updateSensorSchema.parse(req.body);
-
+      const loggedUser = req.user!.id;
+      const updateSensorData = req.body as UpdateSensorDTO;
       const sensor = await this.sensorService.update(
         id,
-        sensorData,
-        req.user.id
+        updateSensorData,
+        loggedUser
       );
-
       return res.json(sensor);
     } catch (error) {
       next(error);
@@ -106,14 +71,9 @@ export class SensorController {
 
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
-      if (!req.user?.id) {
-        throw new UnauthorizedError("não autenticado");
-      }
-      const loggedUserId = req.user.id;
+      const loggedUser = req.user!.id;
       const id = Number(req.params.id);
-
-      await this.sensorService.delete(id, loggedUserId);
-
+      await this.sensorService.delete(id, loggedUser);
       return res.status(204).send();
     } catch (error) {
       next(error);

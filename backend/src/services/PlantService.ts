@@ -38,17 +38,11 @@ export class PlantService {
     }
     return this.repo.create(data);
   }
-  async update(id: number, data: UpdatePlantDTO, seedId: number) {
+  async update(id: number, data: UpdatePlantDTO) {
     const plant = await this.repo.base.findById(id);
 
     if (!plant) {
       throw new NotFoundError("planta");
-    }
-
-    const seed = await this.seedRepo.base.findById(seedId);
-
-    if (!seed) {
-      throw new NotFoundError("semente");
     }
 
     Object.assign(

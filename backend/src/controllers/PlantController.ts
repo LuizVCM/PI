@@ -1,20 +1,13 @@
 import { Request, Response, NextFunction } from "express";
 import { PlantService } from "../services/PlantService";
-import {
-  CreatePlantDTO,
-  UpdatePlantDTO,
-  createPlantSchema,
-  updatePlantSchema,
-} from "../schemas/plant.schema";
-import { UnauthorizedError } from "../errors/UnauthorizedError";
+import { CreatePlantDTO, UpdatePlantDTO } from "../schemas/plant.schema";
 
-export class PlantaController {
+export class PlantController {
   private plantService = new PlantService();
 
   async list(req: Request, res: Response, next: NextFunction) {
     try {
       const plants = await this.plantService.listAll();
-
       return res.json(plants);
     } catch (error) {
       next(error);
@@ -24,9 +17,7 @@ export class PlantaController {
   async getById(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id);
-
       const plant = await this.plantService.getById(id);
-
       return res.json(plant);
     } catch (error) {
       next(error);
@@ -35,70 +26,42 @@ export class PlantaController {
 
   async listMyPlants(req: Request, res: Response, next: NextFunction) {
     try {
-      if (!req.user?.id) {
-        throw new UnauthorizedError("não autenticado");
-      }
-
-      const plants = await this.plantService.listByUserLogged(req.user.id);
-
+      const id = req.user!.id;
+      const plants = await this.plantService.listByUserLogged(id);
       return res.status(200).json(plants);
     } catch (error) {
       next(error);
     }
   }
 
-  // async create(req: Request, res: Response, next: NextFunction) {
-  //   try {
-  //     const plantData: CreatePlantDTO = createPlantSchema.parse(req.body);
+  async create(req: Request, res: Response, next: NextFunction) {
+    try {
+      const loggedUser = req.user!.id;
+      const createPlantData = req.body as CreatePlantDTO;
+      const id = Number(req.params.id);
+      const plant = await this.plantService.create(id, createPlantData);
+      return res.status(201).json(plant);
+    } catch (error) {
+      next(error);
+    }
+  }
 
-  //     if (!req.user?.id) {
-  //       throw new UnauthorizedError("não autenticado");
-  //     }
-
-  //     const { sementeId } = req.body;
-
-  //     const plant = await this.plantService.create(
-  //       plantData,
-  //       sementeId,
-  //     );
-
-  //     return res.status(201).json(plant);
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
-
-  // async update(req: Request, res: Response, next: NextFunction) {
-  //   try {
-  //     const id = Number(req.params.id);
-
-  //     const plantData: UpdatePlantDTO = updatePlantSchema.parse(req.body);
-
-  //     if (!req.user?.id) {
-  //       throw new UnauthorizedError("não autenticado");
-  //     }
-
-  //     const { sementeId } = req.body;
-
-  //     const plant = await this.plantService.update(
-  //       id,
-  //       plantData,
-  //       req.user.id,
-  //       sementeId
-  //     );
-
-  //     return res.json(plant);
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+  async update(req: Request, res: Response, next: NextFunction) {
+    try {
+      const loggedUser = req.user!.id;
+      const updatePlantData = req.body as UpdatePlantDTO;
+      const id = Number(req.params.id);
+      const plant = await this.plantService.update(id, updatePlantData);
+      return res.json(plant);
+    } catch (error) {
+      next(error);
+    }
+  }
 
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id);
-
       await this.plantService.delete(id);
-
       return res.status(204).send();
     } catch (error) {
       next(error);

@@ -24,10 +24,7 @@ export class TerritoryController {
   }
   async listMyTerritories(req: Request, res: Response, next: NextFunction) {
     try {
-      if (!req.user?.id) {
-        throw new UnauthorizedError("não autenticado");
-      }
-      const id = req.user.id;
+      const id = req.user!.id;
       const myTerritories = await this.territoryService.listByUserLogged(id);
       return res.status(200).json(myTerritories);
     } catch (error) {
@@ -36,10 +33,7 @@ export class TerritoryController {
   }
   async create(req: Request, res: Response, next: NextFunction) {
     try {
-      if (!req.user?.id) {
-        throw new UnauthorizedError("não autenticado");
-      }
-      const id = req.user.id;
+      const id = req.user!.id;
       const createTerritoryData = req.body as CreateTerritoryDTO;
       const territory = await this.territoryService.create(
         createTerritoryData,
@@ -53,10 +47,7 @@ export class TerritoryController {
   async update(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id);
-      if (!req.user?.id) {
-        throw new UnauthorizedError("não autenticado");
-      }
-      const loggedUser = req.user.id;
+      const loggedUser = req.user!.id;
       const updateTerritoryData = req.body as UpdateTerritoryDTO;
       const territory = await this.territoryService.update(
         id,
@@ -71,10 +62,7 @@ export class TerritoryController {
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id);
-      if (!req.user?.id) {
-        throw new UnauthorizedError("não autenticado");
-      }
-      const loggedUser = req.user.id;
+      const loggedUser = req.user!.id;
       await this.territoryService.delete(id, loggedUser);
       return res.status(204).send();
     } catch (error) {

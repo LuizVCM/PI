@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { StockService } from "../services/StockService";
 import { UnauthorizedError } from "../errors/UnauthorizedError";
+import { CreateStockDTO, UpdateStockDTO } from "../schemas/stock.schema";
 
 export class StockController {
   private stockService = new StockService();
@@ -27,11 +28,8 @@ export class StockController {
 
   async listMyStock(req: Request, res: Response, next: NextFunction) {
     try {
-      if (!req.user?.id) {
-        throw new UnauthorizedError("não autenticado");
-      }
-
-      const stocks = await this.stockService.listByUserLogged(req.user.id);
+      const id = req.user!.id;
+      const stocks = await this.stockService.listByUserLogged(id);
 
       return res.status(200).json(stocks);
     } catch (error) {
@@ -41,13 +39,10 @@ export class StockController {
 
   async create(req: Request, res: Response, next: NextFunction) {
     try {
-      if (!req.user?.id) {
-        throw new UnauthorizedError("não autenticado");
-      }
+      const loggedUser = req.user!.id;
+      const createStockData = req.body as CreateStockDTO;
 
-      const loggedUser = req.user.id;
-
-      const stock = await this.stockService.create(req.body, loggedUser);
+      const stock = await this.stockService.create(createStockData, loggedUser);
 
       return res.status(201).json(stock);
     } catch (error) {
@@ -58,14 +53,9 @@ export class StockController {
   async update(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id);
-
-      if (!req.user?.id) {
-        throw new UnauthorizedError("não autenticado");
-      }
-
-      const loggedUser = req.user.id;
-
-      const stock = await this.stockService.update(id, req.body, loggedUser);
+      const loggedUser = req.user!.id;
+      const updateStockData = req.body as UpdateStockDTO;
+      const stock = await this.stockService.update(id, updateStockData, loggedUser);
 
       return res.json(stock);
     } catch (error) {
@@ -76,12 +66,7 @@ export class StockController {
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id);
-
-      if (!req.user?.id) {
-        throw new UnauthorizedError("não autenticado");
-      }
-
-      const loggedUser = req.user.id;
+      const loggedUser = req.user!.id;
 
       await this.stockService.delete(id, loggedUser);
 

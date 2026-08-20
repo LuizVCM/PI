@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { UserService } from "../services/UserService";
 import { CreateUserDTO, UpdateUserDTO } from "../schemas/user.schema";
-import { UnauthorizedError } from "../errors/UnauthorizedError";
 
 export class UserController {
   private userService = new UserService();
@@ -15,10 +14,7 @@ export class UserController {
   }
   async getInfoUserLogged(req: Request, res: Response, next: NextFunction) {
     try {
-      if (!req.user?.id) {
-        throw new UnauthorizedError("não autenticado");
-      }
-      const id = req.user.id;
+      const id = req.user!.id;
       const user = await this.userService.getInfoUser(id);
       return res.json(user);
     } catch (error) {
@@ -27,10 +23,7 @@ export class UserController {
   }
   async getRelationUserLogged(req: Request, res: Response, next: NextFunction) {
     try {
-      if (!req.user?.id) {
-        throw new UnauthorizedError("não autenticado");
-      }
-      const id = req.user.id;
+      const id = req.user!.id;
       const relation: string = req.body.relation;
       const data = await this.userService.listByIdWith(relation, id);
       return res.json(data);
@@ -49,10 +42,7 @@ export class UserController {
   }
   async update(req: Request, res: Response, next: NextFunction) {
     try {
-      if (!req.user?.id) {
-        throw new UnauthorizedError("não autenticado");
-      }
-      const id = req.user.id;
+      const id = req.user!.id;
       const updateUserData = req.body as UpdateUserDTO;
       const user = await this.userService.update(id, updateUserData);
       return res.json(user);
@@ -62,10 +52,7 @@ export class UserController {
   }
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
-      if (!req.user?.id) {
-        throw new UnauthorizedError("não autenticado");
-      }
-      const id = req.user.id;
+      const id = req.user!.id;
       await this.userService.delete(id);
       return res.status(204).json({
         success: true,

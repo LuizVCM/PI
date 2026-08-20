@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { WeatherService } from "../services/WeatherService";
+import { CreateWeatherDTO, UpdateWeatherDTO } from "../schemas/weather.schema";
 
 export class WeatherController {
   private weatherService = new WeatherService();
@@ -22,10 +23,8 @@ export class WeatherController {
   }
   async listMyWeathers(req: Request, res: Response, next: NextFunction) {
     try {
-      const loggedUser = (req as any).user;
-      console.log(loggedUser);
-      const myWeathers = await this.weatherService.listByUserLogged(loggedUser.id);
-
+      const loggedUser = req.user!.id;
+      const myWeathers = await this.weatherService.listByUserLogged(loggedUser);
       return res.status(200).json(myWeathers);
     } catch (error) {
       next(error);
@@ -33,17 +32,13 @@ export class WeatherController {
   }
   async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const cropId = Number(req.params.id);
-      const { data, chuva, temperatura, vento, umidade } = req.body;
-
-      const loggedUser = (req as any).user;
-
+      const loggedUser = req.user!.id;
+      const id = Number(req.params.id);
+      const createWeatherData = req.body as CreateWeatherDTO;
       const weather = await this.weatherService.create(
-        { data, chuva, temperatura, vento, umidade },
-        loggedUser.id,
-        cropId
+        createWeatherData,
+        id
       );
-
       return res.status(201).json(weather);
     } catch (error) {
       next(error);
@@ -51,14 +46,13 @@ export class WeatherController {
   }
   async update(req: Request, res: Response, next: NextFunction) {
     try {
+      const loggedUser = req.user!.id;
       const id = Number(req.params.id);
-      const { data, chuva, temperatura, vento, umidade } = req.body;
-      const loggedUser = (req as any).user;
-
+      const updateWeatherData = req.body as UpdateWeatherDTO;
       const clima = await this.weatherService.update(
         id,
-        { data, chuva, temperatura, vento, umidade },
-        loggedUser.id
+        updateWeatherData,
+        loggedUser
       );
       return res.json(clima);
     } catch (error) {
@@ -67,8 +61,9 @@ export class WeatherController {
   }
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
+      const loggedUser = req.user!.id;
       const id = Number(req.params.id);
-      await this.weatherService.delete(id);
+      await this.weatherService.delete(id, loggedUser);
       return res.status(204).send("Clima deletado com sucesso");
     } catch (erro) {
       next(erro);
