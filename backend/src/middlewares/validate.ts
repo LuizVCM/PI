@@ -6,10 +6,21 @@ export function validate(schema: ZodType) {
     const result = schema.safeParse(req.body);
     if (!result.success) {
       throw new BadRequestError(
-        result.error.issues.map((issue) => ({
-          field: issue.path.join("."),
-          message: issue.message,
-        }))
+        result.error.issues.map((issue) => {
+          if (issue.code === "invalid_value" && issue.values) {
+            return {
+              field: issue.path.join("."),
+              message: "Valor inválido",
+              expected: `${issue.values.join(
+                ", "
+              )}` 
+            };
+          }
+          return {
+            field: issue.path.join("."),
+            message: issue.message,
+          };
+        })
       );
     }
     req.body = result.data;
