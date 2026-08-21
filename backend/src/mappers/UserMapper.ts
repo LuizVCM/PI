@@ -1,6 +1,6 @@
-import { Territory } from "../models/Territory";
 import { User } from "../models/User";
 import { FinanceMapper } from "./FinanceMapper";
+import { StockMapper } from "./StockMapper";
 import { TerritoryMapper } from "./TerritoryMapper";
 
 export class UserMapper {
@@ -14,7 +14,6 @@ export class UserMapper {
       cpf: usuario.cpf,
     };
   }
-
   static toResponse(usuario: User) {
     return {
       id: usuario.id,
@@ -26,10 +25,9 @@ export class UserMapper {
       territorios: usuario.territorios ? TerritoryMapper.toSummaryResponseList(usuario.territorios) : [],
       sementes: usuario.sementes ?? [],
       financas: usuario.financas ? FinanceMapper.toSummaryResponseList(usuario.financas) : [],
-      insumos: usuario.insumos ?? [],
+      insumos: usuario.insumos ? StockMapper.toSummaryResponseList(usuario.insumos) : [],
     };
   }
-
   static toSummaryResponse(usuario: User) {
     return {
       id: usuario.id,
@@ -37,7 +35,6 @@ export class UserMapper {
       sobrenome: usuario.sobrenome,
     };
   }
-
   static toResponseList(usuarios: User[]) {
     return usuarios.map((usuario) =>
       UserMapper.toResponse(usuario)
