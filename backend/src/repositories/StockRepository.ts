@@ -5,7 +5,13 @@ import { createBaseRepository } from "./BaseRepository";
 
 export class StockRepository {
   public base = createBaseRepository(Stock);
-  async findByUserId(userId: number): Promise<Stock[]> {
+  async findAllWithUser() {
+    return this.base.findAll({ relations: { usuario: true } });
+  }
+  async findByIdWithUser(id: number) {
+    return this.base.findById(id, { relations: { usuario: true } });
+  }
+  async findAllByUserId(userId: number): Promise<Stock[]> {
     return this.base.getRepository().find({
       where: { usuario: { id: userId } },
       relations: { usuario: true },

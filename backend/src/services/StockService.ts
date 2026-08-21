@@ -1,70 +1,72 @@
+import { InternalServerError } from "../errors/InternalServerError";
 import { NotFoundError } from "../errors/NotFoundError";
+import { StockMapper } from "../mappers/StockMapper";
 import { StockRepository } from "../repositories/StockRepository";
 import { UserRepository } from "../repositories/UserRepository";
 import { CreateStockDTO, UpdateStockDTO } from "../schemas/stock.schema";
-import { omitPassword } from "../utils/omitPassword";
+import { dataFilter } from "../utils/data-filter";
 import { AuthorizationService } from "./AuthorizationService";
 
 export class StockService {
   private repo = new StockRepository();
   private userRepo = new UserRepository();
   async listAll() {
-    return await this.repo.base.findAll();
+    const stocks = await this.repo.findAllWithUser();
+    return StockMapper.toResponseList(stocks);
   }
   async getById(id: number) {
-    const stock = await this.repo.base.findById(id);
+    const stock = await this.repo.findByIdWithUser(id);
     if (!stock) {
       throw new NotFoundError("registro de insumo");
     }
-    return stock;
+    return StockMapper.toResponse(stock);
   }
   async listByUserLogged(userId: number) {
-    return await this.repo.findByUserId(userId);
+    const stocks = await this.repo.findAllByUserId(userId);
+    if (stocks.length === 0) {
+      throw new NotFoundError(
+        "registros de insumos",
+        "não há registros cadastrados"
+      );
+    }
+    return StockMapper.toResponseList(stocks);
   }
   async create(data: CreateStockDTO, loggedUserId: number) {
     const user = await this.userRepo.base.findById(loggedUserId);
     if (!user) {
-      throw new NotFoundError("usuário");
+      throw new InternalServerError("Ocorreu um erro inesperado");
     }
     const stock = await this.repo.create(data, user);
-    return { ...stock, user: omitPassword(user) };
+    return StockMapper.toResponse(stock);
   }
   async update(id: number, data: UpdateStockDTO, loggedUserId: number) {
-    const stock = await this.repo.base.findById(id);
+    const stock = await this.repo.findByIdWithUser(id);
     if (!stock) {
       throw new NotFoundError("registro de insumo");
     }
-
     AuthorizationService.ensureOwnership(
       stock,
       loggedUserId,
       "registros de insumos"
     );
-
-    Object.assign(
-      stock,
-      Object.fromEntries(
-        Object.entries(data).filter(([, value]) => value !== undefined)
-      )
-    );
+    dataFilter(stock, data);
     const stockUpdated = await this.repo.base.save(stock);
-    return stockUpdated;
+    return StockMapper.toSummaryResponse(stockUpdated);
   }
   async delete(id: number, loggedUserId: number) {
     const stock = await this.repo.base.findById(id);
     if (!stock) {
       throw new NotFoundError("registro de insumos");
     }
-
     AuthorizationService.ensureOwnership(
       stock,
       loggedUserId,
       "registros de insumos"
     );
-
     const result = await this.repo.base.softDelete(id);
     if (result.affected === 0) {
-      throw new NotFoundError("registro de insumos");
+      throw new InternalServerError("Não foi possível deletar");
     }
+    return result;
   }
 }
