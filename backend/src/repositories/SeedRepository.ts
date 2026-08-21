@@ -5,10 +5,21 @@ import { createBaseRepository } from "./BaseRepository";
 
 export class SeedRepository {
   public base = createBaseRepository(Seed);
-  async findByUserId(userId: number): Promise<Seed[]> {
+  async findAllWithUser() {
+    return this.base.findAll({ relations: { usuario: true } });
+  }
+  async findByIdWithUser(id: number) {
+    return this.base.findById(id, { relations: { usuario: true } });
+  }
+  async findByUserIdWithRelations(userId: number): Promise<Seed[]> {
     return this.base.getRepository().find({
       where: { usuario: { id: userId } },
-      relations: { usuario: true },
+      relations: { usuario: true, planta: true },
+    });
+  }
+  async findByIdWithRelations(id: number) {
+    return this.base.findById(id, {
+      relations: { usuario: true, planta: true },
     });
   }
   async create(data: CreateSeedDTO, user: User): Promise<Seed> {
