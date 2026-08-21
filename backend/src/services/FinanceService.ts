@@ -67,5 +67,7 @@ export class FinanceService {
     if (result.affected === 0) {
       throw new InternalServerError("Não foi possível deletar");
     }
+    console.log(result)
+    return result;
   }
 }
