@@ -1,6 +1,5 @@
 import bcrypt from "bcrypt";
 import { UserRepository } from "../repositories/UserRepository";
-import { generateToken } from "../auth/json-web-token";
 import {
   CreateUserDTO,
   LoginUserDTO,
@@ -12,7 +11,6 @@ import { UnauthorizedError } from "../errors/UnauthorizedError";
 import { ConflictError } from "../errors/ConflictError";
 import { InternalServerError } from "../errors/InternalServerError";
 import { UserMapper } from "../mappers/UserMapper";
-import { omitPassword } from "../utils/omitPassword";
 import { dataFilter } from "../utils/data-filter";
 
 export class UserService {
