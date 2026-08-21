@@ -3,6 +3,7 @@ import {
   createFinanceSchema,
   updateFinanceSchema,
 } from "../schemas/finance.schema";
+import { createStockSchema, updateStockSchema } from "../schemas/stock.schema";
 import {
   createTerritorySchema,
   updateTerritorySchema,
@@ -22,3 +23,5 @@ export const validateCropCreate = validate(createCropSchema);
 export const validateCropUpdate = validate(updateCropSchema);
 export const validateFinanceCreate = validate(createFinanceSchema);
 export const validateFinanceUpdate = validate(updateFinanceSchema);
+export const validateStockCreate = validate(createStockSchema);
+export const validateStockUpdate = validate(updateStockSchema);
