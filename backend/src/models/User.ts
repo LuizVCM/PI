@@ -5,18 +5,29 @@ import { Finance } from "./Finance";
 import { Stock } from "./Stock";
 import { BaseModel } from "./BaseModel";
 
+export enum UserRole {
+  USER = "user",
+  ADMIN = "admin",
+}
+
 @Entity("usuarios")
 export class User extends BaseModel {
-  @Column({ length: 100, nullable: false })
+  @Column({
+    type: "enum",
+    enum: UserRole,
+    default: UserRole.USER,
+  })
+  role: UserRole;
+  @Column({ type: "varchar", length: 100, nullable: false })
   nome: string;
-  @Column({ length: 100, nullable: false })
-  sobrenome: string;
+  @Column({ type: "varchar", length: 100, nullable: true })
+  sobrenome: string | null;
   @Column({ length: 100, nullable: false, unique: true })
   email: string;
-  @Column({ length: 20, type: "varchar", nullable: false, unique: true })
-  telefone: string;
-  @Column({ length: 11, type: "char", nullable: false, unique: true })
-  cpf: string;
+  @Column({ length: 20, type: "varchar", nullable: true, unique: true })
+  telefone: string | null;
+  @Column({ length: 11, type: "char", nullable: true, unique: true })
+  cpf: string | null;
   @Column({ select: false })
   senha: string;
   @OneToMany(() => Seed, (semente) => semente.usuario)

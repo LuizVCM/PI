@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { UserService } from "../services/UserService";
-import { CreateUserDTO, UpdateUserDTO } from "../schemas/user.schema";
+import { CreateAdminDTO, CreateUserDTO, UpdateUserDTO } from "../schemas/user.schema";
 
 export class UserController {
   private userService = new UserService();
@@ -35,6 +35,15 @@ export class UserController {
     try {
       const createUserData = req.body as CreateUserDTO;
       const created = await this.userService.create(createUserData);
+      return res.status(201).json(created);
+    } catch (error) {
+      next(error);
+    }
+  }
+  async createAdmin(req: Request, res: Response, next: NextFunction) {
+    try {
+      const createAdminData = req.body as CreateAdminDTO;
+      const created = await this.userService.createAdmin(createAdminData);
       return res.status(201).json(created);
     } catch (error) {
       next(error);

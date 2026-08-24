@@ -1,9 +1,11 @@
 import jwt from "jsonwebtoken";
 import * as dotenv from "dotenv";
+import { UserRole } from "../models/User";
 
 export interface IPayload {
   id: number;
   email: string;
+  role: UserRole;
 }
 
 dotenv.config();

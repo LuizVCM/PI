@@ -3,17 +3,20 @@ import {
   createFinanceSchema,
   updateFinanceSchema,
 } from "../schemas/finance.schema";
+import { createPlantSchema, updatePlantSchema } from "../schemas/plant.schema";
 import { createStockSchema, updateStockSchema } from "../schemas/stock.schema";
 import {
   createTerritorySchema,
   updateTerritorySchema,
 } from "../schemas/territory.schema";
 import {
+  createAdminSchema,
   createUserSchema,
   loginUserSchema,
   updateUserSchema,
 } from "../schemas/user.schema";
 import { validate } from "./validate";
+export const validateAdminCreate = validate(createAdminSchema);
 export const validateUserCreate = validate(createUserSchema);
 export const validateUserUpdate = validate(updateUserSchema);
 export const validateUserLogin = validate(loginUserSchema);
@@ -25,3 +28,5 @@ export const validateFinanceCreate = validate(createFinanceSchema);
 export const validateFinanceUpdate = validate(updateFinanceSchema);
 export const validateStockCreate = validate(createStockSchema);
 export const validateStockUpdate = validate(updateStockSchema);
+export const validatePlantCreate = validate(createPlantSchema);
+export const validatePlantUpdate = validate(updatePlantSchema);

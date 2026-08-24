@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import { UserRepository } from "../repositories/UserRepository";
 import {
+  CreateAdminDTO,
   CreateUserDTO,
   LoginUserDTO,
   UpdateUserDTO,
@@ -12,6 +13,7 @@ import { ConflictError } from "../errors/ConflictError";
 import { InternalServerError } from "../errors/InternalServerError";
 import { UserMapper } from "../mappers/UserMapper";
 import { dataFilter } from "../utils/data-filter";
+import { UserRole } from "../models/User";
 
 export class UserService {
   private repo = new UserRepository();
@@ -107,6 +109,7 @@ export class UserService {
     return {
       id: user.id,
       email: user.email,
+      role: user.role
     };
   }
   async checkUserPassword(email: string, pass: string) {
@@ -119,5 +122,22 @@ export class UserService {
       throw new UnauthorizedError("credenciais inválidas");
     }
     return { usuario: UserMapper.toResponse(user) };
+  }
+  async createAdmin(data: CreateAdminDTO) {
+    const existingUser = await this.repo.findByEmail(data.email);
+    if (existingUser) {
+      throw new ConflictError(["e-mail"]);
+    }
+    const adminExists = await this.repo.existsByRole(UserRole.ADMIN);
+    if (adminExists) {
+      throw new UnauthorizedError("o administrador inicial já foi configurado");
+    }
+    const senha = await bcrypt.hash(data.senha, 10);
+    const user = await this.repo.createAdmin({
+      ...data,
+      senha,
+      role: UserRole.ADMIN,
+    });
+    return { nome: user.nome, email: user.email };
   }
 }
