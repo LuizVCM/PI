@@ -1,10 +1,10 @@
 import z from "zod";
-import { CropCulture, CropStatus } from "../models/Crop";
+import { CropStatus } from "../models/Crop";
 import { AreaUnit } from "../utils/area-converter";
 
 export const createCropSchema = z.object({
   nome: z.string().min(3, "Nome é obrigatório").max(100, "Nome é muito longo"),
-  cultura: z.enum(CropCulture),
+  culturaId: z.number("ID inválido").positive("ID inválido"),
   variedade: z
     .string()
     .min(3, "Variedade é muito curta")
@@ -16,7 +16,6 @@ export const createCropSchema = z.object({
     .positive("A área não pode ser um número negativo"),
   unidadeArea: z.enum(AreaUnit, "Unidade de área inválida"),
   dataPlantio: z.coerce.date().nullable().optional(),
-  colheitaPrevista: z.coerce.date().nullable().optional(),
   responsavel: z
     .string()
     .min(3, "Nome do responsável é muito curto")
@@ -29,7 +28,6 @@ export const createCropSchema = z.object({
 export const updateCropSchema = z
   .object({
     nome: z.string().min(3, "Nome é muito curto").max(100, "Nome é muito longo").optional(),
-    cultura: z.enum(CropCulture).optional(),
     variedade: z
       .string()
       .min(3, "Variedade é muito curta")
@@ -42,7 +40,6 @@ export const updateCropSchema = z
       .optional(),
     unidadeArea: z.enum(AreaUnit, "Unidade de área inválida").optional(),
     dataPlantio: z.coerce.date().nullable().optional(),
-    colheitaPrevista: z.coerce.date().nullable().optional(),
     responsavel: z
       .string()
       .min(1, "Nome do responsável é muito curto")

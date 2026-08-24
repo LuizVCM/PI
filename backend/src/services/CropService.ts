@@ -2,22 +2,25 @@ import { InternalServerError } from "../errors/InternalServerError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { CropMapper } from "../mappers/CropMapper";
 import { CropRepository } from "../repositories/CropRepository";
+import { PlantRepository } from "../repositories/PlantRepository";
 import { TerritoryRepository } from "../repositories/TerritoryRepository";
 import { UserRepository } from "../repositories/UserRepository";
 import { CreateCropDTO, UpdateCropDTO } from "../schemas/crop.schema";
 import { dataFilter } from "../utils/data-filter";
+import { calcularDataColheitaPrevista } from "../utils/date-utils";
 import { AuthorizationService } from "./AuthorizationService";
 
 export class CropService {
   private repo = new CropRepository();
   private userRepo = new UserRepository();
   private territoryRepo = new TerritoryRepository();
+  private plantRepo = new PlantRepository();
   async listAll() {
-    const crops = await this.repo.findAllWithTerritory();
+    const crops = await this.repo.findAllWithRelations();
     return CropMapper.toResponseList(crops);
   }
   async getById(id: number) {
-    const crop = await this.repo.findByIdWithTerritory(id);
+    const crop = await this.repo.findByIdWithRelations(id);
     if (!crop) {
       throw new NotFoundError("plantação");
     }
@@ -25,9 +28,6 @@ export class CropService {
   }
   async listByUserLogged(userId: number) {
     const crops = await this.repo.findAllByUserId(userId);
-    if (crops.length === 0) {
-      throw new NotFoundError("plantações", "não há plantações cadastradas");
-    }
     return CropMapper.toResponseList(crops);
   }
   async listByTerritoryId(territoryId: number) {
@@ -46,13 +46,17 @@ export class CropService {
     if (!territory) {
       throw new NotFoundError("território");
     }
+    const cultivation = await this.plantRepo.base.findById(data.culturaId);
+    if (!cultivation) {
+      throw new NotFoundError("cultura");
+    }
     AuthorizationService.ensureOwnership(territory, loggedUserId, "território");
-    const cropData = CropMapper.toCreateEntity(data);
-    const crop = await this.repo.create(cropData, territory);
+    const cropData = CropMapper.toCreateEntity(data, cultivation);
+    const crop = await this.repo.create(cropData, territory, cultivation);
     return CropMapper.toResponse(crop);
   }
   async update(id: number, data: UpdateCropDTO, loggedUserId: number) {
-    const crop = await this.repo.findByIdWithTerritory(id);
+    const crop = await this.repo.findByIdWithRelations(id);
     if (!crop) {
       throw new NotFoundError("plantação");
     }
@@ -66,13 +70,27 @@ export class CropService {
       loggedUserId,
       "plantação"
     );
+    if (data.dataPlantio) {
+      const novaDataPlantio = new Date(data.dataPlantio);
+      const cicloMedio = crop.cultura.getCicloMedioDias(); 
+      const novaPrevista = calcularDataColheitaPrevista(
+        novaDataPlantio,
+        cicloMedio
+      );
+      crop.dataPlantio = novaDataPlantio;
+      crop.dataColheitaPrevista = novaPrevista;
+    } else if (data.dataPlantio === null) {
+      // se o usuário removeu a data, limpa a previsão também
+      crop.dataPlantio = null;
+      crop.dataColheitaPrevista = null;
+    }
     const cropData = CropMapper.toUpdateEntity(data);
     dataFilter(crop, cropData);
     const cropUpdated = await this.repo.base.save(crop);
     return CropMapper.toSummaryResponse(cropUpdated);
   }
   async delete(id: number, loggedUserId: number) {
-    const crop = await this.repo.findByIdWithTerritory(id);
+    const crop = await this.repo.findByIdWithRelations(id);
     if (!crop) {
       throw new NotFoundError("plantação");
     }

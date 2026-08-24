@@ -1,7 +1,8 @@
-import { Entity, Column, ManyToOne } from "typeorm";
+import { Entity, Column, ManyToOne, Index } from "typeorm";
 import { BaseModel } from "./BaseModel";
 import { Territory } from "./Territory";
 import { AreaUnit } from "../utils/area-converter";
+import { Plant } from "./Plant";
 
 export enum CropStatus {
   PLANEJADA = "planejada",
@@ -9,25 +10,16 @@ export enum CropStatus {
   CONCLUIDA = "concluida",
   CANCELADA = "cancelada",
 }
-export enum CropCulture {
-  MILHO = "milho",
-  SOJA = "soja",
-  TRIGO = "trigo",
-  ARROZ = "arroz",
-  FEIJAO = "feijao",
-}
 
+@Index(["status", "dataPlantio"]) 
 @Entity("plantacoes")
 export class Crop extends BaseModel {
   @Column({ length: 100 })
   nome: string;
-  @Column({
-    type: "enum",
-    enum: CropCulture,
-  })
-  cultura: CropCulture;
+  @ManyToOne(() => Plant, (planta) => planta.plantacoes)
+  cultura: Plant;
   @Column({ type: "varchar", length: 100, nullable: true })
-  variedade: string | null ;
+  variedade: string | null;
   @Column("decimal", {
     precision: 12,
     scale: 2,
@@ -38,15 +30,20 @@ export class Crop extends BaseModel {
     enum: AreaUnit,
   })
   unidadeArea: AreaUnit;
-  @Column({ type: "date", nullable: true  })
+  @Index()
+  @Column({ type: "date", nullable: true })
   dataPlantio: Date | null;
   @Column({ type: "date", nullable: true })
-  colheitaPrevista: Date | null;
-  @Column({ type: "varchar", length: 100, nullable: true  })
+  dataColheitaReal: Date | null;
+  @Column({ type: "date", nullable: true })
+  dataColheitaPrevista: Date | null;
+  @Column({ type: "varchar", length: 100, nullable: true })
   responsavel: string | null;
+  @Index()
   @Column({
     type: "enum",
     enum: CropStatus,
+    default: CropStatus.PLANEJADA,
   })
   status: CropStatus;
   @Column({ type: "text", nullable: true })
