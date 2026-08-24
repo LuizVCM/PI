@@ -23,12 +23,6 @@ export class FinanceService {
   }
   async listByUserLogged(userId: number) {
     const finances = await this.repo.findAllByUserId(userId);
-    if (finances.length === 0) {
-      throw new NotFoundError(
-        "registros financeiros",
-        "não há registros cadastrados"
-      );
-    }
     return FinanceMapper.toResponseList(finances);
   }
   async create(data: CreateFinanceDTO, loggedUserId: number) {

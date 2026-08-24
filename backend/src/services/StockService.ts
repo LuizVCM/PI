@@ -23,12 +23,6 @@ export class StockService {
   }
   async listByUserLogged(userId: number) {
     const stocks = await this.repo.findAllByUserId(userId);
-    if (stocks.length === 0) {
-      throw new NotFoundError(
-        "registros de insumos",
-        "não há registros cadastrados"
-      );
-    }
     return StockMapper.toResponseList(stocks);
   }
   async create(data: CreateStockDTO, loggedUserId: number) {

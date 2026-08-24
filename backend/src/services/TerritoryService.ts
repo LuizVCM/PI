@@ -26,12 +26,6 @@ export class TerritoryService {
   }
   async listByUserLogged(userId: number) {
     const territories = await this.repo.findByUserIdWithRelations(userId);
-    if (territories.length === 0) {
-      throw new NotFoundError(
-        "territórios",
-        "não há territórios cadastrados"
-      );
-    }
     return TerritoryMapper.toResponseList(territories);
   }
   async create(data: CreateTerritoryDTO, loggedUserId: number) {
