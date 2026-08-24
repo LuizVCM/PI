@@ -1,5 +1,5 @@
-import { User } from "../models/User";
-import { CreateUserDTO } from "../schemas/user.schema";
+import { User, UserRole } from "../models/User";
+import { CreateAdminDTO, CreateUserDTO } from "../schemas/user.schema";
 import { createBaseRepository } from "./BaseRepository";
 
 interface UserRelations {
@@ -81,5 +81,17 @@ export class UserRepository {
   async create(data: CreateUserDTO): Promise<User> {
     const user = this.base.create(data);
     return this.base.save(user);
+  }
+  async createAdmin(data: CreateAdminDTO): Promise<User> {
+    const user = this.base.create(data);
+    return this.base.save(user);
+  }
+  async existsByRole(role: UserRole): Promise<boolean> {
+    const count = await this.base.count({
+      where: {
+        role,
+      },
+    });
+    return count > 0;
   }
 }

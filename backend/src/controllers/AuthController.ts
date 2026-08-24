@@ -14,6 +14,7 @@ export class AuthController {
     const token = this.authService.generate({
       id: loggedUser.id,
       email: loggedUser.email,
+      role: loggedUser.role
     });
 
     // console.log("Token:", token);
@@ -36,7 +37,7 @@ export class AuthController {
     res.clearCookie("token");
     return res.sendStatus(204);
   }
-
+  /** para solicitar confirmação ao alterar dados sensíveis, se necessário  */
   async checkUserPassword(req: Request, res: Response) {
     const { senha } = req.body;
     if (!req.user?.email) {

@@ -11,7 +11,7 @@ export class FinanceMapper {
         ? finance.observacoes
         : "sem observações",
       detalhes: finance.detalhes ? finance.detalhes : "sem detalhes",
-      data: finance.data,
+      data: finance.dataFinanca,
       usuario: finance.usuario
         ? UserMapper.toSummaryResponse(finance.usuario)
         : "usuário indisponível",
@@ -26,7 +26,7 @@ export class FinanceMapper {
         ? finance.observacoes
         : "sem observações",
       detalhes: finance.detalhes ? finance.detalhes : "sem detalhes",
-      data: finance.data,
+      data: finance.dataFinanca,
     };
   }
   static toResponseList(finances: Finance[]) {

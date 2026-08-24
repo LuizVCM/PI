@@ -32,12 +32,6 @@ export class SensorService {
   }
   async listByUserLogged(userId: number) {
     const sensors = await this.repo.findByUserId(userId);
-    if (!sensors) {
-      throw new NotFoundError(
-        "sensor",
-        "nenhum sensor encontrado para esse usuário"
-      );
-    }
     return sensors;
   }
   async create(data: CreateSensorDTO, territoryId: number) {

@@ -1,70 +1,50 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import { PlantService } from "../services/PlantService";
-import { CreatePlantDTO, UpdatePlantDTO } from "../schemas/plant.schema";
 
 export class PlantController {
-  private plantService = new PlantService();
+  private service = new PlantService();
 
-  async list(req: Request, res: Response, next: NextFunction) {
-    try {
-      const plants = await this.plantService.listAll();
-      return res.json(plants);
-    } catch (error) {
-      next(error);
-    }
+  async listAll(req: Request, res: Response) {
+    const plants = await this.service.listAll();
+    
+    res.status(200).json(plants);
   }
 
-  async getById(req: Request, res: Response, next: NextFunction) {
-    try {
-      const id = Number(req.params.id);
-      const plant = await this.plantService.getById(id);
-      return res.json(plant);
-    } catch (error) {
-      next(error);
-    }
+  async getById(req: Request, res: Response) {
+    const id = Number(req.params.id);
+
+    const plant = await this.service.getById(id);
+
+    res.status(200).json(plant);
   }
 
-  async listMyPlants(req: Request, res: Response, next: NextFunction) {
-    try {
-      const id = req.user!.id;
-      const plants = await this.plantService.listByUserLogged(id);
-      return res.status(200).json(plants);
-    } catch (error) {
-      next(error);
-    }
+  async listBySeedId(req: Request, res: Response) {
+    const seedId = Number(req.params.seedId);
+
+    const plants = await this.service.listBySeedId(seedId);
+
+    res.status(200).json(plants);
   }
 
-  async create(req: Request, res: Response, next: NextFunction) {
-    try {
-      const loggedUser = req.user!.id;
-      const createPlantData = req.body as CreatePlantDTO;
-      const id = Number(req.params.id);
-      const plant = await this.plantService.create(id, createPlantData);
-      return res.status(201).json(plant);
-    } catch (error) {
-      next(error);
-    }
+  async listByUserLogged(req: Request, res: Response) {
+    const userId = req.user!.id;
+
+    const plants = await this.service.listByUserLogged(userId);
+
+    res.status(200).json(plants);
   }
 
-  async update(req: Request, res: Response, next: NextFunction) {
-    try {
-      const loggedUser = req.user!.id;
-      const updatePlantData = req.body as UpdatePlantDTO;
-      const id = Number(req.params.id);
-      const plant = await this.plantService.update(id, updatePlantData);
-      return res.json(plant);
-    } catch (error) {
-      next(error);
-    }
+  async create(req: Request, res: Response) {
+    const plant = await this.service.create(req.body);
+
+    res.status(201).json(plant);
   }
 
-  async delete(req: Request, res: Response, next: NextFunction) {
-    try {
-      const id = Number(req.params.id);
-      await this.plantService.delete(id);
-      return res.status(204).send();
-    } catch (error) {
-      next(error);
-    }
+  async update(req: Request, res: Response) {
+    const id = Number(req.params.id);
+
+    const plant = await this.service.update(id, req.body);
+
+    res.status(200).json(plant);
   }
 }
