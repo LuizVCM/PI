@@ -4,7 +4,7 @@ import { AreaUnit } from "../utils/area-converter";
 
 export const createCropSchema = z.object({
   nome: z.string().min(3, "Nome é obrigatório").max(100, "Nome é muito longo"),
-  culturaId: z.number("ID inválido").positive("ID inválido"),
+  culturaId: z.coerce.number("ID inválido").positive("ID inválido"),
   variedade: z
     .string()
     .min(3, "Variedade é muito curta")
@@ -15,19 +15,20 @@ export const createCropSchema = z.object({
     .number("A área deve ser um número")
     .positive("A área não pode ser um número negativo"),
   unidadeArea: z.enum(AreaUnit, "Unidade de área inválida"),
-  dataPlantio: z.coerce.date().nullable().optional(),
+  dataPlantio: z.coerce.date("Formato inválido"),
   responsavel: z
     .string()
     .min(3, "Nome do responsável é muito curto")
     .max(100, "Nome do responsável é muito longo")
     .nullable()
     .optional(),
-  status: z.enum(CropStatus),
+  status: z.enum(CropStatus, "Tipo de status inválido").default(CropStatus.PLANEJADA),
   observacoes: z.string().nullable().optional(),
 });
 export const updateCropSchema = z
   .object({
     nome: z.string().min(3, "Nome é muito curto").max(100, "Nome é muito longo").optional(),
+    culturaId: z.coerce.number("ID inválido").positive("ID inválido"),
     variedade: z
       .string()
       .min(3, "Variedade é muito curta")
@@ -39,14 +40,14 @@ export const updateCropSchema = z
       .positive("A área não pode ser um número negativo")
       .optional(),
     unidadeArea: z.enum(AreaUnit, "Unidade de área inválida").optional(),
-    dataPlantio: z.coerce.date().nullable().optional(),
+    dataPlantio: z.coerce.date("Formato inválido").nullable().optional(),
     responsavel: z
       .string()
       .min(1, "Nome do responsável é muito curto")
       .max(100, "Nome é muito longo")
       .nullable()
       .optional(),
-    status: z.enum(CropStatus).optional(),
+    status: z.enum(CropStatus,"Tipo de status inválido").optional(),
     observacoes: z.string().nullable().optional(),
   })
   .refine((data) => (data.area === undefined) === (data.unidadeArea === undefined), {

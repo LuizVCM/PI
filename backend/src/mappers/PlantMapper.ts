@@ -18,9 +18,9 @@ export class PlantMapper {
       precipitacaoMinima: plant.precipitacaoMinima,
       precipitacaoMaxima: plant.precipitacaoMaxima,
 
-      necessidadeLuz: plant.necessidadeLuz,
-      necessidadeAgua: plant.necessidadeAgua,
-      texturaSolo: plant.texturaSolo,
+      necessidadeLuz: plant.necessidadeLuz ?? "indisponível",
+      necessidadeAgua: plant.necessidadeAgua ?? "indisponível",
+      texturaSolo: plant.texturaSolo ?? "indisponível",
 
       nitrogenio: plant.nitrogenio ?? "indisponível",
       fosforo: plant.fosforo ?? "indisponível",

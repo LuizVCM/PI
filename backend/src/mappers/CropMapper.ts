@@ -18,7 +18,7 @@ export class CropMapper {
       dataPlantio: crop.dataPlantio ? crop.dataPlantio : "data não informada",
       dataColheitaPrevista: crop.dataColheitaPrevista
         ? crop.dataColheitaPrevista
-        : "data não informada",
+        : "não foi possível calcular",
       responsavel: crop.responsavel
         ? crop.responsavel
         : "responsável não informado",
