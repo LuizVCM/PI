@@ -2,7 +2,7 @@ import { Column, Entity, ManyToOne } from "typeorm";
 import { User } from "./User";
 import { BaseModel } from "./BaseModel";
 
-export enum WeightUnit {
+export enum MeasurementUnit {
   L = "l",
   KG = "kg"
 }
@@ -13,9 +13,9 @@ export class Stock extends BaseModel {
   nome: string;
   @Column({ type: "decimal", scale: 2, precision: 5, nullable: false })
   quantidade: number;
-  @Column({ type: "enum", enum: WeightUnit, nullable: false })
-  unidade: WeightUnit;
-  @Column({ name: "data_validade", type: "date" })
+  @Column({ type: "enum", enum: MeasurementUnit, nullable: false })
+  unidade: MeasurementUnit;
+  @Column({ type: "date", nullable: true })
   dataValidade: Date;
   @ManyToOne(() => User, (usuario) => usuario.insumos)
   usuario: User;

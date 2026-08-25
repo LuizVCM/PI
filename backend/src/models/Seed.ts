@@ -19,4 +19,5 @@ export class Seed extends BaseModel {
   usuario: User;
   @ManyToOne(() => Plant, (planta) => planta.sementes)
   planta: Plant;
+  
 }

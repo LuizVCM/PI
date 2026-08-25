@@ -19,7 +19,7 @@ export class SeedService {
     return seed;
   }
   async listByUserLogged(userId: number) {
-    return this.repo.findByUserId(userId);
+    return this.repo.findByIdWithUser(userId);
   }
   async create(data: CreateSeedDTO, loggedUserId: number) {
     const user = await this.userRepo.base.findById(loggedUserId);

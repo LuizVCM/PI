@@ -22,7 +22,7 @@ export class Finance extends BaseModel {
   observacoes: string | null;
   @Column({ type: "text", nullable: true })
   detalhes: string | null;
-  @Column({ name: "data", type: "date", nullable: false })
+  @Column({ type: "date", nullable: false })
   dataFinanca: Date;
   @ManyToOne(() => User, (usuario) => usuario.financas)
   usuario: User;
