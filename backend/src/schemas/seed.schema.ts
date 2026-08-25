@@ -1,7 +1,6 @@
 import z from "zod";
 export const createSeedSchema = z.object({
   dataCompra: z.date(),
-  nomePlanta: z.string(),
   dataPlantio: z.date(),
   quantidade: z.number(),
 });

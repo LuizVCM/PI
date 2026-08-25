@@ -33,14 +33,14 @@ export class CropMapper {
     return {
       id: crop.id,
       nome: crop.nome,
-      cultura: crop.cultura,
+      cultura: PlantMapper.toResponse(crop.cultura),
       variedade: crop.variedade ? crop.variedade : "variedade não informada",
       area: fromSquareMeters(crop.areaM2, crop.unidadeArea),
       unidadeArea: crop.unidadeArea,
       dataPlantio: crop.dataPlantio ? crop.dataPlantio : "data não informada",
       dataColheitaPrevista: crop.dataColheitaPrevista
         ? crop.dataColheitaPrevista
-        : "data não informada",
+        : "não foi possível calcular",
       responsavel: crop.responsavel
         ? crop.responsavel
         : "responsável não informado",

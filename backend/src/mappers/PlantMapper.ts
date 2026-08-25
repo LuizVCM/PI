@@ -27,8 +27,8 @@ export class PlantMapper {
       potassio: plant.potassio ?? "indisponível",
       unidadeNpk: plant.unidadeNpk ?? "indisponível",
 
-      createdAt: plant.createdAt,
-      updatedAt: plant.updatedAt,
+      criadoEm: plant.createdAt,
+      atualizadoEm: plant.updatedAt,
     };
   }
   static toResponseList(plants: Plant[]) {
