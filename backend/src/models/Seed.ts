@@ -2,10 +2,11 @@ import {
   Column,
   Entity,
   ManyToOne,
+  OneToOne,
 } from "typeorm";
 import { User } from "./User";
-import { Plant } from "./Plant";
 import { BaseModel } from "./BaseModel";
+import { Crop } from "./Crop";
 
 @Entity("sementes")
 export class Seed extends BaseModel {
@@ -17,7 +18,6 @@ export class Seed extends BaseModel {
   quantidade: number;
   @ManyToOne(() => User, (usuario) => usuario.sementes)
   usuario: User;
-  @ManyToOne(() => Plant, (planta) => planta.sementes)
-  planta: Plant;
-  
+  @OneToOne(() => Crop, (plantacao) => plantacao.sementes)
+  plantacao: Crop;
 }

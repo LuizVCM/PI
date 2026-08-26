@@ -1,8 +1,9 @@
-import { Entity, Column, ManyToOne, Index } from "typeorm";
+import { Entity, Column, ManyToOne, Index, OneToOne } from "typeorm";
 import { BaseModel } from "./BaseModel";
 import { Territory } from "./Territory";
 import { AreaUnit } from "../utils/area-converter";
 import { Plant } from "./Plant";
+import { Seed } from "./Seed";
 
 export enum CropStatus {
   PLANEJADA = "planejada",
@@ -11,7 +12,7 @@ export enum CropStatus {
   CANCELADA = "cancelada",
 }
 
-@Index(["status", "dataPlantio"]) 
+@Index(["status", "dataPlantio"])
 @Entity("plantacoes")
 export class Crop extends BaseModel {
   @Column({ length: 100 })
@@ -50,4 +51,6 @@ export class Crop extends BaseModel {
   observacoes: string | null;
   @ManyToOne(() => Territory, (territorio) => territorio.plantacoes)
   territorio: Territory;
+  @OneToOne(() => Seed, (sementes) => sementes.plantacao)
+  sementes: Seed;
 }

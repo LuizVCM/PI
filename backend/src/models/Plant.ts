@@ -49,8 +49,6 @@ export class Plant extends BaseModel {
   potassio: number | null;
   @Column({ type: "enum", enum: NpkUnit, nullable: true })
   unidadeNpk: NpkUnit | null;
-  @OneToMany(() => Seed, (seed) => seed.planta)
-  sementes: Seed[];
   @OneToMany(() => Crop, (crop) => crop.cultura)
   plantacoes: Crop[];
   /** retorna o ciclo médio em dias, arredondado. se algum dos valores for nulo, retorna null
