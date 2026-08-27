@@ -4,7 +4,7 @@ import { AreaUnit } from "../utils/area-converter";
 
 export const createCropSchema = z.object({
   nome: z.string().min(3, "Nome é obrigatório").max(100, "Nome é muito longo"),
-  culturaId: z.coerce.number("ID inválido").positive("ID inválido"),
+  sementeId: z.coerce.number("ID inválido").positive("ID inválido"),
   variedade: z
     .string()
     .min(3, "Variedade é muito curta")
@@ -28,7 +28,7 @@ export const createCropSchema = z.object({
 export const updateCropSchema = z
   .object({
     nome: z.string().min(3, "Nome é muito curto").max(100, "Nome é muito longo").optional(),
-    culturaId: z.coerce.number("ID inválido").positive("ID inválido"),
+    sementeId: z.coerce.number("ID inválido").positive("ID inválido"),
     variedade: z
       .string()
       .min(3, "Variedade é muito curta")
@@ -48,7 +48,7 @@ export const updateCropSchema = z
       .nullable()
       .optional(),
     status: z.enum(CropStatus,"Tipo de status inválido").optional(),
-    observacoes: z.string().nullable().optional(),
+    observacoes: z.string().max(255, "Observações muito longas").nullable().optional(),
   })
   .refine((data) => (data.area === undefined) === (data.unidadeArea === undefined), {
     error: "a área e unidade dela devem ser informadas juntas",
