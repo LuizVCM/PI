@@ -2,7 +2,7 @@ import { InternalServerError } from "../errors/InternalServerError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { CropMapper } from "../mappers/CropMapper";
 import { CropRepository } from "../repositories/CropRepository";
-import { PlantRepository } from "../repositories/PlantRepository";
+import { SeedRepository } from "../repositories/SeedRepository";
 import { TerritoryRepository } from "../repositories/TerritoryRepository";
 import { UserRepository } from "../repositories/UserRepository";
 import { CreateCropDTO, UpdateCropDTO } from "../schemas/crop.schema";
@@ -14,7 +14,7 @@ export class CropService {
   private repo = new CropRepository();
   private userRepo = new UserRepository();
   private territoryRepo = new TerritoryRepository();
-  private plantRepo = new PlantRepository();
+  private seedRepo = new SeedRepository();
   async listAll() {
     const crops = await this.repo.findAllWithRelations();
     return CropMapper.toResponseList(crops);
@@ -46,13 +46,19 @@ export class CropService {
     if (!territory) {
       throw new NotFoundError("território");
     }
-    const cultivation = await this.plantRepo.base.findById(data.culturaId);
-    if (!cultivation) {
+    const seed = await this.seedRepo.base.findById(data.sementeId);
+    if (!seed) {
       throw new NotFoundError("cultura");
     }
+    AuthorizationService.ensureRelationActive(
+      seed,
+      "plantação",
+      "semente"
+    );
     AuthorizationService.ensureOwnership(territory, loggedUserId, "território");
-    const cropData = CropMapper.toCreateEntity(data, cultivation);
-    const crop = await this.repo.create(cropData, territory, cultivation);
+    AuthorizationService.ensureOwnership(seed, loggedUserId, "semente");
+    const cropData = CropMapper.toCreateEntity(data, seed.planta);
+    const crop = await this.repo.create(cropData, territory, seed);
     return CropMapper.toResponse(crop);
   }
   async update(id: number, data: UpdateCropDTO, loggedUserId: number) {
@@ -72,7 +78,7 @@ export class CropService {
     );
     if (data.dataPlantio) {
       const novaDataPlantio = new Date(data.dataPlantio);
-      const cicloMedio = crop.cultura.getCicloMedioDias(); 
+      const cicloMedio = crop.sementes.planta.getCicloMedioDias(); 
       const novaPrevista = calcularDataColheitaPrevista(
         novaDataPlantio,
         cicloMedio
