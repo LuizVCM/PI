@@ -273,7 +273,9 @@
     color: #7a5a12;
     border: 1px solid var(--amarelo-600);
 }
-
+#barraUmidade{
+    width: 90%
+}
 .secao-npk {
     display: flex;
     flex-direction: column;
