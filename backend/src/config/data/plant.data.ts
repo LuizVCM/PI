@@ -1,8 +1,15 @@
 import { AppDataSource } from "../data-source";
 import { Plant } from "../../models/Plant";
 
+function calculateKcMedia(ini: number, mid: number, end: number): number {
+  return (ini + mid + end) / 3;
+}
+
 // fonte dos dados
 // https://www.fao.org/geospatial/data-and-tools/data-portals/ecocrop
+// fonte dos coeficientes
+// https://www.fao.org/4/X0490E/x0490e0b.htm
+/** o coeficiente pode ter intervalos */
 const plantsData = [
   {
     nome: "Soja",
@@ -18,6 +25,7 @@ const plantsData = [
     necessidadeLuz: null,
     necessidadeAgua: null,
     texturaSolo: "médio, orgânico",
+    kcMedio: calculateKcMedia(0.4, 1.15, 0.5),
     nitrogenio: null,
     fosforo: null,
     potassio: null,
@@ -38,6 +46,7 @@ const plantsData = [
     necessidadeLuz: null,
     necessidadeAgua: null,
     texturaSolo: null,
+    kcMedio: calculateKcMedia(0.3, 1.20, ((0.35 + 0.6) / 2)),
     nitrogenio: null,
     fosforo: null,
     potassio: null,
@@ -58,6 +67,7 @@ const plantsData = [
     necessidadeLuz: null,
     necessidadeAgua: null,
     texturaSolo: "médio, orgânico",
+    kcMedio: calculateKcMedia(0.4, 1.15, 0.35),
     nitrogenio: null,
     fosforo: null,
     potassio: null,
@@ -77,6 +87,7 @@ const plantsData = [
     necessidadeLuz: "muito alta",
     necessidadeAgua: "muito alta",
     texturaSolo: "amplo",
+    kcMedio: calculateKcMedia(1.05, 1.20, ((0.9 + 0.6) / 2)),
     nitrogenio: null,
     fosforo: null,
     potassio: null,
@@ -96,6 +107,7 @@ const plantsData = [
     necessidadeLuz: "muito alta",
     necessidadeAgua: "moderada",
     texturaSolo: "médio, orgânico",
+    kcMedio: calculateKcMedia(0.3, 1.15, ((0.25 + 0.4) / 2)),
     nitrogenio: null,
     fosforo: null,
     potassio: null,
