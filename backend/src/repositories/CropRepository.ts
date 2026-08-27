@@ -1,5 +1,5 @@
 import { Crop, CropStatus } from "../models/Crop";
-import { Plant } from "../models/Plant";
+import { Seed } from "../models/Seed";
 import { Territory } from "../models/Territory";
 import { AreaUnit } from "../utils/area-converter";
 import { createBaseRepository } from "./BaseRepository";
@@ -18,20 +18,20 @@ interface CropData {
 export class CropRepository {
   public base = createBaseRepository(Crop);
   async findAllWithRelations() {
-    return this.base.findAll({ relations: { territorio: true, cultura: true } });
+    return this.base.findAll({ relations: { territorio: true, sementes: true } });
   }
   /** retorna o usuário */
   async findByTerritoryId(territoryId: number) {
     return this.base.getRepository().find({
       where: { territorio: { id: territoryId } },
-      relations: { territorio: true, cultura: true },
+      relations: { territorio: true, sementes: true },
       select: { territorio: { usuario: true } },
     });
   }
   /** retorna o usuário */
   async findByIdWithRelations(id: number) {
     return this.base.findById(id, {
-      relations: { territorio: true, cultura: true },
+      relations: { territorio: true, sementes: true },
       select: { territorio: { usuario: true } },
     });
   }
@@ -39,12 +39,12 @@ export class CropRepository {
   async findAllByUserId(userId: number) {
     return this.base.findAll({
       where: { territorio: { usuario: { id: userId } } },
-      relations: { territorio: true, cultura: true },
+      relations: { territorio: true, sementes: true },
       select: { territorio: { usuario: true } },
     });
   }
-  async create(data: CropData, territory: Territory, cultivation: Plant ) {
-    const crop = this.base.create({ ...data, territorio: territory, cultura: cultivation });
+  async create(data: CropData, territory: Territory, seed: Seed ) {
+    const crop = this.base.create({ ...data, territorio: territory, sementes: seed });
     return this.base.save(crop);
   }
 }
