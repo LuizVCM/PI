@@ -1,8 +1,14 @@
-import { Entity, Column, ManyToOne, Index, OneToOne } from "typeorm";
+import {
+  Entity,
+  Column,
+  ManyToOne,
+  Index,
+  OneToOne,
+  JoinColumn,
+} from "typeorm";
 import { BaseModel } from "./BaseModel";
 import { Territory } from "./Territory";
 import { AreaUnit } from "../utils/area-converter";
-import { Plant } from "./Plant";
 import { Seed } from "./Seed";
 
 export enum CropStatus {
@@ -49,8 +55,7 @@ export class Crop extends BaseModel {
   observacoes: string | null;
   @ManyToOne(() => Territory, (territorio) => territorio.plantacoes)
   territorio: Territory;
-  @OneToOne(() => Seed, (sementes) => sementes.plantacao, {
-    createForeignKeyConstraints: true,
-  })
+  @JoinColumn()
+  @OneToOne(() => Seed, (sementes) => sementes.plantacao)
   sementes: Seed;
 }
