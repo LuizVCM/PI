@@ -1,112 +1,134 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .content {
-    width: 100%;
-    height: 87vh;
-    background-color: #f5f7fa;
+  width: 100%;
+  height: 87vh;
+  background-color: #f5f7fa;
 
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10%;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10%;
+  justify-content: space-between;
 }
 
 /* ===================== CABEÇALHO ===================== */
 
 .cabecalho-perfil {
-    width: 90%;
-    height: 200px;
+  width: 90%;
+  height: 200px;
 
-    display: flex;
-    align-items: center;
- 
+  display: flex;
+  align-items: center;
 
-    gap: 40px;
-    margin-top: 30px;
+  gap: 40px;
+  margin-top: 30px;
 }
 
 .foto-usuario {
-    width: 170px;
-    height: 170px;
+   width: 170px;
+  height: 170px;
 
-    border-radius: 50%;
-    background-color: #d9d9d9;
-    border: 4px solid #1d5c2f;
+  border-radius: 50%;
+  border: 4px solid #1d5c2f;
+
+  /*background-image: url("https://i.pinimg.com/736x/87/11/22/87112262ddd3b09a89efcaf0f8822ca3.jpg");*/
+  background-image: url("https://www.cfra.org/sites/default/files/styles/page_image/public/page-images/Sandro%20Lopes_0.jpg?h=56d0ca2e&itok=OZHNqUoL");
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  /* Altere esta linha */
+  background-position: center 2%;
 }
 
 .dados-usuario {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .nome-usuario {
-    font-size: 40px;
-    color: #222;
+  font-size: 40px;
+  color: #222;
 }
 
 .cargo-usuario {
-    font-size: 24px;
-    color: #666;
-    margin-top: 10px;
+  width: 230px;
+  height: 45px;
+  background-color: rgb(61, 131, 72);
+  border-radius: 120px;
+  border: 2px solid rgb(63, 187, 94);
+}
+
+.cargo {
+  font-size: 20px;
+  color: #ebe8e8;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nome-cargo {
+  display: flex;
+  flex-direction: column;
 }
 
 /* ===================== INFORMAÇÕES ===================== */
 
 .informacoes-perfil {
-    width: 90%;
+  width: 90%;
 
-    background: white;
-    border-radius: 15px;
-    padding: 40px;
+  background: white;
+  border-radius: 15px;
+  padding: 40px;
 
-    box-shadow: 0 6px 12px rgba(0,0,0,0.35);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.35);
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .titulo-secao {
-    text-align: center;
-    font-size: 36px;
-    color: #222;
+  text-align: center;
+  font-size: 36px;
+  color: #222;
 
-    margin-bottom: 35px;
+  margin-bottom: 35px;
 }
 
 .info-item {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    padding: 18px 0;
+  padding: 18px 0;
 
-    border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
 }
 
 .info-item:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .info-titulo {
-    width: 220px;
+  width: 220px;
 
-    font-size: 26px;
-    font-weight: bold;
-    color: #222;
+  font-size: 26px;
+  font-weight: bold;
+  color: #222;
 }
 
 .info-valor {
-    flex: 1;
+  flex: 1;
 
-    font-size: 24px;
-    color: #555;
+  font-size: 24px;
+  color: #555;
 }

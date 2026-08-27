@@ -1,0 +1,126 @@
+var options = {
+  series: [
+    {
+      name: 'Actual',
+      data: [
+        {
+          x: 'North',
+          y: 12,
+          goals: [
+            {
+              name: 'Expected',
+              value: 14,
+              strokeWidth: 2,
+              strokeDashArray: 2,
+              strokeColor: '#775DD0',
+            },
+          ],
+        },
+        {
+          x: 'South',
+          y: 44,
+          goals: [
+            {
+              name: 'Expected',
+              value: 54,
+              strokeWidth: 5,
+              strokeHeight: 10,
+              strokeColor: '#775DD0',
+            },
+          ],
+        },
+        {
+          x: 'East',
+          y: 54,
+          goals: [
+            {
+              name: 'Expected',
+              value: 52,
+              strokeWidth: 10,
+              strokeHeight: 0,
+              strokeLineCap: 'round',
+              strokeColor: '#775DD0',
+            },
+          ],
+        },
+        {
+          x: 'West',
+          y: 66,
+          goals: [
+            {
+              name: 'Expected',
+              value: 61,
+              strokeWidth: 10,
+              strokeHeight: 0,
+              strokeLineCap: 'round',
+              strokeColor: '#775DD0',
+            },
+          ],
+        },
+        {
+          x: 'Central',
+          y: 81,
+          goals: [
+            {
+              name: 'Expected',
+              value: 66,
+              strokeWidth: 10,
+              strokeHeight: 0,
+              strokeLineCap: 'round',
+              strokeColor: '#775DD0',
+            },
+          ],
+        },
+        {
+          x: 'Online',
+          y: 67,
+          goals: [
+            {
+              name: 'Expected',
+              value: 70,
+              strokeWidth: 5,
+              strokeHeight: 10,
+              strokeColor: '#775DD0',
+            },
+          ],
+        },
+      ],
+    },
+  ],
+  chart: {
+    height: 350,
+    type: 'bar',
+  },
+  title: {
+    text: 'Sales vs Target by Region',
+    align: 'left',
+  },
+  plotOptions: {
+    bar: {
+      horizontal: true,
+    },
+  },
+  colors: ['#00E396'],
+  dataLabels: {
+    formatter: function (val, opt) {
+      const goals =
+        opt.w.config.series[opt.seriesIndex].data[opt.dataPointIndex].goals
+
+      if (goals && goals.length) {
+        return `${val} / ${goals[0].value}`
+      }
+      return val
+    },
+  },
+  legend: {
+    show: true,
+    showForSingleSeries: true,
+    customLegendItems: ['Actual', 'Expected'],
+    markers: {
+      fillColors: ['#00E396', '#775DD0'],
+    },
+  },
+}
+
+var chart = new ApexCharts(document.querySelector('#chart'), options)
+chart.render()

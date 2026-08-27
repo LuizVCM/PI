@@ -1,276 +1,192 @@
-/* ========================================
-   TELA DE CADASTRO
-======================================== */
-
-.gestao-cadastro {
-    display: none;
-    width: 100%;
-    height: 87vh;
-    padding: 25px 35px;
-    background: var(--conteudo-fundo);
-    overflow-y: auto;
+/* Estilo principal da tela de cadastro */
+.cadastro{
+    width:100%;/* Ocupa toda a largura disponível */
+    padding:25px 35px;/* Espaço interno da tela */
+    background:var(--conteudo-fundo); /* Cor de fundo usando uma variável criada no CSS principal */
 }
 
-.gestao-cadastro.ativa {
-    display: block;
+.cabecalho-cadastro{
+    display:flex; /* Deixa os elementos um do lado do outro */
+    justify-content:space-between;/* Coloca um elemento em cada lado */
+    align-items:center; /* Alinha os itens no centro */
+    margin-bottom:25px;
 }
 
-
-/* ========================================
-   CABEÇALHO
-======================================== */
-
-.cabecalho-cadastro {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
+/* Título principal */
+.titulo-cadastro h1{
+    font-size:30px;
+    color:var(--verde-profundo);/* Cor usando varável */
+    margin-bottom:6px;
+}
+.titulo-cadastro p{ /* Texto abaixo do título */
+    color:#6b7280;
+    font-size:15px;
 }
 
-.titulo-cadastro h1 {
-    font-size: 30px;
-    color: var(--verde-profundo);
-    margin-bottom: 6px;
+.grid-cadastro{
+    display:grid; /* Usa grid para organizar os cards */
+    grid-template-columns:1fr 1fr;/* Cria duas colunas do mesmo tamanho */
+    gap:20px;/* Espaço entre os cards */
+    margin-bottom:20px;
 }
 
-.titulo-cadastro p {
-    color: #6b7280;
-    font-size: 15px;
+/* Controla todas as telas */
+.tela{
+    display:flex;/* Usa flex para organizar os elementos */
+    height:87vh;/* Altura da tela */
+    overflow:auto; /* Caso o conteúdo passe do tamanho, cria uma barra de rolagem */
+}
+.card{
+    background:#fff;/* Fundo branco do card */
+    border-radius:14px;/* Arredonda os cantos */
+    padding:22px;    /* Espaço dentro do card */
+    border:1px solid #E4E8E4;/* Linha ao redor do card */
+    box-shadow:0 3px 10px rgba(0,0,0,.06);/* Cria uma sombra leve */
 }
 
-
-/* ========================================
-   GRID DOS CARDS
-======================================== */
-
-.grid-cadastro {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-bottom: 20px;
+/* Título dentro dos cards */
+.card h2{
+    display:flex; /* Deixa ícone e texto lado a lado */
+    align-items:center;
+    gap:10px; /* Espaço entre ícone e texto */
+    font-size:20px;
+    color:var(--verde-profundo);
+    margin-bottom:18px;
+    padding-bottom:10px;
+    border-bottom:1px solid #E8ECE8;/* Linha separando o título do conteúdo */
+}
+/* Cor dos ícones */
+.card h2 i{
+    color:var(--verde-sidebar);
 }
 
+.form-grid{
+    display:grid; /* Organiza os campos */
+    grid-template-columns:1fr;/* Deixa uma coluna de campos */
+    gap:15px;
+}
+.form-group{
 
-/* ========================================
-   CARDS DO CADASTRO
-======================================== */
-
-.gestao-cadastro .card {
-    background: #fff;
-    border-radius: 14px;
-    padding: 22px;
-    border: 1px solid #E4E8E4;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, .06);
+    display:flex;/* Coloca label e input um embaixo do outro */
+    flex-direction:column;
 }
 
-.gestao-cadastro .card h2 {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 20px;
-    color: var(--verde-profundo);
-    margin-bottom: 18px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #E8ECE8;
+/* Texto dos campos */
+.form-group label{
+    margin-bottom:6px;
+    font-size:14px;
+    font-weight:600;/* Deixa o texto mais forte */
+    color:#355339;
+}
+/* Estilo dos campos de entrada */
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    padding:11px 14px;
+    border:1px solid #CED7CE;
+    border-radius:10px;
+    background:#FAFCFA;
+    font-size:15px;
+    transition:.2s;/* Faz uma animação suave quando muda */
+}
+/* Área de texto */
+.form-group textarea{
+    resize:none; /* Não permite mudar o tamanho manualmente */
+    min-height:110px;
+}
+/* Quando o usuário clica no campo */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+    outline:none;    /* Remove a borda padrão do navegador */
+    border-color:var(--verde-sidebar);/* Muda a cor da borda */
+    box-shadow:0 0 0 4px rgba(45,92,47,.12); /* Cria um brilho ao redor */
 }
 
-.gestao-cadastro .card h2 i {
-    color: var(--verde-sidebar);
+.voltar{
+    width:auto !important;/* !important força esse valor mesmo se outro CSS tentar mudar */
+    height:auto !important;
+    padding:10px 18px !important;
+    background:white;
+    border:1px solid #D7DDD7;
+    border-radius:10px;
+    box-shadow:none;
 }
-
-
-/* ========================================
-   FORMULÁRIO
-======================================== */
-
-.form-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 15px;
+/* Quando passa o mouse */
+.voltar:hover{
+    background:#F3F7F3;
 }
-
-.gestao-cadastro .form-group {
-    display: flex;
-    flex-direction: column;
+.acoes-cadastro{
+    /* Coloca os botões lado a lado */
+    display:flex;
+    /* Joga os botões para o lado direito */
+    justify-content:flex-end;
+    gap:15px;
+    margin-top:20px;
 }
-
-.gestao-cadastro .form-group label {
-    margin-bottom: 6px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #355339;
-}
-
-
-/* ========================================
-   INPUTS
-======================================== */
-
-.gestao-cadastro .form-group input,
-.gestao-cadastro .form-group select,
-.gestao-cadastro .form-group textarea {
-    width: 100%;
-    padding: 11px 14px;
-    border: 1px solid #CED7CE;
-    border-radius: 10px;
-    background: #FAFCFA;
-    font-size: 15px;
-    transition: .2s;
-}
-
-.gestao-cadastro .form-group textarea {
-    resize: none;
-    min-height: 110px;
-}
-
-
-/* ========================================
-   FOCO NOS CAMPOS
-======================================== */
-
-.gestao-cadastro .form-group input:focus,
-.gestao-cadastro .form-group select:focus,
-.gestao-cadastro .form-group textarea:focus {
-    outline: none;
-    border-color: var(--verde-sidebar);
-    box-shadow: 0 0 0 4px rgba(45, 92, 47, .12);
-}
-
-
-
-
-/* ========================================
-   BOTÕES DE AÇÃO
-======================================== */
-
-.acoes-cadastro {
-    display: flex;
-    justify-content: flex-end;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-
 /* Botão limpar */
-
-.btn-limpar {
-    padding: 12px 24px;
-    border-radius: 10px;
-    border: 2px solid var(--verde-sidebar);
-    background: white;
-    color: var(--verde-sidebar);
-    cursor: pointer;
-    font-weight: 600;
-    transition: .2s;
-}
-
-.btn-limpar:hover {
-    background: var(--verde-sidebar);
-    color: white;
-}
-
-
-/* Botão salvar */
-
-.btn-salvar {
-    padding: 12px 26px;
-    border: none;
-    border-radius: 10px;
-    background: var(--verde-sidebar);
-    color: white;
-    cursor: pointer;
-    font-weight: 600;
-    transition: .2s;
-}
-
-.btn-salvar:hover {
-    background: var(--verde-profundo);
-    transform: translateY(-2px);
-}
-
-
-/* ========================================
-   RESPONSIVIDADE
-======================================== */
-
-@media (max-width: 950px) {
-
-    .grid-cadastro {
-        grid-template-columns: 1fr;
-    }
-
-    .cabecalho-cadastro {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-    }
-
-    .gestao-cadastro .card {
-        width: 100%;
-    }
+.btn-limpar{
+    padding:12px 24px;
+    border-radius:10px;
+    border:2px solid var(--verde-sidebar);
+    background:white;
+    color:var(--verde-sidebar);
+    /* Mostra a mão quando passa em cima */
+    cursor:pointer;
+    font-weight:600;
+    transition:.2s;
 
 }
+.btn-limpar:hover{
+    background:var(--verde-sidebar);
+    color:white;
+}
+.btn-salvar{
+    padding:12px 26px;
+    border:none;
+    border-radius:10px;
+    background:var(--verde-sidebar);
+    color:white;
+    cursor:pointer;
+    font-weight:600;
+    transition:.2s;
+}
+.btn-salvar:hover{
+    background:var(--verde-profundo);
+    /* Move o botão um pouco para cima */
+    transform:translateY(-2px);
+}
 
-
-@media (max-width: 650px) {
-
-    .gestao-cadastro {
-        padding: 20px 15px;
-        height: 87vh;
+/* Quando a tela fica menor que 950px */
+@media(max-width:950px){
+    /* Os cards ficam um embaixo do outro */
+    .grid-cadastro{
+        grid-template-columns:1fr;
     }
-
-    .titulo-cadastro h1 {
-        font-size: 24px;
+    /* Cabeçalho muda para coluna */
+    .cabecalho-cadastro{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:15px;
     }
+}
 
-    .titulo-cadastro p {
-        font-size: 13px;
+/* Celulares */
+@media(max-width:650px){
+    .cadastro{
+        padding:20px;
     }
-
-    .cabecalho-cadastro {
-        gap: 12px;
-        margin-bottom: 18px;
+    .titulo-cadastro h1{
+        font-size:24px;
     }
-
-    .grid-cadastro {
-        grid-template-columns: 1fr;
-        gap: 15px;
+    /* Botões ficam um embaixo do outro */
+    .acoes-cadastro{
+        flex-direction:column;
     }
-
-    .gestao-cadastro .card {
-        padding: 16px;
-        border-radius: 12px;
-    }
-
-    .gestao-cadastro .card h2 {
-        font-size: 18px;
-        gap: 8px;
-    }
-
-    .gestao-cadastro .form-group label {
-        font-size: 13px;
-    }
-
-    .gestao-cadastro .form-group input,
-    .gestao-cadastro .form-group select,
-    .gestao-cadastro .form-group textarea {
-        font-size: 14px;
-        padding: 10px 12px;
-    }
-
-    .gestao-cadastro .form-group textarea {
-        min-height: 90px;
-    }
-
-    .acoes-cadastro {
-        flex-direction: column;
-        gap: 10px;
-    }
-
     .btn-limpar,
-    .btn-salvar {
-        width: 100%;
-        padding: 11px 20px;
+    .btn-salvar{
+        width:100%;
     }
 
 }
