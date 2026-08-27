@@ -40,8 +40,12 @@ body {
   border-radius: 50%;
   border: 4px solid #1d5c2f;
 
+<<<<<<< HEAD
   /*background-image: url("https://i.pinimg.com/736x/87/11/22/87112262ddd3b09a89efcaf0f8822ca3.jpg");*/
   background-image: url("https://www.cfra.org/sites/default/files/styles/page_image/public/page-images/Sandro%20Lopes_0.jpg?h=56d0ca2e&itok=OZHNqUoL");
+=======
+  background-image: url("https://i.pinimg.com/736x/87/11/22/87112262ddd3b09a89efcaf0f8822ca3.jpg");
+>>>>>>> a9ee28a789930ee047918c3f78c9ccaee09e1b4e
   background-size: cover;
   background-repeat: no-repeat;
 

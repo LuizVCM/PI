@@ -66,7 +66,7 @@ body {
 /* TEMPERATURA */
 
 .inforGraus {
-    width: 76vw;
+  width: 76vw;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -96,7 +96,7 @@ body {
   height: 140px;
 }
 
-.nuvem p{
+.nuvem p {
   color: #cfe7b6;
 }
 
@@ -115,10 +115,8 @@ body {
 
   padding: 20px;
 
-      background: rgba(13, 167, 51, 0.192);
-        border-radius: 50px;
-
-
+  background: rgba(13, 167, 51, 0.192);
+  border-radius: 50px;
 }
 
 .propriedades p {
@@ -138,7 +136,7 @@ body {
   padding: 20px;
   width: 77vw;
 }
-.ProximosClimas h2{
+.ProximosClimas h2 {
   color: #e0f3cc;
 }
 
@@ -149,8 +147,7 @@ body {
 }
 
 .dias {
-
-height: 170px;
+  height: 170px;
   flex: 1;
 
   padding: 15px;
@@ -164,33 +161,188 @@ height: 170px;
 
 .hoje {
   background: rgba(68, 216, 93, 0.685);
-
 }
 
-.dias p{
+.dias p {
   color: rgb(182, 176, 176);
-
 }
 
-.dias h3{
+.dias h3 {
   color: rgb(202, 202, 202);
-
 }
 .dias h2 {
   margin: 10px 0;
   color: white;
 }
 
-.hoje p{
+.hoje p {
   color: rgb(224, 224, 224);
-
 }
 
-.hoje h3{
+.hoje h3 {
   color: rgb(189, 182, 182);
-
 }
 .hoje h2 {
   margin: 10px 0;
   color: white;
+}
+
+/* =========================
+   RESPONSIVIDADE
+   ========================= */
+
+@media (max-width: 768px) {
+  /* Conteúdo principal */
+  .content {
+    width: 100%;
+    height: auto;
+    min-height: calc(100vh - 80px);
+    overflow-y: auto;
+    padding: 20px;
+    gap: 20px;
+  }
+
+  /* LOCALIZAÇÃO */
+  .ubicacao {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  /* TEMPERATURA */
+  .inforGraus {
+    width: 100%;
+    min-height: 240px;
+    padding: 20px;
+    border-radius: 80px;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .nuvemSol img {
+    width: 100px;
+    height: 100px;
+  }
+
+  /* CARDS */
+  .inforClima {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .propriedades {
+    width: 100%;
+    padding: 15px;
+    border-radius: 30px;
+  }
+
+  /* PREVISÃO */
+  .ProximosClimas {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .Climas {
+    width: 100%;
+    display: flex;
+    /*para poder se mexer*/
+    overflow-x: auto;
+    gap: 10px;
+  }
+
+  .dias {
+    min-width: 100px;
+    height: 150px;
+    flex: 0 0 100px;
+    border-radius: 40px;
+    padding: 12px;
+  }
+
+  .dias p {
+    font-size: 1rem;
+  }
+
+  .dias h2 {
+    font-size: 1.5rem;
+  }
+
+  .dias h3 {
+    font-size: 1.2rem;
+  }
+}
+
+/* CELULARES PEQUENOS */
+@media (max-width: 480px) {
+  .content {
+    padding: 15px;
+  }
+
+  .ubicacao {
+    padding: 5px;
+  }
+
+  .local h3 {
+    font-size: 1.1rem;
+  }
+
+  .local h1 {
+    font-size: 1.3rem;
+  }
+
+  .local p {
+    font-size: 0.9rem;
+  }
+
+  .nuvem p {
+    font-size: 0.85rem;
+  }
+
+  .inforGraus {
+    min-height: 220px;
+    padding: 15px;
+  }
+
+  .graus h1 {
+    font-size: 3rem;
+  }
+
+  .graus h3 {
+    font-size: 1rem;
+  }
+
+  .graus h4 {
+    font-size: 0.9rem;
+  }
+
+  .nuvemSol img {
+    width: 85px;
+    height: 85px;
+  }
+
+  .inforClima {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .propriedades {
+    padding: 12px;
+  }
+
+  .propriedades h1 {
+    font-size: 1.3rem;
+  }
+
+  .ProximosClimas h2 {
+    font-size: 1.6rem;
+  }
+
+  .dias {
+    min-width: 90px;
+    flex-basis: 90px;
+  }
 }

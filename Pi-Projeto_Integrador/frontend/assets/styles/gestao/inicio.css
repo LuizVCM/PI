@@ -1,0 +1,231 @@
+/* =========================
+   TELAS DA GESTÃO
+========================= */
+
+.tela {
+    display: none !important;
+    width: 100%;
+    min-height: 87vh;
+    box-sizing: border-box;
+}
+
+.tela.ativa {
+    display: block !important;
+}
+
+
+/* =========================
+   TELA INICIAL
+========================= */
+
+.gestao-inicio {
+    width: 100%;
+    min-height: 87vh;
+    padding: 40px;
+    box-sizing: border-box;
+    background: var(--conteudo-fundo);
+}
+
+.gestao-inicio h1 {
+    text-align: center;
+    font-size: 32px;
+    margin: 0 0 35px;
+    color: var(--verde-profundo);
+}
+
+
+/* =========================
+   BOTÕES DE ACESSO
+========================= */
+
+.acessos {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.funcao {
+    border: none;
+    cursor: pointer;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: 0.2s;
+}
+
+.funcao:hover {
+    transform: translateY(-3px);
+}
+
+.funcao i {
+    font-size: 18px;
+}
+
+
+/* =========================
+   CADASTRO
+========================= */
+
+.tela-cadastro {
+    width: 100%;
+    min-height: 87vh;
+    padding: 40px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    background: var(--conteudo-fundo);
+}
+
+.cabecalho-cadastro {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 25px;
+    box-sizing: border-box;
+}
+
+.cabecalho-cadastro h1 {
+    color: var(--verde-profundo);
+}
+
+.cabecalho-cadastro p {
+    color: #555;
+}
+
+.grid-cadastro {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 30px;
+    box-sizing: border-box;
+}
+
+.grid-cadastro > .card {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.grid-cadastro input,
+.grid-cadastro select,
+.grid-cadastro textarea {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.tela-cadastro > .card {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   AGENDA
+========================= */
+
+.tela-agenda {
+    width: 100%;
+    min-height: 87vh;
+    padding: 25px 35px;
+    box-sizing: border-box;
+    background: var(--conteudo-fundo);
+}
+
+
+/* =========================
+   ESTOQUE
+========================= */
+
+.tela-estoque {
+    width: 100%;
+    min-height: 87vh;
+    padding: 25px 35px;
+    box-sizing: border-box;
+    background: var(--conteudo-fundo);
+}
+
+
+/* =========================
+   INSUMOS
+========================= */
+
+.tela-insumos {
+    width: 100%;
+    min-height: 87vh;
+    padding: 25px 35px;
+    box-sizing: border-box;
+    background: var(--conteudo-fundo);
+}
+
+/* =========================
+   BOTÃO VOLTAR
+========================= */
+
+.tela-agenda .btn-voltar {
+    border: none;
+    background: var(--verde-profundo);
+    color: white;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.2s;
+}
+
+.tela-agenda .btn-voltar:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.tela-agenda .btn-voltar i {
+    font-size: 14px;
+}
+/* =========================
+   RESPONSIVIDADE
+========================= */
+
+@media (max-width: 1000px) {
+
+    .tela-cadastro {
+        padding: 25px;
+    }
+
+    .grid-cadastro {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 700px) {
+
+    .gestao-inicio {
+        padding: 20px;
+    }
+
+    .tela-cadastro {
+        padding: 20px;
+    }
+
+    .cabecalho-cadastro {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .acessos {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,133 +1,169 @@
-.insumos{
-    width:100%;
-    padding:25px 35px;
-    background:var(--conteudo-fundo);
+/* =========================
+   INSUMOS DISPONÍVEIS
+========================= */
+
+.insumos {
+    width: 100%;
+    min-height: calc(100vh - 80px);
+
+    padding: 35px;
+
+    background: var(--conteudo-fundo);
 }
 
-.cabecalho-insumos{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:25px;
+.cabecalho-insumos {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 25px;
 }
 
-.cabecalho-insumos h2{
-    color:var(--verde-profundo);
+.cabecalho-insumos h2 {
+    margin: 0;
+    font-size: 30px;
 }
 
-.btn-novo{
-    background:var(--verde-profundo);
-    color:#fff;
-    border:none;
-    padding:10px 18px;
-    border-radius:8px;
-    cursor:pointer;
-    font-size:15px;
+.acoes-insumos {
+    display: flex;
+    gap: 12px;
 }
 
-.btn-novo:hover{
-    opacity:.9;
+.filtros-insumos {
+    display: grid;
+    grid-template-columns: 1fr 250px;
+
+    gap: 15px;
+
+    margin-bottom: 25px;
 }
 
-.filtros-insumos{
-    display:flex;
-    gap:15px;
-    margin-bottom:25px;
+.campo-pesquisa {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    background: white;
+
+    padding: 12px 15px;
+
+    border-radius: 10px;
 }
 
-.filtros-insumos input,
-.filtros-insumos select{
-    padding:10px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    font-size:15px;
+.campo-pesquisa i {
+    color: #777;
 }
 
-.filtros-insumos input{
-    flex:1;
-}
-.tela{
-    display:flex;/* Usa flex para organizar os elementos */
-    height:87vh;/* Altura da tela */
-    overflow:auto; /* Caso o conteúdo passe do tamanho, cria uma barra de rolagem */
-}
-.cards-insumos{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:20px;
-    margin-bottom:25px;
+.campo-pesquisa input {
+    width: 100%;
+
+    border: none;
+    outline: none;
+
+    font-size: 15px;
 }
 
-.card-insumo{
-    background:#fff;
-    padding:20px;
-    border-radius:12px;
-    text-align:center;
-    box-shadow:0 2px 8px rgba(0,0,0,.08);
+.filtros-insumos select {
+    border: none;
+
+    background: white;
+
+    padding: 12px 15px;
+
+    border-radius: 10px;
+
+    outline: none;
+
+    font-size: 14px;
 }
 
-.card-insumo h3{
-    color:var(--verde-profundo);
-    font-size:28px;
-    margin-bottom:8px;
+.cards-insumos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 20px;
+
+    margin-bottom: 25px;
 }
 
-.card-insumo p{
-    color:#666;
+.card-insumo {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    text-align: center;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
 }
 
-.tabela-insumos{
-    width:100%;
-    border-collapse:collapse;
-    background:#fff;
-    border-radius:12px;
-    overflow:hidden;
-    box-shadow:0 2px 8px rgba(0,0,0,.08);
+.card-insumo h3 {
+    margin: 0 0 8px;
+
+    font-size: 30px;
+
+    color: var(--verde-profundo);
 }
 
-.tabela-insumos th{
-    background:var(--verde-profundo);
-    color:#fff;
-    padding:14px;
+.card-insumo p {
+    margin: 0;
+
+    color: #666;
 }
 
-.tabela-insumos td{
-    padding:14px;
-    text-align:center;
-    border-bottom:1px solid #eee;
+.tabela-insumos {
+    width: 100%;
+
+    border-collapse: collapse;
 }
 
-.status{
-    padding:6px 12px;
-    border-radius:20px;
-    font-size:13px;
-    font-weight:bold;
+.tabela-insumos th,
+.tabela-insumos td {
+    padding: 15px;
+
+    text-align: left;
+
+    border-bottom: 1px solid #eee;
 }
 
-.disponivel{
-    background:#05b640ee;
-    color:#000000;
+.tabela-insumos th {
+    font-size: 14px;
+    color: #555;
 }
 
-.baixo{
-    background:#177504;
-    color:#000000;
+.status.disponivel {
+    padding: 6px 10px;
+
+    border-radius: 20px;
+
+    background: #d1e7dd;
+    color: #0f5132;
+
+    font-size: 12px;
+    font-weight: 600;
 }
 
-.falta{
-    background:#10e409;
-    color:#000000;
+.status.baixo {
+    padding: 6px 10px;
+
+    border-radius: 20px;
+
+    background: #fff3cd;
+    color: #856404;
+
+    font-size: 12px;
+    font-weight: 600;
 }
 
-.btn-editar{
-    background:var(--verde-profundo);
-    color:#fff;
-    border:none;
-    padding:8px 14px;
-    border-radius:6px;
-    cursor:pointer;
-}
+.status.falta {
+    padding: 6px 10px;
 
-.btn-editar:hover{
-    opacity:.9;
+    border-radius: 20px;
+
+    background: #f8d7da;
+    color: #842029;
+
+    font-size: 12px;
+    font-weight: 600;
 }

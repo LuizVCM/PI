@@ -1,7 +1,5 @@
-@import url(../home.css);
-@import url(gestao.css);
-@import url(plantacao.css);
-@import url(cadastro.css);
-@import url(agenda.css);
-@import url(insumos.css);
-@import url(estoque.css);
+@import url("./inicio.css");
+@import url("./cadastro.css");
+@import url("./agenda.css");
+@import url("./insumos.css");
+@import url("./estoque.css");
