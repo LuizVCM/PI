@@ -7,6 +7,7 @@ import {
   CreateTerritoryDTO,
   UpdateTerritoryDTO,
 } from "../schemas/territory.schema";
+import { fetchAddress } from "../utils/find-address";
 import { dataFilter } from "../utils/data-filter";
 import { AuthorizationService } from "./AuthorizationService";
 
@@ -33,7 +34,14 @@ export class TerritoryService {
     if (!user) {
       throw new NotFoundError("usuário");
     }
-    const territoryData = TerritoryMapper.toCreateEntity(data);
+    const address = await fetchAddress(data.cep);
+    const territoryData = {
+      ...TerritoryMapper.toCreateEntity(data),
+      cidade: address.cidade,
+      estado: address.estado,
+      bairro: address.bairro,
+      logradouro: address.logradouro,
+    };
     const territory = await this.repo.create(territoryData, user);
     return TerritoryMapper.toResponse(territory);
   }

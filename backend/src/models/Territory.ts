@@ -10,10 +10,26 @@ import { Crop } from "./Crop";
 export class Territory extends BaseModel {
   @Column({ type: "char", length: 8 })
   cep: string;
-  // @Column({ length: 100 })
-  // cidade: string;
-  // @Column({ length: 2 })
-  // estado: string;
+  @Column({
+    length: 100,
+  })
+  cidade: string;
+  @Column({
+    length: 100,
+  })
+  estado: string;
+  @Column({
+    type: "varchar",
+    length: 150,
+    nullable: true,
+  })
+  bairro: string | null;
+  @Column({
+    type: "varchar",
+    length: 150,
+    nullable: true,
+  })
+  logradouro: string | null;
   @Column("decimal", {
     precision: 12,
     scale: 2,

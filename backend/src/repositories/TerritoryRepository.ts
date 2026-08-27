@@ -5,6 +5,10 @@ import { createBaseRepository } from "./BaseRepository";
 
 interface TerritoryData {
   cep: string;
+  cidade: string;
+  estado: string;
+  bairro: string | null;
+  logradouro: string | null;
   areaM2: number;
   unidadeArea: AreaUnit;
 }
