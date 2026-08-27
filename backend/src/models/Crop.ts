@@ -17,8 +17,6 @@ export enum CropStatus {
 export class Crop extends BaseModel {
   @Column({ length: 100 })
   nome: string;
-  @ManyToOne(() => Plant, (planta) => planta.plantacoes)
-  cultura: Plant;
   @Column({ type: "varchar", length: 100, nullable: true })
   variedade: string | null;
   @Column("decimal", {
@@ -51,6 +49,8 @@ export class Crop extends BaseModel {
   observacoes: string | null;
   @ManyToOne(() => Territory, (territorio) => territorio.plantacoes)
   territorio: Territory;
-  @OneToOne(() => Seed, (sementes) => sementes.plantacao)
+  @OneToOne(() => Seed, (sementes) => sementes.plantacao, {
+    createForeignKeyConstraints: true,
+  })
   sementes: Seed;
 }

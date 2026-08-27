@@ -41,6 +41,9 @@ export class Plant extends BaseModel {
   necessidadeAgua: string | null;
   @Column({ type: "varchar", length: 100, nullable: true })
   texturaSolo: string | null;
+  /** coeficiente médio de cultura  */
+  @Column({ type: "decimal", precision: 4, scale: 2, nullable: true })
+  kcMedio: number | null;
   @Column({ type: "decimal", precision: 8, scale: 2, nullable: true })
   nitrogenio: number | null;
   @Column({ type: "decimal", precision: 8, scale: 2, nullable: true })
@@ -49,8 +52,8 @@ export class Plant extends BaseModel {
   potassio: number | null;
   @Column({ type: "enum", enum: NpkUnit, nullable: true })
   unidadeNpk: NpkUnit | null;
-  @OneToMany(() => Crop, (crop) => crop.cultura)
-  plantacoes: Crop[];
+  @OneToMany(() => Seed, (sementes) => sementes.planta)
+  sementes: Seed[];
   /** retorna o ciclo médio em dias, arredondado. se algum dos valores for nulo, retorna null
    */
   getCicloMedioDias(): number | null {
