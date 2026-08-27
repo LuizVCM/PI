@@ -9,15 +9,14 @@ body {
 }
 
 .content {
-  width: 100%;
+  min-width: 80%;
   height: 87vh;
   background-color: #f5f7fa;
-
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: center;
   gap: 10%;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 /* ===================== CABEÇALHO ===================== */
@@ -33,8 +32,26 @@ body {
   margin-top: 30px;
 }
 
+@media (max-width: 950px) {
+   .info-item .info-valor{
+    font-size: 1.2rem;
+   }
+
+
+}
+.wlq{
+  display:flex;
+  flex-direction:column;
+  overflow: auto;
+  height: 100%;
+  width: 90%;
+  align-items:center;
+  justify-content:center;
+
+}
+
 .foto-usuario {
-   width: 170px;
+  width: 170px;
   height: 170px;
 
   border-radius: 50%;
@@ -130,4 +147,212 @@ body {
 
   font-size: 24px;
   color: #555;
+}
+
+.btn-espaco{
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.btn {
+   width: 70%;
+  height: 32px;
+  border: none;
+  border-radius: 20px;
+  background-color: #c6d9ad;
+  color: #8a8a8a;
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+
+/*****************************************************************************/
+
+
+@media (max-width: 768px) {
+
+    .content {
+        min-width: 0;
+        width: 100%;
+        height: auto;
+        min-height: calc(100vh - 80px);
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 15px;
+    }
+
+    .wlq {
+        width: 100%;
+        height: auto;
+        overflow-x: hidden;
+        overflow-y: auto;
+        justify-content: flex-start;
+        gap: 80px;
+    }
+
+    .cabecalho-perfil {
+        width: 100%;
+        height: auto;
+        gap: 15px;
+        margin-top: 15px;
+        padding: 10px;
+    }
+
+    .foto-usuario {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: 3px solid #1d5c2f;
+        background-position: center 2%;
+    }
+
+    .nome-usuario {
+        font-size: 25px;
+        overflow-wrap: break-word;
+    }
+
+    .nome-cargo {
+        min-width: 0;
+        width: calc(100% - 115px);
+    }
+
+    .cargo-usuario {
+        width: 190px;
+        height: 40px;
+    }
+
+    .cargo {
+        font-size: 16px;
+        margin-top: 8px;
+    }
+
+    .informacoes-perfil {
+        width: 100%;
+        padding: 20px 15px;
+        background: white;
+        border-radius: 15px;
+        margin-top: 15px;
+    }
+
+    .titulo-secao {
+        text-align: center;
+        font-size: 25px;
+        line-height: 1.2;
+        margin-bottom: 20px;
+    }
+
+    .info-item {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        padding: 15px 0;
+        overflow-wrap: break-word;
+    }
+
+    .info-titulo {
+        width: 110px;
+        font-size: 17px;
+        flex-shrink: 0;
+    }
+
+    .info-valor {
+        flex: 1;
+        overflow-wrap: anywhere;
+        font-size: 16px;
+        min-width: 0;
+    }
+
+    .btn-espaco {
+        width: 100%;
+        height: 60px;
+    }
+
+    .btn {
+        width: 80%;
+        height: 35px;
+        font-size: 14px;
+    }
+}
+
+
+@media (max-width: 480px) {
+
+    .content {
+        padding: 10px;
+    }
+
+    .cabecalho-perfil {
+        padding: 5px;
+        gap: 10px;
+    }
+
+    .foto-usuario {
+        width: 80px;
+        height: 80px;
+        border-width: 3px;
+    }
+
+    .nome-cargo {
+        width: calc(100% - 90px);
+    }
+
+    .nome-usuario {
+        font-size: 21px;
+    }
+
+    .cargo-usuario {
+        width: 160px;
+        height: 35px;
+    }
+
+    .cargo {
+        font-size: 14px;
+        margin-top: 7px;
+    }
+
+    .informacoes-perfil {
+        padding: 20px 15px;
+        width: 100%;
+    }
+
+    .titulo-secao {
+        font-size: 22px;
+        max-width: 250px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 15px;
+    }
+
+    .info-item {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding: 14px 0;
+    }
+
+    .info-titulo {
+        width: 100%;
+        font-size: 17px;
+    }
+
+    .info-valor {
+        width: 100%;
+        font-size: 15px;
+        overflow-wrap: anywhere;
+    }
+
+    .btn-espaco {
+        height: 55px;
+    }
+
+    .btn {
+        width: 90%;
+        height: 32px;
+        font-size: 13px;
+    }
 }
