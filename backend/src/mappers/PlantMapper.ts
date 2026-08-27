@@ -22,6 +22,8 @@ export class PlantMapper {
       necessidadeAgua: plant.necessidadeAgua ?? "indisponível",
       texturaSolo: plant.texturaSolo ?? "indisponível",
 
+      kcMedio: plant.kcMedio ?? "indisponível",
+
       nitrogenio: plant.nitrogenio ?? "indisponível",
       fosforo: plant.fosforo ?? "indisponível",
       potassio: plant.potassio ?? "indisponível",
