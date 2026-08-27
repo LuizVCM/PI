@@ -4,6 +4,7 @@ import {
   updateFinanceSchema,
 } from "../schemas/finance.schema";
 import { createPlantSchema, updatePlantSchema } from "../schemas/plant.schema";
+import { createSeedSchema, updateSeedSchema } from "../schemas/seed.schema";
 import { createStockSchema, updateStockSchema } from "../schemas/stock.schema";
 import {
   createTerritorySchema,
@@ -30,3 +31,5 @@ export const validateStockCreate = validate(createStockSchema);
 export const validateStockUpdate = validate(updateStockSchema);
 export const validatePlantCreate = validate(createPlantSchema);
 export const validatePlantUpdate = validate(updatePlantSchema);
+export const validateSeedCreate = validate(createSeedSchema);
+export const validateSeedUpdate = validate(updateSeedSchema);
