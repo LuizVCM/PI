@@ -12,7 +12,7 @@ async function barra() {
 
         console.log(dados)
 
-        const umidade = dados.minutely_15.relative_humidity_2m.at(-1) - 0
+        const umidade = dados.minutely_15.relative_humidity_2m.at(-1) 
 
         console.log("Umidade:", umidade)
         barraNível.style.width = `${umidade}%`
