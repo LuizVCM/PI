@@ -15,13 +15,21 @@ export class PlantRepository {
   async findBySeedId(seedId: number) {
     return this.base.getRepository().findOne({
       where: { sementes: { id: seedId } },
-      relations: { sementes: true },
+      relations: {
+        sementes: {
+          planta: true,
+        },
+      },
     });
   }
   async findByUserId(userId: number) {
     return this.base.getRepository().find({
       where: { sementes: { usuario: { id: userId } } },
-      relations: { sementes: true },
+      relations: {
+        sementes: {
+          planta: true,
+        },
+      },
     });
   }
   async findByName(name: string) {

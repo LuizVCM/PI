@@ -13,7 +13,7 @@ plantRoutes.get(
   authMiddleware,
   plantController.listByUserLogged.bind(plantController)
 );
-plantRoutes.get("/seed/:id", plantController.listBySeedId.bind(plantController));
+plantRoutes.get("/seed/:id", authMiddleware, plantController.listBySeedId.bind(plantController));
 plantRoutes.get("/:id", plantController.getById.bind(plantController));
 plantRoutes.post(
   "/",
