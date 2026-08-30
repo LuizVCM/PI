@@ -1,5 +1,4 @@
 import { Entity, Column, OneToMany } from "typeorm";
-import { Crop } from "./Crop";
 import { Seed } from "./Seed";
 import { BaseModel } from "./BaseModel";
 
@@ -42,7 +41,7 @@ export class Plant extends BaseModel {
   @Column({ type: "varchar", length: 100, nullable: true })
   texturaSolo: string | null;
   /** coeficiente médio de cultura  */
-  @Column({ type: "decimal", precision: 4, scale: 2, nullable: true })
+  @Column({ type: "decimal", precision: 6, scale: 4, nullable: true })
   kcMedio: number | null;
   @Column({ type: "decimal", precision: 8, scale: 2, nullable: true })
   nitrogenio: number | null;

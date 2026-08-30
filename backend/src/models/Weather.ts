@@ -1,35 +1,30 @@
 import {
   Column,
   Entity,
+  Index,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Territory } from "./Territory";
-import { Sensor } from "./Sensor";
 
+
+@Index(["territorio", "data"], { unique: true })
 @Entity("dados_clima")
-export class Weather {
+export class Weather  {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column({ type: "timestamp", nullable: false })
+  @Column({ type: "date" })
   data: Date;
-
-  @Column({ type: "decimal", scale: 2, precision: 5, nullable: false })
+  @Column({ type: "decimal", precision: 5, scale: 2 })
+  temperaturaMinima: number;
+  @Column({ type: "decimal", precision: 5, scale: 2 })
+  temperaturaMaxima: number;
+  @Column({ type: "decimal", precision: 5, scale: 2 })
   precipitacao: number;
-
-  @Column({ type: "decimal", scale: 2, precision: 5, nullable: false })
-  temperatura: number;
-
-  @Column({ type: "decimal", scale: 2, precision: 5, nullable: false })
-  vento: number;
-
-  @Column({ type: "decimal", scale: 2, precision: 5, nullable: false })
-  umidade: number;
-
-  @ManyToOne(() => Territory, (territorio) => territorio.clima)
+  @Column({ type: "decimal", precision: 5, scale: 2 })
+  velocidadeVentoMaxima: number;
+  @Column({ type: "decimal", precision: 5, scale: 2, nullable: true })
+  evapotranspiracao: number;
+  @ManyToOne(() => Territory, territorio => territorio.clima)
   territorio: Territory;
-
-  // @OneToMany(() => Sensor, (sensores) => sensores.clima)
-  // sensores: Sensor;
 }
