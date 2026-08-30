@@ -7,7 +7,7 @@ import { TerritoryRepository } from "../repositories/TerritoryRepository";
 import { UserRepository } from "../repositories/UserRepository";
 import { CreateCropDTO, UpdateCropDTO } from "../schemas/crop.schema";
 import { dataFilter } from "../utils/data-filter";
-import { calcularDataColheitaPrevista } from "../utils/date-utils";
+import { setHarvestForecast } from "../utils/date-utils";
 import { AuthorizationService } from "./AuthorizationService";
 
 export class CropService {
@@ -79,7 +79,7 @@ export class CropService {
     if (data.dataPlantio) {
       const novaDataPlantio = new Date(data.dataPlantio);
       const cicloMedio = crop.sementes.planta.getCicloMedioDias(); 
-      const novaPrevista = calcularDataColheitaPrevista(
+      const novaPrevista = setHarvestForecast(
         novaDataPlantio,
         cicloMedio
       );

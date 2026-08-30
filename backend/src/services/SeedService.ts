@@ -23,6 +23,7 @@ export class SeedService {
     return SeedMapper.toResponse(seed);
   }
   async listByUserLogged(userId: number) {
+    console.log(userId);
     const seeds = await this.repo.findByUserIdWithRelations(userId);
     return SeedMapper.toSummaryResponseList(seeds);
   }
@@ -39,16 +40,22 @@ export class SeedService {
     return SeedMapper.toResponse(seed);
   }
   async update(id: number, data: UpdateSeedDTO, loggedUserId: number) {
-    const seed = await this.repo.base.findById(id);
+    const seed = await this.repo.findByIdWithRelations(id);
     if (!seed) {
       throw new NotFoundError("semente");
     }
-    AuthorizationService.ensureRelationActive(seed, "semente", "usuário")
-    AuthorizationService.ensureRelationActive(seed.plantacao, "semente", "plantação")
-    AuthorizationService.ensureOwnership(seed, loggedUserId, "sementes");
-    dataFilter(seed, data)
+    if (data.plantaId !== undefined) {
+      const plant = await this.plantRepo.base.findById(data.plantaId);
+      if (!plant) {
+        throw new NotFoundError("planta");
+      }
+      seed.planta = plant;
+    }
+    AuthorizationService.ensureRelationActive(seed, "semente", "usuário");
+    AuthorizationService.ensureOwnership(seed, loggedUserId, "semente");
+    dataFilter(seed, data);
     const seedUpdated = await this.repo.base.save(seed);
-    return seedUpdated;
+    return SeedMapper.toResponse(seedUpdated);
   }
   async delete(id: number, loggedUserId: number) {
     const seed = await this.repo.base.findById(id);

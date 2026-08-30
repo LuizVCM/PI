@@ -7,7 +7,7 @@ import {
   CreateTerritoryDTO,
   UpdateTerritoryDTO,
 } from "../schemas/territory.schema";
-import { fetchAddress } from "../utils/find-address";
+import { fetchAddress } from "../integrations/address-service";
 import { dataFilter } from "../utils/data-filter";
 import { AuthorizationService } from "./AuthorizationService";
 
