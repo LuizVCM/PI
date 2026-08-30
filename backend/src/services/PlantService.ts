@@ -16,18 +16,18 @@ export class PlantService {
     if (!plant) {
       throw new NotFoundError("planta");
     }
-    return plant;
+    return PlantMapper.toResponse(plant);
   }
   async listBySeedId(seedId: number) {
     const plant = await this.repo.findBySeedId(seedId);
     if (!plant) {
-      throw new NotFoundError("plantas");
+      throw new NotFoundError("planta");
     }
-    return plant;
+    return PlantMapper.toResponseWithRelation(plant);
   }
   async listByUserLogged(userId: number) {
     const plants = await this.repo.findByUserId(userId);
-    return plants;
+    return PlantMapper.toResponseWithRelationList(plants);
   }
   async create(data: CreatePlantDTO) {
     const {nomeCientifico} = data;

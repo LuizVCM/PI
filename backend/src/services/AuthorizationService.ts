@@ -27,8 +27,8 @@ export class AuthorizationService {
       throw new ForbiddenError(
         entityName,
         `${entityName} não está ativo(a)`,
-        Array(relationName).length > 1
-          ? `${Array(relationName).join(", ")} associados(as) não estão disponíveis`
+        Array.isArray(relationName)
+          ? `${relationName.join(", ")} associados(as) não estão disponíveis`
           : `${relationName} associado(a) não está disponível`
       );
     }
