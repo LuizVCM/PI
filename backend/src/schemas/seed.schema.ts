@@ -8,12 +8,12 @@ export const createSeedSchema = z.object({
   unidadePeso: z.enum(WeightUnit, "Tipo de unidade de peso inválido"),
   fornecedor: z
     .string()
-    .min(1, "Nome do forncedor é muito curto")
-    .max(100, "Nome do forncedor é muito longo")
+    .min(1, "Nome do fornecedor é muito curto")
+    .max(100, "Nome do fornecedor é muito longo")
     .optional()
     .nullable(),
   observacoes: z.string().max(255, "Observações muito longas").optional().nullable(),
 });
-export const updateSeedSchema = createSeedSchema;
+export const updateSeedSchema = createSeedSchema.partial();
 export type CreateSeedDTO = z.infer<typeof createSeedSchema>;
 export type UpdateSeedDTO = z.infer<typeof updateSeedSchema>;
