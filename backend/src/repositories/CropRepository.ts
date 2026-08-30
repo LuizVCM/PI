@@ -1,7 +1,7 @@
 import { Crop, CropStatus } from "../models/Crop";
 import { Seed } from "../models/Seed";
 import { Territory } from "../models/Territory";
-import { AreaUnit } from "../utils/area-converter";
+import { AreaUnit } from "../calc/area-converter";
 import { createBaseRepository } from "./BaseRepository";
 
 interface CropData {

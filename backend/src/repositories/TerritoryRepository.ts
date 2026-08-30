@@ -1,6 +1,6 @@
 import { Territory } from "../models/Territory";
 import { User } from "../models/User";
-import { AreaUnit } from "../utils/area-converter";
+import { AreaUnit } from "../calc/area-converter";
 import { createBaseRepository } from "./BaseRepository";
 
 interface TerritoryData {
