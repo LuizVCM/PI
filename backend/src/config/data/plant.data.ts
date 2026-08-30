@@ -1,16 +1,9 @@
-import { AppDataSource } from "../data-source";
-import { Plant } from "../../models/Plant";
-
-function calculateKcMedia(ini: number, mid: number, end: number): number {
-  return (ini + mid + end) / 3;
-}
-
 // fonte dos dados
 // https://www.fao.org/geospatial/data-and-tools/data-portals/ecocrop
 // fonte dos coeficientes
 // https://www.fao.org/4/X0490E/x0490e0b.htm
 /** o coeficiente pode ter intervalos */
-const plantsData = [
+export const plantsData = [
   {
     nome: "Soja",
     nomeCientifico: "Glycine max",
@@ -25,13 +18,14 @@ const plantsData = [
     necessidadeLuz: null,
     necessidadeAgua: null,
     texturaSolo: "médio, orgânico",
-    kcMedio: calculateKcMedia(0.4, 1.15, 0.5),
+    kcIni: 0.4,
+    kcMid: 1.15,
+    kcEnd: 0.5,
     nitrogenio: null,
     fosforo: null,
     potassio: null,
     unidadeNpk: null,
   },
-
   {
     nome: "Milho",
     nomeCientifico: "Zea mays",
@@ -46,13 +40,15 @@ const plantsData = [
     necessidadeLuz: null,
     necessidadeAgua: null,
     texturaSolo: null,
-    kcMedio: calculateKcMedia(0.3, 1.20, ((0.35 + 0.6) / 2)),
+    kcIni: 0.3,
+    kcMid: 1.2,
+    kcEnd: 0.35,
+    kcEndMax: 0.6,
     nitrogenio: null,
     fosforo: null,
     potassio: null,
     unidadeNpk: null,
   },
-
   {
     nome: "Feijão",
     nomeCientifico: "Phaseolus vulgaris",
@@ -67,7 +63,10 @@ const plantsData = [
     necessidadeLuz: null,
     necessidadeAgua: null,
     texturaSolo: "médio, orgânico",
-    kcMedio: calculateKcMedia(0.4, 1.15, 0.35),
+    kcIni: 0.4,
+    kcMid: 1.15,
+    kcMidMax: 1.2,
+    kcEnd: 0.35,
     nitrogenio: null,
     fosforo: null,
     potassio: null,
@@ -87,7 +86,10 @@ const plantsData = [
     necessidadeLuz: "muito alta",
     necessidadeAgua: "muito alta",
     texturaSolo: "amplo",
-    kcMedio: calculateKcMedia(1.05, 1.20, ((0.9 + 0.6) / 2)),
+    kcIni: 1.05,
+    kcMid: 1.2,
+    kcEnd: 0.6,
+    kcEndMax: 0.9,
     nitrogenio: null,
     fosforo: null,
     potassio: null,
@@ -107,26 +109,14 @@ const plantsData = [
     necessidadeLuz: "muito alta",
     necessidadeAgua: "moderada",
     texturaSolo: "médio, orgânico",
-    kcMedio: calculateKcMedia(0.3, 1.15, ((0.25 + 0.4) / 2)),
+    kcIni: 0.3,
+    kcIniMax: 0.7,
+    kcMid: 1.15,
+    kcEnd: 0.25,
+    kcEndMax: 0.4,
     nitrogenio: null,
     fosforo: null,
     potassio: null,
     unidadeNpk: null,
   },
 ];
-
-export async function insertPlants() {
-  const repo = AppDataSource.getRepository(Plant);
-  for (const data of plantsData) {
-    const exists = await repo.findOne({
-      where: {
-        nomeCientifico: data.nomeCientifico,
-      },
-    });
-    if (exists) {
-      continue;
-    }
-    const plant = repo.create(data);
-    await repo.save(plant);
-  }
-}

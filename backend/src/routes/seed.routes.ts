@@ -14,14 +14,14 @@ seedRoutes.get(
   seedController.listAll.bind(seedController)
 );
 seedRoutes.get(
-  "/:id",
-  authMiddleware,
-  seedController.getById.bind(seedController)
-);
-seedRoutes.get(
   "/me",
   authMiddleware,
   seedController.listMySeeds.bind(seedController)
+);
+seedRoutes.get(
+  "/:id",
+  authMiddleware,
+  seedController.getById.bind(seedController)
 );
 seedRoutes.post(
   "/",
@@ -29,6 +29,6 @@ seedRoutes.post(
   validateSeedCreate,
   seedController.create.bind(seedController)
 );
-seedRoutes.put("/", authMiddleware, seedController.update.bind(seedController));
+seedRoutes.put("/:id", authMiddleware, seedController.update.bind(seedController));
 
 export default seedRoutes;
