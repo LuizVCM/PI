@@ -13,9 +13,13 @@ export async function insertPlants() {
         kcMidMax: plant.kcMidMax,
         kcEnd: plant.kcEnd,
         kcEndMax: plant.kcEndMax,
+        iniDays: plant.iniDays,
+        devDays: plant.devDays,
+        midDays: plant.midDays,
+        lateDays: plant.lateDays,
       });
       // remove os campos que não são salvos
-      const { kcIni, kcIniMax, kcMid, kcMidMax, kcEnd, kcEndMax, ...rest } = plant;
+      const { kcIni, kcIniMax, kcMid, kcMidMax, kcEnd, kcEndMax, iniDays, devDays, midDays, lateDays, ...rest } = plant;
       return { ...rest, kcMedio };
     });
   for (const data of plantsToSave) {
