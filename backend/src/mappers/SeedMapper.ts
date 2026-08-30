@@ -7,7 +7,7 @@ export class SeedMapper {
   static toResponse(seed: Seed) {
     return {
       id: seed.id,
-      planta: PlantMapper.toResponse(seed.planta),
+      planta: PlantMapper.toSummaryResponse(seed.planta),
       quantidade: seed.quantidade,
       unidadePeso: seed.unidadePeso,
       dataCompra: seed.dataCompra,
@@ -27,7 +27,7 @@ export class SeedMapper {
   static toSummaryResponse(seed: Seed) {
     return {
       id: seed.id,
-      planta: PlantMapper.toResponse(seed.planta),
+      planta: PlantMapper.toSummaryResponse(seed.planta),
       quantidade: seed.quantidade,
       unidadePeso: seed.unidadePeso,
       dataCompra: seed.dataCompra,
