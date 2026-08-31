@@ -5,6 +5,7 @@
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
-    "typeorm": "^0.3.31"
+    "typeorm": "^0.3.31",
+    "animate.css": "^4.1.1"
   }
 }

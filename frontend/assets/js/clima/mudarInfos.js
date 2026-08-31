@@ -39,6 +39,10 @@ async function TrocarTemp() {
     const dia5 = document.querySelector(".d5")
     const dia6 = document.querySelector(".d6")
 
+    // pega as máximas e mínimas de cada dia e informa no frontend
+
+
+
     // informar exatamente os dias dos cards de previsão  (pega por essas funções loucas de conversão de data e pelo índice da API)
       dia1.textContent = `${new Date(dados7Dias.daily.time.at(0)).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) }`
       dia2.textContent = `${new Date(dados7Dias.daily.time.at(1)).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) }`
