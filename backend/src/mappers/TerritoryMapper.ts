@@ -12,6 +12,10 @@ export class TerritoryMapper {
     return {
       id: territory.id,
       cep: territory.cep,
+      cidade: territory.cidade,
+      estado: territory.estado,
+      bairro: territory.bairro ?? "indisponível",
+      logradouro: territory.logradouro ?? "indisponível",
       area: fromSquareMeters(Number(territory.areaM2), territory.unidadeArea),
       unidadeArea: territory.unidadeArea,
       usuario: territory.usuario
@@ -26,6 +30,10 @@ export class TerritoryMapper {
     return {
       id: territory.id,
       cep: territory.cep,
+      cidade: territory.cidade,
+      estado: territory.estado,
+      bairro: territory.bairro ?? "indisponível",
+      logradouro: territory.logradouro ?? "indisponível",
       area: fromSquareMeters(Number(territory.areaM2), territory.unidadeArea),
       unidadeArea: territory.unidadeArea,
     };
