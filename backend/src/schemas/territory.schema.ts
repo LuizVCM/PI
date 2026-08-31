@@ -1,5 +1,5 @@
 import z from "zod";
-import { AreaUnit } from "../utils/area-converter";
+import { AreaUnit } from "../calc/area-converter";
 export const createTerritorySchema = z.object({
   cep: z
     .string()

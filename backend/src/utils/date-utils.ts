@@ -3,7 +3,7 @@ export function addDays(date: Date, days: number): Date {
   result.setDate(result.getDate() + days);
   return result;
 }
-export function calcularDataColheitaPrevista(
+export function setHarvestForecast(
   dataPlantio: Date | null | undefined,
   cicloMedioDias: number | null | undefined
 ): Date | null {

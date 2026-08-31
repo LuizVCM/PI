@@ -8,7 +8,7 @@ import {
 } from "typeorm";
 import { BaseModel } from "./BaseModel";
 import { Territory } from "./Territory";
-import { AreaUnit } from "../utils/area-converter";
+import { AreaUnit } from "../calc/area-converter";
 import { Seed } from "./Seed";
 
 export enum CropStatus {

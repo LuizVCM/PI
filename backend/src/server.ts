@@ -4,7 +4,7 @@ import { AppDataSource } from "./config/data-source";
 import router from "./routes/index.routes";
 import { errorHandler } from "./middlewares/error-handler";
 import cookieParser from "cookie-parser";
-import { insertPlants } from "./config/data/plant.data";
+import { insertPlants } from "./config/seed/plant.seeder";
 const app: Application = express();
 dotenv.config();
 app.use(cookieParser());

@@ -3,7 +3,7 @@ import {
   UpdateTerritoryDTO,
 } from "./../schemas/territory.schema";
 import { Territory } from "../models/Territory";
-import { fromSquareMeters, toSquareMeters } from "../utils/area-converter";
+import { fromSquareMeters, toSquareMeters } from "../calc/area-converter";
 import { UserMapper } from "./UserMapper";
 import { CropMapper } from "./CropMapper";
 

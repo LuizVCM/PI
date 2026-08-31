@@ -1,11 +1,13 @@
 import z from "zod";
 export const createWeatherSchema = z.object({
-  data: z.date(),
-  chuva: z.number(),
-  temperatura: z.number(),
-  vento: z.number(),
-  umidade: z.number(),
+  territorioId: z.coerce.number().int().positive(),
+  daily: z.object({
+    time: z.array(z.string()).min(1),
+    temperature_2m_min: z.array(z.number()).min(1),
+    temperature_2m_max: z.array(z.number()).min(1),
+    precipitation_sum: z.array(z.number()).min(1),
+    wind_speed_10m_max: z.array(z.number()).min(1),
+    et0_fao_evapotranspiration: z.array(z.number()).min(1),
+  }),
 });
-export const updateWeatherSchema = createWeatherSchema.partial();
-export type CreateWeatherDTO = z.infer<typeof createWeatherSchema>
-export type UpdateWeatherDTO = z.infer<typeof updateWeatherSchema>
+export type CreateWeatherDTO = z.infer<typeof createWeatherSchema>;

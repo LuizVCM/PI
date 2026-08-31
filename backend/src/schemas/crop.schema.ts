@@ -1,6 +1,6 @@
 import z from "zod";
 import { CropStatus } from "../models/Crop";
-import { AreaUnit } from "../utils/area-converter";
+import { AreaUnit } from "../calc/area-converter";
 
 export const createCropSchema = z.object({
   nome: z.string().min(3, "Nome é obrigatório").max(100, "Nome é muito longo"),

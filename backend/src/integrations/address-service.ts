@@ -1,4 +1,5 @@
 import { BadRequestError } from "../errors/BadRequestError";
+import { InternalServerError } from "../errors/InternalServerError";
 
 export interface AddressData {
   cep: string;
@@ -9,8 +10,10 @@ export interface AddressData {
   erro?: boolean;
 }
 export async function fetchAddress(cep: string): Promise<AddressData> {
-  const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-
+  const response = await fetch(`https://viacep.com.br/ws/${cep}/json`);
+  if (!response.ok) {
+    throw new InternalServerError("Não foi possível validar o CEP")
+  }
   const data = await response.json();
 
   if (data.erro) {

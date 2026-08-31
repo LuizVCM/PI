@@ -3,7 +3,7 @@ import { User } from "./User";
 import { Weather } from "./Weather";
 import { Sensor } from "./Sensor";
 import { BaseModel } from "./BaseModel";
-import { AreaUnit } from "../utils/area-converter";
+import { AreaUnit } from "../calc/area-converter";
 import { Crop } from "./Crop";
 
 @Entity("territorios")

@@ -1,3 +1,4 @@
+import { InternalServerError } from "../errors/InternalServerError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { SeedMapper } from "../mappers/SeedMapper";
 import { PlantRepository } from "../repositories/PlantRepository";
@@ -23,6 +24,7 @@ export class SeedService {
     return SeedMapper.toResponse(seed);
   }
   async listByUserLogged(userId: number) {
+    console.log(userId);
     const seeds = await this.repo.findByUserIdWithRelations(userId);
     return SeedMapper.toSummaryResponseList(seeds);
   }
@@ -39,30 +41,35 @@ export class SeedService {
     return SeedMapper.toResponse(seed);
   }
   async update(id: number, data: UpdateSeedDTO, loggedUserId: number) {
-    const seed = await this.repo.base.findById(id);
+    const seed = await this.repo.findByIdWithRelations(id);
     if (!seed) {
       throw new NotFoundError("semente");
     }
-    AuthorizationService.ensureRelationActive(seed, "semente", "usuário")
-    AuthorizationService.ensureRelationActive(seed.plantacao, "semente", "plantação")
-    AuthorizationService.ensureOwnership(seed, loggedUserId, "sementes");
-    dataFilter(seed, data)
+    if (data.plantaId !== undefined) {
+      const plant = await this.plantRepo.base.findById(data.plantaId);
+      if (!plant) {
+        throw new NotFoundError("planta");
+      }
+      seed.planta = plant;
+    }
+    AuthorizationService.ensureOwnership(seed, loggedUserId, "semente");
+    dataFilter(seed, data);
     const seedUpdated = await this.repo.base.save(seed);
-    return seedUpdated;
+    return SeedMapper.toResponse(seedUpdated);
   }
   async delete(id: number, loggedUserId: number) {
-    const seed = await this.repo.base.findById(id);
+    const seed = await this.repo.findByIdWithRelations(id);
 
     if (!seed) {
       throw new NotFoundError("semente");
     }
 
-    AuthorizationService.ensureOwnership(seed, loggedUserId, "sementes");
+    AuthorizationService.ensureOwnership(seed, loggedUserId, "semente");
 
     const result = await this.repo.base.softDelete(id);
 
     if (result.affected === 0) {
-      throw new NotFoundError("semente");
+      throw new InternalServerError("Não foi possível deletar");
     }
   }
 }
