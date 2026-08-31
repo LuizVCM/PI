@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
@@ -17,10 +17,11 @@
 
     <!-- painel de cadastro (oculto por padrão via classe .cadastro no CSS) -->
     <div class="cadastramento">
-      <div class="fundo cadastro tamanho">
+      <div class="fundo cadastro" id="cadastro-painel">
         <div class="cima">
           <h3>TerraFarr</h3>
           <p>Gerencie sua produção agrícola</p>
+          <p>1 de 3 - Cadastre seu usuário</p>
         </div>
         <form class="formulario" id="cadastro">
           <label for="nome-cad">Nome</label>
@@ -30,6 +31,7 @@
             id="nome-cad"
             placeholder="João"
             autocomplete="given-name"
+            required
           />
 
           <label for="sobrenome-cad">Sobrenome</label>
@@ -39,6 +41,7 @@
             id="sobrenome-cad"
             placeholder="Silva"
             autocomplete="family-name"
+            required
           />
 
           <label for="email-cad">E-mail</label>
@@ -48,6 +51,7 @@
             id="email-cad"
             placeholder="exemplo@email.com"
             autocomplete="email"
+            required
           />
 
           <label for="telefone-cad">Telefone</label>
@@ -57,6 +61,7 @@
             id="telefone-cad"
             placeholder="(51) 90000-0000"
             autocomplete="tel"
+            required
           />
 
           <label for="cpf-cad">CPF</label>
@@ -66,6 +71,7 @@
             id="cpf-cad"
             placeholder="000.000.000-00"
             inputmode="numeric"
+            required
           />
 
           <label for="senha-cad">Senha</label>
@@ -74,10 +80,19 @@
             name="senha"
             id="senha-cad"
             placeholder="Mínimo 6 caracteres"
-            autocomplete="new-password"
+            required
           />
 
-          <button type="submit" class="confirmar">Cadastrar</button>
+          <label for="confirmar-senha-cad">Confirmar senha</label>
+          <input
+            type="password"
+            name="confirmar-senha"
+            id="confirmar-senha-cad"
+            placeholder="Confirmar senha"
+            required
+          />
+
+          <button type="submit" class="confirmar" id="btn-cadastro">Cadastrar</button>
 
           <div class="aglomerado">
             <p>ou</p>
@@ -91,6 +106,64 @@
           <div id="signup-message" class="hidden"></div>
         </form>
       </div>
+    </div>
+
+    <!-- cria territorio relacionado aos dados do user -->
+    <div class="fundo hidden" id="territorio-painel">
+      <div class="cima">
+        <h3>2 de 3</h3>
+        <p>Cadastre o seu território</p>
+      </div>
+      <form action="#" class="formulario" id="territorio">
+        <label for="cep">Digite o seu CEP</label>
+        <input type="text" name="cep" id="cep" placeholder="9000-000" />
+
+        <label for="area">Digite a extensão em número de seu território</label>
+        <input type="number" name="area" id="area" placeholder="ex:  6000" />
+
+        <label for="unidade">Escolha a unidade da extensão</label>
+        <select
+          name="unidade"
+          id="unidade"
+          placeholder="Escolha uma das opções abaixo"
+        >
+          <option value="m2">Metros quadrados</option>
+          <option value="km2">Quiilômetros quadrados</option>
+          <option value="ha">Hectares</option>
+        </select>
+
+        <button type="button" class="entrar" id="btnCadastrarTerritorio">
+          Cadastrar território
+        </button>
+      </form>
+    </div>
+
+    <!-- cadastrar sensor-->
+    <div class="fundo sensor hidden">
+      <div class="cima">
+        <h3>3 de 3</h3>
+        <p>Cadastre seu sensor</p>
+      </div>
+      <form action="#" class="formulario" id="sensores">
+        <label for="tipo">Cadastre a função do sensor</label>
+        <select name="tipo" id="tipos">
+          <option value="umidade">umidade de solo</option>
+          <option value="temperatura">temperatura ambiente e de solo</option>
+          <option value="vento">vento e umidade de ambiente</option>
+        </select>
+
+        <label for="nomeSensor">Cadastre o nome de sensor</label>
+        <input
+          type="text"
+          name="nomeSensor"
+          id="nomeSensor"
+          placeholder="Ex: DHT11, BMP280... "
+        />
+
+        <button type="button" class="entrar" id="btnCadastrarSensor">
+          Cadastrar sensor
+        </button>
+      </form>
     </div>
 
     <!-- painel de login (visível por padrão) -->

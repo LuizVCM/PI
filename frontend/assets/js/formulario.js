@@ -1,18 +1,17 @@
-const formulario = document.querySelectorAll(".fundo");
+const fundo = document.querySelectorAll(".fundo");
 const click = document.getElementById("paragrafoLink");
 const click2 = document.getElementById("entra2");
 const entrar = document.getElementById("find");
-const messageDiv = document.getElementById("signup-message");
 
 const API_URL = "http://localhost:3000";
 
 click.addEventListener("click", () => {
-  formulario.forEach((element) => {
+  fundo.forEach((element) => {
     element.classList.toggle("cadastro");
   });
 });
 click2.addEventListener("click", () => {
-  formulario.forEach((element) => {
+  fundo.forEach((element) => {
     element.classList.toggle("cadastro");
   });
 });
@@ -31,10 +30,16 @@ telefone.addEventListener("input", () => {
     telefone.value = `(${valor.substring(0, 2)}) ${valor.substring(2)}`;
   } else if (valor.length <= 10) {
     // se tiver 10 dígitos, formata como fixo (4 dígitos antes do traço)
-    telefone.value = `(${valor.substring(0, 2)}) ${valor.substring(2, 6)}-${valor.substring(6)}`;
+    telefone.value = `(${valor.substring(0, 2)}) ${valor.substring(
+      2,
+      6
+    )}-${valor.substring(6)}`;
   } else {
     // se tiver 11 dígitos, formata como celular (5 dígitos antes do traço)
-    telefone.value = `(${valor.substring(0, 2)}) ${valor.substring(2, 7)}-${valor.substring(7)}`;
+    telefone.value = `(${valor.substring(0, 2)}) ${valor.substring(
+      2,
+      7
+    )}-${valor.substring(7)}`;
   }
 });
 
@@ -43,7 +48,7 @@ cpf.addEventListener("input", () => {
 
   // limita a 11 números
   valor = valor.substring(0, 11);
-    
+
   if (valor.length <= 3) {
     cpf.value = valor;
   } else if (valor.length <= 6) {
@@ -63,9 +68,24 @@ cpf.addEventListener("input", () => {
 });
 
 const cadastroForm = document.getElementById("cadastro");
+const btnCadastro = document.getElementById("btn-cadastro");
+const messageDiv = document.getElementById("signup-message");
 
 cadastroForm.addEventListener("submit", async (event) => {
   event.preventDefault();
+
+  removeErrorMessage(cadastroForm);
+
+  const confirmarSenha = document.getElementById("confirmar-senha-cad").value;
+  const senha = document.getElementById("senha-cad").value;
+
+  if (senha !== confirmarSenha) {
+    showErrorMessage("As senhas não correspondem", cadastroForm);
+    return;
+  }
+
+  btnCadastro.disabled = true;
+  btnCadastro.textContent = "Cadastrando...";
 
   const body = {
     nome: document.getElementById("nome-cad").value.trim(),
@@ -73,7 +93,7 @@ cadastroForm.addEventListener("submit", async (event) => {
     email: document.getElementById("email-cad").value.trim(),
     telefone: telefone.value,
     cpf: cpf.value,
-    senha: document.getElementById("senha-cad").value,
+    senha: senha,
   };
 
   try {
@@ -88,18 +108,38 @@ cadastroForm.addEventListener("submit", async (event) => {
     const result = await response.json();
 
     if (!response.ok) {
-      alert(result.message || "Erro ao cadastrar usuário");
+      if (result.message) {
+        showErrorMessage(result.message, cadastroForm);
+      }
+      if (result.errors) {
+        const errors = result.errors ? Object.values(result.errors).flat() : {};
+        if (errors.length === 1) {
+          showErrorMessage(errors[0], cadastroForm);
+        } else {
+          showErrors(errors, cadastroForm);
+        }
+      }
       return;
     }
 
-    alert("Cadastro realizado com sucesso");
+    messageDiv.classList.remove("hidden");
+    messageDiv.classList.add("form-success");
+    messageDiv.textContent = "Cadastrado com sucesso! Redirecionando...";
 
-    cadastroForm.reset();
+    const territorioPainel = document.getElementById("territorio-painel");
+    const cadastroPainel = document.getElementById("cadastro-painel");
 
-    document.getElementById("entra2").click();
+    setTimeout(() => {
+      cadastroPainel.classList.add("hidden");
+
+      territorioPainel.classList.remove("hidden");
+    }, 2000);
   } catch (error) {
     console.error(error);
-    alert("Erro ao conectar com o servidor");
+    showErrorMessage("Erro ao conectar com o servidor", cadastroForm);
+  } finally {
+    btnCadastro.disabled = false;
+    btnCadastro.textContent = "Cadastrar";
   }
 });
 
@@ -138,26 +178,26 @@ loginForm.addEventListener("submit", async (event) => {
   }
 });
 
-function showErrorMessage(message) {
-  removeErrorMessage();
+function showErrorMessage(message, form) {
+  removeErrorMessage(form);
   const errorEl = document.createElement("p");
   errorEl.className = "form-error";
   errorEl.textContent = message;
   form.appendChild(errorEl);
 }
 
-function removeErrorMessage() {
+function removeErrorMessage(form) {
   form
     .querySelectorAll(".form-error, .form-error-list")
     .forEach((el) => el.remove());
 }
-function showErrors(errors) {
-  removeErrorMessage();
+function showErrors(errors, form) {
+  removeErrorMessage(form);
   const ul = document.createElement("ul");
   ul.className = "form-error-list";
   errors.forEach((error) => {
     const li = document.createElement("li");
-    li.textContent = error;
+    li.textContent = error.message;
     ul.appendChild(li);
   });
   form.appendChild(ul);
