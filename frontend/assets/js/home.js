@@ -23,6 +23,7 @@ const texto8 = document.querySelector(".financas p");
 navbar.addEventListener("click", () => {
   aside.classList.toggle("aside-encolhido");
   arrow.classList.toggle("virado");
+  navbar.classList.toggle("outroLado")
 
   if (
     ((

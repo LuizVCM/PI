@@ -187,6 +187,10 @@ main .content {
   }
 }
 @media (max-width: 600px) {
+  .aside{
+    min-width: 100%;
+    transition: all 0.3 linear;
+  }
   .aside .opcao {
     width: 90vw;
     align-items: center;
@@ -198,4 +202,22 @@ main .content {
   main {
     overflow: hidden;
   }
+  .aside-encolhido{
+min-width: 0px;
+transition: all 0.3s linear;
+  }
+
+  @keyframes bar {
+    
+  }
+  .navbar{
+    right: 5px;
+    transform: rotate(180deg);
+  }
+  
+}
+
+.outroLado{
+  right: -50px;
+  transform: rotate(0deg);
 }

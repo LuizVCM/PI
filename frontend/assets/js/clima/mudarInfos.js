@@ -7,12 +7,13 @@ const visibilidade = document.querySelector(".Visib h1")
 
 
 
+
+
 async function TrocarTemp() {
     const api = 'https://api.open-meteo.com/v1/forecast?latitude=-29.7603&longitude=-51.1472&daily=temperature_2m_min,temperature_2m_max,precipitation_sum,precipitation_probability_max,et0_fao_evapotranspiration,wind_speed_10m_max&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,rain,evapotranspiration,et0_fao_evapotranspiration,vapour_pressure_deficit,wind_speed_10m&minutely_15=temperature_2m,relative_humidity_2m,rain,precipitation,apparent_temperature,global_tilted_irradiance,wind_speed_10m,shortwave_radiation&timezone=America%2FSao_Paulo&forecast_days=1'
-
+     try{
     const resposta = await fetch(api)
     const dados = await resposta.json()
-
     // altera as máximas e as mínimas da temperatura atual
     temperaturaMedia.textContent = `Máx: ${Number(dados.daily.temperature_2m_max) }  · Mín: ${Number(dados.daily.temperature_2m_min)} `
    
@@ -32,6 +33,21 @@ async function TrocarTemp() {
     const resposta2 = await fetch(api2)
     const dados7Dias = await resposta2.json()
 
+   console.log(dados7Dias);
+
+   
+ // pega as infomrações exatas de hj
+ const hoje = document.querySelector(".local p")
+ let diaNome = new Date().toLocaleDateString('pt-BR', { weekday: 'long' })
+ let diaNum = new Date().getDate()
+ // aq ele lê o número do mês atual, converte o seu significado para string e traduz na língua portuguesa
+ let mes = (new Intl.DateTimeFormat('pt-BR', { month: 'long' })).format(new Date())
+let hora = new Date().getHours()
+ let minute = new Date().getMinutes()
+// impede q seja minuto 0, mas ss 00 até chegar o 10
+hoje.textContent = `${diaNome}, ${diaNum} ${mes} - ${hora}:${minute} `
+  
+
     const dia1 = document.querySelector(".d1")
     const dia2 = document.querySelector(".d2")
     const dia3 = document.querySelector(".d3")
@@ -40,6 +56,26 @@ async function TrocarTemp() {
     const dia6 = document.querySelector(".d6")
 
     // pega as máximas e mínimas de cada dia e informa no frontend
+    const max = []
+    const min = []
+    for(let i = 1; i <= 6; i++){
+      max[i - 1] = document.querySelector(`.b${i} h2`) 
+      min[i - 1] = document.querySelector(`.b${i} h3`)
+    }
+
+    console.log(max)
+
+    // altera as máximas:
+    for(let j = 0; j < max.length; j++){
+      console.log(max[j])
+    max[j].textContent = `${dados7Dias.daily.temperature_2m_max[j]}°C`
+    }
+
+    // altera as mínimas:
+    for(let k = 0; k < min.length; k++ ){
+      console.log(min[k])
+      min[k].textContent = `${dados7Dias.daily.temperature_2m_min[k]}°C`
+    }
 
 
 
@@ -66,8 +102,12 @@ async function TrocarTemp() {
       const sensacaoTermica = document.querySelector(".graus h4")
 
       sensacaoTermica.textContent = `Sensação térmica: ${dados7Dias.hourly.apparent_temperature[horaAtual - 1]}°C`
-      
     }
+    catch(error){
+      alert(`Erro ao consumir os dados: `+error)
+    }
+    }
+    
 
-
-TrocarTemp()
+     TrocarTemp()
+     setInterval(TrocarTemp, 100000)
