@@ -62,12 +62,12 @@ const telaCadastro = document.getElementById("tela-cadastro");
 
 const telaAgenda = document.getElementById("tela-agenda");
 
+const telaInsumos = document.getElementById("tela-insumos");
 
-
+const telaEstoque = document.getElementById("tela-estoque");
 
 
 // ================= BOTÕES =================
-
 
 // Pegando os botões pelo ID para conseguir colocar ações neles
 
@@ -78,6 +78,14 @@ const btnVoltar = document.getElementById("btnVoltar");
 const btnAgenda = document.getElementById("btnAgenda");
 
 const btnVoltarAgenda = document.getElementById("btnVoltarAgenda");
+
+const btnInsumos = document.getElementById("btnInsumos");
+
+const btnVoltarInsumos = document.getElementById("btnVoltarInsumos");
+
+const btnEstoque = document.getElementById("btnEstoque");
+
+const btnVoltarEstoque = document.getElementById("btnVoltarEstoque");
 
 // Quando clicar no botão cadastro
 btnCadastro.addEventListener("click", () => {
@@ -117,4 +125,46 @@ btnVoltarAgenda.addEventListener("click", () => {
     // Mostra a tela inicial novamente
     telaHome.classList.remove("hidden");
     telaHome.classList.add("ativa");
+});
+
+
+
+// Abrir tela de insumos
+btnInsumos.addEventListener("click", () => {
+    telaHome.classList.remove("ativa");
+    telaHome.classList.add("hidden");
+
+    telaInsumos.classList.remove("hidden");
+    telaInsumos.classList.add("ativa");
+});
+
+// Voltar para a tela inicial
+btnVoltarInsumos.addEventListener("click", () => {
+    telaInsumos.classList.remove("ativa");
+    telaInsumos.classList.add("hidden");
+
+    telaHome.classList.remove("hidden");
+    telaHome.classList.add("ativa");
+});
+
+// Abrir tela
+btnEstoque.addEventListener("click", () => {
+
+    telaHome.classList.remove("ativa");
+    telaHome.classList.add("hidden");
+
+    telaEstoque.classList.remove("hidden");
+    telaEstoque.classList.add("ativa");
+
+});
+
+// Voltar
+btnVoltarEstoque.addEventListener("click", () => {
+
+    telaEstoque.classList.remove("ativa");
+    telaEstoque.classList.add("hidden");
+
+    telaHome.classList.remove("hidden");
+    telaHome.classList.add("ativa");
+
 });

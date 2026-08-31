@@ -22,15 +22,14 @@
 
         <!-- SIDEBAR -->
         <aside class="aside">
-            <button class="opcao clima"> <i class="fa-solid fa-cloud selecao"></i> Clima </button>
-            <button class="opcao gestao"> <i class="fa-brands fa-buffer selecao"></i> Gestão</button>
-            <button class="opcao segurancas"> <i class="fa-solid fa-building-shield selecao"></i> Informações </button>
-            <button class="opcao sementes"> <i class="fa-solid fa-seedling selecao"></i> Sementes </button>
-            <button class="opcao financas"> <i class="fa-solid fa-building-columns selecao"></i> Finanças</button>
-            <button class="opcao suporte"> <i class="fa-solid fa-comments-dollar selecao"></i> Suporte </button>
-            <button class="opcao relatorio"> <i class="fa-solid fa-envelope-open selecao"></i> Relatório </button>
-            <button class="opcao perfil"> <i class="fa-solid fa-circle-user selecao"></i>Perfil </button>
-
+            <button class="opcao clima"><i class="fa-solid fa-cloud"></i> Clima</button>
+            <button class="opcao gestao"><i class="fa-brands fa-buffer"></i> Gestão</button>
+            <button class="opcao segurancas"><i class="fa-solid fa-building-shield"></i> Segurança</button>
+            <button class="opcao sementes"><i class="fa-solid fa-seedling"></i> Sementes</button>
+            <button class="opcao financas"><i class="fa-solid fa-building-columns"></i> Finanças</button>
+            <button class="opcao suporte"><i class="fa-solid fa-comments-dollar"></i> Suporte</button>
+            <button class="opcao relatorio"><i class="fa-solid fa-envelope-open"></i> Relatório</button>
+            <button class="opcao perfil"><i class="fa-solid fa-circle-user"></i> Perfil</button>
 
             <button class="navbar">
                 <i class="fa-solid fa-arrow-right"></i>
@@ -51,12 +50,12 @@
                     <i class="fa-solid fa-arrow-right"></i>
                 </button>
 
-                <button class="funcao">
-                    <span>Insumos disponíveis</span>
+                <button class="funcao" id="btnInsumos">
+                    Insumos Disponíveis
                     <i class="fa-solid fa-arrow-right"></i>
                 </button>
 
-                <button class="funcao">
+                <button class="funcao" id="btnEstoque">
                     <span>Controle de estoque</span>
                     <i class="fa-solid fa-arrow-right"></i>
                 </button>
@@ -64,293 +63,804 @@
 
         </div>
 
-       <!-- Tela de cadastro de uma nova plantação -->
-<div id="tela-cadastro" class="cadastro tela hidden">
+        <!-- Tela de cadastro de uma nova plantação -->
+        <div id="tela-cadastro" class="cadastro tela hidden">
 
-    <!-- Parte de cima da página: título e botão voltar -->
-    <div class="cabecalho-cadastro">
-        <!-- Título e descrição da tela -->
-        <div class="titulo-cadastro">
-            <h1>🌱 Cadastro de Plantação</h1>
-            <p>Cadastre uma nova área de cultivo para acompanhar todo o ciclo produtivo.</p>
-        </div>
-
-        <!-- Botão que volta para a tela anterior -->
-        <button class="funcao voltar" id="btnVoltar">
-            <i class="fa-solid fa-arrow-left"></i>
-            Voltar
-        </button>
-    </div>
-
-    <!-- Área onde ficam os dois cards lado a lado -->
-    <div class="grid-cadastro">
-        <!-- Card com informações básicas da plantação -->
-        <div class="card">
-            <h2>
-                <!-- Ícone de planta -->
-                <i class="fa-solid fa-seedling"></i>
-                Informações da Plantação
-            </h2>
-
-            <!-- Grupo dos campos do formulário -->
-            <div class="form-grid">
-                <!-- Campo para nome da área -->
-                <div class="form-group">
-                    <label>Nome da área</label>
-                    <input 
-                    type="text" 
-                    id="nomeArea" 
-                    placeholder="Ex.: Talhão Norte">
+            <!-- Parte de cima da página: título e botão voltar -->
+            <div class="cabecalho-cadastro">
+                <!-- Título e descrição da tela -->
+                <div class="titulo-cadastro">
+                    <h1>Cadastro de Plantação</h1>
+                    <p>Cadastre uma nova área de cultivo para acompanhar todo o ciclo produtivo.</p>
                 </div>
 
-                <!-- Escolha da cultura -->
-                <div class="form-group">
-                    <label>Cultura</label>
-                    <!-- Select cria uma lista de opções para escolher -->
-                    <select id="cultura">
-                        <!-- Option é cada escolha dentro da lista -->
-                        <option value="">Selecione</option>
-                        <option>Soja</option>
-                        <option>Milho</option>
-                        <option>Arroz</option>
-                        <option>Trigo</option>
-                        <option>Feijão</option>
-                    </select>
+                <!-- Botão que volta para a tela anterior -->
+                <button class="funcao voltar" id="btnVoltar">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Voltar
+                </button>
+            </div>
+
+            <!-- Área onde ficam os dois cards lado a lado -->
+            <div class="grid-cadastro">
+                <!-- Card com informações básicas da plantação -->
+                <div class="card">
+                    <h2>
+                        <!-- Ícone de planta -->
+                        <i class="fa-solid fa-seedling"></i>
+                        Informações da Plantação
+                    </h2>
+
+                    <!-- Grupo dos campos do formulário -->
+                    <div class="form-grid">
+                        <!-- Campo para nome da área -->
+                        <div class="form-group">
+                            <label>Nome da área</label>
+                            <input type="text" id="nomeArea" placeholder="Ex.: Talhão Norte">
+                        </div>
+
+                        <!-- Escolha da cultura -->
+                        <div class="form-group">
+                            <label>Cultura</label>
+                            <!-- Select cria uma lista de opções para escolher -->
+                            <select id="cultura">
+                                <!-- Option é cada escolha dentro da lista -->
+                                <option value="">Selecione</option>
+                                <option>Soja</option>
+                                <option>Milho</option>
+                                <option>Arroz</option>
+                                <option>Trigo</option>
+                                <option>Feijão</option>
+                            </select>
+                        </div>
+
+                        <!-- Campo para informar o tamanho da área -->
+                        <div class="form-group">
+                            <label>Área (ha)</label>
+                            <!-- type number permite colocar apenas números -->
+                            <input type="number" id="area" placeholder="Ex.: 15">
+                        </div>
+
+                        <!-- Campo para informar a variedade da planta -->
+                        <div class="form-group">
+                            <label>Variedade</label>
+                            <input type="text" id="variedade" placeholder="Ex.: BRS 1001">
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Campo para informar o tamanho da área -->
-                <div class="form-group">
-                    <label>Área (ha)</label>
-                    <!-- type number permite colocar apenas números -->
-                    <input 
-                    type="number" 
-                    id="area" 
-                    placeholder="Ex.: 15">
-                </div>
+                <!-- Card de planejamento da plantação -->
+                <div class="card">
+                    <h2>
+                        <i class="fa-solid fa-calendar-days"></i>
+                        Planejamento
+                    </h2>
 
-                <!-- Campo para informar a variedade da planta -->
-                <div class="form-group">
-                    <label>Variedade</label>
-                    <input 
-                    type="text" 
-                    id="variedade" 
-                    placeholder="Ex.: BRS 1001">
+                    <div class="form-grid">
+                        <!-- Data que foi feito o plantio -->
+                        <div class="form-group">
+                            <label>Data de Plantio</label>
+                            <!-- type date para criar um calendário para escolher a data -->
+                            <input type="date">
+                        </div>
+
+                        <!-- Data prevista para colher -->
+                        <div class="form-group">
+                            <label>Colheita Prevista</label>
+                            <input type="date">
+                        </div>
+
+                        <!-- Pessoa responsável pela plantação -->
+                        <div class="form-group">
+                            <label>Responsável</label>
+                            <input type="text" id="responsavel" placeholder="Nome do responsável">
+                        </div>
+                        <!-- Escolha do estado inicial da plantação -->
+                        <div class="form-group">
+                            <label>Status Inicial</label>
+                            <!-- Outra lista de escolhas -->
+                            <select id="status">
+                                <option>Planejada</option>
+                                <option>Em preparo</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Card de planejamento da plantação -->
-        <div class="card">
-            <h2>
-                <i class="fa-solid fa-calendar-days"></i>
-                Planejamento
-            </h2>
-
-            <div class="form-grid">
-                <!-- Data que foi feito o plantio -->
+            <!-- Campo para colocar informações extras -->
+            <div class="card">
+                <h2>
+                    <i class="fa-solid fa-note-sticky"></i>
+                    Observações
+                </h2>
                 <div class="form-group">
-                    <label>Data de Plantio</label>
-                    <!-- type date para criar um calendário para escolher a data -->
-                    <input type="date" id="plantio">
-                </div>
-
-                <!-- Data prevista para colher -->
-                <div class="form-group">
-                    <label>Colheita Prevista</label>
-                    <input type="date" id="colheita">
-                </div>
-
-                <!-- Pessoa responsável pela plantação -->
-                <div class="form-group">
-                    <label>Responsável</label>
-                    <input 
-                    type="text" 
-                    id="responsavel" 
-                    placeholder="Nome do responsável">
-                </div>
-                <!-- Escolha do estado inicial da plantação -->
-                <div class="form-group">
-                    <label>Status Inicial</label>
-                    <!-- Outra lista de escolhas -->
-                    <select id="status">
-                        <option>Planejada</option>
-                        <option>Em preparo</option>
-                    </select>
+                    <!-- Textarea usado para textos maiores -->
+                    <textclararea id="observacoes" rows="5"
+                        placeholder="Escreva observações importantes sobre esta plantação...">
+                        </textarea>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Campo para colocar informações extras -->
-    <div class="card">
-        <h2>
-            <i class="fa-solid fa-note-sticky"></i>
-            Observações
-        </h2>
-        <div class="form-group">
-            <!-- Textarea usado para textos maiores -->
-            <textarea 
-            id="observacoes" 
-            rows="5"
-            placeholder="Escreva observações importantes sobre esta plantação...">
-            </textarea>
-        </div>
-    </div>
-
-    <!-- Botões de ação -->
-    <div class="acoes-cadastro">
-        <!-- Botão para apagar os dados preenchidos -->
-        <button class="btn-limpar">
-            <i class="fa-solid fa-rotate-left"></i>
-            Limpar
-        </button>
-        <!-- Botão para enviar o cadastro -->
-        <button class="btn-salvar">
-            <i class="fa-solid fa-floppy-disk"></i>
-            Cadastrar Plantação
-        </button>
-    </div>
+            <!-- Botões de ação -->
+            <div class="acoes-cadastro">
+                <!-- Botão para apagar os dados preenchidos -->
+                <button class="btn-limpar">
+                    <i class="fa-solid fa-rotate-left"></i>
+                    Limpar
+                </button>
+                <!-- Botão para enviar o cadastro -->
+                <button class="btn-salvar">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    Cadastrar Plantação
+                </button>
+            </div>
 
 
-</div>
-       <!-- Tela de agenda de colheita -->
-<div id="tela-agenda" class="agenda tela hidden">
-    <!-- Cabeçalho da página -->
-    <div class="cabecalho-agenda">
-        <div>
-            <h1>📅 Agenda de Colheita</h1>
-            <p>Acompanhe todas as colheitas cadastradas.</p>
         </div>
 
-        <!-- Botão para voltar -->
-        <button class="funcao voltar" id="btnVoltarAgenda">
-            <i class="fa-solid fa-arrow-left"></i>
-            Voltar
-        </button>
-    </div>
+        <!-- Tela de agenda de colheita -->
+        <div id="tela-agenda" class="agenda tela hidden">
+            <!-- Cabeçalho da página -->
+            <div class="cabecalho-agenda">
+                <div>
+                    <h1>Agenda de Colheita</h1>
+                    <p>Acompanhe todas as colheitas cadastradas.</p>
+                </div>
 
-    <!-- Cards mostrando um resumo das colheitas -->
-    <div class="cards-resumo">
-    
-        <!-- Card mostrando o total de plantações -->
-        <div class="resumo">
-           
-            <h2>15</h2>
-            <span>Total</span>
+                <!-- Botão para voltar -->
+                <button class="funcao voltar" id="btnVoltarAgenda">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Voltar
+                </button>
+            </div>
+
+            <!-- Cards mostrando um resumo das colheitas -->
+            <div class="cards-resumo">
+
+                <!-- Card mostrando o total de plantações -->
+                <div class="resumo">
+
+                    <h2>15</h2>
+                    <span>Total</span>
+                </div>
+
+                <!-- Card mostrando colheitas pendentes -->
+                <div class="resumo">
+
+                    <h2>4</h2>
+                    <span>Pendentes</span>
+                </div>
+
+                <!-- Card mostrando colheitas do dia -->
+                <div class="resumo">
+
+                    <h2>2</h2>
+                    <span>Hoje</span>
+                </div>
+
+                <!-- Card mostrando colheitas finalizadas -->
+                <div class="resumo">
+
+                    <h2>9</h2>
+                    <span>Concluídas</span>
+                </div>
+            </div>
+            <!-- Campo de pesquisa -->
+            <div class="pesquisa">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Pesquisar plantação...">
+            </div>
+
+            <!-- Card que contém a tabela -->
+            <div class="card">
+                <!-- Tabela com as informações das colheitas -->
+                <table class="tabela-agenda">
+                    <!-- Cabeçalho da tabela -->
+                    <thead>
+                        <tr>
+                            <!-- th são os títulos das colunas -->
+                            <th>Área</th>
+                            <th>Cultura</th>
+                            <th>Colheita</th>
+                            <th>Status</th>
+                            <th>Responsável</th>
+                            <th>Editar</th>
+                        </tr>
+                    </thead>
+
+                    <!-- Corpo da tabela onde ficam os dados -->
+                    <tbody>
+                        <!-- Primeira linha da tabela -->
+                        <tr>
+                            <!-- td é cada informação dentro da linha -->
+                            <td>senacSul</td>
+                            <td>Soja</td>
+                            <td>20/08/2026</td>
+                            <!-- span serve para colocar um estilo somente nessa palavra -->
+                            <td>
+                                <span class="status pendente">
+                                    Pendente
+                                </span>
+                            </td>
+
+                            <td>johnSuperbee</td>
+                            <!-- Ícones das ações -->
+                            <td class="acoes">
+
+                                <i class="fa-solid fa-pen"></i>
+                                <i class="fa-solid fa-trash"></i>
+                            </td>
+                        </tr>
+
+                        <!-- Segunda linha -->
+                        <tr>
+                            <td>senacNorte</td>
+                            <td>Milho</td>
+                            <td>28/08/2026</td>
+                            <td>
+                                <span class="status andamento">
+                                    Em andamento
+                                </span>
+                            </td>
+                            <td>johnGithub</td>
+                            <td class="acoes">
+
+                                <i class="fa-solid fa-pen"></i>
+                                <i class="fa-solid fa-trash"></i>
+                            </td>
+                        </tr>
+
+                        <!-- Terceira linha -->
+                        <tr>
+                            <td>SenacCentral</td>
+                            <td>Trigo</td>
+                            <td>05/09/2026</td>
+                            <td>
+                                <span class="status concluido">
+                                    Concluído
+                                </span>
+                            </td>
+                            <td>john007</td>
+                            <td class="acoes">
+
+                                <i class="fa-solid fa-pen"></i>
+                                <i class="fa-solid fa-trash"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Tela de insumos disponiveis -->
+        <div id="tela-insumos" class="insumos tela hidden">
+            <div class="cabecalho-insumos">
+
+                <h2>Insumos Disponíveis</h2>
+
+                <button class="btn-novo">
+                    <i class="fa-solid fa-plus"></i>
+                    Novo Insumo
+                </button>
+                <button id="btnVoltarInsumos" class="btn-voltar">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Voltar
+                </button>
+            </div>
+
+            <div class="filtros-insumos">
+
+                <input type="text" placeholder="Pesquisar insumo...">
+
+                <select>
+                    <option>Todas as categorias</option>
+                    <option>Sementes</option>
+                    <option>Fertilizantes</option>
+                    <option>Ferramentas</option>
+                    <option>Defensivos</option>
+                </select>
+
+            </div>
+
+            <div class="cards-insumos">
+
+                <div class="card-insumo">
+                    <h3>42</h3>
+                    <p>Total de Insumos</p>
+                </div>
+
+                <div class="card-insumo">
+                    <h3>5</h3>
+                    <p>Estoque Baixo</p>
+                </div>
+
+                <div class="card-insumo">
+                    <h3>2</h3>
+                    <p>Em Falta</p>
+                </div>
+
+            </div>
+
+            <table class="tabela-insumos">
+
+                <thead>
+                    <tr>
+                        <th>Insumo</th>
+                        <th>Categoria</th>
+                        <th>Quantidade</th>
+                        <th>Unidade</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Milho</td>
+                        <td>Sementes</td>
+                        <td>120</td>
+                        <td>Kg</td>
+                        <td><span class="status disponivel">Disponível</span></td>
+                        <td><button class="btn-editar">Editar</button></td>
+                    </tr>
+
+                    <tr>
+                        <td>Adubo NPK</td>
+                        <td>Fertilizante</td>
+                        <td>15</td>
+                        <td>Sacos</td>
+                        <td><span class="status baixo">Baixo</span></td>
+                        <td><button class="btn-editar">Editar</button></td>
+                    </tr>
+
+                    <tr>
+                        <td>Herbicida</td>
+                        <td>Defensivo</td>
+                        <td>0</td>
+                        <td>Litros</td>
+                        <td><span class="status falta">Em falta</span></td>
+                        <td><button class="btn-editar">Editar</button></td>
+                    </tr>
+                </tbody>
+
+            </table>
+
         </div>
 
-        <!-- Card mostrando colheitas pendentes -->
-        <div class="resumo">
-            
-            <h2>4</h2>
-            <span>Pendentes</span>
+        <div id="tela-estoque" class="estoque tela hidden">
+            <div class="cabecalho-estoque">
+                
+                </button>
+                <h2>Controle de Estoque</h2>
+                <button class="btn-novo">
+                    <i class="fa-solid fa-plus"></i>
+                    Nova Movimentação
+                </button>
+                <button id="btnVoltarEstoque" class="btn-voltar">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Voltar
+                </button>
+            </div>
+            <div class="cards-estoque">
+                <div class="card-estoque">
+                    <h3>120</h3>
+                    <p>Entradas</p>
+                </div>
+                <div class="card-estoque">
+                    <h3>85</h3>
+                    <p>Saídas</p>
+                </div>
+                <div class="card-estoque">
+                    <h3>35</h3>
+                    <p>Saldo Atual</p>
+                </div>
+            </div>
+            <table class="tabela-estoque">
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Movimentação</th>
+                        <th>Quantidade</th>
+                        <th>Data</th>
+                        <th>Responsável</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Milho</td>
+                        <td><span class="entrada">Entrada</span></td>
+                        <td>50 Kg</td>
+                        <td>29/07/2026</td>
+                        <td>John</td>
+                        <td><button class="btn-editar">Editar</button></td>
+                    </tr>
+                    <tr>
+                        <td>Adubo NPK</td>
+                        <td><span class="saida">Saída</span></td>
+                        <td>10 Sacos</td>
+                        <td>28/07/2026</td>
+                        <td>John</td>
+                        <td><button class="btn-editar">Editar</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- Tela de cadastro de uma nova plantação -->
+        <div id="tela-cadastro" class="cadastro tela hidden">
+
+            <!-- Parte de cima da página: título e botão voltar -->
+            <div class="cabecalho-cadastro">
+                <!-- Título e descrição da tela -->
+                <div class="titulo-cadastro">
+                    <h1>🌱 Cadastro de Plantação</h1>
+                    <p>Cadastre uma nova área de cultivo para acompanhar todo o ciclo produtivo.</p>
+                </div>
+
+                <!-- Botão que volta para a tela anterior -->
+                <button class="funcao voltar" id="btnVoltar">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Voltar
+                </button>
+            </div>
+
+            <!-- Área onde ficam os dois cards lado a lado -->
+            <div class="grid-cadastro">
+                <!-- Card com informações básicas da plantação -->
+                <div class="card">
+                    <h2>
+                        <!-- Ícone de planta -->
+                        <i class="fa-solid fa-seedling"></i>
+                        Informações da Plantação
+                    </h2>
+
+                    <!-- Grupo dos campos do formulário -->
+                    <div class="form-grid">
+                        <!-- Campo para nome da área -->
+                        <div class="form-group">
+                            <label>Nome da área</label>
+                            <input type="text" id="nomeArea" placeholder="Ex.: Talhão Norte">
+                        </div>
+
+                        <!-- Escolha da cultura -->
+                        <div class="form-group">
+                            <label>Cultura</label>
+                            <!-- Select cria uma lista de opções para escolher -->
+                            <select id="cultura">
+                                <!-- Option é cada escolha dentro da lista -->
+                                <option value="">Selecione</option>
+                                <option>Soja</option>
+                                <option>Milho</option>
+                                <option>Arroz</option>
+                                <option>Trigo</option>
+                                <option>Feijão</option>
+                            </select>
+                        </div>
+
+                        <!-- Campo para informar o tamanho da área -->
+                        <div class="form-group">
+                            <label>Área (ha)</label>
+                            <!-- type number permite colocar apenas números -->
+                            <input type="number" id="area" placeholder="Ex.: 15">
+                        </div>
+
+                        <!-- Campo para informar a variedade da planta -->
+                        <div class="form-group">
+                            <label>Variedade</label>
+                            <input type="text" id="variedade" placeholder="Ex.: BRS 1001">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card de planejamento da plantação -->
+                <div class="card">
+                    <h2>
+                        <i class="fa-solid fa-calendar-days"></i>
+                        Planejamento
+                    </h2>
+
+                    <div class="form-grid">
+                        <!-- Data que foi feito o plantio -->
+                        <div class="form-group">
+                            <label>Data de Plantio</label>
+                            <!-- type date para criar um calendário para escolher a data -->
+                            <input type="date" id="plantio">
+                        </div>
+
+                        <!-- Data prevista para colher -->
+                        <div class="form-group">
+                            <label>Colheita Prevista</label>
+                            <input type="date" id="colheita">
+                        </div>
+
+                        <!-- Pessoa responsável pela plantação -->
+                        <div class="form-group">
+                            <label>Responsável</label>
+                            <input type="text" id="responsavel" placeholder="Nome do responsável">
+                        </div>
+                        <!-- Escolha do estado inicial da plantação -->
+                        <div class="form-group">
+                            <label>Status Inicial</label>
+                            <!-- Outra lista de escolhas -->
+                            <select id="status">
+                                <option>Planejada</option>
+                                <option>Em preparo</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Campo para colocar informações extras -->
+            <div class="card">
+                <h2>
+                    <i class="fa-solid fa-note-sticky"></i>
+                    Observações
+                </h2>
+                <div class="form-group">
+                    <!-- Textarea usado para textos maiores -->
+                    <textclararea id="observacoes" rows="5"
+                        placeholder="Escreva observações importantes sobre esta plantação...">
+                        </textarea>
+                </div>
+            </div>
+
+            <!-- Botões de ação -->
+            <div class="acoes-cadastro">
+                <!-- Botão para apagar os dados preenchidos -->
+                <button class="btn-limpar">
+                    <i class="fa-solid fa-rotate-left"></i>
+                    Limpar
+                </button>
+                <!-- Botão para enviar o cadastro -->
+                <button class="btn-salvar">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    Cadastrar Plantação
+                </button>
+            </div>
+
+
+        </div>
+        <!-- Tela de agenda de colheita -->
+        <div id="tela-agenda" class="agenda tela hidden">
+            <!-- Cabeçalho da página -->
+            <div class="cabecalho-agenda">
+                <div>
+                    <h1>📅 Agenda de Colheita</h1>
+                    <p>Acompanhe todas as colheitas cadastradas.</p>
+                </div>
+
+                <!-- Botão para voltar -->
+                <button class="funcao voltar" id="btnVoltarAgenda">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Voltar
+                </button>
+            </div>
+
+            <!-- Cards mostrando um resumo das colheitas -->
+            <div class="cards-resumo">
+
+                <!-- Card mostrando o total de plantações -->
+                <div class="resumo">
+
+                    <h2>15</h2>
+                    <span>Total</span>
+                </div>
+
+                <!-- Card mostrando colheitas pendentes -->
+                <div class="resumo">
+
+                    <h2>4</h2>
+                    <span>Pendentes</span>
+                </div>
+
+                <!-- Card mostrando colheitas do dia -->
+                <div class="resumo">
+
+                    <h2>2</h2>
+                    <span>Hoje</span>
+                </div>
+
+                <!-- Card mostrando colheitas finalizadas -->
+                <div class="resumo">
+
+                    <h2>9</h2>
+                    <span>Concluídas</span>
+                </div>
+            </div>
+            <!-- Campo de pesquisa -->
+            <div class="pesquisa">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Pesquisar plantação...">
+            </div>
+
+            <!-- Card que contém a tabela -->
+            <div class="card">
+                <!-- Tabela com as informações das colheitas -->
+                <table class="tabela-agenda">
+                    <!-- Cabeçalho da tabela -->
+                    <thead>
+                        <tr>
+                            <!-- th são os títulos das colunas -->
+                            <th>Área</th>
+                            <th>Cultura</th>
+                            <th>Colheita</th>
+                            <th>Status</th>
+                            <th>Responsável</th>
+                            <th>Editar</th>
+                        </tr>
+                    </thead>
+
+                    <!-- Corpo da tabela onde ficam os dados -->
+                    <tbody>
+                        <!-- Primeira linha da tabela -->
+                        <tr>
+                            <!-- td é cada informação dentro da linha -->
+                            <td>senacSul</td>
+                            <td>Soja</td>
+                            <td>20/08/2026</td>
+                            <!-- span serve para colocar um estilo somente nessa palavra -->
+                            <td>
+                                <span class="status pendente">
+                                    Pendente
+                                </span>
+                            </td>
+
+                            <td>johnSuperbee</td>
+                            <!-- Ícones das ações -->
+                            <td class="acoes">
+
+                                <i class="fa-solid fa-pen"></i>
+                                <i class="fa-solid fa-trash"></i>
+                            </td>
+                        </tr>
+
+                        <!-- Segunda linha -->
+                        <tr>
+                            <td>senacNorte</td>
+                            <td>Milho</td>
+                            <td>28/08/2026</td>
+                            <td>
+                                <span class="status andamento">
+                                    Em andamento
+                                </span>
+                            </td>
+                            <td>johnGithub</td>
+                            <td class="acoes">
+
+                                <i class="fa-solid fa-pen"></i>
+                                <i class="fa-solid fa-trash"></i>
+                            </td>
+                        </tr>
+
+                        <!-- Terceira linha -->
+                        <tr>
+                            <td>SenacCentral</td>
+                            <td>Trigo</td>
+                            <td>05/09/2026</td>
+                            <td>
+                                <span class="status concluido">
+                                    Concluído
+                                </span>
+                            </td>
+                            <td>john007</td>
+                            <td class="acoes">
+
+                                <i class="fa-solid fa-pen"></i>
+                                <i class="fa-solid fa-trash"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Tela de insumos disponiveis -->
+        <div id="tela-insumos" class="insumos tela hidden">
+
+            <div class="cabecalho-insumos">
+
+
+
+                <h2>Insumos Disponíveis</h2>
+
+                <button class="btn-novo">
+                    <i class="fa-solid fa-plus"></i>
+                    Novo Insumo
+                </button>
+                <button id="btnVoltarInsumos" class="btn-voltar">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Voltar
+                </button>
+            </div>
+
+            <div class="filtros-insumos">
+
+                <input type="text" placeholder="Pesquisar insumo...">
+
+                <select>
+                    <option>Todas as categorias</option>
+                    <option>Sementes</option>
+                    <option>Fertilizantes</option>
+                    <option>Ferramentas</option>
+                    <option>Defensivos</option>
+                </select>
+
+            </div>
+
+            <div class="cards-insumos">
+
+                <div class="card-insumo">
+                    <h3>42</h3>
+                    <p>Total de Insumos</p>
+                </div>
+
+                <div class="card-insumo">
+                    <h3>5</h3>
+                    <p>Estoque Baixo</p>
+                </div>
+
+                <div class="card-insumo">
+                    <h3>2</h3>
+                    <p>Em Falta</p>
+                </div>
+
+            </div>
+
+            <table class="tabela-insumos">
+
+                <thead>
+                    <tr>
+                        <th>Insumo</th>
+                        <th>Categoria</th>
+                        <th>Quantidade</th>
+                        <th>Unidade</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Milho</td>
+                        <td>Sementes</td>
+                        <td>120</td>
+                        <td>Kg</td>
+                        <td><span class="status disponivel">Disponível</span></td>
+                        <td><button class="btn-editar">Editar</button></td>
+                    </tr>
+
+                    <tr>
+                        <td>Adubo NPK</td>
+                        <td>Fertilizante</td>
+                        <td>15</td>
+                        <td>Sacos</td>
+                        <td><span class="status baixo">Baixo</span></td>
+                        <td><button class="btn-editar">Editar</button></td>
+                    </tr>
+
+                    <tr>
+                        <td>Herbicida</td>
+                        <td>Defensivo</td>
+                        <td>0</td>
+                        <td>Litros</td>
+                        <td><span class="status falta">Em falta</span></td>
+                        <td><button class="btn-editar">Editar</button></td>
+                    </tr>
+                </tbody>
+
+            </table>
+
         </div>
 
-        <!-- Card mostrando colheitas do dia -->
-        <div class="resumo">
-            
-            <h2>2</h2>
-            <span>Hoje</span>
-        </div>
 
-        <!-- Card mostrando colheitas finalizadas -->
-        <div class="resumo">
-            
-            <h2>9</h2>
-            <span>Concluídas</span>
-        </div>
-    </div>
-    <!-- Campo de pesquisa -->
-    <div class="pesquisa">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input 
-        type="text" 
-        placeholder="Pesquisar plantação...">
-    </div>
-
-    <!-- Card que contém a tabela -->
-    <div class="card">
-        <!-- Tabela com as informações das colheitas -->
-        <table class="tabela-agenda">
-            <!-- Cabeçalho da tabela -->
-            <thead>
-                <tr>
-                    <!-- th são os títulos das colunas -->
-                    <th>Área</th>
-                    <th>Cultura</th>
-                    <th>Colheita</th>
-                    <th>Status</th>
-                    <th>Responsável</th>
-                    <th>Editar</th>
-                </tr>
-            </thead>
-
-            <!-- Corpo da tabela onde ficam os dados -->
-            <tbody>
-                <!-- Primeira linha da tabela -->
-                <tr>
-                    <!-- td é cada informação dentro da linha -->
-                    <td>senacSul</td>
-                    <td>Soja</td>
-                    <td>20/08/2026</td>
-                    <!-- span serve para colocar um estilo somente nessa palavra -->
-                    <td>
-                        <span class="status pendente">
-                            Pendente
-                        </span>
-                    </td>
-
-                    <td>johnSuperbee</td>
-                    <!-- Ícones das ações -->
-                    <td class="acoes">
-                       
-                        <i class="fa-solid fa-pen"></i>
-                        <i class="fa-solid fa-trash"></i>
-                    </td>
-                </tr>
-
-                <!-- Segunda linha -->
-                <tr>
-                    <td>senacNorte</td>
-                    <td>Milho</td>
-                    <td>28/08/2026</td>
-                    <td>
-                        <span class="status andamento">
-                            Em andamento
-                        </span>
-                    </td>
-                    <td>johnGithub</td>
-                    <td class="acoes">
-                      
-                        <i class="fa-solid fa-pen"></i>
-                        <i class="fa-solid fa-trash"></i>
-                    </td>
-                </tr>
-
-                <!-- Terceira linha -->
-                <tr>
-                    <td>SenacCentral</td>
-                    <td>Trigo</td>
-                    <td>05/09/2026</td>
-                    <td>
-                        <span class="status concluido">
-                            Concluído
-                        </span>
-                    </td>
-                    <td>john007</td>
-                    <td class="acoes">
-                    
-                        <i class="fa-solid fa-pen"></i>
-                        <i class="fa-solid fa-trash"></i>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
     </main>
+<<<<<<< HEAD
 
     <script src="../assets/js/gestao.js"></script>
+=======
+    <script src="../assets/js/gestao.js"></script>
+    <script src="../assets/js/home.js"></script>
+>>>>>>> fb54c2e76215157ff7140417495284ea9761ba7d
 
 </body>
 

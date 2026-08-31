@@ -37,17 +37,16 @@ body {
 /* LOCALIZAÇÃO */
 
 .ubicacao {
-  width: 76vw;
+  width: 73vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   padding: 25px;
 
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0);
   backdrop-filter: blur(15px);
 
-  border: 1px solid rgb(255, 255, 255);
   border-radius: 10px;
 }
 
@@ -74,8 +73,8 @@ body {
 
   padding: 25px;
 
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0);
+  border-radius: 100px;
   border: 1px solid #dcdcdc;
 }
 
@@ -97,12 +96,18 @@ body {
   height: 140px;
 }
 
+.nuvem p{
+  color: #cfe7b6;
+}
+
 /* CARDS */
 
 .inforClima {
   display: flex;
   gap: 15px;
   width: 77vw;
+
+
 }
 
 .propriedades {
@@ -110,10 +115,10 @@ body {
 
   padding: 20px;
 
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 10px;
+      background: rgba(13, 167, 51, 0.192);
+        border-radius: 50px;
 
-  border: 1px solid #dcdcdc;
+
 }
 
 .propriedades p {
@@ -129,11 +134,12 @@ body {
 /* PRÓXIMOS DIAS */
 
 .ProximosClimas {
-  background: rgba(255, 255, 255, 0.15);
   border-radius: 10px;
-  border: 1px solid #dcdcdc;
   padding: 20px;
   width: 77vw;
+}
+.ProximosClimas h2{
+  color: #e0f3cc;
 }
 
 .Climas {
@@ -143,21 +149,48 @@ body {
 }
 
 .dias {
+
+height: 170px;
   flex: 1;
 
   padding: 15px;
 
-  border-radius: 8px;
+  border-radius: 70px;
 
-  background: rgba(255, 255, 255, 0.308);
+  background: rgba(7, 87, 24, 0.308);
 
   text-align: center;
 }
 
 .hoje {
-  background: rgba(255, 255, 255, 0.836);
+  background: rgba(68, 216, 93, 0.685);
+
 }
 
+.dias p{
+  color: rgb(182, 176, 176);
+
+}
+
+.dias h3{
+  color: rgb(202, 202, 202);
+
+}
 .dias h2 {
   margin: 10px 0;
+  color: white;
+}
+
+.hoje p{
+  color: rgb(224, 224, 224);
+
+}
+
+.hoje h3{
+  color: rgb(189, 182, 182);
+
+}
+.hoje h2 {
+  margin: 10px 0;
+  color: white;
 }
