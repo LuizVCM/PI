@@ -12,7 +12,7 @@ async function barra() {
 
         console.log(dados)
 
-        const umidade = dados.minutely_15.relative_humidity_2m.at(-1) 
+        const umidade = dados.minutely_15.relative_humidity_2m.at(-1)
 
         console.log("Umidade:", umidade)
         barraNível.style.width = `${umidade}%`
@@ -22,5 +22,5 @@ async function barra() {
         console.log(`Erro ao conectar com a API: ${error}`)
     }
 }
-
-setTimeout(barra, 1000)
+barra()
+setInterval(barra, 1000)
