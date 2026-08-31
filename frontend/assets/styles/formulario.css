@@ -1,70 +1,67 @@
-/* formulario.css — tela de login e cadastro */
+/* formulario.css — tela de login e cadastro (versão corrigida) */
 @import url("./global.css");
 
+
 body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--fonte-principal);
+  position: relative;
+}
+
+.background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
   background-image: url("../images/gif-formulario.gif");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  font-family: var(--fonte-principal);
-  overflow: hidden;
   filter: blur(8px);
-  animation: desfoque 1s forwards;
+  animation: desfoqueFundo 1s forwards;
   animation-delay: 1.2s;
 }
 
-/* Overlay de entrada */
-.sobr {
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  background-color: black;
-  z-index: 100000;
-  animation: fadeOverlay 1.2s forwards;
-}
-
-@keyframes fadeOverlay {
-  0% {
-    background-color: black;
-  }
-  99% {
-    background-color: transparent;
-  }
-  100% {
-    display: none;
-    background-color: transparent;
-  }
-}
-
-@keyframes desfoque {
-  0% {
-    filter: blur(8px);
-  }
-  100% {
-    filter: blur(0);
-  }
-}
-
-/* Gradiente de fundo */
-.background {
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
+.background::after {
+  content: "";
+  position: absolute;
+  inset: 0;
   background: linear-gradient(
     to left,
     rgba(0, 0, 0, 0.69),
     rgba(145, 100, 3, 0.6),
     rgba(1, 51, 18, 0.66)
   );
-  filter: blur(2px) contrast(120%) saturate(150%);
+  filter: contrast(120%) saturate(150%);
 }
 
-/* painel compartilhado (login e cadastro) */
+@keyframes desfoqueFundo {
+  0%   { filter: blur(8px); }
+  100% { filter: blur(0); }
+}
+
+
+.sobr {
+  position: fixed;
+  inset: 0;
+  background-color: black;
+  z-index: 100000;
+  opacity: 1;
+  pointer-events: none;
+  animation: fadeOverlay 1.2s forwards;
+}
+
+@keyframes fadeOverlay {
+  0%   { opacity: 1; }
+  100% { opacity: 0; visibility: hidden; }
+}
+
 .fundo {
+  position: relative;
+  z-index: 10;
   background: rgba(255, 255, 255, 0.78);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
@@ -75,18 +72,38 @@ body {
   width: 420px;
   height: 480px;
   border-radius: 25px;
-  color: rgb(0, 0, 0);
-  z-index: 10;
-  filter: contrast(120%) brightness(110%);
+  color: #000;
+  backdrop-filter: blur(2px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-/* painel de cadastro: oculto por padrão, visível quando perde a classe .cadastro */
 .cadastro {
-  display: none;
+  display: none; 
+  opacity: 0;
+  transform: scale(0.95);
+  pointer-events: none;
+  height: auto;
+  min-height: 480px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.cadastro.visivel {
+  display: flex;
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.cadastramento .fundo:not(.cadastro) {
+  display: flex;
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
 }
 
 .tamanho {
   height: fit-content;
+  min-height: 480px;
 }
 
 .cima {
@@ -94,6 +111,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
 }
 
 .cima h3 {
@@ -103,49 +121,48 @@ body {
 
 .cima p {
   font-size: 0.8rem;
+  margin-top: 0.2rem;
 }
 
-/* formulários */
 .formulario {
   display: flex;
   flex-direction: column;
-  margin: 20px;
+  margin: 20px 0;
   width: 80%;
 }
 
 .formulario label {
-  color: rgb(0, 0, 0);
+  color: #000;
   font-size: 0.9rem;
+  margin-top: 0.6rem;
 }
 
 input {
-  margin: 5px 8px;
+  margin: 5px 0;
   height: 27px;
   border-radius: 10px;
   border: 1.2px solid gray;
   background-color: rgba(70, 70, 70, 0.43);
   padding: 5px 10px;
-  color: rgb(0, 0, 0);
-  transition:
-    border var(--transicao-padrao),
-    box-shadow var(--transicao-padrao);
+  color: #000;
+  transition: border 0.2s, box-shadow 0.2s;
 }
 
 input::placeholder {
   color: inherit;
-  padding: 10px;
+  padding-left: 5px;
 }
 
-input:hover {
+input:hover,
+input:focus {
   border: 1.5px solid rgb(241, 252, 241);
-  cursor: pointer;
   box-shadow: 0 0 10px rgba(137, 167, 55, 0.48);
+  outline: none;
 }
 
-/* Botões de ação */
 .entrar,
 .confirmar {
-  margin-top: 10px;
+  margin-top: 15px;
   border-radius: 10px;
   border: none;
   padding: 5px 10px;
@@ -154,12 +171,8 @@ input:hover {
   color: white;
   font-weight: 540;
   cursor: pointer;
-  transition:
-    transform var(--transicao-padrao),
-    height 0.1s linear,
-    box-shadow 0.1s linear,
-    filter var(--transicao-padrao);
-  box-shadow: 0 13px 30px transparent;
+  transition: transform 0.15s, height 0.1s, box-shadow 0.15s, filter 0.15s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .entrar:hover,
@@ -167,16 +180,15 @@ input:hover {
   transform: scale(1.05);
   height: 40px;
   font-weight: 740;
-  box-shadow: 0 13px 30px rgba(0, 0, 0, 0.56);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
   filter: brightness(120%);
 }
 
-/* Divisor "ou" */
 .aglomerado {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin: 20px 0;
+  margin: 20px 0 10px;
 }
 
 .aglomerado::before,
@@ -189,11 +201,10 @@ input:hover {
 
 .aglomerado p {
   margin: 0;
-  color: rgb(0, 0, 0);
+  color: #000;
   font-size: 0.9rem;
 }
 
-/* Botões de login social */
 .botoes {
   display: flex;
   justify-content: center;
@@ -202,39 +213,54 @@ input:hover {
 
 .botao {
   background: var(--verde-sidebar);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: white;
-  padding: 1em 2em;
-  margin: 5px 25px 0;
-  border-radius: 1em;
   border: none;
+  color: white;
+  padding: 0.8em 2em;
+  margin: 5px 0 0;
+  border-radius: 1em;
   cursor: pointer;
-  transition:
-    transform 0.1s linear,
-    box-shadow 0.1s linear;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .botao:hover {
   transform: scale(1.1);
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.57);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
 }
 
-/* Link de alternância */
 .formulario > p {
-  margin: 2em auto 0;
+  margin: 1.5em auto 0;
+  font-size: 0.95rem;
 }
 
 .formulario p a {
   color: var(--verde-profundo);
-  font-size: 1em;
   font-weight: 600;
   text-decoration: none;
+  transition: text-shadow 0.2s;
 }
 
 .formulario p a:hover {
-  text-shadow: 0 0 10px var(--verde-profundo);
+  text-shadow: 0 0 12px var(--verde-profundo);
 }
 
 .cadastramento {
   z-index: 1000;
+}
+@media (max-width: 480px) {
+  .fundo {
+    width: 300px;
+    padding: 2em;
+    height: auto;
+    min-height: 400px;
+  }
+  .formulario {
+    width: 100%;
+  }
+  .cima h3 {
+    font-size: 1.8rem;
+  }
+  input {
+    height: 24px;
+  }
 }

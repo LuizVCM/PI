@@ -1,3 +1,9 @@
 @import url(../home.css);
 @import url(semente.css);
 @import url(./loteSemente.css);
+@import url(./recomendacao.css);
+@import url(./agenda.css);
+
+input{
+    outline: none;
+}

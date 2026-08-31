@@ -24,50 +24,56 @@ navbar.addEventListener("click", () => {
   aside.classList.toggle("aside-encolhido");
   arrow.classList.toggle("virado");
 
-  const recolhido = aside.classList.contains("aside-encolhido");
-
-  texto1.textContent = recolhido ? "" : "Clima";
-  texto2.textContent = recolhido ? "" : "Gestão";
-  texto3.textContent = recolhido ? "" : "Segurança";
-  text4.textContent = recolhido ? "" : "Sementes";
-  texto5.textContent = recolhido ? "" : "Suporte";
-  texto6.textContent = recolhido ? "" : "Relatório";
-  texto7.textContent = recolhido ? "" : "Perfil";
-  texto8.textContent = recolhido ? "" : "Finanças";
+  if (
+    ((
+      texto1 &&
+      text4 &&
+      texto2 &&
+      texto3 &&
+      texto5 &&
+      texto6 &&
+      texto7 &&
+      texto8
+    ).textContent = "")
+  ) {
+    texto1.textContent = "Clima";
+    texto2.textContent = "Gestao";
+    texto3.textContent = "Segurança";
+    text4.textContent = "Semente";
+    texto5.textContent = "Finanças";
+  }
 });
 
 // BOTEOES E QUE DIRECIONAN NAS NECESSIDADES
 
-const base = window.location.pathname.includes("/pages/") ? "" : "pages/";
-
 btnClima.addEventListener("click", () => {
-  window.location.href = `${base}clima.html`;
+  window.location.href = "./Clima.html";
 });
 
 btnGestao.addEventListener("click", () => {
-  window.location.href = `${base}gestao.html`;
+  window.location.href = "./Gestao.html";
 });
 
 btnSegurancas.addEventListener("click", () => {
-  window.location.href = `${base}seguranca.html`;
+  window.location.href = "./Seguranca.html";
 });
 
 btnSementes.addEventListener("click", () => {
-  window.location.href = `${base}sementes.html`;
+  window.location.href = "./Sementes.html";
 });
 
 btnfinancas.addEventListener("click", () => {
-  window.location.href = `${base}financas.html`;
+  window.location.href = "./Financas.html";
 });
 
 btnSuporte.addEventListener("click", () => {
-  window.location.href = `${base}suporte.html`;
+  window.location.href = "./Suporte.html";
 });
 
 btnRelatorio.addEventListener("click", () => {
-  window.location.href = `${base}relatorio.html`;
+  window.location.href = "./Relatorio.html";
 });
 
 btnPerfil.addEventListener("click", () => {
-  window.location.href = `${base}perfil.html`;
+  window.location.href = "./Perfil.html";
 });

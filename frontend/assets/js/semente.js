@@ -5,10 +5,14 @@
 const content = document.querySelector(".content");
 const validade = document.querySelector(".validade");
 const lote = document.querySelector(".lote");
+const recomendacao = document.querySelector(".recomendacao")
+const agenda = document.querySelector(".agenda")
 
 //botao de ação
 const entrarValidade = document.querySelector(".funcao1");
 const entrarLote = document.querySelector(".funcao2");
+const recomendacaoPlantio = document.querySelector(".funcao3");
+const agendarPlantio = document.querySelector(".funcao4")
 
 
 entrarValidade.addEventListener("click", () => {
@@ -18,10 +22,20 @@ entrarValidade.addEventListener("click", () => {
 
 entrarLote.addEventListener("click", () => {
     content.classList.toggle("toggle1");
-    lote.classList.toggle("valMovimento")
+    lote.classList.toggle("valMovimento");
 });
 
-// funções de 'nova semente'
+recomendacaoPlantio.addEventListener("click", () => {
+    content.classList.toggle("toggle1");
+    recomendacao.classList.toggle("valMovimento");
+
+})
+agendarPlantio.addEventListener("click", ()=>{
+     content.classList.toggle("toggle1");
+    agenda.classList.toggle("valMovimento");
+})
+
+// funções de 'nova semente' e outros
 const novaSemente = document.querySelector(".novaSemente");
 
 const secao = document.querySelector(".secao");
@@ -33,6 +47,40 @@ cancelar.addEventListener("click", () => {
 novaSemente.addEventListener("click", () => {
     secao.classList.toggle("toggle1")
 })
+
+
+
+
+
+
+const r1 = document.getElementById("retornar1");
+const r2 = document.getElementById("retornar2");
+const r3 = document.getElementById("retornar3");
+const r4 = document.getElementById("retornar4");
+
+const cancel = document.getElementById("cancel")
+
+// está com erro, mas a estrutura é assim 
+r1.addEventListener("click", ()=>{
+ content.classList.toggle("toggle1");
+    validade.classList.toggle("valMovimento")
+});
+r2.addEventListener("click", ()=>{
+ content.classList.toggle("toggle1");
+ lote.classList.toggle("valMovimento")
+});
+
+r4.addEventListener("click", ()=>{
+     content.classList.toggle("toggle1");
+    agenda.classList.toggle("valMovimento")
+})
+cancel.addEventListener("click", () =>{
+       content.classList.toggle("toggle1");
+    agenda.classList.toggle("valMovimento")
+})
+
+
+
 
 
 
