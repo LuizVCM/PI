@@ -1,6 +1,6 @@
-/* formulario.css — tela de login e cadastro (versão corrigida) */
-@import url("./global.css");
+/* formulario.css */
 
+@import url("./global.css");
 
 body {
   margin: 0;
@@ -10,17 +10,22 @@ body {
   align-items: center;
   font-family: var(--fonte-principal);
   position: relative;
+  overflow-x: hidden;
 }
 
 .background {
   position: fixed;
   inset: 0;
   z-index: 0;
+
   background-image: url("../images/gif-formulario.gif");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+
   filter: blur(8px);
+  transform: scale(1.05);
+
   animation: desfoqueFundo 1s forwards;
   animation-delay: 1.2s;
 }
@@ -29,238 +34,486 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to left,
-    rgba(0, 0, 0, 0.69),
-    rgba(145, 100, 3, 0.6),
-    rgba(1, 51, 18, 0.66)
-  );
-  filter: contrast(120%) saturate(150%);
+
+  background: var(--overlay-gradiente);
+
+  backdrop-filter: saturate(115%);
 }
 
 @keyframes desfoqueFundo {
-  0%   { filter: blur(8px); }
-  100% { filter: blur(0); }
-}
+  from {
+    filter: blur(8px);
+  }
 
+  to {
+    filter: blur(0);
+  }
+}
 
 .sobr {
   position: fixed;
   inset: 0;
-  background-color: black;
   z-index: 100000;
+
+  background: #000;
   opacity: 1;
   pointer-events: none;
+
   animation: fadeOverlay 1.2s forwards;
 }
 
 @keyframes fadeOverlay {
-  0%   { opacity: 1; }
-  100% { opacity: 0; visibility: hidden; }
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
 .fundo {
   position: relative;
   z-index: 10;
-  background: rgba(255, 255, 255, 0.78);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding: 35px 0;
+
   width: 420px;
-  height: 480px;
-  border-radius: 25px;
-  color: #000;
-  backdrop-filter: blur(2px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.cadastro {
-  display: none; 
-  opacity: 0;
-  transform: scale(0.95);
-  pointer-events: none;
-  height: auto;
   min-height: 480px;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
+  padding: 38px 0;
 
-.cadastro.visivel {
   display: flex;
-  opacity: 1;
-  transform: scale(1);
-  pointer-events: auto;
-}
+  flex-direction: column;
+  align-items: center;
 
-.cadastramento .fundo:not(.cadastro) {
-  display: flex;
-  opacity: 1;
-  transform: scale(1);
-  pointer-events: auto;
-}
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 24px;
 
-.tamanho {
-  height: fit-content;
-  min-height: 480px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.35),
+    0 4px 12px rgba(0, 0, 0, 0.12);
+
+  color: #172019;
 }
 
 .cima {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   text-align: center;
 }
 
 .cima h3 {
+  margin: 0;
+
+  color: var(--verde-profundo);
   font-size: 2.1rem;
-  margin-bottom: 0;
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
 
 .cima p {
-  font-size: 0.8rem;
-  margin-top: 0.2rem;
+  margin: 7px 0 0;
+
+  color: #58625b;
+  font-size: 0.9rem;
 }
 
 .formulario {
+  width: 80%;
+  margin: 24px 0;
+
   display: flex;
   flex-direction: column;
-  margin: 20px 0;
-  width: 80%;
 }
 
 .formulario label {
-  color: #000;
-  font-size: 0.9rem;
-  margin-top: 0.6rem;
+  margin-top: 12px;
+
+  color: #263029;
+  font-size: 0.88rem;
+  font-weight: 600;
 }
 
-input {
-  margin: 5px 0;
-  height: 27px;
+.formulario input {
+  box-sizing: border-box;
+
+  width: 100%;
+  height: 42px;
+
+  margin: 6px 0 0;
+  padding: 0 13px;
+
+  border: 1px solid #b8c0ba;
   border-radius: 10px;
-  border: 1.2px solid gray;
-  background-color: rgba(70, 70, 70, 0.43);
-  padding: 5px 10px;
-  color: #000;
-  transition: border 0.2s, box-shadow 0.2s;
-}
 
-input::placeholder {
-  color: inherit;
-  padding-left: 5px;
-}
+  background: rgba(255, 255, 255, 0.65);
 
-input:hover,
-input:focus {
-  border: 1.5px solid rgb(241, 252, 241);
-  box-shadow: 0 0 10px rgba(137, 167, 55, 0.48);
+  color: #172019;
+  font-family: inherit;
+  font-size: 0.9rem;
+
   outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.formulario input::placeholder {
+  color: #7d867f;
+}
+
+.formulario input:hover {
+  border-color: #8d9b91;
+}
+
+.formulario input:focus {
+  border-color: var(--verde-sidebar);
+
+  background: rgba(255, 255, 255, 0.9);
+
+  box-shadow:
+    0 0 0 3px rgba(50, 110, 67, 0.13);
+}
+
+#cadastro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 10px;
+  row-gap: 0;
+}
+
+/* Cada campo ocupa uma célula do grid */
+#cadastro .campo {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Remove a margem que era usada para espaçar
+   os labels no formulário antigo */
+#cadastro .campo label {
+  margin-top: 10px;
+}
+
+/* Campos */
+#cadastro input {
+  width: 100%;
+}
+
+/* Elementos que precisam ocupar as duas colunas */
+
+#cadastro .confirmar,
+#cadastro .aglomerado,
+#cadastro .botoes,
+#cadastro > p {
+  grid-column: 1 / -1;
+}
+
+/* Botão */
+#cadastro .confirmar {
+  margin-top: 20px;
+}
+
+/* Divisor */
+#cadastro .aglomerado {
+  margin-top: 20px;
+}
+
+@media (max-width: 480px) {
+  #cadastro {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #cadastro .campo label {
+    margin-top: 10px;
+  }
+
+  #cadastro .confirmar {
+    margin-top: 20px;
+  }
 }
 
 .entrar,
 .confirmar {
-  margin-top: 15px;
-  border-radius: 10px;
+  width: 100%;
+  height: 42px;
+
+  margin-top: 22px;
+
   border: none;
-  padding: 5px 10px;
-  height: 35px;
+  border-radius: 10px;
+
   background: var(--verde-sidebar);
-  color: white;
-  font-weight: 540;
+  color: #fff;
+
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+
   cursor: pointer;
-  transition: transform 0.15s, height 0.1s, box-shadow 0.15s, filter 0.15s;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.18);
+
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    filter 0.18s ease;
 }
 
 .entrar:hover,
 .confirmar:hover {
-  transform: scale(1.05);
-  height: 40px;
-  font-weight: 740;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-  filter: brightness(120%);
+  transform: translateY(-2px);
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+
+  filter: brightness(1.08);
+}
+
+.entrar:active,
+.confirmar:active {
+  transform: translateY(0);
 }
 
 .aglomerado {
+  width: 100%;
+
   display: flex;
   align-items: center;
+
   gap: 12px;
-  margin: 20px 0 10px;
+
+  margin: 23px 0 12px;
 }
 
 .aglomerado::before,
 .aglomerado::after {
   content: "";
+
   flex: 1;
   height: 1px;
-  background: rgba(0, 0, 0, 0.541);
+
+  background: rgba(0, 0, 0, 0.16);
 }
 
 .aglomerado p {
   margin: 0;
-  color: #000;
-  font-size: 0.9rem;
+
+  color: #68716b;
+  font-size: 0.8rem;
 }
 
 .botoes {
+  width: 100%;
+
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .botao {
-  background: var(--verde-sidebar);
-  border: none;
-  color: white;
-  padding: 0.8em 2em;
-  margin: 5px 0 0;
-  border-radius: 1em;
+  width: 100%;
+  height: 42px;
+
+  margin: 0;
+
+  border: 1px solid #cbd1cd;
+  border-radius: 10px;
+
+  background: rgba(255, 255, 255, 0.75);
+  color: #303832;
+
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+
   cursor: pointer;
-  transition: transform 0.15s, box-shadow 0.15s;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
 }
 
 .botao:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+  transform: translateY(-1px);
+
+  background: #fff;
+  border-color: #aeb8b1;
+
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.12);
 }
 
 .formulario > p {
-  margin: 1.5em auto 0;
-  font-size: 0.95rem;
+  margin: 20px auto 0;
+
+  color: #626b65;
+  font-size: 0.85rem;
+  text-align: center;
 }
 
 .formulario p a {
   color: var(--verde-profundo);
-  font-weight: 600;
+
+  font-weight: 700;
   text-decoration: none;
-  transition: text-shadow 0.2s;
+
+  transition:
+    color 0.2s ease,
+    text-shadow 0.2s ease;
 }
 
 .formulario p a:hover {
-  text-shadow: 0 0 12px var(--verde-profundo);
+  color: var(--verde-sidebar);
+
+  text-shadow: 0 0 10px rgba(40, 100, 60, 0.2);
 }
 
 .cadastramento {
+  position: relative;
   z-index: 1000;
 }
+
+.cadastro {
+  display: none;
+
+  opacity: 0;
+  transform: scale(0.96);
+
+  pointer-events: none;
+
+  height: auto;
+  min-height: 480px;
+
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.cadastro.visivel {
+  display: flex;
+
+  opacity: 1;
+  transform: scale(1);
+
+  pointer-events: auto;
+}
+
+.cadastramento .fundo:not(.cadastro) {
+  display: flex;
+
+  opacity: 1;
+  transform: scale(1);
+
+  pointer-events: auto;
+}
+
+.tamanho {
+  height: fit-content;
+}
+
+.form-error {
+  margin-top: 8px;
+
+  color: var(--err);
+  font-size: 0.83rem;
+}
+
+.form-error::before {
+  content: "\26A0";
+
+  margin-right: 6px;
+  font-size: 1em;
+}
+
+.form-error-list {
+  padding: 0;
+  margin: 8px 0 0;
+}
+
+.form-error-list li {
+  position: relative;
+
+  padding-left: 20px;
+  margin-bottom: 5px;
+
+  color: var(--err);
+  font-size: 0.83rem;
+
+  list-style: none;
+}
+
+.form-error-list li::before {
+  content: "\26A0";
+
+  position: absolute;
+  left: 0;
+
+  color: var(--err);
+}
+
+.form-success {
+  margin-top: 8px;
+
+  color: var(--sucess);
+  font-size: 0.83rem;
+}
+
 @media (max-width: 480px) {
-  .fundo {
-    width: 300px;
-    padding: 2em;
-    height: auto;
-    min-height: 400px;
+  body {
+    padding: 20px;
+    box-sizing: border-box;
   }
+
+  .fundo {
+    width: 100%;
+    max-width: 360px;
+
+    min-height: 0;
+
+    padding: 30px 22px;
+
+    box-sizing: border-box;
+
+    border-radius: 20px;
+  }
+
   .formulario {
     width: 100%;
   }
+
   .cima h3 {
     font-size: 1.8rem;
   }
-  input {
-    height: 24px;
+
+  .cima p {
+    font-size: 0.82rem;
+  }
+
+  .formulario input,
+  .entrar,
+  .confirmar,
+  .botao {
+    height: 42px;
+  }
+}
+
+@media (max-height: 700px) {
+  body {
+    align-items: flex-start;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    box-sizing: border-box;
+  }
+
+  .fundo {
+    margin: 0;
+    padding-top: 25px;
+    padding-bottom: 25px;
   }
 }
