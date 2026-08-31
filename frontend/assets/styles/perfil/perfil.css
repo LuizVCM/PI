@@ -1,9 +1,0 @@
-.user-info-header {
-    display: flex;
-    height: 20vh;
-}
-
-.user-info-bottom {
-    display: flex;
-    flex-direction: column;
-}
