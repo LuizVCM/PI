@@ -1,4 +1,5 @@
 import express, { Application } from "express";
+import cors from "cors";
 import * as dotenv from "dotenv";
 import { AppDataSource } from "./config/data-source";
 import router from "./routes/index.routes";
@@ -7,9 +8,19 @@ import cookieParser from "cookie-parser";
 import { insertPlants } from "./config/seed/plant.seeder";
 const app: Application = express();
 dotenv.config();
-app.use(cookieParser());
 const PORT = process.env.PORT;
+
+app.use(
+  cors({
+    origin: ["http://127.0.0.1:5500", "http://localhost:5500"],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(router);
 async function startServer() {
   try {
