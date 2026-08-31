@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TerraFarr – Entrar</title>
-    <link rel="icon" href="../assets/images/logo.jpeg">
+    <link rel="icon" href="../assets/images/logo.jpeg" />
     <link rel="stylesheet" href="../assets/styles/formulario.css" />
   </head>
 
@@ -22,7 +22,7 @@
           <h3>TerraFarr</h3>
           <p>Gerencie sua produção agrícola</p>
         </div>
-        <form class="formulario" id="cadastro" novalidate>
+        <form class="formulario" id="cadastro">
           <label for="nome-cad">Nome</label>
           <input
             type="text"
@@ -88,6 +88,7 @@
           </div>
 
           <p>Já possui conta? <a href="#" id="entra2">Entre aqui</a></p>
+          <div id="signup-message" class="hidden"></div>
         </form>
       </div>
     </div>
@@ -117,13 +118,7 @@
           autocomplete="current-password"
         />
 
-        <button
-          type="button"
-          class="entrar"
-          onclick="window.location.href = 'home.html'"
-        >
-          Entrar
-        </button>
+        <button type="submit" class="entrar">Entrar</button>
 
         <div class="aglomerado">
           <p>ou</p>
