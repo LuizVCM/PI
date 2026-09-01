@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
@@ -15,9 +15,9 @@
     <!-- fundo desfocado -->
     <div class="background"></div>
 
-    <!-- painel de cadastro (oculto por padrão via classe .cadastro no CSS) -->
+    <!-- painel de cadastro -->
     <div class="cadastramento">
-      <div class="fundo cadastro" id="cadastro-painel">
+      <div class="fundo" id="cadastro-painel">
         <div class="cima">
           <h3>TerraFarr</h3>
           <p>Gerencie sua produção agrícola</p>
@@ -92,7 +92,9 @@
             required
           />
 
-          <button type="submit" class="confirmar" id="btn-cadastro">Cadastrar</button>
+          <button type="submit" class="confirmar" id="btn-cadastro">
+            Cadastrar
+          </button>
 
           <div class="aglomerado">
             <p>ou</p>
@@ -102,14 +104,14 @@
             <button type="button" class="botao">Google</button>
           </div>
 
-          <p>Já possui conta? <a href="#" id="entra2">Entre aqui</a></p>
+          <p>Já possui conta? <a href="#" id="entrar">Entre aqui</a></p>
           <div id="signup-message" class="hidden"></div>
         </form>
       </div>
     </div>
 
     <!-- cria territorio relacionado aos dados do user -->
-    <div class="fundo hidden" id="territorio-painel">
+    <div class="fundo" id="territorio-painel">
       <div class="cima">
         <h3>2 de 3</h3>
         <p>Cadastre o seu território</p>
@@ -139,7 +141,7 @@
     </div>
 
     <!-- cadastrar sensor-->
-    <div class="fundo sensor hidden">
+    <div class="fundo" id="sensor-painel">
       <div class="cima">
         <h3>3 de 3</h3>
         <p>Cadastre seu sensor</p>
@@ -166,11 +168,11 @@
       </form>
     </div>
 
-    <!-- painel de login (visível por padrão) -->
-    <div class="fundo">
+    <!-- painel de login -->
+    <div class="fundo" id="login-painel">
       <div class="cima">
         <h3>Bem-vindo</h3>
-        <p>Acesse sua plantação</p>
+        <p>Acesse suas plantações</p>
       </div>
       <form class="formulario" id="login" novalidate>
         <label for="email-login">E-mail</label>
@@ -201,7 +203,7 @@
           <button type="button" class="botao">Google</button>
         </div>
 
-        <p>Novo usuário? <a href="#" id="paragrafoLink">Comece agora</a></p>
+        <p>Novo usuário? <a href="#" id="novo-usuario">Comece agora</a></p>
       </form>
     </div>
     <script src="../assets/js/formulario.js"></script>
