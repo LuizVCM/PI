@@ -1,20 +1,29 @@
+// todos os painéis
 const fundo = document.querySelectorAll(".fundo");
-const click = document.getElementById("paragrafoLink");
-const click2 = document.getElementById("entra2");
-const entrar = document.getElementById("find");
 
+// botões de criar novo usuário, ou direcionar para login
+const novoUsuario = document.getElementById("novo-usuario");
+const entrar = document.getElementById("entrar");
+
+// painéis especificos pra controlar quem aparece
+const cadastroPainel = document.getElementById("cadastro-painel");
+const loginPainel = document.getElementById("login-painel");
+const territorioPainel = document.getElementById("territorio-painel");
+
+// url do backend
 const API_URL = "http://localhost:3000";
 
-click.addEventListener("click", () => {
-  fundo.forEach((element) => {
-    element.classList.toggle("cadastro");
-  });
-});
-click2.addEventListener("click", () => {
-  fundo.forEach((element) => {
-    element.classList.toggle("cadastro");
-  });
-});
+// função pra facilitar
+function showPanel(panel) {
+  fundo.forEach((p) => p.classList.remove("active"));
+  if (panel) panel.classList.add("active");
+}
+
+// login começa visível
+showPanel(loginPainel);
+
+novoUsuario.addEventListener("click", () => showPanel(cadastroPainel));
+entrar.addEventListener("click", () => showPanel(loginPainel));
 
 // formata esses campos
 const telefone = document.getElementById("telefone-cad");
@@ -32,13 +41,13 @@ telefone.addEventListener("input", () => {
     // se tiver 10 dígitos, formata como fixo (4 dígitos antes do traço)
     telefone.value = `(${valor.substring(0, 2)}) ${valor.substring(
       2,
-      6
+      6,
     )}-${valor.substring(6)}`;
   } else {
     // se tiver 11 dígitos, formata como celular (5 dígitos antes do traço)
     telefone.value = `(${valor.substring(0, 2)}) ${valor.substring(
       2,
-      7
+      7,
     )}-${valor.substring(7)}`;
   }
 });
@@ -69,7 +78,7 @@ cpf.addEventListener("input", () => {
 
 const cadastroForm = document.getElementById("cadastro");
 const btnCadastro = document.getElementById("btn-cadastro");
-const messageDiv = document.getElementById("signup-message");
+const mensagemDiv = document.getElementById("signup-message");
 
 cadastroForm.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -122,17 +131,12 @@ cadastroForm.addEventListener("submit", async (event) => {
       return;
     }
 
-    messageDiv.classList.remove("hidden");
-    messageDiv.classList.add("form-success");
-    messageDiv.textContent = "Cadastrado com sucesso! Redirecionando...";
-
-    const territorioPainel = document.getElementById("territorio-painel");
-    const cadastroPainel = document.getElementById("cadastro-painel");
+    mensagemDiv.classList.remove("hidden");
+    mensagemDiv.classList.add("form-success");
+    mensagemDiv.textContent = "Cadastrado com sucesso! Redirecionando...";
 
     setTimeout(() => {
-      cadastroPainel.classList.add("hidden");
-
-      territorioPainel.classList.remove("hidden");
+      showPanel(territorioPainel);
     }, 2000);
   } catch (error) {
     console.error(error);
