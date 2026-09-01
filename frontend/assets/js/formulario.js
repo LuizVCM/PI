@@ -28,6 +28,7 @@ entrar.addEventListener("click", () => showPanel(loginPainel));
 // formata esses campos
 const telefone = document.getElementById("telefone-cad");
 const cpf = document.getElementById("cpf-cad");
+const nome = document.getElementById("nome-cad");
 
 telefone.addEventListener("input", () => {
   // remove o que não for dígito e limita pra 11 caracteres
@@ -41,13 +42,13 @@ telefone.addEventListener("input", () => {
     // se tiver 10 dígitos, formata como fixo (4 dígitos antes do traço)
     telefone.value = `(${valor.substring(0, 2)}) ${valor.substring(
       2,
-      6,
+      6
     )}-${valor.substring(6)}`;
   } else {
     // se tiver 11 dígitos, formata como celular (5 dígitos antes do traço)
     telefone.value = `(${valor.substring(0, 2)}) ${valor.substring(
       2,
-      7,
+      7
     )}-${valor.substring(7)}`;
   }
 });
@@ -78,7 +79,7 @@ cpf.addEventListener("input", () => {
 
 const cadastroForm = document.getElementById("cadastro");
 const btnCadastro = document.getElementById("btn-cadastro");
-const mensagemDiv = document.getElementById("signup-message");
+const mensagemCad = document.getElementById("mensagem-cadastro");
 
 cadastroForm.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -131,12 +132,13 @@ cadastroForm.addEventListener("submit", async (event) => {
       return;
     }
 
-    mensagemDiv.classList.remove("hidden");
-    mensagemDiv.classList.add("form-success");
-    mensagemDiv.textContent = "Cadastrado com sucesso! Redirecionando...";
+    mensagemCad.classList.remove("escondido");
+    mensagemCad.classList.add("form-success");
+    mensagemCad.textContent =
+      "Cadastrado com sucesso! Redirecionando para autenticar...";
 
     setTimeout(() => {
-      showPanel(territorioPainel);
+      showPanel(loginPainel);
     }, 2000);
   } catch (error) {
     console.error(error);
@@ -148,12 +150,19 @@ cadastroForm.addEventListener("submit", async (event) => {
 });
 
 const loginForm = document.getElementById("login");
+const btnEntrar = document.getElementById("btn-entrar");
+const mensagemLog = document.getElementById("mensagem-login");
 
 loginForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
+  removeErrorMessage(loginForm);
+
   const email = document.getElementById("email-login").value.trim();
   const senha = document.getElementById("senha-login").value;
+
+  btnEntrar.disabled = true;
+  btnEntrar.textContent = "Entrando...";
 
   try {
     const response = await fetch(`${API_URL}/auth/login`, {
@@ -171,14 +180,129 @@ loginForm.addEventListener("submit", async (event) => {
     const result = await response.json();
 
     if (!response.ok) {
-      alert(result.message || "Erro ao realizar login");
+      if (result.message) {
+        showErrorMessage(result.message, loginForm);
+      }
+      if (result.errors) {
+        const errors = result.errors ? Object.values(result.errors).flat() : {};
+        if (errors.length === 1) {
+          showErrorMessage(errors[0], loginForm);
+        } else {
+          showErrors(errors, loginForm);
+        }
+      }
       return;
     }
 
-    window.location.href = "home.html";
+    mensagemLog.classList.remove("escondido");
+    mensagemLog.classList.add("form-success");
+    mensagemLog.textContent = "Autenticado com sucesso! Redirecionando...";
+
+    try {
+      const response = await fetch(`${API_URL}/territories/me`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+
+      const result = response.json();
+      if (result.length === 0) {
+        setTimeout(() => {
+          showPanel(territorioPainel);
+        }, 2000);
+      } else {
+        setTimeout(() => {
+          window.location.href = "./home.html";
+        }, 2000);
+      }
+    } catch (error) {
+      console.error(error);
+      showErrorMessage("Erro ao conectar com o servidor", loginForm);
+    }
   } catch (error) {
     console.error(error);
-    alert("Erro ao conectar com o servidor");
+    showErrorMessage("Erro ao conectar com o servidor", loginForm);
+  } finally {
+    btnEntrar.disabled = false;
+    btnEntrar.textContent = "Entrar";
+  }
+});
+
+const territorioForm = document.getElementById("territorio");
+const btnCadTer = document.getElementById("btn-cadastrar-territorio");
+const mensagemTer = document.getElementById("mensagem-territorio");
+
+const cep = document.getElementById("cep");
+
+cep.addEventListener("input", () => {
+  let valor = cep.value.replace(/\D/g, "");
+
+  // limita a 11 números
+  valor = valor.substring(0, 9);
+
+  if (valor.length <= 5) {
+    cep.value = valor;
+  } else if (valor.length <= 9) {
+    cep.value = `${valor.substring(0, 5)}-` + `${valor.substring(5, 9)}`;
+  }
+});
+
+territorioForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  removeErrorMessage(territorioForm);
+
+  const body = {
+    cep: cep.value,
+    area: document.getElementById("area").value,
+    unidadeArea: document.getElementById("unidade").value,
+  };
+
+  btnCadTer.disabled = true;
+  btnCadTer.textContent = "Cadastrando...";
+
+  try {
+    const response = await fetch(`${API_URL}/territories`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(body),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      if (result.message) {
+        showErrorMessage(result.message, loginForm);
+      }
+      if (result.errors) {
+        const errors = result.errors ? Object.values(result.errors).flat() : {};
+        if (errors.length === 1) {
+          showErrorMessage(errors[0], loginForm);
+        } else {
+          showErrors(errors, loginForm);
+        }
+      }
+      return;
+    }
+
+    mensagemTer.classList.remove("escondido");
+    mensagemTer.classList.add("form-success");
+    mensagemTer.textContent = "Cadastrado com sucesso! Redirecionando...";
+
+    setTimeout(() => {
+      window.location.href = "./home.html";
+    }, 2000);
+  } catch (error) {
+    console.error(error);
+    showErrorMessage("Erro ao conectar com o servidor", territorioForm);
+  } finally {
+    btnCadTer.disabled = false;
+    btnCadTer.textContent = "Cadastrar território";
   }
 });
 

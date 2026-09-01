@@ -125,7 +125,7 @@ body {
 }
 
 /* utilitário */
-.hidden {
+.escondido {
   display: none !important;
 }
 
@@ -145,7 +145,8 @@ body {
   font-weight: 600;
 }
 
-.formulario input {
+.formulario input,
+.formulario select {
   box-sizing: border-box;
 
   width: 100%;
@@ -168,15 +169,21 @@ body {
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
+.formulario input:user-invalid {
+  border-color: var(--err);
+}
+
 .formulario input::placeholder {
   color: #7d867f;
 }
 
-.formulario input:hover {
+.formulario input:hover,
+.formulario select:hover {
   border-color: #8d9b91;
 }
 
-.formulario input:focus {
+.formulario input:focus,
+.formulario select:focus {
   border-color: var(--verde-sidebar);
 
   background: rgba(255, 255, 255, 0.9);
@@ -376,7 +383,7 @@ body {
 }
 
 .form-error {
-  margin-top: 8px !important;
+  margin-top: 20px !important;
 
   color: var(--err) !important;
   font-size: 0.83rem !important;
@@ -414,16 +421,21 @@ body {
 }
 
 #cadastro .form-error-list {
-  grid-column: 1 / -1 !important;    
-  display: flex;         
-  flex-wrap: wrap;       
-  gap: 6px 14px;         
+  grid-column: 1 / -1 !important;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
   padding: 0;
   margin: 8px 0 0;
-  list-style: none;      
+  list-style: none;
 }
 
 .form-success {
+  grid-column: 1 / -1 !important;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  
   margin-top: 8px !important;
 
   color: var(--sucess) !important;
@@ -462,7 +474,7 @@ body {
   }
 
   .formulario input,
-  .entrar,
+  .formulario select .entrar,
   .confirmar,
   .botao {
     height: 42px;

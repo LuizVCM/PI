@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
@@ -105,7 +105,7 @@
           </div>
 
           <p>Já possui conta? <a href="#" id="entrar">Entre aqui</a></p>
-          <div id="signup-message" class="hidden"></div>
+          <div id="mensagem-cadastro" class="escondido"></div>
         </form>
       </div>
     </div>
@@ -134,9 +134,10 @@
           <option value="ha">Hectares</option>
         </select>
 
-        <button type="button" class="entrar" id="btnCadastrarTerritorio">
+        <button type="button" class="entrar" id="btn-cadastrar-territorio">
           Cadastrar território
         </button>
+        <div id="mensagem-territorio" class="escondido"></div>
       </form>
     </div>
 
@@ -193,7 +194,7 @@
           autocomplete="current-password"
         />
 
-        <button type="submit" class="entrar">Entrar</button>
+        <button type="submit" class="entrar" id="btn-entrar">Entrar</button>
 
         <div class="aglomerado">
           <p>ou</p>
@@ -204,6 +205,7 @@
         </div>
 
         <p>Novo usuário? <a href="#" id="novo-usuario">Comece agora</a></p>
+        <div id="mensagem-cadastro" class="escondido"></div>
       </form>
     </div>
     <script src="../assets/js/formulario.js"></script>
