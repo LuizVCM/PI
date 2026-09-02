@@ -17,7 +17,6 @@ export class DataSensor {
     type: "enum",
     enum: ["porcento", "celsius", "kmh"],
   })
-  unidade: "porcento" | "celsius" | "kmh";
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;
   @ManyToOne(() => Sensor, (sensor) => sensor.dados)
