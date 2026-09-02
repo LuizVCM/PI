@@ -21,8 +21,8 @@ export class AuthController {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false, // true
-      sameSite: "lax", // none, strict
+      secure: true, // false -> thunderclient, true -> front
+      sameSite: 'none', // 'lax' -> thunderclient, 'none' -> front
       maxAge: 1000 * 60 * 60, // 1h
     });
 
