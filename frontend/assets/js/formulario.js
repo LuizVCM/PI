@@ -42,13 +42,13 @@ telefone.addEventListener("input", () => {
     // se tiver 10 dígitos, formata como fixo (4 dígitos antes do traço)
     telefone.value = `(${valor.substring(0, 2)}) ${valor.substring(
       2,
-      6
+      6,
     )}-${valor.substring(6)}`;
   } else {
     // se tiver 11 dígitos, formata como celular (5 dígitos antes do traço)
     telefone.value = `(${valor.substring(0, 2)}) ${valor.substring(
       2,
-      7
+      7,
     )}-${valor.substring(7)}`;
   }
 });
@@ -206,20 +206,18 @@ loginForm.addEventListener("submit", async (event) => {
         },
         credentials: "include",
       });
-
-      const result = response.json();
+      if (!response.ok) showErrorMessage("Falha ao buscar dados", loginForm);
+      const result = await response.json();
       if (result.length === 0) {
-        setTimeout(() => {
-          showPanel(territorioPainel);
-        }, 2000);
+        setTimeout(() => showPanel(territorioPainel), 2000);
       } else {
-        setTimeout(() => {
-          window.location.href = "./home.html";
-        }, 2000);
+        setTimeout(() => (window.location.href = "./home.html"), 2000);
       }
     } catch (error) {
-      console.error(error);
-      showErrorMessage("Erro ao conectar com o servidor", loginForm);
+      showErrorMessage(
+        "Erro interno do servidor. Tente novamente.",
+        loginForm,
+      );
     }
   } catch (error) {
     console.error(error);
@@ -277,14 +275,14 @@ territorioForm.addEventListener("submit", async (event) => {
 
     if (!response.ok) {
       if (result.message) {
-        showErrorMessage(result.message, loginForm);
+        showErrorMessage(result.message, territorioForm);
       }
       if (result.errors) {
         const errors = result.errors ? Object.values(result.errors).flat() : {};
         if (errors.length === 1) {
-          showErrorMessage(errors[0], loginForm);
+          showErrorMessage(errors[0], territorioForm);
         } else {
-          showErrors(errors, loginForm);
+          showErrors(errors, territorioForm);
         }
       }
       return;
@@ -316,7 +314,7 @@ function showErrorMessage(message, form) {
 
 function removeErrorMessage(form) {
   form
-    .querySelectorAll(".form-error, .form-error-list")
+    .querySelectorAll(".form-error, .form-error-list, .form-success")
     .forEach((el) => el.remove());
 }
 function showErrors(errors, form) {
