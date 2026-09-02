@@ -210,6 +210,7 @@ loginForm.addEventListener("submit", async (event) => {
       const result = await response.json();
       if (result.length === 0) {
         setTimeout(() => showPanel(territorioPainel), 2000);
+        return;
       } else {
         setTimeout(() => (window.location.href = "./home.html"), 2000);
       }
