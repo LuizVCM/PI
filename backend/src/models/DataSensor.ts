@@ -13,10 +13,7 @@ export class DataSensor {
   id: number;
   @Column({ type: "decimal", scale: 2, precision: 5, nullable: false })
   valor: number;
-  @Column({
-    type: "enum",
-    enum: ["porcento", "celsius", "kmh"],
-  })
+  // a unidade é definida pelo tipo de sensor
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;
   @ManyToOne(() => Sensor, (sensor) => sensor.dados)

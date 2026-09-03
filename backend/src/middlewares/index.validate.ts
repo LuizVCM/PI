@@ -16,6 +16,7 @@ import {
   loginUserSchema,
   updateUserSchema,
 } from "../schemas/user.schema";
+import { createWeatherSchema } from "../schemas/weather.schema";
 import { validate } from "./validate";
 export const validateAdminCreate = validate(createAdminSchema);
 export const validateUserCreate = validate(createUserSchema);
@@ -33,3 +34,4 @@ export const validatePlantCreate = validate(createPlantSchema);
 export const validatePlantUpdate = validate(updatePlantSchema);
 export const validateSeedCreate = validate(createSeedSchema);
 export const validateSeedUpdate = validate(updateSeedSchema);
+export const validateWeatherCreate = validate(createWeatherSchema);
