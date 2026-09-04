@@ -13,64 +13,101 @@
     display: block !important;
 }
 
+/* =========================
+   TELAS DA GESTÃO
+========================= */
+
+.tela {
+    display: none !important;
+    width: 100%;
+    min-height: 87vh;
+    box-sizing: border-box;
+}
+
+.tela.ativa {
+    display: block !important;
+}
+
 
 /* =========================
-   TELA INICIAL
+   TELA INICIAL DA GESTÃO
 ========================= */
 
 .gestao-inicio {
     width: 100%;
+    height: 87vh;
     min-height: 87vh;
-    padding: 40px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
     box-sizing: border-box;
-    background: var(--conteudo-fundo);
 }
 
 .gestao-inicio h1 {
     text-align: center;
-    font-size: 32px;
-    margin: 0 0 35px;
     color: var(--verde-profundo);
+    font-size: 3vw;
+    margin: 0 0 30px 0;
+    font-family: "DM Sans", sans-serif;
+    font-weight: 700;
 }
 
 
 /* =========================
-   BOTÕES DE ACESSO
+   OPÇÕES DA GESTÃO
 ========================= */
 
-.acessos {
-    width: 100%;
-    max-width: 900px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+.gestao-inicio .acessos {
+    display: flex;
+    flex-direction: column;
     gap: 20px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex: 1;
 }
 
-.funcao {
-    border: none;
-    cursor: pointer;
-    padding: 25px;
+.gestao-inicio .acessos .funcao {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: white;
-    border-radius: 12px;
-    font-size: 17px;
-    font-weight: 600;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+    width: 75%;
+    height: 13%;
+    padding: 35px 45px;
+    font-size: 1.3vw;
+
+    background: linear-gradient(
+        to right,
+        #C8E6A0,
+        #7b977f
+    );
+
+    border-radius: 10px;
+    border: none;
+
+    padding: 50px;
+
+    font-family: "DM Sans", sans-serif;
+    font-weight: 750;
+    color: #0D1F0E;
+    font-size: 1.5vw;
+
+    box-shadow: 6px 5px rgba(22, 78, 14, 0.897);
+
+    cursor: pointer;
+
     transition: 0.2s;
 }
 
-.funcao:hover {
-    transform: translateY(-3px);
+.gestao-inicio .acessos .funcao:hover {
+    transform: translateY(-2px);
 }
 
-.funcao i {
-    font-size: 18px;
+.gestao-inicio .acessos .funcao i {
+    transform: scaleX(1) scale(1.8);
 }
-
-
 /* =========================
    CADASTRO
 ========================= */
@@ -194,38 +231,65 @@
 
 .tela-agenda .btn-voltar i {
     font-size: 14px;
-}
-/* =========================
+
+}/* =========================
    RESPONSIVIDADE
 ========================= */
 
-@media (max-width: 1000px) {
+@media (max-width: 940px) {
 
-    .tela-cadastro {
-        padding: 25px;
+    .gestao-inicio h1 {
+        font-size: 4vw;
     }
 
-    .grid-cadastro {
-        grid-template-columns: 1fr;
+    .gestao-inicio .acessos .funcao span {
+        font-size: 4vw;
     }
 }
+
 
 @media (max-width: 700px) {
 
     .gestao-inicio {
+        padding: 15px;
+    }
+
+    .gestao-inicio h1 {
+        font-size: 1.8rem;
+    }
+
+    .gestao-inicio .acessos {
+        gap: 18px;
+    }
+
+    .gestao-inicio .acessos .funcao {
+        width: 90%;
+        height: 15%;
+        padding: 25px;
+    }
+
+    .gestao-inicio .acessos .funcao span {
+        font-size: 22px;
+    }
+
+    .gestao-inicio .acessos .funcao i {
+        transform: scaleX(1) scale(1.4);
+    }
+}
+
+
+@media (max-width: 590px) {
+
+    .gestao-inicio .acessos .funcao {
+        width: 95%;
         padding: 20px;
     }
 
-    .tela-cadastro {
-        padding: 20px;
+    .gestao-inicio .acessos .funcao span {
+        font-size: 17px;
     }
 
-    .cabecalho-cadastro {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .acessos {
-        grid-template-columns: 1fr;
+    .gestao-inicio .acessos .funcao i {
+        transform: scaleX(1) scale(1.2);
     }
 }

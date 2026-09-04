@@ -27,11 +27,38 @@
     color: #666;
 }
 
+/* BOTÃO VOLTAR */
 .voltar {
+    border: none;
+    background: var(--verde-profundo);
+    color: white;
+
     padding: 12px 20px;
+    border-radius: 8px;
+
     white-space: nowrap;
+    cursor: pointer;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    box-shadow: none;
+    transition: 0.2s;
 }
 
+.voltar:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.voltar i {
+    font-size: 14px;
+}
 .grid-cadastro {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
