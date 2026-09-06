@@ -4,7 +4,7 @@ import { BaseModel } from "./BaseModel";
 
 export enum FinanceType {
   DESPESA = "despesa",
-  LUCRO = "lucro",
+  GANHO = "ganho",
 }
 
 @Entity("financas")
