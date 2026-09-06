@@ -1,11 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TerraFarr</title>
+
     <link rel="icon" href="../assets/image/logo.jpeg" />
     <link rel="stylesheet" href="../assets/styles/financas/all.css" />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
@@ -17,102 +19,195 @@
       <div class="user">Lv</div>
       <span class="bem-vindo">Olá, usuário!</span>
     </header>
+
     <main>
-        <aside class="aside">
-            <button class="opcao clima"> <i class="fa-solid fa-cloud selecao"></i> Clima </button>
-            <button class="opcao gestao"> <i class="fa-brands fa-buffer selecao"></i> Gestão</button>
-            <button class="opcao segurancas"> <i class="fa-solid fa-building-shield selecao"></i> Informações </button>
-            <button class="opcao sementes"> <i class="fa-solid fa-seedling selecao"></i> Sementes </button>
-            <button class="opcao financas"> <i class="fa-solid fa-building-columns selecao"></i> Finanças</button>
-            <button class="opcao suporte"> <i class="fa-solid fa-comments-dollar selecao"></i> Suporte </button>
-            <button class="opcao relatorio"> <i class="fa-solid fa-envelope-open selecao"></i> Relatório </button>
-            <button class="opcao perfil"> <i class="fa-solid fa-circle-user selecao"></i>Perfil </button>
+      <aside class="aside">
+        <button class="opcao clima">
+          <i class="fa-solid fa-cloud selecao"></i>
+          Clima
+        </button>
 
+        <button class="opcao gestao">
+          <i class="fa-brands fa-buffer selecao"></i>
+          Gestão
+        </button>
 
-            <button class="navbar"> <i class="fa-solid fa-arrow-right"></i></button>
-        </aside>
+        <button class="opcao segurancas">
+          <i class="fa-solid fa-building-shield selecao"></i>
+          Informações
+        </button>
 
+        <button class="opcao sementes">
+          <i class="fa-solid fa-seedling selecao"></i>
+          Sementes
+        </button>
+
+        <button class="opcao financas">
+          <i class="fa-solid fa-building-columns selecao"></i>
+          Finanças
+        </button>
+
+        <button class="opcao suporte">
+          <i class="fa-solid fa-comments-dollar selecao"></i>
+          Suporte
+        </button>
+
+        <button class="opcao relatorio">
+          <i class="fa-solid fa-envelope-open selecao"></i>
+          Relatório
+        </button>
+
+        <button class="opcao perfil">
+          <i class="fa-solid fa-circle-user selecao"></i>
+          Perfil
+        </button>
+
+        <button class="navbar">
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </aside>
+
+      <!-- Tela principal -->
       <div class="content" id="main-content">
-        <h1 class="title financas">Finanças</h1>
-        <div class="acessos">
-          <button class="funcao" id="novo-registro-btn">
-            <h2 class="subtitle content">Registrar nova despesa ou ganho</h2>
-            <i class="fa-solid fa-plus"></i>
-          </button>
-          <button class="funcao" id="despesas-ganhos-mes-btn">
-            <h2 class="subtitle content">Despesas e ganhos do último mês</h2>
-            <i class="fa-regular fa-calendar-days"></i>
-          </button>
-          <button class="funcao" id="despesas-ganhos-ano-btn">
-            <h2 class="subtitle content">Despesas e ganhos do último ano</h2>
-            <i class="fa-regular fa-calendar"></i>
-          </button>
-          <button class="funcao" id="grafico-lucro-btn">
-            <h2 class="subtitle content">Gerar gráfico de lucro</h2>
-            <i class="fa-solid fa-chart-line"></i>
-          </button>
-        </div>
+        <section class="secao-conteudo">
+          <div class="div-title">
+            <h1 class="title title--principal financas">Finanças</h1>
+          </div>
+
+          <div class="acessos">
+            <button class="funcao registros" id="meus-registros-btn">
+              <h2>Meus registros</h2>
+              <i class="fa-solid fa-list-ul"></i>
+            </button>
+
+            <button class="funcao registro" id="novo-registro-btn">
+              <h2>Novo registro</h2>
+              <i class="fa-solid fa-plus"></i>
+            </button>
+
+            <button class="funcao mes" id="despesas-ganhos-mes-btn">
+              <h2>Resumo do mês</h2>
+              <i class="fa-solid fa-chart-bar"></i>
+            </button>
+
+            <button class="funcao ano" id="despesas-ganhos-ano-btn">
+              <h2>Resumo do ano</h2>
+              <i class="fa-solid fa-chart-line"></i>
+            </button>
+          </div>
+        </section>
       </div>
-      <div class="content hidden" id="novo-registro-content">
-        <h1 class="title novo-registro">Registrar nova despesa ou ganho</h1>
-        <div class="acessos form">
+
+      <!-- Meus registros -->
+      <div
+        class="content content-secundario hidden"
+        id="meus-registros-content"
+      >
+        <section class="secao-conteudo">
+          <button class="btn-voltar" data-target="main-content">
+            <i class="fa-solid fa-arrow-left"></i>
+            Voltar
+          </button>
+
+          <h1 class="title meus-registros">Meus registros</h1>
+
+          <div id="lista-registros"></div>
+        </section>
+      </div>
+
+      <!-- Novo registro -->
+      <div class="content content-secundario hidden" id="novo-registro-content">
+        <section class="secao-conteudo">
+          <button class="btn-voltar" data-target="main-content">
+            <i class="fa-solid fa-arrow-left"></i>
+            Voltar
+          </button>
+
+          <h1 class="title novo-registro">Registrar nova despesa ou ganho</h1>
+
           <form action="" class="form-novo-registro" id="form-novo-registro">
             <div class="top">
-              <label for="tipo">Tipo</label>
-              <input
-                type="list"
-                name="tipo"
-                id="tipo-registro-financas"
-                placeholder="Despesa ou ganho"
-              />
-              <label for="valor">Valor</label>
+              <label for="tipo-registro-financas"> Tipo </label>
+              <select name="tipo" id="tipo-registro-financas" required>
+                <option value="">Selecione...</option>
+                <option value="ganho">Ganho</option>
+                <option value="despesa">Despesa</option>
+              </select>
+
+              <label for="valor-registro-financas"> Valor </label>
+
               <input
                 type="number"
                 name="valor"
                 id="valor-registro-financas"
                 placeholder="Em reais"
+                required
+              />
+
+              <label for="data-financa">Data</label>
+              <input id="data-financa" type="date" />
+            </div>
+
+            <div class="bottom">
+              <label for="observacao-registro-financas"> Observação </label>
+
+              <input
+                type="text"
+                name="observacao"
+                id="observacao-registro-financas"
+                placeholder="Venda, compra ou outro"
+              />
+
+              <label for="detalhe-registro-financas"> Detalhes</label>
+
+              <input
+                type="text"
+                name="detalhe"
+                id="detalhe-registro-financas"
+                placeholder="O que foi vendido / comprado"
               />
             </div>
-            <div class="bottom">
-            <label for="observacao">Observação</label>
-            <input
-              type="text"
-              name="observacao"
-              id="observacao-registro-financas"
-              placeholder="Venda, compra ou outro"
-            />
-            <label for="detalhe">Detalhe</label>
-            <input
-              type="text"
-              name="detalhe"
-              id="detalhe-registro-financas"
-              placeholder="O que foi vendido / comprado"
-            />
-        </div>
+
+            <button type="submit" class="btn-salvar">
+              <i class="fa-solid fa-check"></i>
+              Salvar registro
+            </button>
           </form>
-        </div>
+        </section>
       </div>
-      <div class="content hidden" id="despesas-ganhos-mes-content">
-        <h1 class="title despesas-ganhos-mes">
-          Despenhas e ganhos do último mês
-        </h1>
-        <div class="acessos">
+
+      <!-- Despesas e ganhos do mês -->
+      <div
+        class="content content-secundario hidden"
+        id="despesas-ganhos-mes-content"
+      >
+        <section class="secao-conteudo">
+          <button class="btn-voltar" data-target="main-content">
+            <i class="fa-solid fa-arrow-left"></i>
+            Voltar
+          </button>
+
+          <h1 class="title despesas-ganhos-mes">Lucro do último mês</h1>
+
           <div class="grafico" id="graf-despesas-ganhos-mes"></div>
-        </div>
+        </section>
       </div>
-      <div class="content hidden" id="despesas-ganhos-ano-content">
-        <h1 class="title despesas-ganhos-mes">
-          Despenhas e ganhos do último ano
-        </h1>
-        <div class="acessos">
+
+      <!-- Despesas e ganhos do ano -->
+      <div
+        class="content content-secundario hidden"
+        id="despesas-ganhos-ano-content"
+      >
+        <section class="secao-conteudo">
+          <button class="btn-voltar" data-target="main-content">
+            <i class="fa-solid fa-arrow-left"></i>
+            Voltar
+          </button>
+
+          <h1 class="title despesas-ganhos-ano">Lucro do último ano</h1>
+
           <div class="grafico" id="graf-despesas-ganhos-ano"></div>
-        </div>
-      </div>
-      <div class="content hidden" id="graf-lucro-content">
-        <h1 class="title graf-lucro">Gerar gráfico de lucro</h1>
-        <div class="acessos">
-          <div class="grafico" id="graf-lucro"></div>
-        </div>
+        </section>
       </div>
     </main>
 

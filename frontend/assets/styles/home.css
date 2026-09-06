@@ -46,7 +46,7 @@ main {
 aside {
   background-color: var(--verde-opcao);
   width: 17vw;
-  height: 100vh;
+  min-height: 100vh;
   flex-direction: column;
   align-items: center;
   gap: 5px;
