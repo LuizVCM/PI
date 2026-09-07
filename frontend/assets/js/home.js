@@ -78,3 +78,31 @@ btnRelatorio.addEventListener("click", () => {
 btnPerfil.addEventListener("click", () => {
   window.location.href = "./Perfil.html";
 });
+
+
+async function carregarUsuario() {
+    try {
+        const response = await fetch(
+            "http://localhost:3000/users/me",
+            {
+                credentials: "include",
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("Erro ao carregar usuário");
+        }
+
+        const usuario = await response.json();
+
+        document.getElementById("welcome-message").textContent =
+            `Olá, ${usuario.nome}!`;
+
+        document.getElementById("user-abbrev").textContent =
+            `${usuario.nome.substring(0, 2)}`;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+carregarUsuario();
