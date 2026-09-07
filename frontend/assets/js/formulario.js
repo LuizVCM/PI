@@ -28,7 +28,18 @@ entrar.addEventListener("click", () => showPanel(loginPainel));
 // formata esses campos
 const telefone = document.getElementById("telefone-cad");
 const cpf = document.getElementById("cpf-cad");
-const nome = document.getElementById("nome-cad");
+const nomeInput = document.getElementById("nome-cad");
+const sobrenomeInput = document.getElementById("sobrenome-cad");
+
+function validateName(input) {
+  input.addEventListener("input", () => {
+    // cada primeira letra fica maiuscula
+    input.value = input.value.replace(/(^|\s)\S/g, (letra) => letra.toUpperCase());
+  });
+}
+
+validateName(nomeInput);
+validateName(sobrenomeInput);
 
 telefone.addEventListener("input", () => {
   // remove o que não for dígito e limita pra 11 caracteres
@@ -215,10 +226,7 @@ loginForm.addEventListener("submit", async (event) => {
         setTimeout(() => (window.location.href = "./home.html"), 2000);
       }
     } catch (error) {
-      showErrorMessage(
-        "Erro interno do servidor. Tente novamente.",
-        loginForm,
-      );
+      showErrorMessage("Erro interno do servidor. Tente novamente.", loginForm);
     }
   } catch (error) {
     console.error(error);
