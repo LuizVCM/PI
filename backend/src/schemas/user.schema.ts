@@ -46,12 +46,14 @@ export const createUserSchema = z.object({
     .string()
     .trim()
     .min(3, "O nome é muito curto")
-    .max(100, "O nome é muito longo"),
+    .max(100, "O nome é muito longo")
+    .regex(/^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:\s+[A-Za-zÀ-ÖØ-öø-ÿ]+)*$/, "Informe nome usando apenas letras"),
   sobrenome: z
     .string()
     .trim()
     .min(3, "O sobrenome é muito curto")
-    .max(100, "O sobrenome é muito longo"),
+    .max(100, "O sobrenome é muito longo")
+    .regex(  /^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:\s+[A-Za-zÀ-ÖØ-öø-ÿ]+)*$/, "Informe sobrenome usando apenas letras"),
   email: z.email("E-mail inválido"),
   telefone: telefoneSchema,
   cpf: cpfSchema,
