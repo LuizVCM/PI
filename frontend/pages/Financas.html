@@ -3,21 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TerraFarr</title>
-
-    <link rel="icon" href="../assets/image/logo.jpeg" />
+    <title>TerraFarr – Finanças</title>
+    <link rel="icon" href="../assets/icon/logo.ico" />
     <link rel="stylesheet" href="../assets/styles/financas/all.css" />
 
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
     />
   </head>
 
   <body>
     <header>
-      <div class="user">Lv</div>
-      <span class="bem-vindo">Olá, usuário!</span>
+      <div class="user" id="user-abbrev"></div>
+      <span class="bem-vindo" id="welcome-message"></span>
     </header>
 
     <main>
@@ -86,12 +85,12 @@
             </button>
 
             <button class="funcao mes" id="despesas-ganhos-mes-btn">
-              <h2>Resumo do mês</h2>
-              <i class="fa-solid fa-chart-bar"></i>
+              <h2>Resumo financeiro do mês</h2>
+              <i class="fa-solid fa-chart-column"></i>
             </button>
 
             <button class="funcao ano" id="despesas-ganhos-ano-btn">
-              <h2>Resumo do ano</h2>
+              <h2>Evolução do lucro anual</h2>
               <i class="fa-solid fa-chart-line"></i>
             </button>
           </div>
@@ -123,7 +122,9 @@
             Voltar
           </button>
 
-          <h1 class="title novo-registro">Registrar nova despesa ou ganho</h1>
+          <h1 class="title novo-registro" id="titulo-form-financa">
+            Registrar nova despesa ou ganho
+          </h1>
 
           <form action="" class="form-novo-registro" id="form-novo-registro">
             <div class="top">
@@ -145,32 +146,38 @@
               />
 
               <label for="data-financa">Data</label>
-              <input id="data-financa" type="date" />
+              <input id="data-financa" name="data" type="date" />
             </div>
 
             <div class="bottom">
               <label for="observacao-registro-financas"> Observação </label>
 
-              <input
+              <textarea
                 type="text"
-                name="observacao"
+                name="observacoes"
                 id="observacao-registro-financas"
                 placeholder="Venda, compra ou outro"
-              />
+              ></textarea>
 
-              <label for="detalhe-registro-financas"> Detalhes</label>
+              <label for="detalhe-registro-financas">Detalhes</label>
 
-              <input
+              <textarea
                 type="text"
-                name="detalhe"
+                name="detalhes"
                 id="detalhe-registro-financas"
                 placeholder="O que foi vendido / comprado"
-              />
+              ></textarea>
             </div>
 
-            <button type="submit" class="btn-salvar">
-              <i class="fa-solid fa-check"></i>
+            <button type="submit" class="btn-action btn-salvar">
               Salvar registro
+            </button>
+            <button
+              type="button"
+              class="btn-action btn-cancelar hidden"
+              id="cancelar-edicao-btn"
+            >
+              Cancelar edição
             </button>
           </form>
         </section>
@@ -189,11 +196,13 @@
 
           <h1 class="title despesas-ganhos-mes">Lucro do último mês</h1>
 
-          <div class="grafico" id="graf-despesas-ganhos-mes"></div>
+          <div class="grafico">
+            <canvas id="graf-despesas-ganhos-mes"></canvas>
+          </div>
         </section>
       </div>
 
-      <!-- Despesas e ganhos do ano -->
+      <!--  analise financeira (grafico personalizado) -->
       <div
         class="content content-secundario hidden"
         id="despesas-ganhos-ano-content"
@@ -206,11 +215,116 @@
 
           <h1 class="title despesas-ganhos-ano">Lucro do último ano</h1>
 
-          <div class="grafico" id="graf-despesas-ganhos-ano"></div>
+          <div class="grafico">
+            <canvas id="graf-despesas-ganhos-ano"></canvas>
+          </div>
         </section>
       </div>
-    </main>
+      <!-- modal de visualização -->
+      <div id="modal-visualizar" class="modal hidden">
+        <div class="modal-overlay" id="modal-visualizar-overlay"></div>
+        <div class="modal-content">
+          <button class="modal-close" id="modal-visualizar-close">
+            &times;
+          </button>
+          <h2 id="modal-visualizar-title">Detalhes do registro</h2>
 
+          <div class="modal-visualizar-body">
+            <p>
+              <strong>Tipo:</strong> <span id="modal-visualizar-tipo"></span>
+            </p>
+            <p>
+              <strong>Valor:</strong> <span id="modal-visualizar-valor"></span>
+            </p>
+            <p>
+              <strong>Data:</strong> <span id="modal-visualizar-data"></span>
+            </p>
+            <hr />
+            <p><strong>Observação:</strong></p>
+            <div id="modal-visualizar-obs" class="modal-texto"></div>
+            <p><strong>Detalhes:</strong></p>
+            <div id="modal-visualizar-detalhes" class="modal-texto"></div>
+          </div>
+
+          <div class="modal-actions">
+            <button
+              class="btn-action btn-cancelar"
+              id="modal-visualizar-fechar"
+            >
+              Fechar
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- modal confirmar-->
+      <div id="modal-confirmacao" class="modal hidden">
+        <div class="modal-overlay" id="modal-confirmacao-overlay"></div>
+
+        <div class="modal-content modal-confirmacao-content">
+          <button class="modal-close" id="modal-confirmacao-close">
+            &times;
+          </button>
+
+          <div class="modal-confirmacao-icon">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+          </div>
+
+          <h2 id="modal-confirmacao-title">Confirmar exclusão</h2>
+
+          <p id="modal-confirmacao-message">
+            Tem certeza que deseja continuar?
+          </p>
+
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn-action btn-cancelar"
+              id="modal-confirmacao-cancelar"
+            >
+              Cancelar
+            </button>
+
+            <button
+              type="button"
+              class="btn-action btn-confirmar"
+              id="modal-confirmacao-confirmar"
+            >
+              Confirmar
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- modal de erro -->
+      <div id="modal-erro" class="modal hidden">
+        <div class="modal-overlay" id="modal-erro-overlay"></div>
+
+        <div class="modal-content modal-erro-content">
+          <button class="modal-close" id="modal-erro-close">&times;</button>
+
+          <div class="modal-erro-icon">
+            <i class="fa-solid fa-circle-exclamation"></i>
+          </div>
+
+          <h2 id="modal-erro-title">Ocorreu um erro</h2>
+
+          <p id="modal-erro-message">
+            Não foi possível realizar esta operação.
+          </p>
+
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn-action btn-cancelar"
+              id="modal-erro-fechar"
+            >
+              Fechar
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- biblioteca dos gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../assets/js/home.js"></script>
     <script src="../assets/js/pages/financas.js"></script>
   </body>
