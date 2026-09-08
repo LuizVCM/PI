@@ -11,6 +11,11 @@ export class DataSensorRepository {
       relations: { sensor: true },
     });
   }
+  async findByIdWithRelation(id: number) {
+    return this.base.findById(id, {
+      relations: { sensor: true },
+    });
+  }
   async create(data: CreateDataSensorDTO, sensor: Sensor): Promise<DataSensor> {
     const dataSensor = this.base.create({ ...data, sensor });
     return this.base.save(dataSensor);
