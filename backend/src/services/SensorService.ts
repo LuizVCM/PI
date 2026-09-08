@@ -3,85 +3,85 @@ import { NotFoundError } from "../errors/NotFoundError";
 import { CreateSensorDTO, UpdateSensorDTO } from "../schemas/sensor.schema";
 import { TerritoryRepository } from "../repositories/TerritoryRepository";
 import { AuthorizationService } from "./AuthorizationService";
+import { SensorMapper } from "../mappers/SensorMapper";
+import { dataFilter } from "../utils/data-filter";
+import { InternalServerError } from "../errors/InternalServerError";
 
 export class SensorService {
   private repo = new SensorRepository();
   private territoryRepo = new TerritoryRepository();
   async listAll() {
-    return await this.repo.base.findAll();
+    const sensors = await this.repo.findAllWithRelations();
+    return SensorMapper.toResponseList(sensors);
   }
-
   async getById(id: number) {
-    const sensor = await this.repo.base.findById(id);
-
+    const sensor = await this.repo.findByIdWithRelations(id);
     if (!sensor) {
       throw new NotFoundError("sensor");
     }
-    return sensor;
+    return SensorMapper.toResponse(sensor);
   }
   async listByTerritoryId(territoryId: number) {
-    const sensors = await this.repo.findByTerritoryId(territoryId);
-
-    if (!sensors) {
-      throw new NotFoundError(
-        "sensor",
-        "nenhum sensor encontrado para esse território"
-      );
-    }
-    return sensors;
+    const sensors = await this.repo.findAllByTerritoryId(territoryId);
+    return SensorMapper.toResponseList(sensors);
   }
   async listByUserLogged(userId: number) {
-    const sensors = await this.repo.findByUserId(userId);
-    return sensors;
+    const sensors = await this.repo.findAllByUserId(userId);
+    return SensorMapper.toResponseList(sensors);
   }
-  async create(data: CreateSensorDTO, territoryId: number) {
-    const territory = await this.territoryRepo.base.findById(territoryId);
+  async create(
+    data: CreateSensorDTO,
+    territoryId: number,
+    loggedUserId: number
+  ) {
+    const territory = await this.territoryRepo.findByIdWithRelations(
+      territoryId
+    );
     if (!territory) {
       throw new NotFoundError("território");
     }
-    return await this.repo.create(data, territory);
+    AuthorizationService.ensureOwnership(territory, loggedUserId, "território");
+    const sensor = await this.repo.create(data, territory);
+    return SensorMapper.toResponse(sensor);
   }
-
   async update(id: number, data: UpdateSensorDTO, loggedUserId: number) {
-    const sensor = await this.repo.base.findById(id);
+    const sensor = await this.repo.findByIdWithRelations(id);
     if (!sensor) {
       throw new NotFoundError("sensor");
     }
-
+    AuthorizationService.ensureRelationActive(
+      sensor.territorio,
+      "sensor",
+      "território"
+    );
     AuthorizationService.ensureOwnership(
       sensor.territorio,
       loggedUserId,
       "sensores"
     );
-
-    Object.assign(
-      sensor,
-      Object.fromEntries(
-        Object.entries(data).filter(([, value]) => value !== undefined)
-      )
-    );
-
+    dataFilter(sensor, data);
     const sensorUpdated = await this.repo.base.save(sensor);
     return sensorUpdated;
   }
-
   async delete(id: number, loggedUserId: number) {
-    const sensor = await this.repo.base.findById(id);
-
+    const sensor = await this.repo.findByIdWithRelations(id);
     if (!sensor) {
       throw new NotFoundError("sensor");
     }
-
+    AuthorizationService.ensureRelationActive(
+      sensor.territorio,
+      "sensor",
+      "território"
+    );
     AuthorizationService.ensureOwnership(
       sensor.territorio,
       loggedUserId,
       "sensores"
     );
-
     const result = await this.repo.base.softDelete(id);
-
     if (result.affected === 0) {
-      throw new NotFoundError("sensor");
+      throw new InternalServerError("Não foi possível deletar");
     }
+    return result;
   }
 }
