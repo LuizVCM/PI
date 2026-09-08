@@ -25,24 +25,7 @@ navbar.addEventListener("click", () => {
   arrow.classList.toggle("virado");
   navbar.classList.toggle("outroLado")
 
-  if (
-    ((
-      texto1 &&
-      text4 &&
-      texto2 &&
-      texto3 &&
-      texto5 &&
-      texto6 &&
-      texto7 &&
-      texto8
-    ).textContent = "")
-  ) {
-    texto1.textContent = "Clima";
-    texto2.textContent = "Gestao";
-    texto3.textContent = "Segurança";
-    text4.textContent = "Semente";
-    texto5.textContent = "Finanças";
-  }
+  
 });
 
 // BOTEOES E QUE DIRECIONAN NAS NECESSIDADES

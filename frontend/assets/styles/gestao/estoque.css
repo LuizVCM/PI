@@ -1,75 +1,135 @@
-.estoque{
-    width:100%;
-    padding:25px 35px;
-    background:var(--conteudo-fundo);
+/* =========================
+   CONTROLE DE ESTOQUE
+========================= */
+
+.estoque {
+    width: 100%;
+    min-height: calc(100vh - 80px);
+
+    padding: 35px;
+
+    background: var(--conteudo-fundo);
 }
 
-.cabecalho-estoque{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:25px;
-    color: #068822;
+.cabecalho-estoque {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 30px;
 }
 
-.cards-estoque{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:20px;
-    margin-bottom:25px;
+.cabecalho-estoque h2 {
+    margin: 0;
+    font-size: 30px;
 }
 
-.card-estoque{
-    background:#fff;
-    padding:20px;
-    border-radius:12px;
-    text-align:center;
-    box-shadow:0 2px 8px rgba(48, 238, 0, 0.08);
+.acoes-estoque {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-.card-estoque h3{
-    color:var(--verde-profundo);
-    font-size:28px;
-    margin-bottom:8px;
+.btn-novo,
+.btn-voltar,
+.btn-editar {
+    border: none;
+    border-radius: 8px;
+
+    padding: 11px 16px;
+
+    cursor: pointer;
+
+    font-weight: 600;
 }
 
-.card-estoque p{
-    color:#666;
+.btn-novo {
+    background: var(--verde-profundo);
+    color: white;
 }
 
-.tabela-estoque{
-    width:100%;
-    border-collapse:collapse;
-    background:#fff;
-    border-radius:12px;
-    overflow:hidden;
-    box-shadow:0 2px 8px rgba(0,0,0,.08);
+.btn-voltar {
+    background: #e8e8e8;
 }
 
-.tabela-estoque th{
-    background:var(--verde-profundo);
-    color:#fff;
-    padding:14px;
+.cards-estoque {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 20px;
+
+    margin-bottom: 25px;
 }
 
-.tabela-estoque td{
-    padding:14px;
-    text-align:center;
-    border-bottom:1px solid #eee;
+.card-estoque {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    text-align: center;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
 }
 
-.entrada{
-    background:#d4edda;
-    color:#155724;
-    padding:6px 12px;
-    border-radius:20px;
-    font-weight:bold;
+.card-estoque h3 {
+    margin: 0 0 8px;
+
+    font-size: 30px;
+
+    color: var(--verde-profundo);
 }
 
-.saida{
-    background:#dff0dd8f;
-    color:#068822;
-    padding:6px 12px;
-    border-radius:20px;
-    font-weight:bold;
+.card-estoque p {
+    margin: 0;
+    color: #666;
+}
+
+.tabela-estoque {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+.tabela-estoque th,
+.tabela-estoque td {
+    padding: 15px;
+
+    text-align: left;
+
+    border-bottom: 1px solid #eee;
+}
+
+.tabela-estoque th {
+    font-size: 14px;
+    color: #555;
+}
+
+.entrada {
+    padding: 6px 10px;
+
+    border-radius: 20px;
+
+    background: #d1e7dd;
+    color: #0f5132;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.saida {
+    padding: 6px 10px;
+
+    border-radius: 20px;
+
+    background: #f8d7da;
+    color: #842029;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.btn-editar {
+    background: #eeeeee;
 }

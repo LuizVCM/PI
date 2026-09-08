@@ -77,6 +77,13 @@ body{
     filter: contrast(120%) brightness(110%);
     box-shadow: inset 0 0 45px rgb(69, 94, 69);
 }
+
+@media (max-width: 400px) {
+    .fundo{
+        transform: scale(0.85);
+    }
+    
+}
 input::placeholder{
     color:rgba(255, 255, 255, 0.678);
     padding:10px;
