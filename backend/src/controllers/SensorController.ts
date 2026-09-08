@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { SensorService } from "../services/SensorService";
 import { CreateSensorDTO, UpdateSensorDTO } from "../schemas/sensor.schema";
-import { TerritoryService } from "../services/TerritoryService";
 
 export class SensorController {
   private sensorService = new SensorService();
