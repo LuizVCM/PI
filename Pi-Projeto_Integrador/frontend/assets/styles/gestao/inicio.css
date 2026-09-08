@@ -235,61 +235,19 @@
 }/* =========================
    RESPONSIVIDADE
 ========================= */
-
-@media (max-width: 940px) {
-
-    .gestao-inicio h1 {
-        font-size: 4vw;
-    }
-
-    .gestao-inicio .acessos .funcao span {
-        font-size: 4vw;
-    }
-}
-
-
-@media (max-width: 700px) {
-
-    .gestao-inicio {
-        padding: 15px;
-    }
-
-    .gestao-inicio h1 {
-        font-size: 1.8rem;
-    }
-
-    .gestao-inicio .acessos {
-        gap: 18px;
-    }
-
-    .gestao-inicio .acessos .funcao {
-        width: 90%;
-        height: 15%;
-        padding: 25px;
-    }
-
-    .gestao-inicio .acessos .funcao span {
-        font-size: 22px;
-    }
-
-    .gestao-inicio .acessos .funcao i {
-        transform: scaleX(1) scale(1.4);
-    }
-}
-
-
 @media (max-width: 590px) {
 
-    .gestao-inicio .acessos .funcao {
-        width: 95%;
-        padding: 20px;
+    main {
+        display: flex;
     }
 
-    .gestao-inicio .acessos .funcao span {
-        font-size: 17px;
+    .gestao-inicio,
+    .tela-cadastro,
+    .tela-agenda,
+    .tela-insumos,
+    .tela-estoque {
+        flex: 1;
+        min-width: 0;
     }
 
-    .gestao-inicio .acessos .funcao i {
-        transform: scaleX(1) scale(1.2);
-    }
 }
