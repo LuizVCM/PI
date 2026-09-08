@@ -7,13 +7,15 @@ import financeRoutes from "./finance.routes";
 import stockRoutes from "./stock.routes";
 import plantRoutes from "./plant.routes";
 import seedRoutes from "./seed.routes";
+import sensorRoutes from "./sensor.routes";
 const router = Router();
 router.use("/auth", authRoutes); // login, logout e checar senha
-router.use("/crops", cropRoutes);
 router.use("/users", userRoutes);
 router.use("/territories", territoryRoutes);
 router.use("/plants", plantRoutes);
+router.use("/seeds", seedRoutes);
+router.use("/crops", cropRoutes);
 router.use("/finances", financeRoutes);
 router.use("/stocks", stockRoutes);
-router.use("/seeds", seedRoutes);
+router.use("/sensor", sensorRoutes);
 export default router;
