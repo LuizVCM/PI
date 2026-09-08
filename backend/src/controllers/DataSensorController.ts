@@ -4,16 +4,6 @@ import { DataSensorService } from "../services/DataSensorService";
 export class DataSensorController {
   private dataSensorService = new DataSensorService();
 
-  async list(req: Request, res: Response, next: NextFunction) {
-    try {
-      const data = await this.dataSensorService.listAll();
-
-      return res.json(data);
-    } catch (error) {
-      next(error);
-    }
-  }
-
   async getById(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id);

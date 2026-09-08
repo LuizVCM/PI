@@ -5,6 +5,7 @@ import {
 } from "../schemas/finance.schema";
 import { createPlantSchema, updatePlantSchema } from "../schemas/plant.schema";
 import { createSeedSchema, updateSeedSchema } from "../schemas/seed.schema";
+import { createSensorSchema, updateSensorSchema } from "../schemas/sensor.schema";
 import { createStockSchema, updateStockSchema } from "../schemas/stock.schema";
 import {
   createTerritorySchema,
@@ -35,3 +36,5 @@ export const validatePlantUpdate = validate(updatePlantSchema);
 export const validateSeedCreate = validate(createSeedSchema);
 export const validateSeedUpdate = validate(updateSeedSchema);
 export const validateWeatherCreate = validate(createWeatherSchema);
+export const validateSensorCreate = validate(createSensorSchema);
+export const validateSensorUpdate = validate(updateSensorSchema);

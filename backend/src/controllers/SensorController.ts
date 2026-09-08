@@ -1,14 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import { SensorService } from "../services/SensorService";
-import {
-  CreateSensorDTO,
-  UpdateSensorDTO,
-} from "../schemas/sensor.schema";
-import { TerritoryService } from "../services/TerritoryService";
+import { CreateSensorDTO, UpdateSensorDTO } from "../schemas/sensor.schema";
 
 export class SensorController {
   private sensorService = new SensorService();
-  private territoryService = new TerritoryService();
 
   async list(req: Request, res: Response, next: NextFunction) {
     try {
@@ -43,10 +38,13 @@ export class SensorController {
   async create(req: Request, res: Response, next: NextFunction) {
     try {
       const loggedUser = req.user!.id;
-      await this.territoryService.listByUserLogged(loggedUser);
       const territoryId = Number(req.params.id);
       const createSensorData = req.body as CreateSensorDTO;
-      const sensor = await this.sensorService.create(createSensorData, territoryId);
+      const sensor = await this.sensorService.create(
+        createSensorData,
+        territoryId,
+        loggedUser
+      );
       return res.status(201).json(sensor);
     } catch (error) {
       next(error);
