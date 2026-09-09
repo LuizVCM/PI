@@ -14,11 +14,16 @@ export class StockService {
     const stocks = await this.repo.findAllWithUser();
     return StockMapper.toResponseList(stocks);
   }
-  async getById(id: number) {
+  async getById(id: number, loggedUserId: number) {
     const stock = await this.repo.findByIdWithUser(id);
     if (!stock) {
       throw new NotFoundError("registro de insumo");
     }
+    AuthorizationService.ensureOwnership(
+      stock,
+      loggedUserId,
+      "registro de insumo"
+    );
     return StockMapper.toResponse(stock);
   }
   async listByUserLogged(userId: number) {
@@ -48,7 +53,7 @@ export class StockService {
     return StockMapper.toSummaryResponse(stockUpdated);
   }
   async delete(id: number, loggedUserId: number) {
-    const stock = await this.repo.base.findById(id);
+    const stock = await this.repo.findByIdWithUser(id);
     if (!stock) {
       throw new NotFoundError("registro de insumos");
     }

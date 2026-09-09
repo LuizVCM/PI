@@ -18,11 +18,12 @@ export class TerritoryService {
     const territories = await this.repo.findAllWithUser();
     return TerritoryMapper.toResponseList(territories);
   }
-  async getById(id: number) {
+  async getById(id: number, loggedUserId: number) {
     const territory = await this.repo.findByIdWithRelations(id);
     if (!territory) {
       throw new NotFoundError("território");
     }
+    AuthorizationService.ensureOwnership(territory, loggedUserId, "território");
     return TerritoryMapper.toResponse(territory);
   }
   async listByUserLogged(userId: number) {

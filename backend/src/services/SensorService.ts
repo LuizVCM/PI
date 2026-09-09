@@ -14,14 +14,31 @@ export class SensorService {
     const sensors = await this.repo.findAllWithRelations();
     return SensorMapper.toResponseList(sensors);
   }
-  async getById(id: number) {
+  async getById(id: number, loggedUserId: number) {
     const sensor = await this.repo.findByIdWithRelations(id);
     if (!sensor) {
       throw new NotFoundError("sensor");
     }
+    AuthorizationService.ensureRelationActive(
+      sensor.territorio,
+      "sensor",
+      "território"
+    );
+    AuthorizationService.ensureOwnership(
+      sensor.territorio,
+      loggedUserId,
+      "sensor"
+    );
     return SensorMapper.toResponse(sensor);
   }
-  async listByTerritoryId(territoryId: number) {
+  async listByTerritoryId(territoryId: number, loggedUserId: number) {
+    const territory = await this.territoryRepo.findByIdWithRelations(
+      territoryId
+    );
+    if (!territory) {
+      throw new NotFoundError("território");
+    }
+    AuthorizationService.ensureOwnership(territory, loggedUserId, "território");
     const sensors = await this.repo.findAllByTerritoryId(territoryId);
     return SensorMapper.toResponseList(sensors);
   }
@@ -40,6 +57,11 @@ export class SensorService {
     if (!territory) {
       throw new NotFoundError("território");
     }
+    AuthorizationService.ensureRelationActive(
+      territory,
+      "sensor",
+      "território"
+    );
     AuthorizationService.ensureOwnership(territory, loggedUserId, "território");
     const sensor = await this.repo.create(data, territory);
     return SensorMapper.toResponse(sensor);
@@ -57,7 +79,7 @@ export class SensorService {
     AuthorizationService.ensureOwnership(
       sensor.territorio,
       loggedUserId,
-      "sensores"
+      "sensor"
     );
     dataFilter(sensor, data);
     const sensorUpdated = await this.repo.base.save(sensor);
@@ -76,7 +98,7 @@ export class SensorService {
     AuthorizationService.ensureOwnership(
       sensor.territorio,
       loggedUserId,
-      "sensores"
+      "sensor"
     );
     const result = await this.repo.base.softDelete(id);
     if (result.affected === 0) {
