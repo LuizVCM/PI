@@ -5,17 +5,27 @@ import {
   validateStockCreate,
   validateStockUpdate,
 } from "../middlewares/index.validate";
+import { adminMiddleware } from "../middlewares/admin-middleware";
 
 const stockRoutes = Router();
 const stockController = new StockController();
 
-stockRoutes.get("/all", stockController.listAll.bind(stockController));
+stockRoutes.get(
+  "/all",
+  authMiddleware,
+  adminMiddleware("estoques"),
+  stockController.listAll.bind(stockController)
+);
 stockRoutes.get(
   "/me",
   authMiddleware,
   stockController.listMyStock.bind(stockController)
 );
-stockRoutes.get("/:id", stockController.getById.bind(stockController));
+stockRoutes.get(
+  "/:id",
+  authMiddleware,
+  stockController.getById.bind(stockController)
+);
 stockRoutes.post(
   "/",
   authMiddleware,

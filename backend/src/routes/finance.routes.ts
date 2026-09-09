@@ -1,3 +1,4 @@
+import { adminMiddleware } from "../middlewares/admin-middleware";
 import { authMiddleware } from "../middlewares/auth-middleware";
 import {
   validateFinanceCreate,
@@ -9,13 +10,22 @@ import { Router } from "express";
 const financeRoutes = Router();
 const financeController = new FinanceController();
 
-financeRoutes.get("/all", financeController.listAll.bind(financeController));
+financeRoutes.get(
+  "/all",
+  authMiddleware,
+  adminMiddleware("registros financeiros"),
+  financeController.listAll.bind(financeController)
+);
 financeRoutes.get(
   "/me",
   authMiddleware,
   financeController.listMyFinances.bind(financeController)
 );
-financeRoutes.get("/:id", financeController.getById.bind(financeController));
+financeRoutes.get(
+  "/:id",
+  authMiddleware,
+  financeController.getById.bind(financeController)
+);
 financeRoutes.post(
   "/",
   authMiddleware,

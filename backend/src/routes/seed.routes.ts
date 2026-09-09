@@ -13,7 +13,7 @@ const seedController = new SeedController();
 seedRoutes.get(
   "/all",
   authMiddleware,
-  adminMiddleware,
+  adminMiddleware("sementes"),
   seedController.listAll.bind(seedController)
 );
 seedRoutes.get(

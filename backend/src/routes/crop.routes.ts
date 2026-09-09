@@ -5,11 +5,17 @@ import {
   validateCropCreate,
   validateCropUpdate,
 } from "../middlewares/index.validate";
+import { adminMiddleware } from "../middlewares/admin-middleware";
 
 const cropRoutes = Router();
 const cropController = new CropController();
 
-cropRoutes.get("/all", cropController.listAll.bind(cropController));
+cropRoutes.get(
+  "/all",
+  authMiddleware,
+  adminMiddleware("plantações"),
+  cropController.listAll.bind(cropController)
+);
 cropRoutes.get(
   "/me",
   authMiddleware,
