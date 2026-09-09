@@ -1,170 +1,158 @@
-const navbar = document.querySelector(".navbar");
-const aside = document.querySelector(".aside");
-const arrow = document.querySelector(".fa-arrow-right")
-// IMPORTANDO MENU
-const btnClima = document.querySelector(".clima")
-const btnGestao = document.querySelector(".gestao")
-const btnSegurancas = document.querySelector(".segurancas")
-const btnSementes = document.querySelector(".sementes")
-const btnfinancas = document.querySelector(".financas")
-const btnSuporte = document.querySelector(".suporte")
-const btnRelatorio = document.querySelector(".relatorio")
-const btnPerfil = document.querySelector(".perfil")
+// =========================
+// TELAS
+// =========================
 
-navbar.addEventListener("click", () => {
-    aside.classList.toggle("aside-encolhido");
-    arrow.classList.toggle("virado")
-})
-
-// BOTEOES E QUE DIRECIONAN NAS NECESSIDADES
-
-btnClima.addEventListener("click", () => {
-    window.location.href = "./Clima.html"
-})
-
-btnGestao.addEventListener("click", () => {
-    window.location.href = "./Gestao.html"
-})
-
-btnSegurancas.addEventListener("click", () => {
-    window.location.href = "./Seguranca.html"
-})
-
-btnSementes.addEventListener("click", () => {
-    window.location.href = "./Sementes.html"
-})
-
-btnfinancas.addEventListener("click", () => {
-    window.location.href = "./Financas.html"
-})
-
-btnSuporte.addEventListener("click", () => {
-    window.location.href = "./Suporte.html"
-})
-
-btnRelatorio.addEventListener("click", () => {
-    window.location.href = "./Relatorio.html"
-})
-
-btnPerfil.addEventListener("click", () => {
-    window.location.href = "./Perfil.html"
-})
-
-// ================= TELAS =================
+const telaHome = document.querySelector("#tela-inicio");
+const telaCadastro = document.querySelector("#tela-cadastro");
+const telaAgenda = document.querySelector("#tela-agenda");
+const telaInsumos = document.querySelector("#tela-insumos");
+const telaEstoque = document.querySelector("#tela-estoque");
 
 
-// Pegando as telas pelo ID do HTML
-// O JavaScript precisa encontrar essas partes para conseguir trocar entre elas
+// =========================
+// BOTÕES DE ACESSO
+// =========================
 
-const telaHome = document.getElementById("tela-home");
-
-const telaCadastro = document.getElementById("tela-cadastro");
-
-const telaAgenda = document.getElementById("tela-agenda");
-
-const telaInsumos = document.getElementById("tela-insumos");
-
-const telaEstoque = document.getElementById("tela-estoque");
+const btnCadastro = document.querySelector("#btnCadastro");
+const btnAgenda = document.querySelector("#btnAgenda");
+const btnInsumos = document.querySelector("#btnInsumos");
+const btnEstoque = document.querySelector("#btnEstoque");
 
 
-// ================= BOTÕES =================
+// =========================
+// BOTÕES VOLTAR
+// =========================
 
-// Pegando os botões pelo ID para conseguir colocar ações neles
+const btnVoltar = document.querySelector("#btnVoltar");
+const btnVoltarAgenda = document.querySelector("#btnVoltarAgenda");
+const btnVoltarInsumos = document.querySelector("#btnVoltarInsumos");
+const btnVoltarEstoque = document.querySelector("#btnVoltarEstoque");
 
-const btnCadastro = document.getElementById("btnCadastro");
 
-const btnVoltar = document.getElementById("btnVoltar");
+// =========================
+// TODAS AS TELAS
+// =========================
 
-const btnAgenda = document.getElementById("btnAgenda");
+const telas = [
+    telaHome,
+    telaCadastro,
+    telaAgenda,
+    telaInsumos,
+    telaEstoque
+];
 
-const btnVoltarAgenda = document.getElementById("btnVoltarAgenda");
 
-const btnInsumos = document.getElementById("btnInsumos");
+// =========================
+// TROCAR DE TELA
+// =========================
 
-const btnVoltarInsumos = document.getElementById("btnVoltarInsumos");
+function mostrarTela(telaSelecionada) {
 
-const btnEstoque = document.getElementById("btnEstoque");
+    telas.forEach((tela) => {
 
-const btnVoltarEstoque = document.getElementById("btnVoltarEstoque");
+        tela.classList.remove("ativa");
+        tela.classList.add("hidden");
 
-// Quando clicar no botão cadastro
+    });
+
+    telaSelecionada.classList.remove("hidden");
+    telaSelecionada.classList.add("ativa");
+}
+
+
+// =========================
+// ABRIR CADASTRO
+// =========================
+
 btnCadastro.addEventListener("click", () => {
-    // Esconde a tela inicial
-    telaHome.classList.remove("ativa")
-    telaHome.classList.add("hidden");
-    // Mostra a tela de cadastro
-    telaCadastro.classList.remove("hidden");
-    telaCadastro.classList.add("ativa");
+
+    mostrarTela(telaCadastro);
+
 });
 
-// Quando clicar no botão voltar do cadastro
-btnVoltar.addEventListener("click", () => {
-    // Esconde a tela de cadastro
-    telaCadastro.classList.remove("ativa");
-    telaCadastro.classList.add("hidden");
-    // Mostra novamente a tela inicial
-    telaHome.classList.remove("hidden");
-    telaHome.classList.add("ativa");
-});
 
-// Quando clicar no botão agenda
+// =========================
+// ABRIR AGENDA
+// =========================
+
 btnAgenda.addEventListener("click", () => {
-    // Esconde a tela inicial
-    telaHome.classList.remove("ativa");
-    telaHome.classList.add("hidden");
-    // Mostra a tela de agenda
-    telaAgenda.classList.remove("hidden");
-    telaAgenda.classList.add("ativa");
-});
 
-// Quando clicar no botão voltar da agenda
-btnVoltarAgenda.addEventListener("click", () => {
-    // Esconde a tela agenda
-    telaAgenda.classList.remove("ativa");
-    telaAgenda.classList.add("hidden");
-    // Mostra a tela inicial novamente
-    telaHome.classList.remove("hidden");
-    telaHome.classList.add("ativa");
+    mostrarTela(telaAgenda);
+
 });
 
 
+// =========================
+// ABRIR INSUMOS
+// =========================
 
-// Abrir tela de insumos
 btnInsumos.addEventListener("click", () => {
-    telaHome.classList.remove("ativa");
-    telaHome.classList.add("hidden");
 
-    telaInsumos.classList.remove("hidden");
-    telaInsumos.classList.add("ativa");
+    mostrarTela(telaInsumos);
+
 });
 
-// Voltar para a tela inicial
-btnVoltarInsumos.addEventListener("click", () => {
-    telaInsumos.classList.remove("ativa");
-    telaInsumos.classList.add("hidden");
 
-    telaHome.classList.remove("hidden");
-    telaHome.classList.add("ativa");
-});
+// =========================
+// ABRIR ESTOQUE
+// =========================
 
-// Abrir tela
 btnEstoque.addEventListener("click", () => {
 
-    telaHome.classList.remove("ativa");
-    telaHome.classList.add("hidden");
-
-    telaEstoque.classList.remove("hidden");
-    telaEstoque.classList.add("ativa");
+    mostrarTela(telaEstoque);
 
 });
 
-// Voltar
-btnVoltarEstoque.addEventListener("click", () => {
 
-    telaEstoque.classList.remove("ativa");
-    telaEstoque.classList.add("hidden");
+// =========================
+// VOLTAR PARA INÍCIO
+// =========================
 
-    telaHome.classList.remove("hidden");
-    telaHome.classList.add("ativa");
+function voltarInicio() {
+    mostrarTela(telaHome);
+}
 
-});
+// =========================
+// BOTÕES VOLTAR
+// =========================
+
+btnVoltar.addEventListener("click", voltarInicio);
+
+btnVoltarAgenda.addEventListener("click", voltarInicio);
+
+btnVoltarInsumos.addEventListener("click", voltarInicio);
+
+btnVoltarEstoque.addEventListener("click", voltarInicio);
+
+
+// =========================
+// LIMPAR CADASTRO
+// =========================
+
+const btnLimpar = document.querySelector(".btn-limpar");
+
+if (btnLimpar) {
+
+    btnLimpar.addEventListener("click", () => {
+
+        const campos = telaCadastro.querySelectorAll(
+            "input, select, textarea"
+        );
+
+        campos.forEach((campo) => {
+
+            if (campo.tagName === "SELECT") {
+
+                campo.selectedIndex = 0;
+
+            } else {
+
+                campo.value = "";
+
+            }
+
+        });
+
+    });
+
+}

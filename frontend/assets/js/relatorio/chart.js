@@ -450,4 +450,5 @@ chart.render()
 }
 
 dadosNaturais()
+setInterval(dadosNaturais, 100000)
 
