@@ -1,7 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import { TerritoryService } from "../services/TerritoryService";
-import { UnauthorizedError } from "../errors/UnauthorizedError";
-import { CreateTerritoryDTO, UpdateTerritoryDTO } from "../schemas/territory.schema";
+import {
+  CreateTerritoryDTO,
+  UpdateTerritoryDTO,
+} from "../schemas/territory.schema";
 
 export class TerritoryController {
   private territoryService = new TerritoryService();
@@ -16,7 +18,8 @@ export class TerritoryController {
   async getById(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id);
-      const territory = await this.territoryService.getById(id);
+      const loggedUser = req.user!.id;
+      const territory = await this.territoryService.getById(id, loggedUser);
       return res.json(territory);
     } catch (error) {
       next(error);

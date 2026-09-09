@@ -9,8 +9,8 @@ const sensorController = new SensorController();
 sensorRoutes.get(
   "/all",
   authMiddleware,
-  adminMiddleware,
-  sensorController.list.bind(sensorController)
+  adminMiddleware("sensores"),
+  sensorController.listAll.bind(sensorController)
 );
 sensorRoutes.get(
   "/me",
@@ -23,7 +23,7 @@ sensorRoutes.get(
   sensorController.getById.bind(sensorController)
 );
 sensorRoutes.post(
-  "/:id",
+  "/territory/:id",
   authMiddleware,
   sensorController.create.bind(sensorController)
 );

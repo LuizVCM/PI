@@ -15,7 +15,8 @@ export class StockController {
   async getById(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id);
-      const stock = await this.stockService.getById(id);
+      const loggedUser = req.user!.id;
+      const stock = await this.stockService.getById(id, loggedUser);
       return res.json(stock);
     } catch (error) {
       next(error);
@@ -45,7 +46,11 @@ export class StockController {
       const id = Number(req.params.id);
       const loggedUser = req.user!.id;
       const updateStockData = req.body as UpdateStockDTO;
-      const stock = await this.stockService.update(id, updateStockData, loggedUser);
+      const stock = await this.stockService.update(
+        id,
+        updateStockData,
+        loggedUser
+      );
       return res.json(stock);
     } catch (error) {
       next(error);

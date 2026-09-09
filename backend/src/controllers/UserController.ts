@@ -63,9 +63,7 @@ export class UserController {
     try {
       const id = req.user!.id;
       await this.userService.delete(id);
-      return res.status(204).json({
-        success: true,
-      });
+      return res.status(204).send();
     } catch (error) {
       next(error);
     }

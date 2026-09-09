@@ -14,11 +14,16 @@ export class FinanceService {
     const finances = await this.repo.findAllWithUser();
     return FinanceMapper.toResponseList(finances);
   }
-  async getById(id: number) {
+  async getById(id: number, loggedUserId: number) {
     const finance = await this.repo.findByIdWithUser(id);
     if (!finance) {
       throw new NotFoundError("registro financeiro");
     }
+    AuthorizationService.ensureOwnership(
+      finance,
+      loggedUserId,
+      "registro financeiro"
+    );
     return FinanceMapper.toResponse(finance);
   }
   async listByUserLogged(userId: number) {

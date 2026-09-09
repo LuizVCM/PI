@@ -10,7 +10,7 @@ const weatherController = new WeatherController();
 weatherRoutes.get(
   "/all",
   authMiddleware,
-  adminMiddleware,
+  adminMiddleware("registros climáticos"),
   weatherController.listAll.bind(weatherController)
 );
 weatherRoutes.get(
@@ -34,3 +34,5 @@ weatherRoutes.post(
   validateWeatherCreate,
   weatherController.create.bind(weatherController)
 );
+
+export default weatherRoutes;

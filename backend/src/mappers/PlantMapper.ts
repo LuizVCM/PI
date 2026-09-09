@@ -29,9 +29,6 @@ export class PlantMapper {
       fosforo: plant.fosforo ?? "indisponível",
       potassio: plant.potassio ?? "indisponível",
       unidadeNpk: plant.unidadeNpk ?? "indisponível",
-
-      criadoEm: plant.createdAt,
-      atualizadoEm: plant.updatedAt,
     };
   }
   static toSummaryResponse(plant: Plant) {
@@ -68,9 +65,6 @@ export class PlantMapper {
       fosforo: plant.fosforo ?? "indisponível",
       potassio: plant.potassio ?? "indisponível",
       unidadeNpk: plant.unidadeNpk ?? "indisponível",
-
-      criadoEm: plant.createdAt,
-      atualizadoEm: plant.updatedAt,
 
       sementes: plant.sementes
         ? SeedMapper.toSummaryResponseList(plant.sementes)

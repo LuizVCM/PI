@@ -8,6 +8,7 @@ import stockRoutes from "./stock.routes";
 import plantRoutes from "./plant.routes";
 import seedRoutes from "./seed.routes";
 import sensorRoutes from "./sensor.routes";
+import weatherRoutes from "./weather.routes";
 const router = Router();
 router.use("/auth", authRoutes); // login, logout e checar senha
 router.use("/users", userRoutes);
@@ -18,4 +19,6 @@ router.use("/crops", cropRoutes);
 router.use("/finances", financeRoutes);
 router.use("/stocks", stockRoutes);
 router.use("/sensor", sensorRoutes);
+router.use("/weather", weatherRoutes);
+
 export default router;

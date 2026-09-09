@@ -4,27 +4,24 @@ import { CreateSensorDTO, UpdateSensorDTO } from "../schemas/sensor.schema";
 
 export class SensorController {
   private sensorService = new SensorService();
-
-  async list(req: Request, res: Response, next: NextFunction) {
+  async listAll(req: Request, res: Response, next: NextFunction) {
     try {
       const sensors = await this.sensorService.listAll();
-
       return res.json(sensors);
     } catch (error) {
       next(error);
     }
   }
-
   async getById(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id);
-      const sensor = await this.sensorService.getById(id);
+      const loggedUser = req.user!.id;
+      const sensor = await this.sensorService.getById(id, loggedUser);
       return res.json(sensor);
     } catch (error) {
       next(error);
     }
   }
-
   async listMySensors(req: Request, res: Response, next: NextFunction) {
     try {
       const id = req.user!.id;
@@ -34,7 +31,16 @@ export class SensorController {
       next(error);
     }
   }
-
+  async listByTerritoryId(req: Request, res: Response, next: NextFunction) {
+    try {
+      const id = Number(req.params.id);
+      const loggedUser = req.user!.id;
+      const sensors = await this.sensorService.listByTerritoryId(id, loggedUser);
+      return res.status(200).json(sensors);
+    } catch (error) {
+      next(error);
+    }
+  }
   async create(req: Request, res: Response, next: NextFunction) {
     try {
       const loggedUser = req.user!.id;
@@ -50,7 +56,6 @@ export class SensorController {
       next(error);
     }
   }
-
   async update(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id);
@@ -66,7 +71,6 @@ export class SensorController {
       next(error);
     }
   }
-
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
       const loggedUser = req.user!.id;

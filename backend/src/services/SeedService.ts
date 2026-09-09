@@ -16,15 +16,15 @@ export class SeedService {
     const seeds = await this.repo.findAllWithRelations();
     return SeedMapper.toResponseList(seeds);
   }
-  async getById(id: number) {
+  async getById(id: number, loggedUserId: number) {
     const seed = await this.repo.findByIdWithRelations(id);
     if (!seed) {
       throw new NotFoundError("semente");
     }
+    AuthorizationService.ensureOwnership(seed, loggedUserId, "semente");
     return SeedMapper.toResponse(seed);
   }
   async listByUserLogged(userId: number) {
-    console.log(userId);
     const seeds = await this.repo.findByUserIdWithRelations(userId);
     return SeedMapper.toSummaryResponseList(seeds);
   }
@@ -45,6 +45,7 @@ export class SeedService {
     if (!seed) {
       throw new NotFoundError("semente");
     }
+    AuthorizationService.ensureOwnership(seed, loggedUserId, "semente");
     if (data.plantaId !== undefined) {
       const plant = await this.plantRepo.base.findById(data.plantaId);
       if (!plant) {
@@ -52,24 +53,20 @@ export class SeedService {
       }
       seed.planta = plant;
     }
-    AuthorizationService.ensureOwnership(seed, loggedUserId, "semente");
     dataFilter(seed, data);
     const seedUpdated = await this.repo.base.save(seed);
     return SeedMapper.toResponse(seedUpdated);
   }
   async delete(id: number, loggedUserId: number) {
     const seed = await this.repo.findByIdWithRelations(id);
-
     if (!seed) {
       throw new NotFoundError("semente");
     }
-
     AuthorizationService.ensureOwnership(seed, loggedUserId, "semente");
-
     const result = await this.repo.base.softDelete(id);
-
     if (result.affected === 0) {
       throw new InternalServerError("Não foi possível deletar");
     }
+    return result;
   }
 }

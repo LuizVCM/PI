@@ -19,22 +19,36 @@ export class CropService {
     const crops = await this.repo.findAllWithRelations();
     return CropMapper.toResponseList(crops);
   }
-  async getById(id: number) {
+  async getById(id: number, loggedUserId: number) {
     const crop = await this.repo.findByIdWithRelations(id);
     if (!crop) {
       throw new NotFoundError("plantação");
     }
+    AuthorizationService.ensureRelationActive(
+      crop.territorio,
+      "plantação",
+      "território"
+    );
+    AuthorizationService.ensureOwnership(
+      crop.territorio,
+      loggedUserId,
+      "plantação"
+    );
     return CropMapper.toResponse(crop);
   }
   async listByUserLogged(userId: number) {
     const crops = await this.repo.findAllByUserId(userId);
     return CropMapper.toResponseList(crops);
   }
-  async listByTerritoryId(territoryId: number) {
-    const crops = await this.repo.findByTerritoryId(territoryId);
-    if (!crops) {
-      throw new NotFoundError("plantações");
+  async listByTerritoryId(territoryId: number, loggedUserId: number) {
+    const territory = await this.territoryRepo.findByIdWithRelations(
+      territoryId
+    );
+    if (!territory) {
+      throw new NotFoundError("território");
     }
+    AuthorizationService.ensureOwnership(territory, loggedUserId, "território");
+    const crops = await this.repo.findByTerritoryId(territoryId);
     return CropMapper.toResponseList(crops);
   }
   async create(data: CreateCropDTO, territoryId: number, loggedUserId: number) {
@@ -46,16 +60,17 @@ export class CropService {
     if (!territory) {
       throw new NotFoundError("território");
     }
+    AuthorizationService.ensureRelationActive(
+      territory,
+      "plantação",
+      "território"
+    );
+    AuthorizationService.ensureOwnership(territory, loggedUserId, "território");
     const seed = await this.seedRepo.base.findById(data.sementeId);
     if (!seed) {
       throw new NotFoundError("cultura");
     }
-    AuthorizationService.ensureRelationActive(
-      seed,
-      "plantação",
-      "semente"
-    );
-    AuthorizationService.ensureOwnership(territory, loggedUserId, "território");
+    AuthorizationService.ensureRelationActive(seed, "plantação", "semente");
     AuthorizationService.ensureOwnership(seed, loggedUserId, "semente");
     const cropData = CropMapper.toCreateEntity(data, seed.planta);
     const crop = await this.repo.create(cropData, territory, seed);
@@ -78,11 +93,8 @@ export class CropService {
     );
     if (data.dataPlantio) {
       const novaDataPlantio = new Date(data.dataPlantio);
-      const cicloMedio = crop.sementes.planta.getCicloMedioDias(); 
-      const novaPrevista = setHarvestForecast(
-        novaDataPlantio,
-        cicloMedio
-      );
+      const cicloMedio = crop.sementes.planta.getCicloMedioDias();
+      const novaPrevista = setHarvestForecast(novaDataPlantio, cicloMedio);
       crop.dataPlantio = novaDataPlantio;
       crop.dataColheitaPrevista = novaPrevista;
     } else if (data.dataPlantio === null) {
