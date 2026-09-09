@@ -14,7 +14,8 @@ export class CropController {
   async getById(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id);
-      const crop = await this.cropService.getById(id);
+      const loggedUser = req.user!.id;
+      const crop = await this.cropService.getById(id, loggedUser);
       return res.json(crop);
     } catch (error) {
       next(error);
@@ -37,7 +38,7 @@ export class CropController {
       const crop = await this.cropService.create(
         createCropData,
         territoryId,
-       loggedUser
+        loggedUser
       );
       return res.status(201).json(crop);
     } catch (error) {

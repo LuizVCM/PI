@@ -15,7 +15,8 @@ export class WeatherController {
   async getById(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id);
-      const weatherData = await this.weatherService.getById(id);
+      const loggedUser = req.user!.id;
+      const weatherData = await this.weatherService.getById(id, loggedUser);
       return res.json(weatherData);
     } catch (error) {
       next(error);
@@ -32,8 +33,12 @@ export class WeatherController {
   }
   async listByTerritoryId(req: Request, res: Response, next: NextFunction) {
     try {
-      const id = Number(req.params.id)
-      const weatherData = await this.weatherService.findByTerritoryId(id)
+      const id = Number(req.params.id);
+      const loggedUser = req.user!.id;
+      const weatherData = await this.weatherService.findByTerritoryId(
+        id,
+        loggedUser
+      );
       return res.status(200).json(weatherData);
     } catch (error) {
       next(error);
@@ -44,7 +49,11 @@ export class WeatherController {
       const loggedUser = req.user!.id;
       const id = Number(req.params.id);
       const createWeatherData = req.body as CreateWeatherDTO;
-      const weatherData = await this.weatherService.create(createWeatherData, id);
+      const weatherData = await this.weatherService.create(
+        createWeatherData,
+        id,
+        loggedUser
+      );
       return res.status(201).json(weatherData);
     } catch (error) {
       next(error);

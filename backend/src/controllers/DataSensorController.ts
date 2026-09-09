@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { DataSensorService } from "../services/DataSensorService";
+import { CreateDataSensorDTO } from "../schemas/data-sensor.schema";
 
 export class DataSensorController {
   private dataSensorService = new DataSensorService();
@@ -7,8 +8,8 @@ export class DataSensorController {
   async getById(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id);
-
-      const data = await this.dataSensorService.getById(id);
+      const loggedUser = req.user!.id;
+      const data = await this.dataSensorService.getById(id, loggedUser);
 
       return res.json(data);
     } catch (error) {
@@ -18,9 +19,9 @@ export class DataSensorController {
 
   async listBySensor(req: Request, res: Response, next: NextFunction) {
     try {
-      const sensorId = Number(req.params.sensorId);
-
-      const data = await this.dataSensorService.listBySensor(sensorId);
+      const id = Number(req.params.id);
+      const loggedUser = req.user!.id;
+      const data = await this.dataSensorService.listBySensor(id, loggedUser);
 
       return res.status(200).json(data);
     } catch (error) {
@@ -30,13 +31,14 @@ export class DataSensorController {
 
   async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const sensorId = Number(req.params.sensorId);
-
+      const id = Number(req.params.id);
+      const loggedUser = req.user!.id;
+      const createDataSensor = req.body as CreateDataSensorDTO;
       const data = await this.dataSensorService.create(
-        req.body,
-        sensorId
+        createDataSensor,
+        id,
+        loggedUser
       );
-
       return res.status(201).json(data);
     } catch (error) {
       next(error);

@@ -4,7 +4,6 @@ import { CreateSeedDTO, UpdateSeedDTO } from "../schemas/seed.schema";
 
 export class SeedController {
   private seedService = new SeedService();
-
   async listAll(req: Request, res: Response, next: NextFunction) {
     try {
       const seeds = await this.seedService.listAll();
@@ -16,7 +15,8 @@ export class SeedController {
   async getById(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id);
-      const seed = await this.seedService.getById(id);
+      const loggedUser = req.user!.id;
+      const seed = await this.seedService.getById(id, loggedUser);
       return res.json(seed);
     } catch (error) {
       next(error);
@@ -24,7 +24,7 @@ export class SeedController {
   }
   async listMySeeds(req: Request, res: Response, next: NextFunction) {
     try {
-      const id = req.user!.id
+      const id = req.user!.id;
       const seeds = await this.seedService.listByUserLogged(id);
       return res.status(200).json(seeds);
     } catch (error) {
@@ -33,12 +33,9 @@ export class SeedController {
   }
   async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const id = req.user!.id
+      const id = req.user!.id;
       const createSeedData = req.body as CreateSeedDTO;
-      const seed = await this.seedService.create(
-        createSeedData,
-        id
-      );
+      const seed = await this.seedService.create(createSeedData, id);
       return res.status(201).json(seed);
     } catch (error) {
       next(error);

@@ -14,7 +14,8 @@ export class FinanceController {
   async getById(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id);
-      const finance = await this.financeService.getById(id);
+      const loggedUser = req.user!.id;
+      const finance = await this.financeService.getById(id, loggedUser);
       return res.json(finance);
     } catch (error) {
       next(error);
