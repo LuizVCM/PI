@@ -33,4 +33,5 @@
   );
   --err: #f87171;
   --sucess: #348b54;
+  --teste-gradiente:linear-gradient(to left,rgba(0, 0, 0, 0.689), rgba(145, 100, 3, 0.596), rgba(1, 51, 18, 0.663));
 }

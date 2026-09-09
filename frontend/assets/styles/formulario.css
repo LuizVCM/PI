@@ -35,9 +35,9 @@ body {
   position: absolute;
   inset: 0;
 
-  background: var(--overlay-gradiente);
+  background: var(--teste-gradiente); /*alteração de 'overlay-gradient' para 'teste-gradiente' (olhar a variável no global)*/
 
-  backdrop-filter: saturate(115%);
+  backdrop-filter: saturate(115%) blur(2px) contrast(120%); /*adicionei mais o blur e o contrast, responsáveis por tirar o pixelado*/
 }
 
 @keyframes desfoqueFundo {
@@ -55,7 +55,7 @@ body {
   inset: 0;
   z-index: 100000;
 
-  background: #000;
+  background: #000000;
   opacity: 1;
   pointer-events: none;
 
@@ -88,7 +88,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 24px;
 
-  background: rgba(255, 255, 255, 0.82);
+  background: rgba(255, 255, 255, 0.82); 
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 
