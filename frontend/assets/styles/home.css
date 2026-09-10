@@ -40,7 +40,16 @@ header .user {
 .message-div {
   display: flex;
   align-items: center;
-  gap: 1em;
+  gap: 12px;
+  margin-left: auto;      /* empurra pro canto direito do header */
+  flex-shrink: 0;         /* não deixa o avatar encolher em telas pequenas */
+}
+
+.bem-vindo {
+  white-space: nowrap;    /* impede de quebrar em duas linhas (se tiver nome grande) */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 40vw;        /* em telas pequenas, corta com "..."*/
 }
 
 main {
