@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
@@ -59,13 +59,54 @@
       </aside>
 
       <div class="content">
-        <span>
-          Seleciona uma <br />
-          Função no menu
-        </span>
+        <div class="infosTotal">
+          <div class="infosCima">
+              <h1>Relatório Geral</h1>
+              <div class="tempo">
+                  <span class="infoMeses"> {Ano do relatório} </span>
+              </div>
+          </div>
+
+          <div class="ganhoPerca">
+              <div style="color: red;" id="chart"></div>
+          </div>
+
+          <div class="aduboAnalise">
+              <div id="adubo"></div>
+          </div>
+          <div class="climaSection">
+              <div class="mediaClima">
+                  <span> Média climática no ano </span>
+                  <span class="dois"> {ano do relatório} </span>
+              </div>
+              <div class="analises">
+                  <div id="temp"></div>
+                  <div id="vento"></div>
+                  <div id="chuva "></div>
+              </div>
+          </div>
+          <div class="in">
+              <div class="ses">
+                  <div class="imagem imagem1"> 🌱 </div>
+                  <div class="org">
+                      <span class="number"> {numero} </span>
+                      <h4>plantas monitoradas</h4>
+                  </div>
+              </div>
+              <div class="ses">
+                  <div class="imagem imagem2"> 📡 </div>
+                  <div class="org">
+                      <span class="number"> {numero} </span>
+                      <h4>sensores ativos</h4>
+                  </div>
+              </div>
+          </div>
+
+      </div>
       </div>
     </main>
-
     <script src="../assets/js/home.js"></script>
+    <script src="../assets/js/apis.js"></script>
+    <script src="../assets/js/relatorio/chart.js"></script>
   </body>
 </html>
