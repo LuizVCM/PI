@@ -15,9 +15,21 @@
 
   <body>
     <header>
-      <div class="user" id="user-abbrev"></div>
-      <span class="bem-vindo" id="welcome-message"></span>
+      <button class="btn-menu menu-toggle">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <button class="btn-menu menu-mobile">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <div class="message-div">
+        <span class="bem-vindo" id="welcome-message"></span>
+        <div class="user" id="user-abbrev"></div>
+      </div>
     </header>
+
+    <div class="overlay"></div>
 
     <main>
       <aside class="aside">
@@ -59,10 +71,6 @@
         <button class="opcao perfil">
           <i class="fa-solid fa-circle-user selecao"></i>
           Perfil
-        </button>
-
-        <button class="navbar">
-          <i class="fa-solid fa-arrow-right"></i>
         </button>
       </aside>
 
