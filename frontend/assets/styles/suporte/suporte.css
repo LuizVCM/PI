@@ -1,14 +1,14 @@
 
-.suporte{
-    flex: 1;
+.suportes{
+   flex: 1;
    padding: 25px 35px;
    background: #F4FBF0;
     height:87vh;
     overflow:auto;
-    padding: 60px
+    
 }
 
-.suporte h1{
+.suportes h1{
     color:var(--verde-profundo);
     margin-bottom:10px;
 }
@@ -30,7 +30,7 @@
     font-size:15px;
 }
 
-.suporte h2{
+.suportes h2{
     color:var(--verde-profundo);
     margin-bottom:15px;
 }
