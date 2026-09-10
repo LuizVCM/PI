@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TerraFarr – Finanças</title>
+    <link rel="icon" href="../assets/icon/logo.ico" />
+    <link rel="stylesheet" href="../assets/styles/financas/all.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <header>
+      <button class="btn-menu menu-toggle">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <button class="btn-menu menu-mobile">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <div class="message-div">
+        <span class="bem-vindo" id="welcome-message"></span>
+        <div class="user" id="user-abbrev"></div>
+      </div>
+    </header>
+
+    <div class="overlay"></div>
+
+    <main>
+      <aside class="aside">
+        <button class="opcao clima">
+          <i class="fa-solid fa-cloud selecao"></i>
+          Clima
+        </button>
+
+        <button class="opcao gestao">
+          <i class="fa-brands fa-buffer selecao"></i>
+          Gestão
+        </button>
+
+        <button class="opcao segurancas">
+          <i class="fa-solid fa-building-shield selecao"></i>
+          Informações
+        </button>
+
+        <button class="opcao sementes">
+          <i class="fa-solid fa-seedling selecao"></i>
+          Sementes
+        </button>
+
+        <button class="opcao financas">
+          <i class="fa-solid fa-building-columns selecao"></i>
+          Finanças
+        </button>
+
+        <button class="opcao suporte">
+          <i class="fa-solid fa-comments-dollar selecao"></i>
+          Suporte
+        </button>
+
+        <button class="opcao relatorio">
+          <i class="fa-solid fa-envelope-open selecao"></i>
+          Relatório
+        </button>
+
+        <button class="opcao perfil">
+          <i class="fa-solid fa-circle-user selecao"></i>
+          Perfil
+        </button>
+      </aside>
+
+      <!-- Tela principal -->
+      <div class="content" id="main-content">
+        <section class="secao-conteudo">
+          <div class="div-title">
+            <h1 class="title title--principal financas">Finanças</h1>
+          </div>
+
+          <div class="acessos">
+            <button class="funcao registros" id="meus-registros-btn">
+              <h2>Meus registros</h2>
+              <i class="fa-solid fa-list-ul"></i>
+            </button>
+
+            <button class="funcao registro" id="novo-registro-btn">
+              <h2>Novo registro</h2>
+              <i class="fa-solid fa-plus"></i>
+            </button>
+
+            <button class="funcao mes" id="despesas-ganhos-mes-btn">
+              <h2>Resumo financeiro do mês</h2>
+              <i class="fa-solid fa-chart-column"></i>
+            </button>
+
+            <button class="funcao ano" id="despesas-ganhos-ano-btn">
+              <h2>Evolução do lucro anual</h2>
+              <i class="fa-solid fa-chart-line"></i>
+            </button>
+          </div>
+        </section>
+      </div>
+
+      <!-- Meus registros -->
+      <div
+        class="content content-secundario hidden"
+        id="meus-registros-content"
+      >
+        <section class="secao-conteudo">
+          <button class="btn-voltar" data-target="main-content">
+            <i class="fa-solid fa-arrow-left"></i>
+            Voltar
+          </button>
+
+          <h1 class="title meus-registros">Meus registros</h1>
+
+          <div id="lista-registros"></div>
+        </section>
+      </div>
+
+      <!-- Novo registro -->
+      <div class="content content-secundario hidden" id="novo-registro-content">
+        <section class="secao-conteudo">
+          <button class="btn-voltar" data-target="main-content">
+            <i class="fa-solid fa-arrow-left"></i>
+            Voltar
+          </button>
+
+          <h1 class="title novo-registro" id="titulo-form-financa">
+            Registrar nova despesa ou ganho
+          </h1>
+
+          <form action="" class="form-novo-registro" id="form-novo-registro">
+            <div class="top">
+              <label for="tipo-registro-financas"> Tipo </label>
+              <select name="tipo" id="tipo-registro-financas" required>
+                <option value="">Selecione...</option>
+                <option value="ganho">Ganho</option>
+                <option value="despesa">Despesa</option>
+              </select>
+
+              <label for="valor-registro-financas"> Valor </label>
+
+              <input
+                type="number"
+                name="valor"
+                id="valor-registro-financas"
+                placeholder="Em reais"
+                required
+              />
+
+              <label for="data-financa">Data</label>
+              <input id="data-financa" name="data" type="date" />
+            </div>
+
+            <div class="bottom">
+              <label for="observacao-registro-financas"> Observação </label>
+
+              <textarea
+                type="text"
+                name="observacoes"
+                id="observacao-registro-financas"
+                placeholder="Venda, compra ou outro"
+              ></textarea>
+
+              <label for="detalhe-registro-financas">Detalhes</label>
+
+              <textarea
+                type="text"
+                name="detalhes"
+                id="detalhe-registro-financas"
+                placeholder="O que foi vendido / comprado"
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn-action btn-salvar">
+              Salvar registro
+            </button>
+            <button
+              type="button"
+              class="btn-action btn-cancelar hidden"
+              id="cancelar-edicao-btn"
+            >
+              Cancelar edição
+            </button>
+          </form>
+        </section>
+      </div>
+
+      <!-- Despesas e ganhos do mês -->
+      <div
+        class="content content-secundario hidden"
+        id="despesas-ganhos-mes-content"
+      >
+        <section class="secao-conteudo">
+          <button class="btn-voltar" data-target="main-content">
+            <i class="fa-solid fa-arrow-left"></i>
+            Voltar
+          </button>
+
+          <h1 class="title despesas-ganhos-mes">Lucro do último mês</h1>
+
+          <div class="grafico">
+            <canvas id="graf-despesas-ganhos-mes"></canvas>
+          </div>
+        </section>
+      </div>
+
+      <!--  analise financeira (grafico personalizado) -->
+      <div
+        class="content content-secundario hidden"
+        id="despesas-ganhos-ano-content"
+      >
+        <section class="secao-conteudo">
+          <button class="btn-voltar" data-target="main-content">
+            <i class="fa-solid fa-arrow-left"></i>
+            Voltar
+          </button>
+
+          <h1 class="title despesas-ganhos-ano">Lucro do último ano</h1>
+
+          <div class="grafico">
+            <canvas id="graf-despesas-ganhos-ano"></canvas>
+          </div>
+        </section>
+      </div>
+      <!-- modal de visualização -->
+      <div id="modal-visualizar" class="modal hidden">
+        <div class="modal-overlay" id="modal-visualizar-overlay"></div>
+        <div class="modal-content">
+          <button class="modal-close" id="modal-visualizar-close">
+            &times;
+          </button>
+          <h2 id="modal-visualizar-title">Detalhes do registro</h2>
+
+          <div class="modal-visualizar-body">
+            <p>
+              <strong>Tipo:</strong> <span id="modal-visualizar-tipo"></span>
+            </p>
+            <p>
+              <strong>Valor:</strong> <span id="modal-visualizar-valor"></span>
+            </p>
+            <p>
+              <strong>Data:</strong> <span id="modal-visualizar-data"></span>
+            </p>
+            <hr />
+            <p><strong>Observação:</strong></p>
+            <div id="modal-visualizar-obs" class="modal-texto"></div>
+            <p><strong>Detalhes:</strong></p>
+            <div id="modal-visualizar-detalhes" class="modal-texto"></div>
+          </div>
+
+          <div class="modal-actions">
+            <button
+              class="btn-action btn-cancelar"
+              id="modal-visualizar-fechar"
+            >
+              Fechar
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- modal confirmar-->
+      <div id="modal-confirmacao" class="modal hidden">
+        <div class="modal-overlay" id="modal-confirmacao-overlay"></div>
+
+        <div class="modal-content modal-confirmacao-content">
+          <button class="modal-close" id="modal-confirmacao-close">
+            &times;
+          </button>
+
+          <div class="modal-confirmacao-icon">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+          </div>
+
+          <h2 id="modal-confirmacao-title">Confirmar exclusão</h2>
+
+          <p id="modal-confirmacao-message">
+            Tem certeza que deseja continuar?
+          </p>
+
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn-action btn-cancelar"
+              id="modal-confirmacao-cancelar"
+            >
+              Cancelar
+            </button>
+
+            <button
+              type="button"
+              class="btn-action btn-confirmar"
+              id="modal-confirmacao-confirmar"
+            >
+              Confirmar
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- modal de erro -->
+      <div id="modal-erro" class="modal hidden">
+        <div class="modal-overlay" id="modal-erro-overlay"></div>
+
+        <div class="modal-content modal-erro-content">
+          <button class="modal-close" id="modal-erro-close">&times;</button>
+
+          <div class="modal-erro-icon">
+            <i class="fa-solid fa-circle-exclamation"></i>
+          </div>
+
+          <h2 id="modal-erro-title">Ocorreu um erro</h2>
+
+          <p id="modal-erro-message">
+            Não foi possível realizar esta operação.
+          </p>
+
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn-action btn-cancelar"
+              id="modal-erro-fechar"
+            >
+              Fechar
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- biblioteca dos gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../assets/js/home.js"></script>
+    <script src="../assets/js/pages/financas.js"></script>
+  </body>
+</html>

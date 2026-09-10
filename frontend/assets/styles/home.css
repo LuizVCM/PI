@@ -1,3 +1,275 @@
+@import url("./global.css");
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 80px;
+  background-color: var(--verde-topo);
+  padding: 30px;
+  font-size: 1.4rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 700;
+  color: var(--verde-profundo);
+  gap: 20px;
+  overflow: hidden;
+}
+
+header .user {
+  display: flex;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--verde-opcoes-click);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  color: white;
+}
+
+.message-div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;      /* empurra pro canto direito do header */
+  flex-shrink: 0;         /* não deixa o avatar encolher em telas pequenas */
+}
+
+.bem-vindo {
+  white-space: nowrap;    /* impede de quebrar em duas linhas (se tiver nome grande) */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 40vw;        /* em telas pequenas, corta com "..."*/
+}
+
+main {
+  display: flex;
+  width: 100%;
+  min-height: 100%;
+}
+
+/* menu mobile */
+
+.menu-mobile {
+  display: none;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.5);
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: 0.3s;
+
+  z-index: 999;
+}
+
+.overlay.ativo {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+.btn-menu {
+  align-items: center;
+  justify-content: center;
+
+  width: 45px;
+  height: 45px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: var(--verde-opcoes-click);
+  color: white;
+
+  cursor: pointer;
+}
+
+aside {
+  background-color: var(--verde-opcao);
+  width: 300px;
+  height: 87vh;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  display: flex;
+  position: relative;
+  transition: width 0.3s linear;
+}
+
+
+.aside-encolhido {
+  background-color: var(--verde-sidebar);
+  width: 40px;
+  height: 87vh;
+  display: flex;
+  position: relative;
+  transition: width 0.3s linear;
+}
+.aside-encolhido .opcao i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.aside-encolhido .opcao {
+  padding: 0.5em;
+}
+aside .opcao {
+  display: flex;
+  border: none;
+  width: 98%;
+  height: 70px;
+  border-radius: 8px;
+  align-items: center;
+  font-size: 1.1rem;
+  background-color: var(--verde-opcao);
+  color: var(--verde-selecionar);
+  padding-left: 10%;
+  gap: 15px;
+}
+
+.opcao:hover {
+  cursor: pointer;
+}
+.opcao:focus .selecao {
+  color: white;
+}
+.opcao:focus {
+  background-color: var(--verde-circulo);
+  color: white;
+}
+
+aside .selecao {
+  display: flex;
+  color: var(--verde-circulo);
+  transform: scale(1.2);
+}
+
+main .content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: 600;
+  z-index: 100;
+  color: var(--verde-sidebar);
+}
+
+.acessos .funcao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 60%;
+  height: 15%;
+  background: var(--botoes-gradiente);
+  border-radius: 0.6rem;
+  border: none;
+  padding: 1em;
+  font-weight: 750;
+  color: var(--verde-dark);
+  font-size: 1.5vw;
+  box-shadow: var(--green-box-shadow);
+}
+
+/* mobile */
+@media (max-width: 768px) {
+  .menu-toggle  { display: none; }
+  .menu-mobile  { display: flex; }
+
+  .aside {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translateX(-100%);
+    width: min(300px, 82vw);
+    height: 100dvh;               /* dvh evita o pulo da barra do navegador */
+    padding: 24px 12px;
+    gap: 6px;
+    z-index: 1000;
+    background-color: var(--verde-opcao);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.25);
+    transition: transform 0.28s ease;
+    overflow-y: auto;
+  }
+
+  .aside.aberto {
+    transform: translateX(0);
+  }
+
+  /* reset do modo encolhido no mobile — não faz sentido aqui */
+  .aside.aside-encolhido {
+    width: min(300px, 82vw);
+  }
+
+  .aside .opcao {
+    width: 100%;
+    height: 54px;
+    padding: 0 16px;
+    justify-content: flex-start;
+    gap: 14px;
+    font-size: 1rem;
+    border-radius: 10px;
+    background-color: transparent;   /* deixa o hover/ativo destacar */
+    color: var(--verde-selecionar);
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+
+  .aside .opcao span {
+    display: inline;                 /* garante que o texto aparece */
+  }
+
+  .aside .opcao:active,
+  .aside .opcao.ativo {
+    background-color: var(--verde-circulo);
+    color: white;
+  }
+
+  .aside .opcao.ativo .selecao {
+    color: white;
+  }
+
+  .aside .selecao {
+    transform: scale(1);
+    width: 22px;
+    text-align: center;
+  }
+
+  .content {
+    width: 100%;
+  }
+
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.28s ease, visibility 0.28s ease;
+    z-index: 999;
+  }
+
+  .overlay.ativo {
+    opacity: 1;
+    visibility: visible;
+  }
+}
 * {
   margin: 0;
   padding: 0;

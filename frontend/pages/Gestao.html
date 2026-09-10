@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestão Rural</title>
+    <title>TerraFarr - Gestão</title>
+    <link rel="icon" href="../assets/icon/logo.ico" />
     <!-- CSS geral do projeto -->
     <link rel="stylesheet" href="../assets/styles/home.css">
     <!-- CSS exclusivo da Gestão -->
@@ -16,9 +17,22 @@
          CABEÇALHO
     ========================== -->
     <header>
-        <div class="user">Lv</div>
-        <span class="bem-vindo">Olá, usuário!</span>
+      <button class="btn-menu menu-toggle">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <button class="btn-menu menu-mobile">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <div class="message-div">
+        <span class="bem-vindo" id="welcome-message"></span>
+        <div class="user" id="user-abbrev"></div>
+      </div>
     </header>
+
+    <div class="overlay"></div>
+
     <main>
         <!-- =========================
              SIDEBAR
@@ -55,10 +69,6 @@
             <button class="opcao perfil">
                 <i class="fa-solid fa-circle-user selecao"></i>
                 Perfil
-            </button>
-            <!-- Botão para abrir/fechar a sidebar -->
-            <button class="navbar">
-                <i class="fa-solid fa-arrow-right"></i>
             </button>
         </aside>
 

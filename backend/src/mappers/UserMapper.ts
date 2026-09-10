@@ -1,0 +1,44 @@
+import { User } from "../models/User";
+import { FinanceMapper } from "./FinanceMapper";
+import { SeedMapper } from "./SeedMapper";
+import { StockMapper } from "./StockMapper";
+import { TerritoryMapper } from "./TerritoryMapper";
+
+export class UserMapper {
+  static toResponseSavedUser(usuario: User) {
+    return {
+      id: usuario.id,
+      nome: usuario.nome,
+      sobrenome: usuario.sobrenome,
+      email: usuario.email,
+      telefone: usuario.telefone,
+      cpf: usuario.cpf,
+    };
+  }
+  static toResponse(usuario: User) {
+    return {
+      id: usuario.id,
+      nome: usuario.nome,
+      sobrenome: usuario.sobrenome,
+      email: usuario.email,
+      telefone: usuario.telefone,
+      cpf: usuario.cpf,
+      territorios: usuario.territorios ? TerritoryMapper.toSummaryResponseList(usuario.territorios) : [],
+      sementes: usuario.sementes ? SeedMapper.toSummaryResponseList(usuario.sementes) : [],
+      financas: usuario.financas ? FinanceMapper.toSummaryResponseList(usuario.financas) : [],
+      insumos: usuario.insumos ? StockMapper.toSummaryResponseList(usuario.insumos) : [],
+    };
+  }
+  static toSummaryResponse(usuario: User) {
+    return {
+      id: usuario.id,
+      nome: usuario.nome,
+      sobrenome: usuario.sobrenome,
+    };
+  }
+  static toResponseList(usuarios: User[]) {
+    return usuarios.map((usuario) =>
+      UserMapper.toResponse(usuario)
+    );
+  }
+}

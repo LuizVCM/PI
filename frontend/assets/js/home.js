@@ -1,63 +1,65 @@
-const navbar = document.querySelector(".navbar");
+const rotas = {
+  clima: "Clima.html",
+  gestao: "Gestao.html",
+  segurancas: "Seguranca.html",
+  sementes: "sementes.html",
+  financas: "Financas.html",
+  suporte: "Suporte.html",
+  relatorio: "Relatorio.html",
+  perfil: "Perfil.html",
+};
+
+Object.entries(rotas).forEach(([classe, pagina]) => {
+  document.querySelector(`.${classe}`)?.addEventListener("click", () => {
+    window.location.href = `./${pagina}`;
+  });
+});
+
+// menu
+
+const menuToggle = document.querySelector(".menu-toggle");
 const aside = document.querySelector(".aside");
-const arrow = document.querySelector(".fa-arrow-right");
-// IMPORTANDO MENU
-const btnClima = document.querySelector(".clima");
-const btnGestao = document.querySelector(".gestao");
-const btnSegurancas = document.querySelector(".segurancas");
-const btnSementes = document.querySelector(".sementes");
-const btnfinancas = document.querySelector(".financas");
-const btnSuporte = document.querySelector(".suporte");
-const btnRelatorio = document.querySelector(".relatorio");
-const btnPerfil = document.querySelector(".perfil");
 
-const texto1 = document.querySelector(".clima p");
-const texto2 = document.querySelector(".gestao p");
-const texto3 = document.querySelector(".seguranca p");
-const text4 = document.querySelector(".sementes p");
-const texto5 = document.querySelector(".suporte p");
-const texto6 = document.querySelector(".relatorio p");
-const texto7 = document.querySelector(".perfil p");
-const texto8 = document.querySelector(".financas p");
-
-navbar.addEventListener("click", () => {
+menuToggle.addEventListener("click", () => {
   aside.classList.toggle("aside-encolhido");
-  arrow.classList.toggle("virado");
-  navbar.classList.toggle("outroLado")
-
-  
 });
 
-// BOTEOES E QUE DIRECIONAN NAS NECESSIDADES
+async function carregarUsuario() {
+  try {
+    const response = await fetch("http://localhost:3000/users/me", {
+      credentials: "include",
+    });
 
-btnClima.addEventListener("click", () => {
-  window.location.href = "./Clima.html";
+    if (!response.ok) {
+      throw new Error("Erro ao carregar usuário");
+    }
+
+    const usuario = await response.json();
+
+    document.getElementById("welcome-message").textContent =
+      `Olá, ${usuario.nome}!`;
+
+    document.getElementById("user-abbrev").textContent =
+      `${usuario.nome.substring(0, 2)}`;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+carregarUsuario();
+
+// menu mobile
+
+const menuBtn = document.querySelector(".menu-mobile");
+const sidebar = document.querySelector(".aside");
+const overlay = document.querySelector(".overlay");
+
+menuBtn.addEventListener("click", () => {
+  sidebar.classList.toggle("aberto");
+  overlay.classList.toggle("ativo");
 });
 
-btnGestao.addEventListener("click", () => {
-  window.location.href = "./Gestao.html";
-});
-
-btnSegurancas.addEventListener("click", () => {
-  window.location.href = "./Seguranca.html";
-});
-
-btnSementes.addEventListener("click", () => {
-  window.location.href = "./Sementes.html";
-});
-
-btnfinancas.addEventListener("click", () => {
-  window.location.href = "./Financas.html";
-});
-
-btnSuporte.addEventListener("click", () => {
-  window.location.href = "./Suporte.html";
-});
-
-btnRelatorio.addEventListener("click", () => {
-  window.location.href = "./Relatorio.html";
-});
-
-btnPerfil.addEventListener("click", () => {
-  window.location.href = "./Perfil.html";
+overlay.addEventListener("click", () => {
+  sidebar.classList.remove("aberto");
+  overlay.classList.remove("ativo");
 });

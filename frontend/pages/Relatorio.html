@@ -1,86 +1,113 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TerraFarr - Relatório</title>
+    <link rel="icon" href="../assets/icon/logo.ico" />
+    <link rel="stylesheet" href="../assets/styles/home.css" />
     <link rel="stylesheet" href="../assets/styles/relatorio/all.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-</head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    />
+  </head>
 
-<body>
+  <body>
     <header>
-        <div class="user"> Lv </div>
-        <span class="bem-vindo">Olá, usuário!</span>
+      <button class="btn-menu menu-toggle">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <button class="btn-menu menu-mobile">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <div class="message-div">
+        <span class="bem-vindo" id="welcome-message"></span>
+        <div class="user" id="user-abbrev"></div>
+      </div>
     </header>
+
+    <div class="overlay"></div>
+
     <main>
-        <aside class="aside">
-            <button class="opcao clima"> <i class="fa-solid fa-cloud selecao"></i> Clima </button>
-            <button class="opcao gestao"> <i class="fa-brands fa-buffer selecao"></i> Gestão</button>
-            <button class="opcao segurancas"> <i class="fa-solid fa-building-shield selecao"></i> Informações </button>
-            <button class="opcao sementes"> <i class="fa-solid fa-seedling selecao"></i> Sementes </button>
-            <button class="opcao financas"> <i class="fa-solid fa-building-columns selecao"></i> Finanças</button>
-            <button class="opcao suporte"> <i class="fa-solid fa-comments-dollar selecao"></i> Suporte </button>
-            <button class="opcao relatorio"> <i class="fa-solid fa-envelope-open selecao"></i> Relatório </button>
-            <button class="opcao perfil"> <i class="fa-solid fa-circle-user selecao"></i>Perfil </button>
+      <aside class="aside">
+        <button class="opcao clima">
+          <i class="fa-solid fa-cloud selecao"></i> Clima
+        </button>
+        <button class="opcao gestao">
+          <i class="fa-brands fa-buffer selecao"></i> Gestão
+        </button>
+        <button class="opcao segurancas">
+          <i class="fa-solid fa-building-shield selecao"></i> Informações
+        </button>
+        <button class="opcao sementes">
+          <i class="fa-solid fa-seedling selecao"></i> Sementes
+        </button>
+        <button class="opcao financas">
+          <i class="fa-solid fa-building-columns selecao"></i> Finanças
+        </button>
+        <button class="opcao suporte">
+          <i class="fa-solid fa-comments-dollar selecao"></i> Suporte
+        </button>
+        <button class="opcao relatorio">
+          <i class="fa-solid fa-envelope-open selecao"></i> Relatório
+        </button>
+        <button class="opcao perfil">
+          <i class="fa-solid fa-circle-user selecao"></i>Perfil
+        </button>
+      </aside>
 
+      <div class="content">
+        <div class="infosTotal">
+          <div class="infosCima">
+              <h1>Relatório Geral</h1>
+              <div class="tempo">
+                  <span class="infoMeses"> {Ano do relatório} </span>
+              </div>
+          </div>
 
-            <button class="navbar"> <i class="fa-solid fa-arrow-right"></i></button>
-        </aside>
+          <div class="ganhoPerca">
+              <div style="color: red;" id="chart"></div>
+          </div>
 
-        <div class="content">
-            <div class="infosTotal">
-                <div class="infosCima">
-                    <h1>Relatório Geral</h1>
-                    <div class="tempo">
-                        <span class="infoMeses"> {Ano do relatório} </span>
-                    </div>
-                </div>
+          <div class="aduboAnalise">
+              <div id="adubo"></div>
+          </div>
+          <div class="climaSection">
+              <div class="mediaClima">
+                  <span> Média climática no ano </span>
+                  <span class="dois"> {ano do relatório} </span>
+              </div>
+              <div class="analises">
+                  <div id="temp"></div>
+                  <div id="vento"></div>
+                  <div id="chuva "></div>
+              </div>
+          </div>
+          <div class="in">
+              <div class="ses">
+                  <div class="imagem imagem1"> 🌱 </div>
+                  <div class="org">
+                      <span class="number"> {numero} </span>
+                      <h4>plantas monitoradas</h4>
+                  </div>
+              </div>
+              <div class="ses">
+                  <div class="imagem imagem2"> 📡 </div>
+                  <div class="org">
+                      <span class="number"> {numero} </span>
+                      <h4>sensores ativos</h4>
+                  </div>
+              </div>
+          </div>
 
-                <div class="ganhoPerca">
-                    <div style="color: red;" id="chart"></div>
-                </div>
-
-                <div class="aduboAnalise">
-                    <div id="adubo"></div>
-                </div>
-                <div class="climaSection">
-                    <div class="mediaClima">
-                        <span> Média climática no ano </span>
-                        <span class="dois"> {ano do relatório} </span>
-                    </div>
-                    <div class="analises">
-                        <div id="temp"></div>
-                        <div id="vento"></div>
-                        <div id="chuva "></div>
-                    </div>
-                </div>
-                <div class="in">
-                    <div class="ses">
-                        <div class="imagem imagem1"> 🌱 </div>
-                        <div class="org">
-                            <span class="number"> {numero} </span>
-                            <h4>plantas monitoradas</h4>
-                        </div>
-                    </div>
-                    <div class="ses">
-                        <div class="imagem imagem2"> 📡 </div>
-                        <div class="org">
-                            <span class="number"> {numero} </span>
-                            <h4>sensores ativos</h4>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+      </div>
+      </div>
     </main>
-
     <script src="../assets/js/home.js"></script>
     <script src="../assets/js/apis.js"></script>
     <script src="../assets/js/relatorio/chart.js"></script>
-</body>
-
+  </body>
 </html>
