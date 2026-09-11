@@ -8,45 +8,13 @@
     min-height: 87vh;
     box-sizing: border-box;
     z-index: 100;
+
     overflow: hidden;
-    overflow-y: auto;
+    overflow-y: auto;   /* permite rolar para baixo */    
     
-    
-}
-#btnEstoque{
-    margin-bottom: 30px
 }
 
-@media (max-width:1000px ) {
-    .funcao span{
-        font-size: 1.2rem;
-    }
-}
-@media (max-width: 530px) {
-    .funcao span{
-        font-size: 0.92rem
-    }
-}
-@media (max-width: 375px) {
-    .fa-arrow-right{
-        display: none
-    }
-}
 
-.tela.ativa {
-    display: block !important;
-}
-
-/* =========================
-   TELAS DA GESTÃO
-========================= */
-
-.tela {
-    display: none !important;
-    width: 100%;
-    min-height: 87vh;
-    box-sizing: border-box;
-}
 
 .tela.ativa {
     display: block !important;
@@ -138,6 +106,7 @@
 
 .gestao-inicio .acessos .funcao i {
     transform: scaleX(1) scale(1.8);
+    color: black;
 }
 /* =========================
    CADASTRO
@@ -148,8 +117,11 @@
     min-height: 87vh;
     padding: 40px;
     box-sizing: border-box;
-    overflow-x: hidden;
+
     background: var(--conteudo-fundo);
+
+    
+       
 }
 
 .cabecalho-cadastro {
@@ -196,7 +168,6 @@
     width: 100%;
     box-sizing: border-box;
 }
-
 
 /* =========================
    AGENDA
@@ -263,9 +234,7 @@
 .tela-agenda .btn-voltar i {
     font-size: 14px;
 
-}/* =========================
-   RESPONSIVIDADE
-========================= */
+}
 @media (max-width: 590px) {
 
     main {
@@ -285,3 +254,30 @@
 .funcao{
     z-index: 10;
 }
+ 
+#btnEstoque{
+    margin-bottom: 30px
+}
+
+@media (max-width:1000px ) {
+    .funcao span{
+        font-size: 1.2rem;
+    }
+}
+@media (max-width: 530px) {
+    .funcao span{
+         font-size: 1.1rem;
+    }
+}
+@media (max-width: 375px) {
+    .fa-arrow-right{
+        display: none
+    }
+}
+@media (max-width: 550px) {
+    .gestao-inicio h1 {
+        font-size: 2rem;
+    }
+}
+
+

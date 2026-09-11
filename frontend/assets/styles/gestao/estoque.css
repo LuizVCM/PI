@@ -133,3 +133,57 @@
 .btn-editar {
     background: #eeeeee;
 }
+@media (max-width: 768px) {
+
+    /* Espaçamento */
+    .estoque {
+        padding: 25px;
+        min-height: auto;
+    }
+
+    /* Cabeçalho */
+    .cabecalho-estoque {
+       flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .cabecalho-estoque h2 {
+        font-size: 26px;
+    }
+
+    /* Botões */
+    .acoes-estoque {
+        gap: 8px;
+    }
+
+    .btn-novo,
+    .btn-voltar {
+        padding: 10px 14px;
+    }
+
+    /* Cards */
+    .cards-estoque {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .card-estoque {
+        padding: 20px;
+    }
+
+    .card-estoque h3 {
+        font-size: 26px;
+    }
+
+    /* Tabela */
+    .tabela-estoque {
+        min-width: 650px;
+    }
+
+    .tabela-container {
+        width: 100%;
+        overflow-x: auto;
+    }
+}
+

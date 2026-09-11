@@ -152,4 +152,56 @@
     cursor: pointer;
 
     font-size: 15px;
+
+}
+@media (max-width: 768px) {
+
+    /* Espaçamento menor em telas menores */
+    .agenda {
+        padding: 25px;
+    }
+
+    /* Título e botão */
+    .cabecalho-agenda {
+       flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .cabecalho-agenda h1 {
+        font-size: 30px;
+    }
+
+    .cabecalho-agenda p {
+        font-size: 14px;
+    }
+
+    /* Cards de resumo */
+    .cards-resumo {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .resumo {
+        padding: 18px;
+    }
+
+    .resumo h2 {
+        font-size: 26px;
+    }
+
+    /* Pesquisa */
+    .pesquisa {
+        padding: 10px 12px;
+    }
+
+    /* Tabela pode rolar para os lados */
+    .tabela-container {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .tabela-agenda {
+        min-width: 650px;
+    }
 }

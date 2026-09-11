@@ -155,3 +155,58 @@
     font-size: 12px;
     font-weight: 600;
 }
+@media (max-width: 768px) {
+
+    /* Espaçamento da tela */
+    .insumos {
+        padding: 25px;
+        min-height: auto;
+    }
+
+    .tela-insumos {
+     padding-left: 30px;
+    padding-right: 30px;
+    }
+
+    /* Cabeçalho */
+    .cabecalho-insumos {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .cabecalho-insumos h2 {
+        font-size: 30px
+    }
+
+    /* Pesquisa e filtro */
+    .filtros-insumos {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    /* Cards */
+    .cards-insumos {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .card-insumo {
+        padding: 18px;
+    }
+
+    .card-insumo h3 {
+        font-size: 26px;
+    }
+
+    /* Tabela pode deslizar para os lados */
+    .tabela-container {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .tabela-insumos {
+        min-width: 650px;
+    }
+}
+

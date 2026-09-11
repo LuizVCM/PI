@@ -165,3 +165,65 @@
     background: var(--verde-profundo);
     color: white;
 }
+
+@media (max-width: 590px) {
+
+    /* Tela de cadastro */
+    .cadastro {
+       width: 100%;
+    min-height: auto;
+    height: auto;
+    padding: 20px;
+    box-sizing: border-box
+    }
+.tela.ativa {
+    height: calc(100dvh - 120px);
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+    /* Título e botão voltar */
+    .cabecalho-cadastro {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .titulo-cadastro h1 {
+        font-size: 30px;
+    }
+
+    .titulo-cadastro p {
+        font-size: 20px;
+    }
+
+    /* Cards um embaixo do outro */
+    .grid-cadastro {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .card {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Campos do formulário */
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    /* Botões */
+    .acoes-cadastro {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn-limpar,
+    .btn-salvar {
+        width: 100%;
+        justify-content: center;
+    }
+}
