@@ -90,7 +90,8 @@ hoje.textContent = `${diaNome}, ${diaNum} ${mes} - ${hora}:${minute} `
       min[k].textContent = `${dados7Dias.daily.temperature_2m_min[k]}°C`
     }
 
-
+    const imagemClima = document.querySelector(".nuvemSol img")
+    
 
     // informar exatamente os dias dos cards de previsão  (pega por essas funções loucas de conversão de data e pelo índice da API)
       dia1.textContent = `${new Date(dados7Dias.daily.time.at(0)).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) }`
