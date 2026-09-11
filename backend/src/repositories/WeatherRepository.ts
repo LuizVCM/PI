@@ -1,7 +1,15 @@
 import { Weather } from "../models/Weather";
 import { Territory } from "../models/Territory";
-import { CreateWeatherDTO } from "../schemas/weather.schema";
 import { createBaseRepository } from "./BaseRepository";
+
+interface WeatherData {
+  data: string,
+  temperaturaMinina: number,
+  temperaturaMaxima: number,
+  precipitacao: number,
+  velocidadeVentoMaxima: number,
+  evotranspiracao: number
+}
 
 export class WeatherRepository {
   public base = createBaseRepository(Weather);
@@ -24,7 +32,7 @@ export class WeatherRepository {
       .getRepository()
       .find({ where: { territorio: { usuario: { id: userId } } } });
   }
-  async create(data: CreateWeatherDTO, territory: Territory): Promise<Weather> {
+  async create(data: WeatherData, territory: Territory): Promise<Weather> {
     const weather = this.base.create({ ...data, territorio: territory });
     return this.base.save(weather);
   }
