@@ -64,7 +64,7 @@ export class WeatherService {
       temperaturaMaxima: data.daily.temperature_2m_max[0],
       precipitacao: data.daily.precipitation_sum[0],
       velocidadeVentoMaxima: data.daily.wind_speed_10m_max[0],
-      evotranspiracao: data.daily.et0_fao_evapotranspiration[0],
+      evapotranspiracao: data.daily.et0_fao_evapotranspiration[0],
     };
     const weather = await this.repo.create(weatherData, territory);
     return WeatherMapper.toResponse(weather);
