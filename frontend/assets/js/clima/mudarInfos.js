@@ -11,7 +11,20 @@ const visibilidade = document.querySelector(".Visib h1")
 
 async function TrocarTemp() {
     const api = 'https://api.open-meteo.com/v1/forecast?latitude=-29.7603&longitude=-51.1472&daily=temperature_2m_min,temperature_2m_max,precipitation_sum,precipitation_probability_max,et0_fao_evapotranspiration,wind_speed_10m_max&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,rain,evapotranspiration,et0_fao_evapotranspiration,vapour_pressure_deficit,wind_speed_10m&minutely_15=temperature_2m,relative_humidity_2m,rain,precipitation,apparent_temperature,global_tilted_irradiance,wind_speed_10m,shortwave_radiation&timezone=America%2FSao_Paulo&forecast_days=1'
+
+    const recebeDadosBackend= "http://localhost:3000/users/me"
      try{
+
+      const consumo = await fetch(recebeDadosBackend, { credentials: 'include'});
+      const usuario = await consumo.json();
+
+      const elemento = document.querySelector(".local h1");
+      const cidade = usuario.territorios[0].cidade;
+      const estado = usuario.territorios[0].estado;
+      
+      elemento.textContent = `${cidade}, ${estado}`
+
+
     const resposta = await fetch(api)
     const dados = await resposta.json()
     // altera as máximas e as mínimas da temperatura atual
@@ -102,6 +115,28 @@ hoje.textContent = `${diaNome}, ${diaNum} ${mes} - ${hora}:${minute} `
       const sensacaoTermica = document.querySelector(".graus h4")
 
       sensacaoTermica.textContent = `Sensação térmica: ${dados7Dias.hourly.apparent_temperature[horaAtual - 1]}°C`
+
+       const clima = 'https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=temperature_2m_max,temperature_2m_min,wind_speed_10m_max,precipitation_sum,et0_fao_evapotranspiration';
+
+       const climaDiario = await fetch(clima);
+       const dadosClima = await climaDiario.json()
+      const apiEnviar = 'http://localhost:3000/weather/'
+
+      const enviarClima = await fetch(apiEnviar, {
+        credentials: 'include',
+         method: 'POST', 
+           headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dadosClima.daily)
+      })
+
+      if (!enviarClima.ok) {
+            throw new Error(`Erro na requisição: ${enviarClima.status}`);
+        }
+
+        const dadosRetornados = await enviarClima.json();
+        console.log('Sucesso:', dadosRetornados);
     }
     catch(error){
       alert(`Erro ao consumir os dados: `+error)

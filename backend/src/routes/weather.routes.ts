@@ -29,7 +29,7 @@ weatherRoutes.get(
   weatherController.getById.bind(weatherController)
 );
 weatherRoutes.post(
-  "/",
+  "/territory/:id",
   authMiddleware,
   validateWeatherCreate,
   weatherController.create.bind(weatherController)

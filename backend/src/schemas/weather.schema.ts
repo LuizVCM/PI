@@ -1,6 +1,5 @@
 import z from "zod";
 export const createWeatherSchema = z.object({
-  territorioId: z.coerce.number().int().positive(),
   daily: z.object({
     time: z.array(z.string()).min(1),
     temperature_2m_min: z.array(z.number()).min(1),
