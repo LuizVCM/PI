@@ -1,0 +1,58 @@
+.form-error {
+  margin-top: 1.2em !important;
+
+  color: var(--err) !important;
+  font-size: 0.83rem !important;
+
+  background: #fde8e8;
+  padding: 2px 12px;
+  border-radius: 20px;
+}
+
+.form-error::before {
+  content: "\26A0";
+
+  margin-right: 6px;
+  font-size: 1em;
+}
+
+.form-error-list {
+  padding: 0;
+  margin: 8px 0 0;
+}
+
+.form-error-list li {
+  position: relative;
+
+  padding-left: 20px;
+  margin-bottom: 5px;
+
+  color: var(--err);
+  font-size: 0.83rem;
+
+  list-style: none;
+
+  display: inline-flex;
+  align-items: center;
+
+  background: #fde8e8;
+  padding: 2px 12px;
+  border-radius: 20px;
+}
+
+.form-success {
+  grid-column: 1 / -1 !important;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+
+  background: #fde8e8;
+  padding: 2px 12px;
+  border-radius: 20px;
+
+  margin-top: 1.2em !important;
+  justify-content: center;
+
+  color: var(--success) !important;
+  font-size: 0.83rem !important;
+}

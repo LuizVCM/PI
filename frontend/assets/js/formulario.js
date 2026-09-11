@@ -1,3 +1,5 @@
+import { showErrorMessage, removeMessage, showErrors } from "./utils/show-message.js";
+
 // todos os painéis
 const fundo = document.querySelectorAll(".fundo");
 
@@ -95,7 +97,7 @@ const mensagemCad = document.getElementById("mensagem-cadastro");
 cadastroForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  removeErrorMessage(cadastroForm);
+  removeMessage(cadastroForm);
 
   const confirmarSenha = document.getElementById("confirmar-senha-cad").value;
   const senha = document.getElementById("senha-cad").value;
@@ -143,7 +145,7 @@ cadastroForm.addEventListener("submit", async (event) => {
       return;
     }
 
-    mensagemCad.classList.remove("escondido");
+    mensagemCad.classList.remove("hidden");
     mensagemCad.classList.add("form-success");
     mensagemCad.textContent =
       "Cadastrado com sucesso! Redirecionando para autenticar...";
@@ -167,7 +169,7 @@ const mensagemLog = document.getElementById("mensagem-login");
 loginForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  removeErrorMessage(loginForm);
+  removeMessage(loginForm);
 
   const email = document.getElementById("email-login").value.trim();
   const senha = document.getElementById("senha-login").value;
@@ -205,7 +207,7 @@ loginForm.addEventListener("submit", async (event) => {
       return;
     }
 
-    mensagemLog.classList.remove("escondido");
+    mensagemLog.classList.remove("hidden");
     mensagemLog.classList.add("form-success");
     mensagemLog.textContent = "Autenticado com sucesso! Redirecionando...";
 
@@ -259,7 +261,7 @@ cep.addEventListener("input", () => {
 territorioForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  removeErrorMessage(territorioForm);
+  removeMessage(territorioForm);
 
   const body = {
     cep: cep.value,
@@ -297,7 +299,7 @@ territorioForm.addEventListener("submit", async (event) => {
       return;
     }
 
-    mensagemTer.classList.remove("escondido");
+    mensagemTer.classList.remove("hidden");
     mensagemTer.classList.add("form-success");
     mensagemTer.textContent = "Cadastrado com sucesso! Redirecionando...";
 
@@ -312,28 +314,3 @@ territorioForm.addEventListener("submit", async (event) => {
     btnCadTer.textContent = "Cadastrar território";
   }
 });
-
-function showErrorMessage(message, form) {
-  removeErrorMessage(form);
-  const errorEl = document.createElement("p");
-  errorEl.className = "form-error";
-  errorEl.textContent = message;
-  form.appendChild(errorEl);
-}
-
-function removeErrorMessage(form) {
-  form
-    .querySelectorAll(".form-error, .form-error-list, .form-success")
-    .forEach((el) => el.remove());
-}
-function showErrors(errors, form) {
-  removeErrorMessage(form);
-  const ul = document.createElement("ul");
-  ul.className = "form-error-list";
-  errors.forEach((error) => {
-    const li = document.createElement("li");
-    li.textContent = error.message;
-    ul.appendChild(li);
-  });
-  form.appendChild(ul);
-}

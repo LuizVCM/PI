@@ -1,4 +1,6 @@
 @import url("../global.css");
+@import url("../utils/modal.css");
+@import url("../utils/tooltip.css");
 
 #main-content {
   display: flex;
@@ -153,48 +155,6 @@ main .content {
   }
 }
 
-/* tooltip */
-.tooltip {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-  font-size: 0.7em;
-}
-
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: fit-content;
-  background-color: #555;
-  color: #fff;
-  text-align: center;
-  padding: 5px;
-  border-radius: 4px;
-
-  position: absolute;
-  z-index: 1;
-  bottom: 125%; 
-  left: 50%;
-  transform: translateX(-50%);
-
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.tooltip .tooltiptext::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
-}
 
 .title {
   font-size: 2rem;
@@ -296,11 +256,11 @@ main .content {
 }
 
 .btn-salvar, .btn-confirmar {
-  background: var(--verde-claro);
+  background: var(--success);
 }
 
 .btn-cancelar {
-  background: #a94141;
+  background: var(--err);
 }
 
 .form-error {
@@ -357,7 +317,7 @@ main .content {
 
   margin-top: 8px !important;
 
-  color: var(--sucess) !important;
+  color: var(--success) !important;
   font-size: 0.83rem !important;
 }
 
@@ -417,10 +377,6 @@ main .content {
 }
 
 .content.hidden {
-  display: none !important;
-}
-
-.hidden {
   display: none !important;
 }
 
@@ -559,7 +515,7 @@ main .content {
   display: none;
 }
 
-/* Ações (editar/excluir) */
+/* ações (editar/excluir) */
 .finance-card__actions {
   display: flex;
   justify-content: flex-end;
@@ -608,155 +564,4 @@ main .content {
   .finance-card__value {
     font-size: 1.6rem;
   }
-}
-
-/* modal de visualização */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  padding: 1rem;
-  box-sizing: border-box;
-}
-.modal.hidden {
-  display: none !important;
-}
-
-.modal-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(4px);
-}
-
-.modal-content {
-  position: relative;
-  background: #ffffff;
-  max-width: 600px;
-  width: 100%;
-  border-radius: 24px;
-  padding: 2rem 1.8rem;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  max-height: 90vh;
-  overflow-y: auto;
-  z-index: 10;
-}
-
-.modal-close {
-  position: absolute;
-  top: 0.8rem;
-  right: 1.2rem;
-  font-size: 2rem;
-  font-weight: 300;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #94a3b8;
-  transition: 0.2s;
-}
-.modal-close:hover {
-  color: #1e293b;
-  transform: rotate(90deg);
-}
-
-.modal-content h2 {
-  font-size: 1.6rem;
-  color: var(--verde-profundo, #1e4a3b);
-  margin: 0 0 1.2rem 0;
-  text-align: center;
-}
-
-.modal-visualizar-body p {
-  margin: 0.6rem 0;
-  font-size: 1rem;
-  line-height: 1.5;
-}
-.modal-visualizar-body hr {
-  margin: 1rem 0;
-  border: none;
-  border-top: 1px solid #e2e8f0;
-}
-
-.modal-texto {
-  background: #f8fafc;
-  padding: 0.8rem 1rem;
-  border-radius: 10px;
-  border-left: 4px solid var(--verde-claro, #2e7d5e);
-  white-space: pre-wrap; /* preserva quebras de linha */
-  word-wrap: break-word;
-  max-height: 200px;
-  overflow-y: auto;
-  margin-bottom: 0.8rem;
-  font-size: 0.95rem;
-  color: #1e293b;
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: center;
-  margin-top: 1.5rem;
-  gap: 1em
-}
-.modal-actions .btn-action {
-  width: auto;
-  padding: 0.6rem 2rem;
-  margin-top: 0;
-}
-
-@media (max-width: 500px) {
-  .modal-content {
-    padding: 1.5rem 1rem;
-  }
-  .modal-actions .btn-action {
-    width: 100%;
-  }
-}
-
-/* modal de erro */
-
-.modal-erro-content {
-  max-width: 450px;
-  text-align: center;
-}
-
-.modal-erro-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-.modal-erro-content h2 {
-  margin-bottom: 0.75rem;
-}
-
-.modal-erro-content p {
-  margin: 0;
-  line-height: 1.5;
-}
-
-.modal-erro-content .modal-actions {
-  justify-content: center;
-}
-
-.modal-erro-icon {
-  color: #d9534f;
-}
-
-/* modal confirmar */
-.modal-confirmacao-content {
-  text-align: center;
-}
-
-.modal-confirmacao-icon {
-  font-size: 3rem;
-  color: #d89f3d;
-  margin-bottom: 1rem;
 }

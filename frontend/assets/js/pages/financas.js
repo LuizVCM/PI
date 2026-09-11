@@ -1,10 +1,14 @@
-import { abrirModalErro } from "../utils/modals.js";
+import {
+  abrirModalErro,
+  fecharModalErro,
+  abrirModalConfirmacao,
+  fecharModalConfirmacao,
+} from "../utils/modals.js";
+import { showErrorMessage, removeMessage, showErrors } from "../utils/show-message.js";
 
 const API_URL = "http://localhost:3000";
 
 let registroEditandoId = null;
-
-let acaoConfirmada = null;
 
 async function apiFetch(path, options = {}) {
   const response = await fetch(`${API_URL}${path}`, {
@@ -20,7 +24,10 @@ async function apiFetch(path, options = {}) {
 
   if (!response.ok) {
     if (response.status === 401) {
-      abrirModalErro("Faça login novamente. Redirecionando...", "Sua sessão expirou");
+      abrirModalErro(
+        "Faça login novamente. Redirecionando...",
+        "Sua sessão expirou"
+      );
       setTimeout(() => {
         window.location.href = "./formulario.html";
       }, 3000);
@@ -43,45 +50,7 @@ function mostrarConteudo(id) {
   document.getElementById(id).classList.remove("hidden");
 }
 
-// mensagens de erros mesmo padrao que já fiz no formulario de login/signup
-
-function showErrorMessage(message, form) {
-  removeErrorMessage(form);
-
-  const errorEl = document.createElement("p");
-  errorEl.className = "form-error";
-  errorEl.textContent = message;
-
-  form.appendChild(errorEl);
-}
-
-function showErrors(errors, form) {
-  removeErrorMessage(form);
-
-  const ul = document.createElement("ul");
-  ul.className = "form-error-list";
-
-  errors.forEach((error) => {
-    const li = document.createElement("li");
-    li.textContent = error.message || String(error);
-    ul.appendChild(li);
-  });
-
-  form.appendChild(ul);
-}
-
-function removeErrorMessage(form) {
-  form
-    .querySelectorAll(".form-error, .form-error-list, .form-success")
-    .forEach((el) => el.remove());
-}
-
-function fecharModalErro() {
-  const modal = document.getElementById("modal-erro");
-
-  modal.classList.add("hidden");
-  document.body.style.overflow = "";
-}
+// evento de modal de erro
 
 document
   .getElementById("modal-erro-close")
@@ -94,7 +63,6 @@ document
 document
   .getElementById("modal-erro-overlay")
   .addEventListener("click", fecharModalErro);
-
 
 // formatar data
 
@@ -114,7 +82,7 @@ function escapeHtml(texto) {
 
 async function carregarRegistros() {
   try {
-    return await apiFetch("/finances/me", { method: "GET" }, );
+    return await apiFetch("/finances/me", { method: "GET" });
   } catch (error) {
     console.error(error);
     abrirModalErro("Erro ao carregar registros.");
@@ -125,7 +93,7 @@ async function carregarRegistros() {
 async function exibirRegistros() {
   const container = document.getElementById("lista-registros");
 
-  container.classList.add("no-content")
+  container.classList.add("no-content");
 
   container.innerHTML = "<p>Carregando registros...</p>";
 
@@ -213,7 +181,7 @@ function editarRegistro(id, registros) {
 
   document.getElementById("data-financa").value = registro.data.substring(
     0,
-    10,
+    10
   );
 
   document.getElementById("observacao-registro-financas").value =
@@ -241,12 +209,12 @@ async function salvarNovoRegistro(event) {
 
   const form = document.getElementById("form-novo-registro");
 
-  removeErrorMessage(form);
+  removeMessage(form);
 
   const tipo = document.getElementById("tipo-registro-financas").value;
 
   const valor = Number(
-    document.getElementById("valor-registro-financas").value,
+    document.getElementById("valor-registro-financas").value
   );
 
   const data = document.getElementById("data-financa").value;
@@ -337,7 +305,7 @@ function resetarFormulario() {
 
   document.getElementById("cancelar-edicao-btn").classList.add("hidden");
 
-  removeErrorMessage(document.getElementById("form-novo-registro"));
+  removeMessage(document.getElementById("form-novo-registro"));
 }
 
 // deletar
@@ -356,16 +324,14 @@ async function excluirRegistro(id) {
         console.error(error);
 
         abrirModalErro(
-          error.message ||
-            "Não foi possível excluir o registro.",
-          "Erro ao excluir",
+          error.message || "Não foi possível excluir o registro.",
+          "Erro ao excluir"
         );
       }
     },
-    "Excluir registro",
+    "Excluir registro"
   );
 }
-
 
 // eventos
 
@@ -423,8 +389,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // modal de visualizar
 
-let registroVisualizado = null;
-
 async function abrirModalVisualizacao(id) {
   try {
     const registros = await carregarRegistros();
@@ -437,15 +401,16 @@ async function abrirModalVisualizacao(id) {
     // preencher os campos
     document.getElementById("modal-visualizar-tipo").textContent =
       registro.tipo === "ganho" ? "Ganho" : "Despesa";
-    document.getElementById("modal-visualizar-valor").textContent =
-      `R$ ${Number(registro.valor).toFixed(2).replace(".", ",")}`;
+    document.getElementById(
+      "modal-visualizar-valor"
+    ).textContent = `R$ ${Number(registro.valor).toFixed(2).replace(".", ",")}`;
     document.getElementById("modal-visualizar-data").textContent = formatarData(
-      registro.data,
+      registro.data
     );
     document.getElementById("modal-visualizar-obs").textContent =
-      registro.observacoes || "—";
+      escapeHtml(registro.observacoes) || "—";
     document.getElementById("modal-visualizar-detalhes").textContent =
-      registro.detalhes || "—";
+      escapeHtml(registro.detalhes) || "—";
 
     // mostrar modal
     document.getElementById("modal-visualizar").classList.remove("hidden");
@@ -482,7 +447,7 @@ document
   .getElementById("modal-visualizar-fechar")
   .addEventListener("click", fecharModalVisualizacao);
 
-  document
+document
   .getElementById("modal-confirmacao-close")
   .addEventListener("click", fecharModalConfirmacao);
 
@@ -503,40 +468,6 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-// modal confirmar
-
-function abrirModalConfirmacao(
-  mensagem,
-  callback,
-  titulo = "Confirmar ação",
-) {
-  document.getElementById(
-    "modal-confirmacao-title",
-  ).textContent = titulo;
-
-  document.getElementById(
-    "modal-confirmacao-message",
-  ).textContent = mensagem;
-
-  acaoConfirmada = callback;
-
-  document
-    .getElementById("modal-confirmacao")
-    .classList.remove("hidden");
-
-  document.body.style.overflow = "hidden";
-}
-
-function fecharModalConfirmacao() {
-  document
-    .getElementById("modal-confirmacao")
-    .classList.add("hidden");
-
-  document.body.style.overflow = "";
-
-  acaoConfirmada = null;
-}
-
 document
   .getElementById("modal-confirmacao-confirmar")
   .addEventListener("click", async () => {
@@ -546,7 +477,6 @@ document
 
     fecharModalConfirmacao();
   });
-
 
 // graficos
 
@@ -606,7 +536,7 @@ async function criarGraficoMes() {
           ],
 
           borderColor: ["#388E3C", "#D32F2F", "#1976D2"],
-          borderWidth: 1
+          borderWidth: 1,
         },
       ],
     },
@@ -681,7 +611,7 @@ async function criarGraficoAno() {
   });
 
   const lucroPorMes = ganhosPorMes.map(
-    (ganho, mes) => ganho - despesasPorMes[mes],
+    (ganho, mes) => ganho - despesasPorMes[mes]
   );
 
   const meses = [
@@ -706,13 +636,13 @@ async function criarGraficoAno() {
       labels: meses,
 
       datasets: [
-  {
-    label: "Lucro",
-    data: lucroPorMes,
+        {
+          label: "Lucro",
+          data: lucroPorMes,
 
-    backgroundColor: "#61b792",
-    borderColor: "#61aa8a"
-  },
+          backgroundColor: "#61b792",
+          borderColor: "#61aa8a",
+        },
       ],
     },
 
