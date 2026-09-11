@@ -8,7 +8,7 @@ interface WeatherData {
   temperaturaMaxima: number,
   precipitacao: number,
   velocidadeVentoMaxima: number,
-  evotranspiracao: number
+  evapotranspiracao: number
 }
 
 export class WeatherRepository {
