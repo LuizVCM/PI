@@ -116,12 +116,14 @@ hoje.textContent = `${diaNome}, ${diaNum} ${mes} - ${hora}:${minute} `
 
       sensacaoTermica.textContent = `Sensação térmica: ${dados7Dias.hourly.apparent_temperature[horaAtual - 1]}°C`
 
-       const clima = 'https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=temperature_2m_max,temperature_2m_min,wind_speed_10m_max,precipitation_sum,et0_fao_evapotranspiration';
+       const clima = 'https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=temperature_2m_max,temperature_2m_min,wind_speed_10m_max,precipitation_sum,et0_fao_evapotranspiration&forecast_days=1';
 
        const climaDiario = await fetch(clima);
        const dadosClima = await climaDiario.json()
-      const apiEnviar = 'http://localhost:3000/weather/'
+       
+      const apiEnviar = `http://localhost:3000/weather/territory/${usuario.territorios[0].id}`
 
+      console.log(dadosClima)
       const enviarClima = await fetch(apiEnviar, {
         credentials: 'include',
          method: 'POST', 
