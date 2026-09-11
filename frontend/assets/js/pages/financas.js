@@ -1,3 +1,5 @@
+import { abrirModalErro } from "../utils/modals.js";
+
 const API_URL = "http://localhost:3000";
 
 let registroEditandoId = null;
@@ -72,23 +74,6 @@ function removeErrorMessage(form) {
   form
     .querySelectorAll(".form-error, .form-error-list, .form-success")
     .forEach((el) => el.remove());
-}
-
-// modal erro
-
-function abrirModalErro(
-  mensagem = "Não foi possível realizar esta operação.",
-  titulo = "Ocorreu um erro",
-) {
-  const modal = document.getElementById("modal-erro");
-  const title = document.getElementById("modal-erro-title");
-  const message = document.getElementById("modal-erro-message");
-
-  title.textContent = titulo;
-  message.textContent = mensagem;
-
-  modal.classList.remove("hidden");
-  document.body.style.overflow = "hidden";
 }
 
 function fecharModalErro() {
