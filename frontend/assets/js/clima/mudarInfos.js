@@ -10,26 +10,26 @@ const visibilidade = document.querySelector(".Visib h1")
 
 
 async function TrocarTemp() {
-    const api = 'https://api.open-meteo.com/v1/forecast?latitude=-29.7603&longitude=-51.1472&daily=temperature_2m_min,temperature_2m_max,precipitation_sum,precipitation_probability_max,et0_fao_evapotranspiration,wind_speed_10m_max&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,rain,evapotranspiration,et0_fao_evapotranspiration,vapour_pressure_deficit,wind_speed_10m&minutely_15=temperature_2m,relative_humidity_2m,rain,precipitation,apparent_temperature,global_tilted_irradiance,wind_speed_10m,shortwave_radiation&timezone=America%2FSao_Paulo&forecast_days=1'
+  const api = 'https://api.open-meteo.com/v1/forecast?latitude=-29.7603&longitude=-51.1472&daily=temperature_2m_min,temperature_2m_max,precipitation_sum,precipitation_probability_max,et0_fao_evapotranspiration,wind_speed_10m_max&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,rain,evapotranspiration,et0_fao_evapotranspiration,vapour_pressure_deficit,wind_speed_10m&minutely_15=temperature_2m,relative_humidity_2m,rain,precipitation,apparent_temperature,global_tilted_irradiance,wind_speed_10m,shortwave_radiation&timezone=America%2FSao_Paulo&forecast_days=1'
 
-    const recebeDadosBackend= "http://localhost:3000/users/me"
-     try{
+  const recebeDadosBackend = "http://localhost:3000/users/me"
+  try {
 
-      const consumo = await fetch(recebeDadosBackend, { credentials: 'include'});
-      const usuario = await consumo.json();
+    const consumo = await fetch(recebeDadosBackend, { credentials: 'include' });
+    const usuario = await consumo.json();
 
-      const elemento = document.querySelector(".local h1");
-      const cidade = usuario.territorios[0].cidade;
-      const estado = usuario.territorios[0].estado;
-      
-      elemento.textContent = `${cidade}, ${estado}`
+    const elemento = document.querySelector(".local h1");
+    const cidade = usuario.territorios[0].cidade;
+    const estado = usuario.territorios[0].estado;
+
+    elemento.textContent = `${cidade}, ${estado}`
 
 
     const resposta = await fetch(api)
     const dados = await resposta.json()
     // altera as máximas e as mínimas da temperatura atual
-    temperaturaMedia.textContent = `Máx: ${Number(dados.daily.temperature_2m_max) }  · Mín: ${Number(dados.daily.temperature_2m_min)} `
-   
+    temperaturaMedia.textContent = `Máx: ${Number(dados.daily.temperature_2m_max)}  · Mín: ${Number(dados.daily.temperature_2m_min)} `
+
     // altera a porcentagem atual de umidade no ar
     umidadeMedia.textContent = `${Number(dados.hourly.relative_humidity_2m.at(3))}%`
 
@@ -46,20 +46,20 @@ async function TrocarTemp() {
     const resposta2 = await fetch(api2)
     const dados7Dias = await resposta2.json()
 
-   console.log(dados7Dias);
+    console.log(dados7Dias);
 
-   
- // pega as infomrações exatas de hj
- const hoje = document.querySelector(".local p")
- let diaNome = new Date().toLocaleDateString('pt-BR', { weekday: 'long' })
- let diaNum = new Date().getDate()
- // aq ele lê o número do mês atual, converte o seu significado para string e traduz na língua portuguesa
- let mes = (new Intl.DateTimeFormat('pt-BR', { month: 'long' })).format(new Date())
-let hora = new Date().getHours()
- let minute = new Date().getMinutes()
-// impede q seja minuto 0, mas ss 00 até chegar o 10
-hoje.textContent = `${diaNome}, ${diaNum} ${mes} - ${hora}:${minute} `
-  
+
+    // pega as infomrações exatas de hj
+    const hoje = document.querySelector(".local p")
+    let diaNome = new Date().toLocaleDateString('pt-BR', { weekday: 'long' })
+    let diaNum = new Date().getDate()
+    // aq ele lê o número do mês atual, converte o seu significado para string e traduz na língua portuguesa
+    let mes = (new Intl.DateTimeFormat('pt-BR', { month: 'long' })).format(new Date())
+    let hora = new Date().getHours()
+    let minute = new Date().getMinutes()
+    // impede q seja minuto 0, mas ss 00 até chegar o 10
+    hoje.textContent = `${diaNome}, ${diaNum} ${mes} - ${hora}:${minute} `
+
 
     const dia1 = document.querySelector(".d1")
     const dia2 = document.querySelector(".d2")
@@ -71,81 +71,95 @@ hoje.textContent = `${diaNome}, ${diaNum} ${mes} - ${hora}:${minute} `
     // pega as máximas e mínimas de cada dia e informa no frontend
     const max = []
     const min = []
-    for(let i = 1; i <= 6; i++){
-      max[i - 1] = document.querySelector(`.b${i} h2`) 
+    for (let i = 1; i <= 6; i++) {
+      max[i - 1] = document.querySelector(`.b${i} h2`)
       min[i - 1] = document.querySelector(`.b${i} h3`)
     }
 
     console.log(max)
 
     // altera as máximas:
-    for(let j = 0; j < max.length; j++){
+    for (let j = 0; j < max.length; j++) {
       console.log(max[j])
-    max[j].textContent = `${dados7Dias.daily.temperature_2m_max[j]}°C`
+      max[j].textContent = `${dados7Dias.daily.temperature_2m_max[j]}°C`
     }
 
     // altera as mínimas:
-    for(let k = 0; k < min.length; k++ ){
+    for (let k = 0; k < min.length; k++) {
       console.log(min[k])
       min[k].textContent = `${dados7Dias.daily.temperature_2m_min[k]}°C`
     }
 
     const imagemClima = document.querySelector(".nuvemSol img")
-    
+
 
     // informar exatamente os dias dos cards de previsão  (pega por essas funções loucas de conversão de data e pelo índice da API)
-      dia1.textContent = `${new Date(dados7Dias.daily.time.at(0)).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) }`
-      dia2.textContent = `${new Date(dados7Dias.daily.time.at(1)).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) }`
-      dia3.textContent = `${new Date(dados7Dias.daily.time.at(2)).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) }`
-      dia4.textContent = `${new Date(dados7Dias.daily.time.at(3)).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) }`
-      dia5.textContent = `${new Date(dados7Dias.daily.time.at(4)).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) }`
-      dia6.textContent = `${new Date(dados7Dias.daily.time.at(5)).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) }`
-      
-      // altera a visibilidade (nn feito antes)
-       // aq pega as horas exatas do sistema
-       let horaAtual
-     if(new Date().getHours() < 1){
-        horaAtual = 1
-     }
-     else{
-         horaAtual = new Date().getHours()
-     }
-      visibilidade.textContent = `${(dados7Dias.hourly.visibility[horaAtual - 1])/1000} km`// aq eu pego a informação da hora atual, dada em número, coloco para acessar o array de visibilidade por hora e em 7 dias, e coloco para pegar ainformação exata do horário atual correspondente com o índice da hora - 1
+    dia1.textContent = `${new Date(dados7Dias.daily.time.at(0)).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}`
+    dia2.textContent = `${new Date(dados7Dias.daily.time.at(1)).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}`
+    dia3.textContent = `${new Date(dados7Dias.daily.time.at(2)).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}`
+    dia4.textContent = `${new Date(dados7Dias.daily.time.at(3)).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}`
+    dia5.textContent = `${new Date(dados7Dias.daily.time.at(4)).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}`
+    dia6.textContent = `${new Date(dados7Dias.daily.time.at(5)).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}`
 
-      // altera sensação térmica neste momento atual
-      const sensacaoTermica = document.querySelector(".graus h4")
+    // altera a visibilidade (nn feito antes)
+    // aq pega as horas exatas do sistema
+    let horaAtual
+    if (new Date().getHours() < 1) {
+      horaAtual = 1
+    }
+    else {
+      horaAtual = new Date().getHours()
+    }
+    visibilidade.textContent = `${(dados7Dias.hourly.visibility[horaAtual - 1]) / 1000} km`// aq eu pego a informação da hora atual, dada em número, coloco para acessar o array de visibilidade por hora e em 7 dias, e coloco para pegar ainformação exata do horário atual correspondente com o índice da hora - 1
 
-      sensacaoTermica.textContent = `Sensação térmica: ${dados7Dias.hourly.apparent_temperature[horaAtual - 1]}°C`
+    // altera sensação térmica neste momento atual
+    const sensacaoTermica = document.querySelector(".graus h4")
 
-       const clima = 'https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=temperature_2m_max,temperature_2m_min,wind_speed_10m_max,precipitation_sum,et0_fao_evapotranspiration&forecast_days=1';
+    sensacaoTermica.textContent = `Sensação térmica: ${dados7Dias.hourly.apparent_temperature[horaAtual - 1]}°C`
 
-       const climaDiario = await fetch(clima);
-       const dadosClima = await climaDiario.json()
-       
-      const apiEnviar = `http://localhost:3000/weather/territory/${usuario.territorios[0].id}`
+    const clima = 'https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=temperature_2m_max,temperature_2m_min,wind_speed_10m_max,precipitation_sum,et0_fao_evapotranspiration&forecast_days=1';
 
-      console.log(dadosClima)
-      const enviarClima = await fetch(apiEnviar, {
-        credentials: 'include',
-         method: 'POST', 
-           headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(dadosClima.daily)
-      })
+    const climaDiario = await fetch(clima);
+    const dadosClima = await climaDiario.json()
 
-      if (!enviarClima.ok) {
-            throw new Error(`Erro na requisição: ${enviarClima.status}`);
+    const apiEnviar = `http://localhost:3000/weather/territory/${usuario.territorios[0].id}`
+
+    console.log(dadosClima)
+
+    const objeto = {
+        daily: {
+          data: dadosClima.daily.time,
+          temperaturaMinima: dadosClima.daily.temperature_2m_min, // Converte para o nome que o backend quer
+          temperaturaMaxima: dadosClima.daily.temperature_2m_max,
+          velocidadeVentoMaxima: dadosClima.daily.wind_speed_10m_max,
+          precipitacao: dadosClima.daily.precipitation_sum,
+          evapotranspiracao: dadosClima.daily.et0_fao_evapotranspiration
         }
+      }
+      console.log(objeto)
+    const enviarClima = await fetch(apiEnviar, {
+      credentials: 'include',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(
+              dadosClima.daily
+    )
+    })
 
-        const dadosRetornados = await enviarClima.json();
-        console.log('Sucesso:', dadosRetornados);
+    if (!enviarClima.ok) {
+      throw new Error(`Erro na requisição: ${enviarClima.status}`);
     }
-    catch(error){
-      alert(`Erro ao consumir os dados: `+error)
-    }
-    }
-    
 
-     TrocarTemp()
-     setInterval(TrocarTemp, 100000)
+    const dadosRetornados = await enviarClima.json();
+    console.log('Sucesso:', dadosRetornados);
+  }
+  catch (error) {
+    alert(`Erro ao consumir os dados: ` + error)
+  }
+}
+
+
+TrocarTemp()
+setInterval(TrocarTemp, 100000)
