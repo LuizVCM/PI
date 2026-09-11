@@ -52,7 +52,17 @@ export class TerritoryService {
       throw new NotFoundError("território");
     }
     AuthorizationService.ensureOwnership(territory, loggedUserId, "território");
-    const territoryData = TerritoryMapper.toUpdateEntity(data);
+    const address = data.cep != null ? await fetchAddress(data.cep) : null;
+    const territoryData = {
+      ...TerritoryMapper.toUpdateEntity(data),
+      ...(address && {
+        cep: address.cep,
+        cidade: address.cidade,
+        estado: address.estado,
+        bairro: address.bairro,
+        logradouro: address.logradouro,
+      }),
+    };
     dataFilter(territory, territoryData);
     const territoryUpdated = await this.repo.base.save(territory);
     return TerritoryMapper.toSummaryResponse(territoryUpdated);
