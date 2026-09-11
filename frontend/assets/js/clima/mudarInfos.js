@@ -10,11 +10,27 @@ const visibilidade = document.querySelector(".Visib h1")
 
 
 async function TrocarTemp() {
+     
+  try{
+    const cepValido = `http://localhost:3000/weather/territory/${usuario.territorios[0].id}`
+
+    async function cep() {
+      const validacao = await fetch(cepValido);
+      const respostaUser = await validacao.json() 
+      console.log(respostaUser)
+
+      const coordenadasGeograficas = `https://brasilcep.dev/v1/${respostaUser.}`
+    }
+
+  }catch(error){
+    console.log("deu erro ao capturar coordenadas do cpf")
+  }
   const api = 'https://api.open-meteo.com/v1/forecast?latitude=-29.7603&longitude=-51.1472&daily=temperature_2m_min,temperature_2m_max,precipitation_sum,precipitation_probability_max,et0_fao_evapotranspiration,wind_speed_10m_max&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,rain,evapotranspiration,et0_fao_evapotranspiration,vapour_pressure_deficit,wind_speed_10m&minutely_15=temperature_2m,relative_humidity_2m,rain,precipitation,apparent_temperature,global_tilted_irradiance,wind_speed_10m,shortwave_radiation&timezone=America%2FSao_Paulo&forecast_days=1'
+  
+  const clima = 'https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=temperature_2m_max,temperature_2m_min,wind_speed_10m_max,precipitation_sum,et0_fao_evapotranspiration&forecast_days=1';
 
   const recebeDadosBackend = "http://localhost:3000/users/me"
   try {
-
     const consumo = await fetch(recebeDadosBackend, { credentials: 'include' });
     const usuario = await consumo.json();
 
@@ -23,6 +39,37 @@ async function TrocarTemp() {
     const estado = usuario.territorios[0].estado;
 
     elemento.textContent = `${cidade}, ${estado}`
+    async function lançarClima() {
+    try{
+    const climaDiario = await fetch(clima);
+    const dadosClima = await climaDiario.json()
+
+    const apiEnviar = `http://localhost:3000/weather/territory/${usuario.territorios[0].id}`
+
+    console.log(dadosClima)
+
+      
+    const enviarClima = await fetch(apiEnviar, {
+      credentials: 'include',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+             daily: dadosClima.daily
+    })
+    })
+
+    if (!enviarClima.ok) {
+      throw new Error(`Erro na requisição: ${enviarClima.status}`);
+    }
+
+    const dadosRetornados = await enviarClima.json();
+    console.log('Sucesso:', dadosRetornados);
+  }catch(error){
+    console.log("deu erro pois já existe clima dessa data!")
+  }finally{
+
 
 
     const resposta = await fetch(api)
@@ -117,43 +164,10 @@ async function TrocarTemp() {
 
     sensacaoTermica.textContent = `Sensação térmica: ${dados7Dias.hourly.apparent_temperature[horaAtual - 1]}°C`
 
-    const clima = 'https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=temperature_2m_max,temperature_2m_min,wind_speed_10m_max,precipitation_sum,et0_fao_evapotranspiration&forecast_days=1';
+  }
+  }
 
-    const climaDiario = await fetch(clima);
-    const dadosClima = await climaDiario.json()
-
-    const apiEnviar = `http://localhost:3000/weather/territory/${usuario.territorios[0].id}`
-
-    console.log(dadosClima)
-
-    const objeto = {
-        daily: {
-          data: dadosClima.daily.time,
-          temperaturaMinima: dadosClima.daily.temperature_2m_min, // Converte para o nome que o backend quer
-          temperaturaMaxima: dadosClima.daily.temperature_2m_max,
-          velocidadeVentoMaxima: dadosClima.daily.wind_speed_10m_max,
-          precipitacao: dadosClima.daily.precipitation_sum,
-          evapotranspiracao: dadosClima.daily.et0_fao_evapotranspiration
-        }
-      }
-      console.log(objeto)
-    const enviarClima = await fetch(apiEnviar, {
-      credentials: 'include',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(
-              dadosClima.daily
-    )
-    })
-
-    if (!enviarClima.ok) {
-      throw new Error(`Erro na requisição: ${enviarClima.status}`);
-    }
-
-    const dadosRetornados = await enviarClima.json();
-    console.log('Sucesso:', dadosRetornados);
+  lançarClima()
   }
   catch (error) {
     alert(`Erro ao consumir os dados: ` + error)
