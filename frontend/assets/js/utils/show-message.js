@@ -16,6 +16,7 @@ export function showErrors(errors, form) {
   ul.className = "form-error-list";
   errors.forEach((error) => {
     const li = document.createElement("li");
+    // as mensagens de erro sempre vem dentro do objeto "message"
     li.textContent = error.message;
     ul.appendChild(li);
   });

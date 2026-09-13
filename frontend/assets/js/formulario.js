@@ -1,4 +1,6 @@
+import { API_URL } from "./config/api.js";
 import { showErrorMessage, removeMessage, showErrors } from "./utils/show-message.js";
+import { capitalize } from "./utils/formatter.js";
 
 // todos os painéis
 const fundo = document.querySelectorAll(".fundo");
@@ -12,8 +14,6 @@ const cadastroPainel = document.getElementById("cadastro-painel");
 const loginPainel = document.getElementById("login-painel");
 const territorioPainel = document.getElementById("territorio-painel");
 
-// url do backend
-const API_URL = "http://localhost:3000";
 
 // função pra facilitar
 function showPanel(panel) {
@@ -193,8 +193,8 @@ loginForm.addEventListener("submit", async (event) => {
     const result = await response.json();
 
     if (!response.ok) {
-      if (result.message) {
-        showErrorMessage(result.message, loginForm);
+      if (result.info) {
+        showErrorMessage(capitalize(result.info), loginForm);
       }
       if (result.errors) {
         const errors = result.errors ? Object.values(result.errors).flat() : {};
@@ -248,8 +248,8 @@ const cep = document.getElementById("cep");
 cep.addEventListener("input", () => {
   let valor = cep.value.replace(/\D/g, "");
 
-  // limita a 11 números
-  valor = valor.substring(0, 9);
+  // limita a 8 números
+  valor = valor.substring(0, 8);
 
   if (valor.length <= 5) {
     cep.value = valor;

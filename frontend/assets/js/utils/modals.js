@@ -20,7 +20,7 @@ export function fecharModalErro() {
   document.body.style.overflow = "";
 }
 // modal confirmar
-let acaoConfirmada = null;
+export let acaoConfirmada = null;
 export function abrirModalConfirmacao(
   mensagem,
   callback,
