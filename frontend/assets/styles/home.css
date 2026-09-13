@@ -16,7 +16,6 @@ header {
   background-color: var(--verde-topo);
   padding: 30px;
   font-size: 1.4rem;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: 700;
   color: var(--verde-profundo);
   gap: 20px;

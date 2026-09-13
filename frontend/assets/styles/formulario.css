@@ -355,7 +355,7 @@ body {
   box-shadow: 0 5px 14px rgba(0, 0, 0, 0.12);
 }
 
-.formulario > p {
+.formulario > p, .formulario > div {
   margin: 20px auto 0;
 
   color: #626b65;
