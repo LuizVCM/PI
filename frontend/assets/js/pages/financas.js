@@ -139,7 +139,7 @@ function editarRegistro(id, registros) {
   const registro = registros.find((item) => String(item.id) === String(id));
 
   if (!registro) {
-    alert("Registro não encontrado.");
+    abrirModalErro("Registro não encontrado.");
     return;
   }
 
