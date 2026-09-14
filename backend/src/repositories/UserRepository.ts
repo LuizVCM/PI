@@ -54,6 +54,10 @@ export class UserRepository {
         sementes: true,
         territorios: true,
       },
+      select: {
+        sementes: true,
+        territorios: true
+      }
     });
   }
   /** busca apenas por e-mail */

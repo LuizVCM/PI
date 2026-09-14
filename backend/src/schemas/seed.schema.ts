@@ -17,7 +17,6 @@ const seedFields = {
   fornecedor: z
     .string()
     .trim()
-    .min(1, "Nome do fornecedor é muito curto")
     .max(100, "Nome do fornecedor é muito longo")
     .optional()
     .nullable(),
