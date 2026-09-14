@@ -3,45 +3,46 @@ import {
   fecharModalErro,
   abrirModalConfirmacao,
   fecharModalConfirmacao,
-  acaoConfirmada
+  acaoConfirmada,
 } from "../utils/modals.js";
-import { showErrorMessage, removeMessage, showErrors } from "../utils/show-message.js";
+import {
+  showErrorMessage,
+  removeMessage,
+  showErrors,
+} from "../utils/show-message.js";
 import { apiFetch } from "../config/api.js";
-
 
 // páginas
 const content = document.querySelector(".content");
 const validade = document.querySelector(".validade");
 const lote = document.querySelector(".lote");
-const recomendacao = document.querySelector(".recomendacao")
-const agenda = document.querySelector(".agenda")
+const recomendacao = document.querySelector(".recomendacao");
+const agenda = document.querySelector(".agenda");
 
 //botao de ação
 const entrarValidade = document.querySelector(".funcao1");
 const entrarLote = document.querySelector(".funcao2");
 const recomendacaoPlantio = document.querySelector(".funcao3");
-const agendarPlantio = document.querySelector(".funcao4")
-
+const agendarPlantio = document.querySelector(".funcao4");
 
 entrarValidade.addEventListener("click", () => {
-    content.classList.toggle("toggle1");
-    validade.classList.toggle("valMovimento")
+  content.classList.toggle("toggle1");
+  validade.classList.toggle("valMovimento");
 });
 
 entrarLote.addEventListener("click", () => {
-    content.classList.toggle("toggle1");
-    lote.classList.toggle("valMovimento");
+  content.classList.toggle("toggle1");
+  lote.classList.toggle("valMovimento");
 });
 
 recomendacaoPlantio.addEventListener("click", () => {
-    content.classList.toggle("toggle1");
-    recomendacao.classList.toggle("valMovimento");
-
-})
-agendarPlantio.addEventListener("click", ()=>{
-     content.classList.toggle("toggle1");
-    agenda.classList.toggle("valMovimento");
-})
+  content.classList.toggle("toggle1");
+  recomendacao.classList.toggle("valMovimento");
+});
+agendarPlantio.addEventListener("click", () => {
+  content.classList.toggle("toggle1");
+  agenda.classList.toggle("valMovimento");
+});
 
 // funções de 'nova semente' e outros
 const novaSemente = document.querySelector(".novaSemente");
@@ -50,45 +51,44 @@ const secao = document.querySelector(".secao");
 const cancelar = document.querySelector(".cancelar");
 
 cancelar.addEventListener("click", () => {
-    secao.classList.toggle("toggle1")
-})
+  secao.classList.toggle("toggle1");
+});
 novaSemente.addEventListener("click", () => {
-    secao.classList.toggle("toggle1")
-})
+  secao.classList.toggle("toggle1");
+});
 
-const novoLote = document.querySelector(".lot")
-const cadastroLote = document.querySelector(".lo")
+const novoLote = document.querySelector(".lot");
+const cadastroLote = document.querySelector(".lo");
 
 novoLote.addEventListener("click", () => {
-    cadastroLote.classList.toggle("toggle1")
-})
+  cadastroLote.classList.toggle("toggle1");
+});
 
 const r1 = document.getElementById("retornar1");
 const r2 = document.getElementById("retornar2");
 const r3 = document.getElementById("retornar3");
 const r4 = document.getElementById("retornar4");
 
-const cancel = document.getElementById("cancel")
+const cancel = document.getElementById("cancel");
 
-// está com erro, mas a estrutura é assim 
-r1.addEventListener("click", ()=>{
- content.classList.toggle("toggle1");
-    validade.classList.toggle("valMovimento")
+// está com erro, mas a estrutura é assim
+r1.addEventListener("click", () => {
+  content.classList.toggle("toggle1");
+  validade.classList.toggle("valMovimento");
 });
-r2.addEventListener("click", ()=>{
- content.classList.toggle("toggle1");
- lote.classList.toggle("valMovimento")
+r2.addEventListener("click", () => {
+  content.classList.toggle("toggle1");
+  lote.classList.toggle("valMovimento");
 });
 
-r3.addEventListener("click", ()=>{
-    content.classList.toggle("toggle1");
-    recomendacao.classList.toggle("valMovimento");
-})
-r4.addEventListener("click", () =>{
-       content.classList.toggle("toggle1");
-    agenda.classList.toggle("valMovimento")
-})
-
+r3.addEventListener("click", () => {
+  content.classList.toggle("toggle1");
+  recomendacao.classList.toggle("valMovimento");
+});
+r4.addEventListener("click", () => {
+  content.classList.toggle("toggle1");
+  agenda.classList.toggle("valMovimento");
+});
 
 // integração
 
@@ -97,7 +97,7 @@ let sementeEditandoId = null;
 async function carregarPlantas() {
   try {
     return await apiFetch("/plants/all", {
-      method: "GET"
+      method: "GET",
     });
   } catch (error) {
     abrirModalErro("Erro ao carregar plantas.");
@@ -108,10 +108,9 @@ async function carregarPlantas() {
 async function preencherSelectPlantas() {
   const plantas = await carregarPlantas();
 
-  const select = document.getElementById("TS");
+  const select = document.getElementById("especie-semente");
 
-  select.innerHTML =
-    '<option value="">Selecione...</option>';
+  select.innerHTML = '<option value="">Selecione...</option>';
 
   plantas.forEach((planta) => {
     select.insertAdjacentHTML(
@@ -130,7 +129,7 @@ preencherSelectPlantas();
 async function carregarSementes() {
   try {
     return await apiFetch("/seeds/me", {
-      method: "GET"
+      method: "GET",
     });
   } catch (error) {
     abrirModalErro("Erro ao carregar sementes.");
@@ -139,15 +138,12 @@ async function carregarSementes() {
 }
 
 async function exibirSementes() {
-  const container =
-    document.querySelector(".verificacao");
+  const container = document.querySelector(".verificacao");
 
-  const sementes =
-    await carregarSementes();
+  const sementes = await carregarSementes();
 
   if (!sementes.length) {
-    container.innerHTML =
-      "<p>Nenhuma semente cadastrada.</p>";
+    container.innerHTML = "<p>Nenhuma semente cadastrada.</p>";
 
     return;
   }
@@ -170,9 +166,7 @@ async function exibirSementes() {
 
         <p>
           Validade:
-          ${formatarData(
-            semente.dataValidade
-          )}
+          ${formatarData(semente.dataValidade)}
         </p>
 
         <div class="actions">
@@ -200,80 +194,62 @@ async function exibirSementes() {
 async function salvarSemente(event) {
   event.preventDefault();
 
-  const plantId =
-    Number(
-      document.getElementById("TS").value
-    );
+  const plantaId = Number(document.getElementById("especie-semente").value);
 
-  const dataValidade =
-    document.getElementById("dVa").value;
+  const dataCompra = document.getElementById("data-compra").value;
 
-  const quantidade =
-    Number(
-      document.getElementById("quantidade")
-        .value
-    );
+  const dataValidade = document.getElementById("data-validade").value;
 
-  const unidadePeso =
-    document.getElementById("peso").value;
+  const quantidade = Number(document.getElementById("quantidade").value);
 
-  const dataCompra =
-    document.getElementById("data").value;
+  const unidadePeso = document.getElementById("peso").value;
 
-  const fornecedor =
-    document.getElementById("nome")
-      .value;
+  const fornecedor = document.getElementById("nome-fornecedor").value;
 
-  const observacoes =
-    document.getElementById("observacao")
-      .value;
+  const observacoes = document.getElementById("observacaos").value;
 
   const body = {
-    plantId,
+    plantaId,
     dataCompra,
     dataValidade,
     quantidade,
     unidadePeso,
     fornecedor,
-    observacoes
+    observacoes,
   };
 
-  const editando =
-    Boolean(sementeEditandoId);
+  const editando = Boolean(sementeEditandoId);
 
-  const path = editando
-    ? `/seeds/${sementeEditandoId}`
-    : "/seeds";
+  const path = editando ? `/seeds/${sementeEditandoId}` : "/seeds";
 
   await apiFetch(path, {
     method: editando ? "PUT" : "POST",
-    body: JSON.stringify(body)
+    body: JSON.stringify(body),
   });
 
   await exibirSementes();
 }
 
+// eventos
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("form-registro-semente").addEventListener("submit", salvarSemente)
+});
+
 function editarSemente(semente) {
   sementeEditandoId = semente.id;
 
-  document.getElementById("TS").value =
-    semente.plant.id;
+  document.getElementById("TS").value = semente.plant.id;
 
-  document.getElementById("dVa").value =
-    semente.dataValidade.substring(0, 10);
+  document.getElementById("dVa").value = semente.dataValidade.substring(0, 10);
 
-  document.getElementById("quantidade").value =
-    semente.quantidade;
+  document.getElementById("quantidade").value = semente.quantidade;
 
-  document.getElementById("peso").value =
-    semente.unidadePeso;
+  document.getElementById("peso").value = semente.unidadePeso;
 
-  document.getElementById("data").value =
-    semente.dataCompra.substring(0, 10);
+  document.getElementById("data").value = semente.dataCompra.substring(0, 10);
 
-  document.getElementById("nome").value =
-    semente.fornecedor ?? "";
+  document.getElementById("nome").value = semente.fornecedor ?? "";
 
-  document.getElementById("observacao").value =
-    semente.observacoes ?? "";
+  document.getElementById("observacao").value = semente.observacoes ?? "";
 }
