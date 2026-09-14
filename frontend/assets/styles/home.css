@@ -466,7 +466,6 @@ main .content {
 }
 @media (max-width: 600px) {
   .aside{
-    min-width: 100%;
     transition: all 0.3 linear;
   }
   .aside .opcao {

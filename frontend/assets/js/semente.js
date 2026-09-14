@@ -48,10 +48,12 @@ novaSemente.addEventListener("click", () => {
     secao.classList.toggle("toggle1")
 })
 
+const novoLote = document.querySelector(".lot")
+const cadastroLote = document.querySelector(".lo")
 
-
-
-
+novoLote.addEventListener("click", () => {
+    cadastroLote.classList.toggle("toggle1")
+})
 
 const r1 = document.getElementById("retornar1");
 const r2 = document.getElementById("retornar2");
@@ -70,11 +72,11 @@ r2.addEventListener("click", ()=>{
  lote.classList.toggle("valMovimento")
 });
 
-r4.addEventListener("click", ()=>{
-     content.classList.toggle("toggle1");
-    agenda.classList.toggle("valMovimento")
+r3.addEventListener("click", ()=>{
+    content.classList.toggle("toggle1");
+    recomendacao.classList.toggle("valMovimento");
 })
-cancel.addEventListener("click", () =>{
+r4.addEventListener("click", () =>{
        content.classList.toggle("toggle1");
     agenda.classList.toggle("valMovimento")
 })

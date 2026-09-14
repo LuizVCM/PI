@@ -1,167 +1,153 @@
 @import url(./semente.css);
+@import url(../home.css);
 
-.progresso {
-    display: Flex;
-    flex-direction: row;
+.item{
+    background-color: var(--verde-profundo);
+    color: white;
+    font-weight: 700;
+    border:none;
+    min-width: 100px;
     width: 100%;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 30px
-}
-
-.analise {
-    display: flex;
-    padding: 5px 15px;
-    border-radius: 30px;
-    background-color: rgba(255, 192, 203, 0.712);
-    border: 1px solid rgb(228, 93, 116)
-}
-
-.dashboard {
-    width: 100%;
-    align-items: center;
-    justify-content: space-around;
-    background-color: rgba(8, 82, 14, 0.219);
-    display: flex;
-    height: 100px;
+    height: 100%;
+    margin: none;
     border-radius: 10px;
 
-}
 
-.recomendacao {
-    padding: 2% 5%;
-    flex-direction: column;
-    gap: 15%;
-    align-items: center;
-    z-index: 10;
-    overflow: auto;
-    padding-bottom: 50px;
 }
-
-.item {
-    background-color: transparent;
-    width: 110px;
-    height: 90px;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    border: none;
-    flex-direction: column;
-    gap: 10%;
-    transform: scale(1.1);
-}
-
-.items {
-    display: flex;
-    background-color: rgb(7, 48, 16);
-    width: 50px;
+.dashboard{
+    margin: 10px;
+    display:flex;
+    min-width: 90%;
+    max-width: 90%;
     height: 50px;
-    border-radius: 100%;
+    align-items:center;
+    justify-content: space-around;
+    gap: 20px;
+}
+.dado{
+    display:flex;
+    align-items: center;
+    gap:20px;
+    font-weight: 700;
+    padding-left: 10px;
+    border-radius: 15px;
+    white-space: nowrap;
+    min-height: 50px; 
+    flex: 1;
+      overflow-x: auto;
+    
+}
+.dado input{
+    min-width: 200px;
+    flex: 1;
+    height: 100%;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 2px 3px 10px black;
+    padding:10px;
+    background-color: rgba(255, 255, 255, 1);
+    overflow: hidden;
+  
+}
+.dados{
+    display: flex;
+    flex-direction: row;
+    min-width:150px;
+    width: 90%;
+    gap:15px;
+    padding: 20px;  
+    box-shadow: -2px 4px 5px rgba(0, 0, 0, 0.375);
+    background-color: rgba(29, 80, 29, 0.904);
+    color: white;
+    flex-wrap: wrap;
+    border-radius: 15px;
+    margin-top: 10px;
+    overflow: hidden;
+
+    
+}
+.envia{
+    display: flex;
+    max-width: 90%;
+    width: 90%;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    background-color: var(--verde-opcao);
+    color: white;
+    font-weight: 800;
+    padding: 12px;
+    height: 50px;
+    transition: all 0.3s linear;
+    border-radius: 0 0 20px 20px;
+    border:none;
+}
+.envia:hover{
+    font-size: 15px;
+    text-shadow: 0 0 25px white;
     cursor: pointer
 }
 
-.dados, .results {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-evenly;
-    padding: 15px;
-    margin-top: -30px;
-}
-
-.dado {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--verde-sidebar);
-    color: black;
-    padding: 15px;
-    width: 40%;
-    gap: 15px;
-    border-radius: 10px;
-    box-shadow: 6px 6px rgba(1, 66, 26, 0.534);
-    color: white;
-    font-weight: 600;
-}
-
-.dado input {
-    height: 50px;
-    border-radius: 20px;
-    border: none;
-    padding: 10px;
-
-}
-
-@media (max-width: 850px) {
-    .dados, .previsao, .results{
-        flex-direction: column;
-        width: 100%;
-        gap: 20px;
-    }
-    .dado{
-        width:90%;
-    }
-    .envia{
-       right: 0;
-       margin-right: 20%;
-    }
-
-
-}
-.results{
-    background-color:rgba(186, 202, 186, 0.349);
-    margin-top: -60px;
-    border-radius: 30px;
-}
-.results .dado{
-    padding: 30px;
-    font-size: 1.2rem;
-}
-.previsao{
+h3{
     display:flex;
-    width:100%;
+
+    max-width: 90%;
+    width: 90%;
+    padding: 20px;
     align-items: center;
     justify-content: center;
-    background-color: rgba(186, 202, 186, 0.39);
-    padding:15px;
-    margin-top:-80px;
-    border-radius: 30px;
+    border-bottom: 2px solid black
 }
-.previsao .dado{
-    width:85%;
-    font-size: 1.2rem;
+.results{
+    background-color: rgba(29, 80, 29, 0.904);  
+    display:flex;
+    gap: 15px;
+    flex-direction: column;
+    padding:10px;
+    color: white;
+    min-width:150px;
+    width: 90%;
+    max-width:90%;
+    flex-wrap: wrap;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     
 }
-.salvarDados, .envia{
+.results .dado{
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    overflow-x: auto;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.438)   
+}
+.results .dado label{
+    font-size: 16px;
+}
+.results .p input{
+    width: 50%;
+    flex: none
+}
+.results .p{
     display:flex;
-    background-color: green;
-    color:white;
-    padding:15px;
-    width: 30%;
-    height:60px;
-    border-radius: 20px;
-    align-items:center;
-    justify-content:center;
-    border:none;
-    font-size: 1rem;
-    margin-top: -50px;
-    transition: all 0.3s linear;
-}
-.salvarDados:hover{
-    transition: all 0.3s linear;
-    box-shadow: 6px 12px rgba(3, 68, 3, 0.452);
-    cursor: pointer;
-}
-.envia{
-    height: 50px;
-    width:200px;
-    font-size: 1rem;
-    position:relative;
-    left:30%;
-    margin-top:-50px;
-    margin-bottom:-50px;
-
+    justify-content: space-between;
 }
 
+@media (max-width: 950px) {
+    .results .dado input {
+        max-width: 100%;
+        width: 100%;
+    }
+}
+@media (max-width: 1268px) {
+    .dados {
+        flex-direction: column;
+        min-height: 190px;
+    }
+    .dados .dado{
+        overflow: hidden;
+        overflow-x: auto;
+        max-width: 98%;
+    }
+
+}
+@media (max-width: 600px){
+    
+}
