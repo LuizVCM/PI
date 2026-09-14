@@ -1,7 +1,7 @@
-// modal erro
+/** modal erro */
 export function abrirModalErro(
   mensagem = "Não foi possível realizar esta operação.",
-  titulo = "Ocorreu um erro",
+  titulo = "Ocorreu um erro"
 ) {
   const modal = document.getElementById("modal-erro");
   const title = document.getElementById("modal-erro-title");
@@ -19,33 +19,25 @@ export function fecharModalErro() {
   modal.classList.add("hidden");
   document.body.style.overflow = "";
 }
-// modal confirmar
+/** modal confirmar */
 export let acaoConfirmada = null;
 export function abrirModalConfirmacao(
   mensagem,
   callback,
-  titulo = "Confirmar ação",
+  titulo = "Confirmar ação"
 ) {
-  document.getElementById(
-    "modal-confirmacao-title",
-  ).textContent = titulo;
+  document.getElementById("modal-confirmacao-title").textContent = titulo;
 
-  document.getElementById(
-    "modal-confirmacao-message",
-  ).textContent = mensagem;
+  document.getElementById("modal-confirmacao-message").textContent = mensagem;
 
   acaoConfirmada = callback;
 
-  document
-    .getElementById("modal-confirmacao")
-    .classList.remove("hidden");
+  document.getElementById("modal-confirmacao").classList.remove("hidden");
 
   document.body.style.overflow = "hidden";
 }
 export function fecharModalConfirmacao() {
-  document
-    .getElementById("modal-confirmacao")
-    .classList.add("hidden");
+  document.getElementById("modal-confirmacao").classList.add("hidden");
 
   document.body.style.overflow = "";
 

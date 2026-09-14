@@ -7,6 +7,8 @@ import {
 } from "../utils/modals.js";
 import { showErrorMessage, removeMessage, showErrors } from "../utils/show-message.js";
 import { apiFetch } from "../config/api.js";
+import { formatarData, escapeHtml, capitalizar } from "../utils/formatter.js";
+
 
 let registroEditandoId = null;
 
@@ -33,22 +35,6 @@ document
 document
   .getElementById("modal-erro-overlay")
   .addEventListener("click", fecharModalErro);
-
-// formatar data
-
-function formatarData(dataISO) {
-  const [ano, mes, dia] = dataISO.substring(0, 10).split("-");
-  return `${dia}/${mes}/${ano}`;
-}
-
-// escapar texto vindo do usuário antes de jogar no innerHTML
-// (observacoes/detalhes são texto livre, então precisam ser tratados como tal)
-
-function escapeHtml(texto) {
-  const div = document.createElement("div");
-  div.textContent = texto ?? "";
-  return div.innerHTML;
-}
 
 async function carregarRegistros() {
   try {
@@ -378,9 +364,9 @@ async function abrirModalVisualizacao(id) {
       registro.data
     );
     document.getElementById("modal-visualizar-obs").textContent =
-      escapeHtml(registro.observacoes) || "—";
+      capitalizar(escapeHtml(registro.observacoes)) || "—";
     document.getElementById("modal-visualizar-detalhes").textContent =
-      escapeHtml(registro.detalhes) || "—";
+      capitalizar(escapeHtml(registro.detalhes)) || "—";
 
     // mostrar modal
     document.getElementById("modal-visualizar").classList.remove("hidden");

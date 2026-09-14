@@ -1,53 +1,36 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Oxanium:wght@200..800&display=swap');
+@import url("../global.css");
+@import url("../utils/buttons.css");
 
-* {
-    margin: none;
-    padding: none;
-    box-sizing: border-box;
+#main-content .funcao.culturas i {
+  color: #6b8e23;
 }
 
-body {
-    overflow: hidden;
+#main-content .funcao.culturas:hover::before {
+  background: #6b8e23;
 }
 
-main .content {
-    display: flex;
-    height: 87vh;
-    overflow-y: auto;
-
+#main-content .funcao.plantas i {
+  color: #3a7d6a;
 }
 
-:root {
-    --verde-circulo: #7ECC5F;
-    --verde-sidebar: #2D5C2F;
-    --verde-opcoes-click: #3A7D44;
-    --verde-profundo: #1B4D1F;
-    --verde-topo: #C8E6A0;
-    --verde-selecionar: #D4EDCC;
-    --conteudo-fundo: #F4FBF0;
-    --verde-dark: #0D1F0E;
-    --verde-opcao: #153117;
-
+#main-content .funcao.plantas:hover::before {
+  background: #3a7d6a;
 }
 
-.acessos {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
+#main-content .funcao.disponivel i {
+  color: #3f6f8f;
 }
 
-.funcao i {
-    transform: scaleX(1) scale(1.8);
+#main-content .funcao.disponivel:hover::before {
+  background: #3f6f8f;
 }
 
-.content {
-    display: flex;
-    flex-direction: column;
-    padding: 15px;
+#main-content .funcao.recomendacoes i {
+  color: #c98232;
+}
+
+#main-content .funcao.recomendacoes:hover::before {
+  background: #c98232;
 }
 
 main .validade,
@@ -65,12 +48,6 @@ main .agenda {
   position: relative;
   flex: 1 1 0;
   min-width: 0;
-}
-
-.validade {}
-
-.funcao:hover {
-    cursor: pointer;
 }
 
 /*IMPORTANTE PARA AS DEMAIS PÁGINAS!!!!!!!!!!*/
