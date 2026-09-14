@@ -19,11 +19,15 @@ async function TrocarTemp() {
       const respostaUser = await validacao.json() 
       console.log(respostaUser)
 
-      const coordenadasGeograficas = `https://brasilcep.dev/v1/${respostaUser.}`
-    }
+      const coordenadasGeograficas =  `https://openstreetmap.org${encodeURIComponent(respostaUser.cidade)}&format=json&limit=1`; 
+      const coordenar = await fetch(coordenadasGeograficas);
+      const coordenadasCidade = await coordenar.json();
 
+      console.log(coordenadasCidade)
+    }
+    cep()
   }catch(error){
-    console.log("deu erro ao capturar coordenadas do cpf")
+    console.log("deu erro ao capturar coordenadas do cep"+ error)
   }
   const api = 'https://api.open-meteo.com/v1/forecast?latitude=-29.7603&longitude=-51.1472&daily=temperature_2m_min,temperature_2m_max,precipitation_sum,precipitation_probability_max,et0_fao_evapotranspiration,wind_speed_10m_max&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,rain,evapotranspiration,et0_fao_evapotranspiration,vapour_pressure_deficit,wind_speed_10m&minutely_15=temperature_2m,relative_humidity_2m,rain,precipitation,apparent_temperature,global_tilted_irradiance,wind_speed_10m,shortwave_radiation&timezone=America%2FSao_Paulo&forecast_days=1'
   
@@ -103,7 +107,7 @@ async function TrocarTemp() {
     // aq ele lê o número do mês atual, converte o seu significado para string e traduz na língua portuguesa
     let mes = (new Intl.DateTimeFormat('pt-BR', { month: 'long' })).format(new Date())
     let hora = new Date().getHours()
-    let minute = new Date().getMinutes()
+    let minute = new Date().getMinutes().toString(new Date().getMinutes()).padStart(2, '0');
     // impede q seja minuto 0, mas ss 00 até chegar o 10
     hoje.textContent = `${diaNome}, ${diaNum} ${mes} - ${hora}:${minute} `
 
