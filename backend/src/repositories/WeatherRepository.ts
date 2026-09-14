@@ -4,7 +4,7 @@ import { createBaseRepository } from "./BaseRepository";
 
 interface WeatherData {
   data: string,
-  temperaturaMinina: number,
+  temperaturaMinima: number,
   temperaturaMaxima: number,
   precipitacao: number,
   velocidadeVentoMaxima: number,

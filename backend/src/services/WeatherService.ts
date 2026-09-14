@@ -60,8 +60,8 @@ export class WeatherService {
     AuthorizationService.ensureOwnership(territory, loggedUserId, "território");
     const weatherData = {
       data: data.daily.time[0],
-      temperaturaMinina: data.daily.temperature_2m_min[0],
       temperaturaMaxima: data.daily.temperature_2m_max[0],
+      temperaturaMinima: data.daily.temperature_2m_min[0],
       precipitacao: data.daily.precipitation_sum[0],
       velocidadeVentoMaxima: data.daily.wind_speed_10m_max[0],
       evapotranspiracao: data.daily.et0_fao_evapotranspiration[0],
