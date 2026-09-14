@@ -23,7 +23,7 @@ export async function fetchAddress(cep: string): Promise<AddressData> {
   }
 
   return {
-    cep: data.cep,
+    cep: cep, // a api envia não normalizado (com hífen)
     cidade: data.localidade,
     estado: data.estado,
     bairro: data.bairro,

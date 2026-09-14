@@ -61,6 +61,32 @@
       </div>
     </main>
 
-    <script src="../assets/js/home.js"></script>
+    <div id="modal-erro" class="modal hidden">
+      <div class="modal-overlay" id="modal-erro-overlay"></div>
+
+      <div class="modal-content modal-erro-content">
+        <button class="modal-close" id="modal-erro-close">&times;</button>
+
+        <div class="modal-erro-icon">
+          <i class="fa-solid fa-circle-exclamation"></i>
+        </div>
+
+        <h2 id="modal-erro-title">Ocorreu um erro</h2>
+
+        <p id="modal-erro-message">Não foi possível realizar esta operação.</p>
+
+        <div class="modal-actions">
+          <button
+            type="button"
+            class="btn-action btn-cancelar"
+            id="modal-erro-fechar"
+          >
+            Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="../assets/js/home.js"></script>
   </body>
 </html>

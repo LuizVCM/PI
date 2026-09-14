@@ -17,15 +17,12 @@ body {
   position: fixed;
   inset: 0;
   z-index: 0;
-
   background-image: url("../images/gif-formulario.gif");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-
   filter: blur(8px);
   transform: scale(1.05);
-
   animation: desfoqueFundo 1s forwards;
   animation-delay: 1.2s;
 }
@@ -34,10 +31,8 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-
   background: var(--overlay-gradiente);
-
-  backdrop-filter: saturate(115%);
+  backdrop-filter: saturate(115%) blur(3px) contrast(1);
 }
 
 @keyframes desfoqueFundo {

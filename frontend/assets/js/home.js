@@ -1,3 +1,5 @@
+import { abrirModalErro } from "./utils/modals.js";
+
 const rotas = {
   clima: "Clima.html",
   gestao: "Gestao.html",
@@ -31,7 +33,19 @@ async function carregarUsuario() {
     });
 
     if (!response.ok) {
-      throw new Error("Erro ao carregar usuário");
+      if (response.status === 401) {
+        abrirModalErro(
+          "Faça login novamente. Redirecionando...",
+          "Sua sessão expirou",
+        );
+        setTimeout(() => {
+          window.location.href = "../pages/formulario.html";
+        }, 3000);
+      }
+      if (result.message) {
+        abrirModalErro(result.message);
+      }
+      return;
     }
 
     const usuario = await response.json();
