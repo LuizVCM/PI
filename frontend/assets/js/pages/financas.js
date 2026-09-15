@@ -244,7 +244,7 @@ function resetarFormulario() {
   document.getElementById("form-novo-registro").reset();
 
   document.getElementById("titulo-form-financa").textContent =
-    "Registrar nova despesa ou ganho";
+    "Novo registro";
 
   document.querySelector(".btn-salvar").innerHTML = `
     Salvar registro
