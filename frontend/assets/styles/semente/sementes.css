@@ -232,7 +232,7 @@
   margin: 0;
 }
 
-.novo-lote {
+#novo-lote {
   background: var(--verde-conteudo);
   color: var(--verde-profundo);
   padding: 0.3rem 0.9rem;

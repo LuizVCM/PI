@@ -97,7 +97,7 @@ async function preencherSelectPlantas() {
   plantas.forEach((p) => {
     select.insertAdjacentHTML(
       "beforeend",
-      `<option value="${p.id}">${escapeHtml(p.nome)}</option>`,
+      `<option value="${p.id}">${escapeHtml(p.nome)}</option>`
     );
   });
 }
@@ -127,9 +127,15 @@ function renderSementes(sementes) {
         <div class="semente-icon">${inicial}</div>
         <span class="opcao-semente">Cultura: ${p.nome}</span>
         <span class="opcao-semente">Fornecedor: ${s.fornecedor}</span>
-        <span class="opcao-semente">Data de compra: ${formatarData(s.dataCompra)}</span>
-        <span class="opcao-semente">Quantidade: ${s.quantidade} ${s.unidadePeso}</span>
-        <span class="opcao-semente">Validade: ${formatarData(s.dataValidade)}</span>
+        <span class="opcao-semente">Data de compra: ${formatarData(
+          s.dataCompra
+        )}</span>
+        <span class="opcao-semente">Quantidade: ${s.quantidade} ${
+      s.unidadePeso
+    }</span>
+        <span class="opcao-semente">Validade: ${formatarData(
+          s.dataValidade
+        )}</span>
 
         <span class="opcao-semente editar" data-id="${s.id}">
           <i class="fa-solid fa-pen-to-square"></i>
@@ -166,10 +172,14 @@ function editarSemente(s) {
   document.getElementById("data-compra").value =
     s.dataCompra?.substring(0, 10) ?? "";
   document.getElementById("nome-fornecedor").value =
-    s.fornecedor === "não informado" ? "" : (s.fornecedor ?? "");
+    s.fornecedor === "não informado" ? "" : s.fornecedor ?? "";
   document.getElementById("observacaos").value =
-    s.observacoes === "sem observações" ? "" : (s.observacoes ?? "");
+    s.observacoes === "sem observações" ? "" : s.observacoes ?? "";
 
+  document.getElementById("nova-semente").textContent = "Atualizar";
+  document.getElementById("titulo-form-semente").textContent =
+    "Atualizar cultura";
+  document.getElementById("novo-lote").textContent = "Atualizar";
   document.querySelector(".salvar-lote").textContent = "Salvar alterações";
   document.getElementById("form-registro-semente").classList.remove("hidden");
 }
@@ -256,6 +266,10 @@ function resetarFormulario() {
   form.classList.add("hidden");
 
   document.querySelector(".salvar-lote").textContent = "Salvar lote";
+  document.getElementById("nova-semente").textContent = "Nova semente";
+  document.getElementById("titulo-form-semente").textContent =
+    "Registrar nova cultura";
+  document.getElementById("novo-lote").textContent = "Nova cultura";
   removeMessage(form);
 }
 
@@ -270,11 +284,11 @@ async function excluirSemente(id) {
         console.error(error);
         abrirModalErro(
           error.message || "Não foi possível excluir a semente.",
-          "Erro ao excluir",
+          "Erro ao excluir"
         );
       }
     },
-    "Excluir semente",
+    "Excluir semente"
   );
 }
 
@@ -312,26 +326,41 @@ function renderRecomendacoes(sementes) {
 
         <div class="bloco">
           <h4>Ciclo</h4>
-          <p>${formatarIntervalo(p.cicloMinimoDias, p.cicloMaximoDias, " dias")}</p>
+          <p>${formatarIntervalo(
+            p.cicloMinimoDias,
+            p.cicloMaximoDias,
+            " dias"
+          )}</p>
         </div>
 
         <div class="bloco">
           <h4>Solo</h4>
-          <p><strong>pH ideal:</strong> ${formatarIntervalo(p.phMinimo, p.phMaximo)}</p>
+          <p><strong>pH ideal:</strong> ${formatarIntervalo(
+            p.phMinimo,
+            p.phMaximo
+          )}</p>
           <p><strong>Textura:</strong> ${p.texturaSolo}</p>
         </div>
 
         <div class="bloco">
           <h4>Clima</h4>
-          <p><strong>Temperatura:</strong> ${formatarIntervalo(p.temperaturaMinima, p.temperaturaMaxima, " °C")}</p>
-          <p><strong>Precipitação:</strong> ${formatarIntervalo(p.precipitacaoMinima, p.precipitacaoMaxima, " mm")}</p>
+          <p><strong>Temperatura:</strong> ${formatarIntervalo(
+            p.temperaturaMinima,
+            p.temperaturaMaxima,
+            " °C"
+          )}</p>
+          <p><strong>Precipitação:</strong> ${formatarIntervalo(
+            p.precipitacaoMinima,
+            p.precipitacaoMaxima,
+            " mm"
+          )}</p>
           <p><strong>Luz:</strong> ${p.necessidadeLuz}</p>
           <p><strong>Água:</strong> ${p.necessidadeAgua}</p>
         </div>
 
         <div class="bloco">
           <h4>Nutrição</h4>
-          <p><strong>Kc médio:</strong> ${Number(p.kcMedio)}</p>
+          <p><strong>Kc médio:</strong> ${p.kcMedio}</p>
           <p><strong>Nitrogênio:</strong> ${p.nitrogenio}</p>
           <p><strong>Fósforo:</strong> ${p.fosforo}</p>
           <p><strong>Potássio:</strong> ${p.potassio}</p>
@@ -340,7 +369,9 @@ function renderRecomendacoes(sementes) {
 
         ${
           temObs
-            ? `<div class="bloco"><h4>Suas observações</h4><p>${capitalizar(escapeHtml(s.observacoes))}</p></div>`
+            ? `<div class="bloco"><h4>Suas observações</h4><p>${capitalizar(
+                escapeHtml(s.observacoes)
+              )}</p></div>`
             : ""
         }
       </div>
@@ -355,7 +386,7 @@ function renderDisponiveis(sementes) {
   if (!container) return;
 
   const disponiveis = sementes.filter(
-    (s) => s.plantacao === PLANTACAO_INDISPONIVEL,
+    (s) => s.plantacao === PLANTACAO_INDISPONIVEL
   );
 
   if (!disponiveis.length) {
@@ -373,8 +404,12 @@ function renderDisponiveis(sementes) {
       <div class="semente-cadastrada" data-id="${s.id}">
         <div class="semente-icon">${inicial}</div>
         <span class="opcao-semente">cultura: ${p.nome}</span>
-        <span class="opcao-semente">quantidade: ${s.quantidade} ${s.unidadePeso}</span>
-        <span class="opcao-semente">validade: ${formatarData(s.dataValidade)}</span>
+        <span class="opcao-semente">quantidade: ${s.quantidade} ${
+      s.unidadePeso
+    }</span>
+        <span class="opcao-semente">validade: ${formatarData(
+          s.dataValidade
+        )}</span>
         <span class="opcao-semente">fornecedor: ${s.fornecedor}</span>
       </div>
     `;
@@ -400,11 +435,23 @@ function renderPlantas(plantas) {
       <div class="planta-card">
         <h3>${p.nome}</h3>
         <p class="nome-cientifico"><em>${p.nomeCientifico}</em></p>
-        <p><strong>Ciclo:</strong> ${formatarIntervalo(p.cicloMinimoDias, p.cicloMaximoDias, " dias")}</p>
+        <p><strong>Ciclo:</strong> ${formatarIntervalo(
+          p.cicloMinimoDias,
+          p.cicloMaximoDias,
+          " dias"
+        )}</p>
         <p><strong>pH:</strong> ${formatarIntervalo(p.phMinimo, p.phMaximo)}</p>
-        <p><strong>Temperatura:</strong> ${formatarIntervalo(p.temperaturaMinima, p.temperaturaMaxima, " °C")}</p>
-        <p><strong>Precipitação:</strong> ${formatarIntervalo(p.precipitacaoMinima, p.precipitacaoMaxima, " mm")}</p>
-        <p><strong>Kc médio:</strong> ${Number(p.kcMedio)}</p>
+        <p><strong>Temperatura:</strong> ${formatarIntervalo(
+          p.temperaturaMinima,
+          p.temperaturaMaxima,
+          " °C"
+        )}</p>
+        <p><strong>Precipitação:</strong> ${formatarIntervalo(
+          p.precipitacaoMinima,
+          p.precipitacaoMaxima,
+          " mm"
+        )}</p>
+        <p><strong>Kc médio:</strong> ${p.kcMedio}</p>
       </div>
     `;
   });
@@ -441,8 +488,8 @@ function configurarBusca(inputId, dadosArray, renderizar, extrator) {
       extrator(item).some((v) =>
         String(v ?? "")
           .toLowerCase()
-          .includes(termo),
-      ),
+          .includes(termo)
+      )
     );
 
     // renderiza apenas os itens filtrados
@@ -509,28 +556,28 @@ document.addEventListener("DOMContentLoaded", () => {
     "buscar-lote",
     () => estado.sementes,
     renderSementes,
-    (s) => [s.id, s.planta?.nome, s.fornecedor, s.unidadePeso],
+    (s) => [s.id, s.planta?.nome, s.fornecedor, s.unidadePeso]
   );
 
   configurarBusca(
     "buscar-recomendacao",
     () => estado.sementes,
     renderRecomendacoes,
-    (s) => [s.id, s.planta?.nome, s.planta?.nomeCientifico, s.fornecedor],
+    (s) => [s.id, s.planta?.nome, s.planta?.nomeCientifico, s.fornecedor]
   );
 
   configurarBusca(
     "buscar-cultura",
     () => estado.sementes,
     renderDisponiveis,
-    (s) => [s.id, s.planta?.nome, s.fornecedor],
+    (s) => [s.id, s.planta?.nome, s.fornecedor]
   );
 
   configurarBusca(
     "buscar-planta",
     () => estado.plantas,
     renderPlantas,
-    (p) => [p.nome, p.nomeCientifico],
+    (p) => [p.nome, p.nomeCientifico]
   );
 });
 

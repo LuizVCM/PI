@@ -8,19 +8,10 @@ import {
 import { showErrorMessage, removeMessage, showErrors } from "../utils/show-message.js";
 import { apiFetch } from "../config/api.js";
 import { formatarData, escapeHtml, capitalizar } from "../utils/formatter.js";
+import { mostrarConteudo } from "../utils/change-content.js";
 
 
 let registroEditandoId = null;
-
-// navegar
-
-function mostrarConteudo(id) {
-  document.querySelectorAll(".content").forEach((el) => {
-    el.classList.add("hidden");
-  });
-
-  document.getElementById(id).classList.remove("hidden");
-}
 
 // evento de modal de erro
 
