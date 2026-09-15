@@ -26,7 +26,7 @@ export class SeedService {
   }
   async listByUserLogged(userId: number) {
     const seeds = await this.repo.findByUserIdWithRelations(userId);
-    return SeedMapper.toSummaryResponseList(seeds);
+    return SeedMapper.toResponseList(seeds);
   }
   async create(data: CreateSeedDTO, loggedUserId: number) {
     const user = await this.userRepo.base.findById(loggedUserId);
