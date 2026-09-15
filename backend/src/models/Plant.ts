@@ -8,32 +8,45 @@ export enum NpkUnit {
   PERCENT = "%",
 }
 
+export enum PlantCategory {
+  CEREAIS = "cereais",
+  LEGUMINOSAS = "leguminosas",
+  TUBERCULOS = "tubérculos",
+  HORTALICAS = "hortaliças",
+  FIBRAS = "fibras",
+  OLEAGINOSAS = "oleaginosas",
+  FRUTAS = "frutas",
+  FORRAGEIRAS = "forrageiras"
+}
+
 @Entity("plantas")
 export class Plant extends BaseModel {
   @Column({ length: 100, nullable: false })
   nome: string;
   @Column({ length: 150, nullable: false, unique: true })
   nomeCientifico: string;
+  @Column({ type: "enum", enum: PlantCategory, nullable: true })
+  categoria: PlantCategory | null;
   @Column({ type: "int", nullable: false })
   cicloMinimoDias: number;
   @Column({ type: "int", nullable: false })
   cicloMaximoDias: number;
   @Column({ type: "decimal", precision: 4, scale: 2, nullable: true })
-  phMinimo: number;
+  phMinimo: number | null;
   @Column({ type: "decimal", precision: 4, scale: 2, nullable: true })
-  phMaximo: number;
+  phMaximo: number | null;
   @Column({ type: "decimal", precision: 5, scale: 2, nullable: true })
   // em celsius
-  temperaturaMinima: number;
+  temperaturaMinima: number | null;
   @Column({ type: "decimal", precision: 5, scale: 2, nullable: true })
   // em celsius
-  temperaturaMaxima: number;
+  temperaturaMaxima: number | null;
   @Column({ type: "decimal", precision: 6, scale: 2, nullable: true })
   // precipitação anual em milímetros (mm)
-  precipitacaoMinima: number;
+  precipitacaoMinima: number | null;
   @Column({ type: "decimal", precision: 6, scale: 2, nullable: true })
   // precipitação anual em milímetros (mm)
-  precipitacaoMaxima: number;
+  precipitacaoMaxima: number | null;
   @Column({ type: "varchar", length: 50, nullable: true })
   necessidadeLuz: string | null;
   @Column({ type: "varchar", length: 50, nullable: true })
