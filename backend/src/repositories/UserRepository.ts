@@ -2,22 +2,12 @@ import { User, UserRole } from "../models/User";
 import { CreateAdminDTO, CreateUserDTO } from "../schemas/user.schema";
 import { createBaseRepository } from "./BaseRepository";
 
-interface UserRelations {
-  financas: true;
-  insumos: true;
-  sementes: true;
-  territorios: true;
-}
-
 export class UserRepository {
   public base = createBaseRepository(User);
-  /** listar todos os usuários com todas as relações */
-  async listAllWithRelations() {
+  /** listar todos os usuários com território  */
+  async listAllWithTerritory() {
     return this.base.findAll({
       relations: {
-        financas: true,
-        insumos: true,
-        sementes: true,
         territorios: true,
       },
     });
@@ -46,18 +36,11 @@ export class UserRepository {
     }
     return conflicts;
   }
-  async findUserWithRelations(id: number) {
+  async findUserWithTerritory(id: number) {
     return this.base.findById(id, {
       relations: {
-        financas: true,
-        insumos: true,
-        sementes: true,
         territorios: true,
       },
-      select: {
-        sementes: true,
-        territorios: true
-      }
     });
   }
   /** busca apenas por e-mail */
