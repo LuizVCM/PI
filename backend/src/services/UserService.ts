@@ -18,7 +18,7 @@ import { UserRole } from "../models/User";
 export class UserService {
   private repo = new UserRepository();
   async listAllWithRelations() {
-    const users = await this.repo.listAllWithRelations();
+    const users = await this.repo.listAllWithTerritory();
     return UserMapper.toResponseList(users);
   }
   async listByEmail(email: string) {
@@ -32,7 +32,7 @@ export class UserService {
     return UserMapper.toResponse(user);
   }
   async getInfoUser(id: number) {
-    const user = await this.repo.findUserWithRelations(id);
+    const user = await this.repo.findUserWithTerritory(id);
     if (!user) {
       throw new NotFoundError("usuário");
     }
@@ -109,7 +109,7 @@ export class UserService {
     return {
       id: user.id,
       email: user.email,
-      role: user.role
+      role: user.role,
     };
   }
   async checkUserPassword(email: string, pass: string) {

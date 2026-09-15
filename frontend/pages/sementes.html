@@ -1,420 +1,480 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TerraFarr – Sementes</title>
+    <link rel="icon" href="../assets/icon/logo.ico" />
+    <link rel="stylesheet" href="../assets/styles/semente/all.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TerraFarr – Sementes</title>
-  <link rel="icon" href="../assets/icon/logo.ico" />
-  <link rel="stylesheet" href="../assets/styles/home.css" />
-  <link rel="stylesheet" href="../assets/styles/semente/all.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
-</head>
+  <body>
+    <header>
+      <button class="btn-menu menu-toggle">
+        <i class="fa-solid fa-bars"></i>
+      </button>
 
-<body>
-  <header>
-    <button class="btn-menu menu-toggle">
-      <i class="fa-solid fa-bars"></i>
-    </button>
+      <button class="btn-menu menu-mobile">
+        <i class="fa-solid fa-bars"></i>
+      </button>
 
-    <button class="btn-menu menu-mobile">
-      <i class="fa-solid fa-bars"></i>
-    </button>
+      <div class="message-div">
+        <span class="bem-vindo" id="welcome-message"></span>
+        <div class="user" id="user-abbrev"></div>
+      </div>
+    </header>
 
-    <div class="message-div">
-      <span class="bem-vindo" id="welcome-message"></span>
-      <div class="user" id="user-abbrev"></div>
-    </div>
-  </header>
+    <div class="overlay"></div>
 
-  <div class="overlay"></div>
-
-  <main>
-    <aside class="aside">
-      <button class="opcao clima">
-        <i class="fa-solid fa-cloud selecao"></i>
-        <p>Clima</p>
-      </button>
-      <button class="opcao gestao">
-        <i class="fa-brands fa-buffer selecao"></i>
-        <p>Gestão</p>
-      </button>
-      <button class="opcao segurancas">
-        <i class="fa-solid fa-building-shield selecao"></i>
-        <p>Informações</p>
-      </button>
-      <button class="opcao sementes">
-        <i class="fa-solid fa-seedling selecao"></i>
-        <p>Sementes</p>
-      </button>
-      <button class="opcao financas">
-        <i class="fa-solid fa-building-columns selecao"></i>
-        <p>Finanças</p>
-      </button>
-      <button class="opcao suporte">
-        <i class="fa-solid fa-comments-dollar selecao"></i>
-        <p>Suporte</p>
-      </button>
-      <button class="opcao relatorio">
-        <i class="fa-solid fa-envelope-open selecao"></i>
-        <p>Relatório</p>
-      </button>
-      <button class="opcao perfil">
-        <i class="fa-solid fa-circle-user selecao"></i>
-        <p>Perfil</p>
-      </button>
-    </aside>
-
-    <div class="content">
-      <h1 class="sementes">Gestão de Sementes</h1>
-      <div class="acessos">
-        <button class="funcao funcao1">
-          <span>Validade e tipo de semente</span>
-          <i class="fa-solid fa-arrow-right" style="color: rgb(9, 37, 29)"></i>
+    <main>
+      <aside class="aside">
+        <button class="opcao clima">
+          <i class="fa-solid fa-cloud selecao"></i> Clima
         </button>
-        <!-- <button class="funcao funcao2">
-          <span>Lotes do plantio</span>
-          <i class="fa-solid fa-arrow-right" style="color: rgb(9, 37,  29)"></i>
-        </button> -->
-        <button class="funcao funcao3">
-          <span>Ver recomendações de plantio</span>
-          <i class="fa-solid fa-arrow-right" style="color: rgb(9, 37, 29)"></i>
+        <button class="opcao gestao">
+          <i class="fa-solid fa-calendar-days selecao"></i> Gestão
         </button>
-        <!-- <button class="funcao funcao4">
-          <span>Agendar plantação</span>
-          <i class="fa-solid fa-arrow-right" style="color: rgb(9, 37, 29)"></i>
-        </button> -->
-      </div>
-    </div>
-    <!-- tela ao clicar para a 'Validade e Sementes'-->
-    <div class="validade">
-      <div class="modelagem">
-        <h1>Validade e tipo de Semente</h1>
-        <button class="editar" id="retornar1">← Voltar</button>
-
-        <!-- <button class="editar">Editar</button>
-          <button class="excluir">Excluir</button> -->
-      </div>
-      <div class="pesquisar">
-        <label for="buscarLote"></label>
-        <input type="text" name="buscarLote" class="buscarLote" placeholder="Buscar lote ou tipo..." />
-
-        <div class="select">
-          <!-- <select name="select" id="tipoS">
-              <option value="tipos de semente">Tipos de semente</option>
-              <option value="milho">milho</option>
-              <option value="feijão">feijão</option>
-              <option value="trigo">trigo</option>
-            </select> -->
-
-          <button class="novaSemente"> + </button>
-        </div>
-      </div>
-      <div class="teste">
-        <div class="verificacao">
-          <div class="sementeCadastrada">
-            <div class="sementeIcon">
-              f
-            </div>
-            <span class="opcaoSemente">fornecedor: Zeca Pagodinho</span>
-            <span class="opcaoSemente">data de compra: 12/09/2026
-            </span>
-            <span class="opcaoSemente">quantidade: 50</span>
-            <span class="opcaoSemente">unidade de peso: kg</span>
-            <span class="opcaoSemente">validade: 12/09/2040 </span>
-
-            <span class="opcaoSemente editar">
-              <i class="fa-solid fa-pen-to-square"></i>
-            </span>
-            <span class="opcaoSemente excluir">
-              <i class="fa-solid fa-trash"></i>
-            </span>
-
-
-          </div>
-        </div>
-        <!-- nn vai aparecer-->
-        <div class="secao">
-          <div class="pSuperior">
-            <div class="registroSemente">
-              <span>Nova semente</span>
-              <h5>Registrar novo lote</h5>
-            </div>
-            <div class="NovoLote">Novo lote</div>
-          </div>
-          <div class="cad1">
-            <div class="tsem">
-              <label for="TipoSemente"> TIPO DE SEMENTE</label>
-              <select name="TipoSemente" id="TS">
-                <option value="Selecione...">Selecione...</option>
-                <option value="Soja">Soja</option>
-                <option value="Milho">Milho</option>
-                <option value="Trigo">Trigo</option>
-                <option value="Feijão">Feijão</option>
-              </select>
-            </div>
-            <div class="va">
-              <label for="validade"> VALIDADE </label>
-              <input type="date" name="validade" id="dVa" />
-            </div>
-          </div>
-
-          <div class="cad1">
-            <div class="q">
-              <label for="quantidade"> QUANTIDADE</label>
-              <input type="text" name="quantidade" id="quantidade" class="quantidade" placeholder="Ex: 250" />
-            </div>
-            <div class="kg">
-              <select name="peso" id="peso">
-                <option value="kg">kg</option>
-                <option value="sacas">sacas</option>
-                <option value="ton">ton</option>
-                <option value="litro">litros</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="cad1">
-            <div class="tsem">
-              <label for="comprar"> COMPRADO EM</label>
-              <input type="date" id="data" />
-            </div>
-            <div class="va">
-              <label for="fornecedor"> FORNECEDOR </label>
-              <input type="text" name="nome" id="nome" placeholder="Nome" />
-            </div>
-          </div>
-
-          <div class="obs">
-            <div class="observacoes">
-              <label for="observacoes">OBSERVAÇÕES</label>
-              <textarea name="observacoes" id="observacao">
-Condiçõesde armazenamento, procedências...</textarea>
-            </div>
-          </div>
-          <div class="btn">
-            <button class="cancelar">Cancelar</button>
-            <button class="Salvarlote">Salvar lote</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Tela ao clicar em 'Lotes de Sementes'-->
-    <div class="lote toggle1">
-      <div class="modelagem">
-        <h1>Lotes de plantio</h1>
-        <button class="editar" id="retornar2">← Voltar</button>
-      </div>
-      <div class="pesquisar">
-        <label for="buscarLote"></label>
-        <input type="text" name="buscarLote" class="buscarLote" placeholder="Buscar lote ou cultura" />
-        <div class="select">
-          <!-- <select name="select" id="tipoS">
-              <option value="tipos de semente">Disponível</option>
-              <option value="milho">em plantio</option>
-              <option value="feijão">colhido</option>
-              <option value="trigo">pousio</option>
-            </select> -->
-          <button class="novaSemente lot">+</button>
-        </div>
-      </div>
-      <div class="teste">
-        <div class="verificacao">
-          <div class="sementeCadastrada">
-            <div class="sementeIcon">
-              f
-            </div>
-            <span class="opcaoSemente">fornecedor: Zeca Pagodinho</span>
-            <span class="opcaoSemente">data de compra: 12/09/2026
-            </span>
-            <span class="opcaoSemente">quantidade: 50</span>
-            <span class="opcaoSemente">unidade de peso: kg</span>
-            <span class="opcaoSemente">validade: 12/09/2040 </span>
-
-            <span class="opcaoSemente editar">
-              <i class="fa-solid fa-pen-to-square"></i>
-            </span>
-            <span class="opcaoSemente excluir">
-              <i class="fa-solid fa-trash"></i>
-            </span>
-
-
-          </div>
-        </div>
-        <div class="secao lo">
-          <div class="pSuperior">
-            <div class="registroSemente">
-              <span>Novo Lote</span>
-              <h5>Registrar área de plantio</h5>
-            </div>
-            <div class="NovoLote">Novo lote</div>
-          </div>
-          <div class="cad1 l">
-            <div class="tsem">
-              <label for="lote"> IDENTIFICACAO DO LOTE</label>
-              <input type="text" name="lote" id="identificacao" />
-            </div>
-          </div>
-
-          <div class="cad1 l">
-            <div class="q">
-              <label for="quantidade"> QUANTIDADE</label>
-              <input type="text" name="quantidade" id="quantidade" class="quantidade" placeholder="Ex: 250" />
-            </div>
-            <div class="kg">
-              <select name="peso" id="peso">
-                <option value="kg">m²</option>
-                <option value="sacas">km²</option>
-                <option value="ton">hectare</option>
-                <option value="litro">litros</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="cad1 l">
-            <div class="tsem">
-              <label for="comprar"> COMPRADO EM</label>
-              <input type="date" id="data" />
-            </div>
-            <div class="va">
-              <label for="fornecedor"> FORNECEDOR </label>
-              <input type="text" name="nome" id="nome" placeholder="Nome" />
-            </div>
-          </div>
-
-          <div class="obs">
-            <div class="observacoes">
-              <label for="observacoes">OBSERVAÇÕES</label>
-              <textarea name="observacoes" id="observacao">
-Condições de armazenamento, procedências...</textarea>
-            </div>
-          </div>
-          <div class="btn">
-            <button class="cancelar">Cancelar</button>
-            <button class="Salvarlote">Salvar lote</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- recomendações de plantações-->
-    <div class="recomendacao toggle2">
-      <div class="modelagem">
-        <h1>recomendação</h1>
-        <button class="editar" id="retornar3">← Voltar</button>
-      </div>
-
-      <div class="dashboard">
-        <button class="item" onclick="window.location.href = ''">
-          <div class="items">🌱</div>
-          <h4>Semente</h4>
+        <button class="opcao segurancas">
+          <i class="fa-solid fa-circle-info selecao"></i> Informações
         </button>
+        <button class="opcao sementes">
+          <i class="fa-solid fa-seedling selecao"></i> Culturas
+        </button>
+        <button class="opcao financas">
+          <i class="fa-solid fa-coins selecao"></i> Finanças
+        </button>
+        <button class="opcao suporte">
+          <i class="fa-solid fa-circle-question selecao"></i> Suporte
+        </button>
+        <button class="opcao relatorio">
+          <i class="fa-solid fa-file-lines selecao"></i> Relatório
+        </button>
+        <button class="opcao perfil">
+          <i class="fa-solid fa-circle-user selecao"></i> Perfil
+        </button>
+      </aside>
 
-        <button class="item" onclick="window.location.href = ''">
-          <div class="items">
-            <i class="fa-solid fa-sun-plant-wilt" style="color: rgb(191, 226, 202)"></i>
+      <div class="content" id="main-content">
+        <section class="secao-conteudo">
+          <div class="div-title">
+            <h1 class="title title--principal culturas">Culturas</h1>
           </div>
-          <h4>Plantação</h4>
-        </button>
 
-        <button class="item">
-          <div class="items">🌾</div>
-          Colheita
-        </button>
+          <div class="acessos">
+            <button class="funcao culturas" id="minhas-culturas-btn">
+              <h2>Minhas culturas</h2>
+              <i class="fa-solid fa-leaf"></i>
+            </button>
+
+            <button class="funcao recomendacoes" id="recomendacao-btn">
+              <h2>Recomendações de plantio</h2>
+              <i class="fa-solid fa-clipboard-list"></i>
+            </button>
+
+            <button class="funcao disponivel" id="disponivel-btn">
+              <h2>Culturas disponíveis</h2>
+              <i class="fa-solid fa-calendar-days"></i>
+            </button>
+
+            <button class="funcao plantas" id="plantas-btn">
+              <h2>Plantas da base de dados</h2>
+              <i class="fa-solid fa-seedling"></i>
+            </button>
+          </div>
+        </section>
+      </div>
+      <!-- tela ao clicar "minhas culturas" -->
+      <div
+        class="content content-secundario hidden"
+        id="minhas-culturas-content"
+      >
+        <section class="secao-conteudo">
+          <button class="btn-voltar" data-target="main-content">
+            <i class="fa-solid fa-arrow-left"></i> Voltar
+          </button>
+
+          <h1 class="title minhas-culturas">Minhas culturas</h1>
+
+          <p class="descricao-secao">Seus lotes de sementes cadastrados.</p>
+
+          <div class="barra-acoes">
+            <input
+              type="text"
+              id="buscar-lote"
+              class="campo-busca"
+              placeholder="Buscar por semente ou fornecedor..."
+            />
+            <button class="btn-novo" id="nova-semente-btn">
+              <i class="fa-solid fa-plus"></i>
+              Nova semente
+            </button>
+          </div>
+
+          <div class="painel-duplo">
+            <div class="lista-cards" id="lista-sementes"></div>
+
+            <form class="form-painel hidden" id="form-registro-semente">
+              <div class="top">
+                <div class="registro-semente">
+                  <span id="nova-semente">Nova semente</span>
+                  <h5 id="titulo-form-semente">Registrar nova cultura</h5>
+                </div>
+                <div id="novo-lote">Nova cultura</div>
+              </div>
+
+              <div class="cadastro">
+                <div class="campo-cad">
+                  <label for="especie-semente">Espécie</label>
+                  <select name="especie-semente" id="especie-semente">
+                    <option value="">Selecione...</option>
+                  </select>
+                </div>
+                <div class="campo-cad">
+                  <label for="data-validade">Validade</label>
+                  <input type="date" name="data-validade" id="data-validade" />
+                </div>
+              </div>
+
+              <div class="cadastro">
+                <div class="campo-cad">
+                  <label for="quantidade">Quantidade</label>
+                  <input
+                    type="text"
+                    name="quantidade"
+                    id="quantidade"
+                    class="quantidade"
+                    placeholder="Ex: 250"
+                  />
+                </div>
+                <div class="campo-cad">
+                  <label for="peso">Unidade</label>
+                  <select name="peso" id="peso">
+                    <option value="kg">kg</option>
+                    <option value="sacas">sacas</option>
+                    <option value="ton">ton</option>
+                    <option value="litro">litros</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="cadastro">
+                <div class="campo-cad">
+                  <label for="data-compra">Comprado em</label>
+                  <input type="date" id="data-compra" required />
+                </div>
+                <div class="campo-cad">
+                  <label for="nome-fornecedor">Fornecedor</label>
+                  <input
+                    type="text"
+                    name="nome"
+                    id="nome-fornecedor"
+                    placeholder="Nome"
+                  />
+                </div>
+              </div>
+
+              <div class="cadastro">
+                <div class="campo-cad">
+                  <label for="observacaos">Observações</label>
+                  <textarea
+                    name="observacoes"
+                    id="observacaos"
+                    placeholder="Condições de armazenamento, procedências..."
+                  ></textarea>
+                </div>
+              </div>
+
+              <div class="btn">
+                <button type="button" class="cancelar">Cancelar</button>
+                <button type="submit" class="salvar-lote">Salvar lote</button>
+              </div>
+            </form>
+          </div>
+        </section>
       </div>
 
-      <div class="dados">
-        <div class="dado">
-          <label for="semente" class="semente">SEMENTE:</label>
-          <input type="text" name="semente" placeholder="Sua semente aqui" />
-        </div>
-        <div class="dado">
-          <label for="lote" class="loteD">LOTE RECOMENDADO:</label>
-          <input type="text" name="lote" placeholder="Sua identificacao de lote aqui" />
-        </div>
-      </div>
-      <button type="button" class="envia">Enviar informações</button>
-      <h3>Resultado</h3>
-      <div class="results">
-        <div class="dado p">
-          <label for="date" class="date">Recomenda-se plantar em</label>
-          <input type="text" name="data" placeholder="Dia, mês e ano" />
-        </div>
-        <div class="dado  p">
-          <label for="estacao" class="estacao">Na estação do ano</label>
-          <input type="text" name="semente" placeholder="Estação da data prevista" />
-        </div>
+      <div class="content content-secundario hidden" id="recomendacao-content">
+        <section class="secao-conteudo">
+          <button class="btn-voltar" data-target="main-content">
+            <i class="fa-solid fa-arrow-left"></i>
+            Voltar
+          </button>
 
+          <h1 class="title recomendacao">Recomendações de plantio</h1>
 
-        <div class="dado p">
-          <label for="estacao" class="estacao">Previsao de colheita desta data</label>
-          <input type="text" name="semente" placeholder="Estação da data prevista" />
-        </div>
-      </div>
-      <!-- <button type="submit" class="salvarDados">Salvar</button> -->
-    </div>
-    <!-- Agenda de plantação -->
-    <div class="agenda toggle">
-      <div class="modelagem l">
-      <h1>Agendar plantio</h1>
-        <button class="editar" id="retornar4">← Voltar</button>
-        <!-- <button class="editar">Editar</button>
-        <button class="excluir">Excluir</button> -->
-      </div>
-      <!-- <div class="elements">
-        <h1 class="titulo">Agendar plantação</h1>
-        <div class="novaAgenda">Nova agenda</div>
-      </div> -->
-      <div class="dados">
-        <div class="dado">
-          <label for="semente" class="semente">SEMENTE</label>
-          <select name="semente" id="data">
-            <option value="Nenhuma semente cadastrada">
-              Nenhuma semente cadastrada
-            </option>
-          </select>
-        </div>
-        <div class="dado">
-          <label for="data" class="data">Data da Plantação</label>
-          <input name="lote" placeholder="Dia, mês e ano" onfocus="this.type = 'date'"
-            onblur="this.type = this.value ? 'date' : 'text'" />
-        </div>
+          <p class="descricao-secao">
+            Suas culturas com as especificações correspondente.
+          </p>
+
+          <div class="barra-acoes">
+            <input
+              type="text"
+              id="buscar-recomendacao"
+              class="campo-busca"
+              placeholder="Buscar por cultura..."
+            />
+          </div>
+
+          <div class="lista-recomendacoes" id="lista-recomendacoes">
+            <!-- preenchido dinamicamente -->
+          </div>
+        </section>
       </div>
 
-      <div class=" area">
-        <div class="dado">
-          <label for="loteP" class="lotep">Lote em que será plantado</label>
-          <select name="data" id="data">
-            <option value="Nenhum lote cadastrado">
-              Nenhum lote cadastrado
-            </option>
-          </select>
-        </div>
-        <div class="extensao">
-          <span>Extensão em que será plantada</span>
-          <div class="infos">
-            <input type="number" placeholder="Insira o valor" class="valor" />
-            <select name="tipoPlano" id="tipoTerra" class="valor">
-              <option value="hectar">Hectare</option>
-              <option value="metro quadrado">Metro quadrado</option>
-              <option value="alqueires">Alqueires</option>
-            </select>
+      <div class="content content-secundario hidden" id="disponivel-content">
+        <section class="secao-conteudo">
+          <button class="btn-voltar" data-target="main-content">
+            <i class="fa-solid fa-arrow-left"></i>
+            Voltar
+          </button>
+
+          <h1 class="title disponivel">Culturas disponíveis</h1>
+
+          <p class="descricao-secao">
+            Culturas que ainda não foram agendadas para plantio.
+          </p>
+
+          <div class="barra-acoes">
+            <input
+              type="text"
+              id="buscar-cultura"
+              class="campo-busca"
+              placeholder="Buscar por cultura..."
+            />
+          </div>
+
+          <div class="lista-cards" id="lista-culturas-disponiveis"></div>
+        </section>
+      </div>
+
+      <div class="content content-secundario hidden" id="plantas-content">
+        <section class="secao-conteudo">
+          <button class="btn-voltar" data-target="main-content">
+            <i class="fa-solid fa-arrow-left"></i>
+            Voltar
+          </button>
+
+          <h1 class="title plantas">Plantas da base de dados</h1>
+
+          <p class="descricao-secao">
+            Todas as plantas cadastradas no banco, disponíveis para análise.
+          </p>
+
+          <div class="container-fontes">
+            <i class="fa-solid fa-book"></i>
+            De onde vêm esses dados?
+            <button type="button" class="link-fontes" id="abrir-fontes-btn">
+              Sobre as fontes dos dados
+            </button>
+          </div>
+
+          <div class="barra-acoes">
+            <input
+              type="text"
+              id="buscar-planta"
+              class="campo-busca"
+              placeholder="Buscar por cultura..."
+            />
+          </div>
+
+          <div class="lista-plantas" id="lista-plantas">
+            <!-- preenchido dinamicamente -->
+          </div>
+        </section>
+      </div>
+      <!-- modal sobre as fontes -->
+      <div id="modal-fontes" class="modal hidden">
+        <div class="modal-overlay" id="modal-fontes-overlay"></div>
+        <div class="modal-content">
+          <button class="modal-close" id="modal-fontes-close">&times;</button>
+
+          <h2>Sobre as fontes dos dados</h2>
+
+          <div class="modal-visualizar-body">
+            <p>
+              Os dados agronômicos desta base vêm de fontes públicas e
+              reconhecidas internacionalmente.
+            </p>
+
+            <hr />
+
+            <p><strong>FAO-56: Coeficientes hídricos (Kc)</strong></p>
+            <p class="fonte-descricao">
+              Publicação da FAO (ONU) para agricultura, referência mundial no
+              cálculo de necessidade de água das culturas. Fornece os
+              coeficientes Kc usados para estimar a irrigação.
+              <a
+                href="https://www.fao.org/4/X0490E/x0490e0b.htm"
+                target="_blank"
+                rel="noopener"
+              >
+                Ver publicação ↗
+              </a>
+            </p>
+
+            <p><strong>FAO EcoCrop: Dados agronômicos</strong></p>
+            <p class="fonte-descricao">
+              Base pública da FAO com informações de solo, clima, ciclo e
+              exigências hídricas de mais de 2.500 culturas.
+              <a
+                href="https://www.fao.org/geospatial/data-and-tools/data-portals/ecocrop"
+                target="_blank"
+                rel="noopener"
+              >
+                Ver base ↗
+              </a>
+            </p>
+
+            <p><strong>Embrapa e universidades brasileiras</strong></p>
+            <p class="fonte-descricao">
+              Algumas culturas nacionais (maracujá, açaí, cupuaçu, caju, goiaba,
+              entre outras) têm coeficientes ajustados por estudos da Embrapa e
+              de universidades brasileiras.
+            </p>
+
+            <hr />
+
+            <p class="fontes-aviso">
+              <i class="fa-solid fa-circle-info"></i>
+              Valores estimados e apenas para referência.
+            </p>
+          </div>
+
+          <div class="modal-actions">
+            <button class="btn-action btn-cancelar" id="modal-fontes-fechar">
+              Fechar
+            </button>
           </div>
         </div>
       </div>
-      <h3>Observações</h3>
-      <textarea name="observações" id="obs" placeholder="Insira suas observações sobre esta planta aqui"></textarea>
+      <!-- modal de visualização -->
+      <div id="modal-visualizar" class="modal hidden">
+        <div class="modal-overlay" id="modal-visualizar-overlay"></div>
+        <div class="modal-content">
+          <button class="modal-close" id="modal-visualizar-close">
+            &times;
+          </button>
 
-      <div class="aceites">
-        <button type="button" class="btn cancelarr" id="cancel">Cancelar</button>
-        <button type="button" class="btn aceitar" id="aceite">
-          Agendar Plantação
-        </button>
+          <h2 id="modal-visualizar-title">Detalhes da semente</h2>
+          <p class="modal-subtitulo">
+            <em id="modal-visualizar-cientifico"></em>
+          </p>
+
+          <div class="modal-visualizar-body">
+            <p>
+              <strong>Cultura:</strong>
+              <span id="modal-visualizar-cultura"></span>
+            </p>
+            <p>
+              <strong>Quantidade:</strong>
+              <span id="modal-visualizar-quantidade"></span>
+            </p>
+            <p>
+              <strong>Validade:</strong>
+              <span id="modal-visualizar-validade"></span>
+            </p>
+            <p>
+              <strong>Comprada em:</strong>
+              <span id="modal-visualizar-compra"></span>
+            </p>
+            <p>
+              <strong>Fornecedor:</strong>
+              <span id="modal-visualizar-fornecedor"></span>
+            </p>
+            <p>
+              <strong>Status:</strong>
+              <span id="modal-visualizar-status"></span>
+            </p>
+
+            <hr />
+
+            <p><strong>Observações</strong></p>
+            <div id="modal-visualizar-obs" class="modal-texto"></div>
+          </div>
+
+          <div class="modal-actions">
+            <button
+              class="btn-action btn-cancelar"
+              id="modal-visualizar-fechar"
+            >
+              Fechar
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
-  </main>
-  <script type="module" src="../assets/js/pages/sementes.js"></script>
-  <script type="module" src="../assets/js/home.js"></script>
-</body>
+      <!-- modal confirmar-->
+      <div id="modal-confirmacao" class="modal hidden">
+        <div class="modal-overlay" id="modal-confirmacao-overlay"></div>
 
+        <div class="modal-content modal-confirmacao-content">
+          <button class="modal-close" id="modal-confirmacao-close">
+            &times;
+          </button>
+
+          <div class="modal-confirmacao-icon">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+          </div>
+
+          <h2 id="modal-confirmacao-title">Confirmar exclusão</h2>
+
+          <p id="modal-confirmacao-message">
+            Tem certeza que deseja continuar?
+          </p>
+
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn-action btn-cancelar"
+              id="modal-confirmacao-cancelar"
+            >
+              Cancelar
+            </button>
+
+            <button
+              type="button"
+              class="btn-action btn-confirmar"
+              id="modal-confirmacao-confirmar"
+            >
+              Confirmar
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- modal de erro -->
+      <div id="modal-erro" class="modal hidden">
+        <div class="modal-overlay" id="modal-erro-overlay"></div>
+
+        <div class="modal-content modal-erro-content">
+          <button class="modal-close" id="modal-erro-close">&times;</button>
+
+          <div class="modal-erro-icon">
+            <i class="fa-solid fa-circle-exclamation"></i>
+          </div>
+
+          <h2 id="modal-erro-title">Ocorreu um erro</h2>
+
+          <p id="modal-erro-message">
+            Não foi possível realizar esta operação.
+          </p>
+
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn-action btn-cancelar"
+              id="modal-erro-fechar"
+            >
+              Fechar
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script type="module" src="../assets/js/pages/sementes.js"></script>
+    <script type="module" src="../assets/js/home.js"></script>
+  </body>
 </html>

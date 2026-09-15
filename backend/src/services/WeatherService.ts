@@ -5,6 +5,7 @@ import { CreateWeatherDTO } from "../schemas/weather.schema";
 import { UserRepository } from "../repositories/UserRepository";
 import { WeatherMapper } from "../mappers/WeatherMapper";
 import { AuthorizationService } from "./AuthorizationService";
+import { ConflictError } from "../errors/ConflictError";
 
 export class WeatherService {
   private repo = new WeatherRepository();
@@ -56,6 +57,10 @@ export class WeatherService {
     const territory = await this.territoryRepo.findByIdWithUser(territoryId);
     if (!territory) {
       throw new NotFoundError("território");
+    }
+    const conflict = await this.repo.findConflicts(territoryId);
+    if (conflict) {
+      throw new ConflictError(["data"], "Já poosui registro para o dia atual");
     }
     AuthorizationService.ensureOwnership(territory, loggedUserId, "território");
     const weatherData = {

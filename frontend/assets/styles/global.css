@@ -1,4 +1,4 @@
-/* global.css: reset e variáveis do projeto */
+/* global.css: reset, variáveis do projeto e padronização  */
 
 *,
 *::before,
@@ -37,5 +37,163 @@
 
 /* utilitário */
 .hidden {
+  display: none !important;
+}
+
+/* padrão das telas de escolha de função */
+#main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: 2rem 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: auto;
+}
+
+main .content {
+  justify-content: start;
+  
+}
+
+.title--principal {
+  margin: 0 0 2rem 0; /* espaçamento abaixo do título */
+  width: 100%; /* mantém a barrinha (::after) centralizada na largura toda */
+  font-size: 2.2rem; /* um pouco maior que o .title padrão */
+}
+
+.div-title {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+#main-content .acessos {
+  display: grid;
+  grid-template-columns: 1fr; /* mobile: 1 coluna */
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 750px; /* um pouco mais largo */
+  margin: 0 auto;
+}
+
+#main-content .funcao {
+  background: #ffffff;
+  border: none;
+  border-radius: 16px;
+  padding: 1.4rem 2rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* texto à esquerda, ícone à direita */
+  cursor: pointer;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+  font-family: inherit;
+  text-align: left;
+  width: 100%;
+  min-height: 80px; /* altura mínima uniforme */
+  box-sizing: border-box;
+}
+
+#main-content .funcao::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#main-content .funcao:hover::before {
+  opacity: 1;
+}
+
+#main-content .funcao:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+}
+#main-content .funcao:active {
+  transform: scale(0.98);
+}
+
+#main-content .funcao h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1a2e3f;
+  margin: 0;
+  flex: 1;
+  padding-right: 1rem;
+}
+
+#main-content .funcao i {
+  font-size: 2rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+  flex-shrink: 0;
+}
+#main-content .funcao:hover i {
+  transform: scale(1.15);
+}
+
+@media (min-width: 600px) {
+  #main-content .acessos {
+    grid-template-columns: 1fr 1fr; /* 2 colunas em telas médias */
+  }
+}
+
+@media (max-width: 480px) {
+  #main-content .funcao {
+    padding: 1rem 1.2rem;
+    min-height: 70px;
+  }
+  #main-content .funcao h2 {
+    font-size: 0.95rem;
+  }
+  #main-content .funcao i {
+    font-size: 1.6rem;
+  }
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--verde-profundo);
+  margin-bottom: 1.8rem;
+  text-align: center;
+  letter-spacing: -0.3px;
+}
+.title::after {
+  content: "";
+  display: block;
+  width: 100%;
+  margin: 2px;
+  height: 4px;
+  background: var(--verde-claro);
+  border-radius: 4px;
+  margin: 0.5rem auto 0;
+}
+
+/* ajuste para os conteúdos secundários  */
+.content-secundario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.secao-conteudo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.content.hidden {
   display: none !important;
 }

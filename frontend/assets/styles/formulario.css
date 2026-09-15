@@ -88,7 +88,9 @@ body {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35), 0 4px 12px rgba(0, 0, 0, 0.12);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.35),
+    0 4px 12px rgba(0, 0, 0, 0.12);
 
   color: #172019;
 }
@@ -157,7 +159,10 @@ body {
 
   outline: none;
 
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
 }
 
 .formulario input:user-invalid {
@@ -261,7 +266,14 @@ body {
 
   box-shadow: 0 5px 14px rgba(0, 0, 0, 0.18);
 
-  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    filter 0.18s ease;
+}
+
+#btn-cadastrar-territorio {
+  margin-bottom: 1em;
 }
 
 .entrar:hover,
@@ -337,8 +349,11 @@ body {
 
   cursor: pointer;
 
-  transition: background 0.18s ease, border-color 0.18s ease,
-    transform 0.18s ease, box-shadow 0.18s ease;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
 }
 
 .botao:hover {
@@ -350,7 +365,8 @@ body {
   box-shadow: 0 5px 14px rgba(0, 0, 0, 0.12);
 }
 
-.formulario > p, .formulario > div {
+.formulario > p,
+.formulario > div {
   margin: 20px auto 0;
 
   color: #626b65;
@@ -364,7 +380,9 @@ body {
   font-weight: 700;
   text-decoration: none;
 
-  transition: color 0.2s ease, text-shadow 0.2s ease;
+  transition:
+    color 0.2s ease,
+    text-shadow 0.2s ease;
 }
 
 .formulario p a:hover {

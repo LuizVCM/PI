@@ -1,6 +1,6 @@
 import { API_URL } from "./config/api.js";
 import { showErrorMessage, removeMessage, showErrors } from "./utils/show-message.js";
-import { capitalize } from "./utils/formatter.js";
+import { capitalizar } from "./utils/formatter.js";
 
 // todos os painéis
 const fundo = document.querySelectorAll(".fundo");
@@ -194,7 +194,7 @@ loginForm.addEventListener("submit", async (event) => {
 
     if (!response.ok) {
       if (result.info) {
-        showErrorMessage(capitalize(result.info), loginForm);
+        showErrorMessage(capitalizar(result.info), loginForm);
       }
       if (result.errors) {
         const errors = result.errors ? Object.values(result.errors).flat() : {};
@@ -253,8 +253,8 @@ cep.addEventListener("input", () => {
 
   if (valor.length <= 5) {
     cep.value = valor;
-  } else if (valor.length <= 9) {
-    cep.value = `${valor.substring(0, 5)}-` + `${valor.substring(5, 9)}`;
+  } else if (valor.length <= 8) {
+    cep.value = `${valor.substring(0, 5)}-` + `${valor.substring(5, 8)}`;
   }
 });
 

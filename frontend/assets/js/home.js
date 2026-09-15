@@ -1,4 +1,4 @@
-import { abrirModalErro } from "./utils/modals.js";
+import { apiFetch } from "./config/api.js";
 
 const rotas = {
   clima: "Clima.html",
@@ -28,33 +28,13 @@ menuToggle.addEventListener("click", () => {
 
 async function carregarUsuario() {
   try {
-    const response = await fetch("http://localhost:3000/users/me", {
-      credentials: "include",
-    });
-
-    if (!response.ok) {
-      if (response.status === 401) {
-        abrirModalErro(
-          "Faça login novamente. Redirecionando...",
-          "Sua sessão expirou",
-        );
-        setTimeout(() => {
-          window.location.href = "../pages/formulario.html";
-        }, 3000);
-      }
-      if (result.message) {
-        abrirModalErro(result.message);
-      }
-      return;
-    }
-
-    const usuario = await response.json();
-
-    document.getElementById("welcome-message").textContent =
-      `Olá, ${usuario.nome}!`;
-
-    document.getElementById("user-abbrev").textContent =
-      `${usuario.nome.substring(0, 2)}`;
+    const usuario = await apiFetch("/users/me", { method: "GET" });
+    document.getElementById(
+      "welcome-message"
+    ).textContent = `Olá, ${usuario.nome}!`;
+    document.getElementById(
+      "user-abbrev"
+    ).textContent = `${usuario.nome.substring(0, 2)}`;
   } catch (error) {
     console.error(error);
   }

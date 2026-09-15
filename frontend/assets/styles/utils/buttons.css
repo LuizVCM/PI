@@ -1,0 +1,76 @@
+.btn-action {
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 0.9rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+.btn-action:hover {
+  transform: translateY(-4px);
+  border-color: #aeb8b1;
+  box-shadow: 0 10px 5px rgba(0, 0, 0, 0.12);
+}
+
+.btn-salvar,
+.btn-confirmar {
+  background: var(--success);
+}
+
+.btn-cancelar {
+  background: var(--err);
+}
+
+.btn-voltar {
+  background: var(--verde-profundo);
+  color: var(--branco);
+  border: transparent;
+  border-radius: 8px;
+  padding: 0.5rem 1.2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  align-self: flex-start;
+}
+.btn-voltar:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.btn-editar,
+.btn-excluir {
+  border: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: #f8fafc;
+  color: #475569;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-editar:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+  transform: scale(1.05);
+}
+.btn-excluir:hover {
+  background: #fee2e2;
+  color: #dc2626;
+  transform: scale(1.05);
+}

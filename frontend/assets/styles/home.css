@@ -1,5 +1,13 @@
 @import url("./global.css");
 
+main {
+  display: flex;
+  flex: 1;            
+  min-height: 0;    
+  width: 100%;
+}
+
+
 body {
   min-height: 100vh;
   display: flex;
@@ -52,12 +60,6 @@ header .user {
   max-width: 40vw;        /* em telas pequenas, corta com "..."*/
 }
 
-main {
-  display: flex;
-  width: 100%;
-  overflow:auto
-}
-
 /* menu mobile */
 
 .menu-mobile {
@@ -103,7 +105,7 @@ main {
 aside {
   background-color: var(--verde-opcao);
   width: 300px;
-  height: 91vh !important;
+  height: auto; 
   flex-direction: column;
   align-items: center;
   gap: 5px;
@@ -112,23 +114,37 @@ aside {
   transition: width 0.3s linear;
 }
 
-
 .aside-encolhido {
   background-color: var(--verde-sidebar);
-  width: 40px;
-  height: 87vh;
+  width: 60px;
+  height: auto;
   display: flex;
   position: relative;
   transition: width 0.3s linear;
 }
+
+.aside-encolhido .opcao {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  gap: 0;
+  justify-content: center;
+  font-size: 0;          /* esconde o texto sem <span> */
+  overflow: hidden;
+}
+
+.aside-encolhido .opcao .selecao {
+  font-size: 1.4rem;     /* devolve o tamanho só pro ícone */
+  transform: scale(1);
+  width: auto;
+}
+
 .aside-encolhido .opcao i {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.aside-encolhido .opcao {
-  padding: 0.5em;
-}
+
 aside .opcao {
   display: flex;
   border: none;
@@ -171,6 +187,8 @@ main .content {
   z-index: 100;
   color: var(--verde-sidebar);
   height: 91vh !important;
+  overflow: hidden;
+  overflow-y: auto;
 }
 
 .acessos .funcao {

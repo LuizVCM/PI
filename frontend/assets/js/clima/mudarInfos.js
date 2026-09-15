@@ -60,7 +60,7 @@ async function TrocarTemp() {
         console.log(jaExisteHoje)
         
 if (jaExisteHoje) {
-    console.log('Já existe clima cadastrado para hoje, não vou enviar de novo.');
+    console.log('Já existe clima cadastrado para hoje');
   } else {
         const enviarClima = await fetch(apiEnviar, {
           credentials: 'include',
