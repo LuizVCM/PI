@@ -2,7 +2,7 @@ export function showErrorMessage(message, form) {
   removeMessage(form);
   const errorEl = document.createElement("p");
   errorEl.className = "form-error";
-  errorEl.textContent = message;
+  errorEl.textContent = typeof message === "object" ? message.message : message;
   form.appendChild(errorEl);
 }
 export function removeMessage(form) {
