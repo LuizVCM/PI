@@ -178,10 +178,10 @@
   margin-left: auto;
 }
 .opcao-semente.excluir {
-  color: #c05151;
+  color: var(--err)
 }
 .opcao-semente.editar:hover {
-  background: var(--verde-selecionar);
+  background: var(--sucess);
 }
 .opcao-semente.excluir:hover {
   background: #fde8e8;

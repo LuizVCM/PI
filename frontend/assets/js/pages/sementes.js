@@ -451,6 +451,8 @@ function renderPlantas(plantas) {
           p.precipitacaoMaxima,
           " mm"
         )}</p>
+          <p><strong>Luz:</strong> ${p.necessidadeLuz}</p>
+          <p><strong>Água:</strong> ${p.necessidadeAgua}</p>
         <p><strong>Kc médio:</strong> ${p.kcMedio}</p>
       </div>
     `;
