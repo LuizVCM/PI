@@ -14,3 +14,4 @@ export function escapeHtml(texto) {
   div.textContent = texto ?? "";
   return div.innerHTML;
 }
+/** formatar valor */
