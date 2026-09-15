@@ -1,4 +1,4 @@
-## variáveis ​​de ambiente
+## Variáveis ​​de ambiente
 
 DB_HOST=localhost
 
