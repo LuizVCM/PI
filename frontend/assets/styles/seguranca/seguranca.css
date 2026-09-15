@@ -1,10 +1,10 @@
 @import url(../semente/semente.css);
+@import url(../utils/buttons.css);
 
 .content{
     padding: 50px;
     align-items:center;
 }
-
 
 .info{
     display:flex;
@@ -74,6 +74,7 @@
 
   .informations{
     display:flex;
+    flex-direction: column;
     padding: 10px;
     background:linear-gradient(45deg, rgb(188, 224, 188), rgb(237, 242, 239));
     box-shadow: inset 0 0 30px black;
@@ -81,10 +82,24 @@
     justify-content: center;
     overflow-y: auto;
     z-index: 20;
+    width: 100% !important;
   }
 
+
+  .toggle1{
+    display:none !important;
+  }
+  .botao{
+    max-width: 950px;
+    width: 100%;
+    min-width: 100px;
+    padding: 30px;
+    
+  }
+ 
+
   .painel{
-    max-width: 1040px;
+    
     display: flex;
     flex-direction: column;
     gap: 10px;
