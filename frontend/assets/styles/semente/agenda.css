@@ -1,130 +1,210 @@
 @import url(./semente.css);
 
-.agenda {
-    z-indeX: 10;
+.dado {
+    outline: none;
+}
+
+.l{
+    margin-top: 50px;
+}
+.area {
+    background-color: rgba(5, 70, 5, 0.821);
+    color: white;
+    max-width: 90%;
+    min-width: 150px;
+    width: 90%;
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: -3px 3px 5px rgba(0, 0, 0, 0.336);
     display: flex;
-    flex-direction: column;
-    overflow: auto;
-    align-items: center;
+    min-height: 85px;
     padding: 15px;
-    gap: 7%;
-    height: 87vh;
-
-
-}
-
-.novaAgenda {
-    display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 15px;
-    color: rgb(2, 34, 12);
-    background-color: rgb(214, 236, 214);
-    border: 1px solid rgb(10, 53, 10);
-    border-radius: 30px;
-    width: 150px;
-    font-weight: 800;
-    font-size: 1.1rem;
-
-
+    justify-content: space-evenly;
+    overflow: hidden;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
-.elements {
-    display: flex;
+.area .dado {
     align-items: center;
-    width: 80%;
-    justify-content: space-around;
-}
-
-
-.titulo {
-    display: flex;
+    justify-content: space-between;
+    padding: 10px;
     width: 100%;
-    align-items: center;
-    justify-content: start;
-    font-size: 2.1rem;
+}
+
+.area .infos {
+    width: 50%;
+    gap: 10px;
+
+}
+
+.infos .valor,
+.infos select {
+    width: 49%;
+    height: 35px;
+    border-radius: 10px;
+    border: none;
+    padding:10px;
+}
+
+.area .extensao {
     font-weight: 700;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-
-}
-
-.dados {
-    font-size: 1.3rem;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-}
-
-#data {
-    height: 50px;
-    font-size: 1rem;
-}
-
-input {
-    font-size: 1rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .extensao {
-    display: flex;
-    width: 40%;
-    background-color: var(--verde-sidebar);
-    height: 120px;
-    padding: 15px;
-    color: white;
-    flex-direction: column;
-    gap: 15px;
-    border-radius: 15px;
-       box-shadow: 6px 6px rgba(1, 66, 26, 0.534);
+    width: 50%;
+    max-width: 100%;
+    min-width: 150px;
+    padding: 10px;
+    white-space: nowrap;
 }
 
-.infos {
-    display: flex;
-    width: 100%;
-    align-items: center;
-}
-
-.valor {
-    display: flex;
-    width: 100%;
-    height: 45px;
-    border-radius: 10px;
+.area .dado select {
+    width: 50%;
+    height: 100%;
     border: none;
-    margin-right: 15px;
-    padding: 15px;
+    padding:15px;           
 }
+.dados .dado select{
+height:100%;
+width: 100%;
+}
+
 #obs{
-    display: flex;
-    width:85%;
-    min-height: 200px;
-    padding: 20px;
-    background-color: rgb(88, 129, 88);
-    border: 2px solid rgb(12, 39, 12);
+    background-color: var(--verde-profundo);
     color: white;
+    padding: 15px;
+    width: 90%;
+    min-height: 150px;
+    resize: none;
+    border: 1px solid rgb(10, 218, 10);
+    border-radius: 10px;
+    margin: 2px;
+    outline: none;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    letter-spacing: 1px;
+    font-weight:800;
+}
+#obs::placeholder{
+    color: white;
+
+}
+.aceites{
+    width: 90%;
+    padding:10px;
+}
+.aceites button{
+    display:flex;
+    align-items:center;
+    justify-content:center;
     font-weight: 700;
-    font-size: 1.2rem;
-    margin-top: -50px;
-
+    padding: 10px;
+    box-shadow: -1px 2px 5px black;  
+    transition: all 0.3s linear;
+    height: 40px;
+    width: 100%;
+    white-space: nowrap;
 }
-textarea::placeholder{
-    color: azure;
+button:hover{
+cursor: pointer;
+transition: all 0.3s linear
 }
-h3{
-    font-size: 1.8rem;
+.aceites button:hover{
+    font-size: 1.1rem
 }
-
-@media (max-width: 850px) {
-    .extensao{
-        width:auto
+.cancelarr{
+    border: 1px solid red
+}
+.aceitar{
+    border: 1px solid green
+}
+.cancelarr:hover{
+border: 2px solid red;
+box-shadow: inset 0 0 180px rgb(91, 0, 0);
+color: white
+}
+.aceitar:hover{
+    border: 2px solid lightgreen;
+    box-shadow: inset 0 0 180px rgb(24, 85, 24);
+    color: white;
+}
+@media (max-width: 1260px) {
+    .area {
+        flex-direction: column;
     }
 
-    
+    .area .dado,
+    .area .extensao {
+        width: 100%;
+    }
+
+    .extensao .infos {
+        flex-direction: row;
+
+    }
+
+    .infos {
+        overflow: hidden;
+        max-width: 100%;
+    }
+    .area .dado select{
+        min-height: 60%;
+        overflow: hidden;
+    }
+    .area .dado{
+        overflow: hidden;
+    }
+
+
+
 }
-.btn{
-    transition: all 0.3s linear;
-    height: 30px
+@media (max-width: 640px) {
+    .extensao{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        text-align: start;
+        padding: 10px;
+    }
+    .extensao span, .extensao .infos{
+        width: 100%;
+    }
+   
 }
-.btn:hover{
-    transition: all 0.3s linear;
-    filter: contrast(1.2);
-    border-radius: 0;
-    border: none;
+@media (max-width: 490px) {
+    .area{
+        min-height: 180px;
+    }
+    .area .dado{
+        flex-direction: column;
+        gap: 5px
+    }
+    .area .dado label{
+        width:100%;
+    }
+    .dados .dado{
+        flex-direction: column;
+        gap: 10px;
+    }
+    .dados .dado label{
+        width: 100%;
+    }
+    .dados .dado select{
+        display:flex;
+        width: 100%;
+        
+        height: 100%;
+        align-items:center;
+        justify-content: center;
+        padding: 10px;
+    }
+    .dados .dado select option{
+        font-size: 15px;
+    }
 
 }

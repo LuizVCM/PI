@@ -4,6 +4,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  font-family: var(--fonte-principal);
 }
 
 header {
@@ -15,7 +16,6 @@ header {
   background-color: var(--verde-topo);
   padding: 30px;
   font-size: 1.4rem;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: 700;
   color: var(--verde-profundo);
   gap: 20px;
@@ -269,6 +269,7 @@ main .content {
     opacity: 1;
     visibility: visible;
   }
+<<<<<<< HEAD
 }
 * {
   margin: 0;
@@ -567,4 +568,6 @@ main .content {
   .ProximosClimas {
     width: 100%;
   }
+=======
+>>>>>>> f9095bd5c1f3a6bafd2556317c9b48490095a752
 }
