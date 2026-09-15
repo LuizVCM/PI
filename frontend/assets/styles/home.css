@@ -60,6 +60,12 @@ header .user {
   max-width: 40vw;        /* em telas pequenas, corta com "..."*/
 }
 
+main {
+  display: flex;
+  width: 100%;
+  overflow:auto
+}
+
 /* menu mobile */
 
 .menu-mobile {
@@ -186,6 +192,7 @@ main .content {
   font-weight: 600;
   z-index: 100;
   color: var(--verde-sidebar);
+  height: 91vh !important;
 }
 
 .acessos .funcao {
