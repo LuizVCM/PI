@@ -55,7 +55,7 @@ header .user {
 main {
   display: flex;
   width: 100%;
-  min-height: 100%;
+  overflow:auto
 }
 
 /* menu mobile */
@@ -103,7 +103,7 @@ main {
 aside {
   background-color: var(--verde-opcao);
   width: 300px;
-  height: 87vh;
+  height: 91vh !important;
   flex-direction: column;
   align-items: center;
   gap: 5px;
@@ -170,6 +170,7 @@ main .content {
   font-weight: 600;
   z-index: 100;
   color: var(--verde-sidebar);
+  height: 91vh !important;
 }
 
 .acessos .funcao {
