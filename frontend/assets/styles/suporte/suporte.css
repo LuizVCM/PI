@@ -75,3 +75,109 @@
     color:var(--verde-profundo);
     font-size:20px;
 }
+
+/* =========================
+   RESPONSIVIDADE DO SUPORTE
+========================= */
+
+@media (max-width: 768px) {
+
+    .suportes {
+        padding: 25px;
+        height: 87vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .suportes h1 {
+        font-size: 28px;
+    }
+
+    .descricao {
+        font-size: 15px;
+    }
+
+    .pesquisa input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .suportes h2 {
+        font-size: 22px;
+    }
+
+    .pergunta {
+        padding: 16px;
+    }
+
+    .pergunta h3 {
+        font-size: 17px;
+    }
+
+    .pergunta p {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .card-contato {
+        padding: 15px;
+    }
+}
+
+
+@media (max-width: 590px) {
+
+    .suportes {
+        padding: 20px;
+        height: 87vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .suportes h1 {
+        font-size: 24px;
+    }
+
+    .descricao {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .pesquisa {
+        margin-bottom: 25px;
+    }
+
+    .pesquisa input {
+        width: 100%;
+        padding: 11px;
+        font-size: 14px;
+    }
+
+    .suportes h2 {
+        font-size: 20px;
+    }
+
+    .pergunta {
+        padding: 15px;
+        margin-bottom: 12px;
+    }
+
+    .pergunta h3 {
+        font-size: 16px;
+        line-height: 1.4;
+    }
+
+    .pergunta p {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .card-contato {
+        gap: 12px;
+        padding: 14px;
+    }
+
+    .card-contato i {
+        font-size: 18px;
+    }
+}

@@ -88,9 +88,10 @@
     color: var(--verde-profundo);
 }
 
+
 .form-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 20px;
 }
 
@@ -111,26 +112,19 @@
     width: 100%;
 
     padding: 12px 14px;
-
+    box-sizing: border-box;
     border: 1px solid #ddd;
     border-radius: 8px;
 
     outline: none;
+
     font-size: 14px;
 
     transition: 0.2s;
 }
 
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    border-color: var(--verde-profundo);
-}
 
-.form-group textarea {
-    resize: vertical;
-    min-height: 120px;
-}
+
 
 .acoes-cadastro {
     display: flex;
@@ -174,7 +168,7 @@
     min-height: auto;
     height: auto;
     padding: 20px;
-    box-sizing: border-box
+    box-sizing: border-box;
     }
 .tela.ativa {
     height: calc(100dvh - 120px);
@@ -208,11 +202,20 @@
         width: 100%;
         box-sizing: border-box;
     }
-
+   
     /* Campos do formulário */
     .form-grid {
-        grid-template-columns: 1fr;
-        gap: 15px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 15px;
+    width: 100%;
+}
+
+    .form-grid input,
+    .form-grid select {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
     }
 
     /* Botões */
@@ -226,4 +229,6 @@
         width: 100%;
         justify-content: center;
     }
+
+    
 }
