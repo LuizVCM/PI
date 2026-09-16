@@ -24,14 +24,48 @@
 // iniDays / devDays / midDays / lateDays  Duração das fases em dias
 // ============================================================
 
+import { NpkUnit, PlantCategory } from "../../models/Plant";
+
+export interface PlantData {
+  nome: string;
+  nomeCientifico: string;
+  categoria: PlantCategory;
+  cicloMinimoDias: number;
+  cicloMaximoDias: number;
+  phMinimo: number | null;
+  phMaximo: number | null;
+  temperaturaMinima: number | null;
+  temperaturaMaxima: number | null;
+  precipitacaoMinima: number | null;
+  precipitacaoMaxima: number | null;
+  necessidadeLuz: string | null;
+  necessidadeAgua: string | null;
+  texturaSolo: string | null;
+  kcIni: number;
+  kcIniMax?: number;
+  kcMid: number;
+  kcMidMax?: number;
+  kcEnd: number;
+  kcEndMax?: number;
+  iniDays: number;
+  devDays: number;
+  midDays: number;
+  lateDays: number;
+  nitrogenio: number | null;
+  fosforo: number | null;
+  potassio: number | null;
+  unidadeNpk: NpkUnit | null;
+}
+
 /** o coeficiente pode ter intervalos */
-export const plantsData = [
+export const plantsData: PlantData[] = [
   // ============================================================
   // CEREAIS — FAO-56 Tab. 12 / Tab. 11
   // ============================================================
   {
     nome: "Arroz",
     nomeCientifico: "Oryza sativa",
+    categoria: PlantCategory.CEREAIS,
     cicloMinimoDias: 80,
     cicloMaximoDias: 180,
     phMinimo: 5.5,
@@ -59,6 +93,7 @@ export const plantsData = [
   {
     nome: "Milho",
     nomeCientifico: "Zea mays",
+    categoria: PlantCategory.CEREAIS,
     cicloMinimoDias: 65,
     cicloMaximoDias: 365,
     phMinimo: 5.5,
@@ -88,6 +123,7 @@ export const plantsData = [
     // Diferença pequena — unificado aqui com kcIniMax = 0.40.
     nome: "Trigo",
     nomeCientifico: "Triticum aestivum",
+    categoria: PlantCategory.CEREAIS,
     cicloMinimoDias: 120,
     cicloMaximoDias: 335,
     phMinimo: 6.0,
@@ -116,6 +152,7 @@ export const plantsData = [
   {
     nome: "Sorgo",
     nomeCientifico: "Sorghum bicolor",
+    categoria: PlantCategory.CEREAIS,
     cicloMinimoDias: 90,
     cicloMaximoDias: 140,
     phMinimo: 5.5,
@@ -142,6 +179,7 @@ export const plantsData = [
   {
     nome: "Cevada",
     nomeCientifico: "Hordeum vulgare",
+    categoria: PlantCategory.CEREAIS,
     cicloMinimoDias: 100,
     cicloMaximoDias: 150,
     phMinimo: 6.0,
@@ -168,6 +206,7 @@ export const plantsData = [
   {
     nome: "Aveia",
     nomeCientifico: "Avena sativa",
+    categoria: PlantCategory.CEREAIS,
     cicloMinimoDias: 100,
     cicloMaximoDias: 150,
     phMinimo: 5.5,
@@ -194,6 +233,7 @@ export const plantsData = [
   {
     nome: "Centeio",
     nomeCientifico: "Secale cereale",
+    categoria: PlantCategory.CEREAIS,
     cicloMinimoDias: 120,
     cicloMaximoDias: 180,
     phMinimo: 5.5,
@@ -220,6 +260,7 @@ export const plantsData = [
   {
     nome: "Milheto",
     nomeCientifico: "Pennisetum glaucum",
+    categoria: PlantCategory.CEREAIS,
     cicloMinimoDias: 100,
     cicloMaximoDias: 100,
     phMinimo: 5.0,
@@ -250,6 +291,7 @@ export const plantsData = [
   {
     nome: "Soja",
     nomeCientifico: "Glycine max",
+    categoria: PlantCategory.LEGUMINOSAS,
     cicloMinimoDias: 100,
     cicloMaximoDias: 150,
     phMinimo: 5.5,
@@ -276,6 +318,7 @@ export const plantsData = [
   {
     nome: "Feijão",
     nomeCientifico: "Phaseolus vulgaris",
+    categoria: PlantCategory.LEGUMINOSAS,
     cicloMinimoDias: 50,
     cicloMaximoDias: 270,
     phMinimo: 5.5,
@@ -303,6 +346,7 @@ export const plantsData = [
   {
     nome: "Feijão-vagem",
     nomeCientifico: "Phaseolus vulgaris (grupo vagem)",
+    categoria: PlantCategory.LEGUMINOSAS,
     cicloMinimoDias: 90,
     cicloMaximoDias: 90,
     phMinimo: 5.5,
@@ -329,6 +373,7 @@ export const plantsData = [
   {
     nome: "Feijão-fradinho / Caupi",
     nomeCientifico: "Vigna unguiculata",
+    categoria: PlantCategory.LEGUMINOSAS,
     cicloMinimoDias: 100,
     cicloMaximoDias: 100,
     phMinimo: 4.5,
@@ -356,6 +401,7 @@ export const plantsData = [
     // Kc de Nascimento & Dipple (2024). Não consta na FAO-56.
     nome: "Feijão-mungo",
     nomeCientifico: "Vigna radiata",
+    categoria: PlantCategory.LEGUMINOSAS,
     cicloMinimoDias: 70,
     cicloMaximoDias: 90,
     phMinimo: 6.0,
@@ -382,6 +428,7 @@ export const plantsData = [
   {
     nome: "Fava",
     nomeCientifico: "Vicia faba",
+    categoria: PlantCategory.LEGUMINOSAS,
     cicloMinimoDias: 140,
     cicloMaximoDias: 140,
     phMinimo: 5.5,
@@ -408,6 +455,7 @@ export const plantsData = [
   {
     nome: "Amendoim",
     nomeCientifico: "Arachis hypogaea",
+    categoria: PlantCategory.LEGUMINOSAS,
     cicloMinimoDias: 90,
     cicloMaximoDias: 150,
     phMinimo: 5.5,
@@ -434,6 +482,7 @@ export const plantsData = [
   {
     nome: "Ervilha",
     nomeCientifico: "Pisum sativum",
+    categoria: PlantCategory.LEGUMINOSAS,
     cicloMinimoDias: 80,
     cicloMaximoDias: 120,
     phMinimo: 6.0,
@@ -460,6 +509,7 @@ export const plantsData = [
   {
     nome: "Grão-de-bico",
     nomeCientifico: "Cicer arietinum",
+    categoria: PlantCategory.LEGUMINOSAS,
     cicloMinimoDias: 90,
     cicloMaximoDias: 130,
     phMinimo: 5.5,
@@ -486,6 +536,7 @@ export const plantsData = [
   {
     nome: "Lentilha",
     nomeCientifico: "Lens culinaris",
+    categoria: PlantCategory.LEGUMINOSAS,
     cicloMinimoDias: 80,
     cicloMaximoDias: 120,
     phMinimo: 5.5,
@@ -512,6 +563,7 @@ export const plantsData = [
   {
     nome: "Tremoço",
     nomeCientifico: "Lupinus spp.",
+    categoria: PlantCategory.LEGUMINOSAS,
     cicloMinimoDias: 100,
     cicloMaximoDias: 150,
     phMinimo: 5.0,
@@ -542,6 +594,7 @@ export const plantsData = [
   {
     nome: "Batata",
     nomeCientifico: "Solanum tuberosum",
+    categoria: PlantCategory.TUBERCULOS,
     cicloMinimoDias: 90,
     cicloMaximoDias: 165,
     phMinimo: 5.0,
@@ -568,6 +621,7 @@ export const plantsData = [
   {
     nome: "Batata-doce",
     nomeCientifico: "Ipomoea batatas",
+    categoria: PlantCategory.TUBERCULOS,
     cicloMinimoDias: 90,
     cicloMaximoDias: 150,
     phMinimo: 5.5,
@@ -594,6 +648,7 @@ export const plantsData = [
   {
     nome: "Mandioca / Aipim",
     nomeCientifico: "Manihot esculenta",
+    categoria: PlantCategory.TUBERCULOS,
     cicloMinimoDias: 240,
     cicloMaximoDias: 360,
     phMinimo: 4.5,
@@ -620,6 +675,7 @@ export const plantsData = [
   {
     nome: "Beterraba",
     nomeCientifico: "Beta vulgaris",
+    categoria: PlantCategory.TUBERCULOS,
     cicloMinimoDias: 80,
     cicloMaximoDias: 120,
     phMinimo: 6.0,
@@ -644,8 +700,10 @@ export const plantsData = [
     unidadeNpk: null,
   },
   {
+    // NOTA: uso principal é produção de açúcar
     nome: "Beterraba sacarina",
     nomeCientifico: "Beta vulgaris var. saccharifera",
+    categoria: PlantCategory.ADOCANTES,
     cicloMinimoDias: 255,
     cicloMaximoDias: 255,
     phMinimo: 6.0,
@@ -672,6 +730,7 @@ export const plantsData = [
   {
     nome: "Cenoura",
     nomeCientifico: "Daucus carota",
+    categoria: PlantCategory.TUBERCULOS,
     cicloMinimoDias: 70,
     cicloMaximoDias: 200,
     phMinimo: 5.5,
@@ -698,6 +757,7 @@ export const plantsData = [
   {
     nome: "Nabo",
     nomeCientifico: "Brassica rapa subsp. rapa",
+    categoria: PlantCategory.TUBERCULOS,
     cicloMinimoDias: 90,
     cicloMaximoDias: 90,
     phMinimo: 5.5,
@@ -724,6 +784,7 @@ export const plantsData = [
   {
     nome: "Pastinaca",
     nomeCientifico: "Pastinaca sativa",
+    categoria: PlantCategory.TUBERCULOS,
     cicloMinimoDias: 200,
     cicloMaximoDias: 200,
     phMinimo: 5.5,
@@ -750,6 +811,7 @@ export const plantsData = [
   {
     nome: "Rabanete",
     nomeCientifico: "Raphanus sativus",
+    categoria: PlantCategory.TUBERCULOS,
     cicloMinimoDias: 25,
     cicloMaximoDias: 60,
     phMinimo: 5.5,
@@ -781,6 +843,7 @@ export const plantsData = [
   {
     nome: "Alface",
     nomeCientifico: "Lactuca sativa",
+    categoria: PlantCategory.HORTALICAS,
     cicloMinimoDias: 45,
     cicloMaximoDias: 140,
     phMinimo: 6.0,
@@ -807,6 +870,7 @@ export const plantsData = [
   {
     nome: "Espinafre",
     nomeCientifico: "Spinacia oleracea",
+    categoria: PlantCategory.HORTALICAS,
     cicloMinimoDias: 40,
     cicloMaximoDias: 100,
     phMinimo: 6.0,
@@ -834,6 +898,7 @@ export const plantsData = [
     // Kc de Santana et al. (2016), IFTM. Não consta na FAO-56.
     nome: "Rúcula",
     nomeCientifico: "Eruca sativa",
+    categoria: PlantCategory.HORTALICAS,
     cicloMinimoDias: 30,
     cicloMaximoDias: 50,
     phMinimo: 6.0,
@@ -861,6 +926,7 @@ export const plantsData = [
     // Kc adaptado de literatura técnica. Não consta na FAO-56.
     nome: "Agrião",
     nomeCientifico: "Nasturtium officinale",
+    categoria: PlantCategory.HORTALICAS,
     cicloMinimoDias: 60,
     cicloMaximoDias: 90,
     phMinimo: 6.0,
@@ -888,6 +954,7 @@ export const plantsData = [
     // Kc adaptado de "small vegetables" (FAO-56).
     nome: "Mostarda",
     nomeCientifico: "Brassica juncea",
+    categoria: PlantCategory.HORTALICAS,
     cicloMinimoDias: 60,
     cicloMaximoDias: 90,
     phMinimo: 5.5,
@@ -914,6 +981,7 @@ export const plantsData = [
   {
     nome: "Brócolis",
     nomeCientifico: "Brassica oleracea var. italica",
+    categoria: PlantCategory.HORTALICAS,
     cicloMinimoDias: 135,
     cicloMaximoDias: 135,
     phMinimo: 6.0,
@@ -940,6 +1008,7 @@ export const plantsData = [
   {
     nome: "Couve-de-bruxelas",
     nomeCientifico: "Brassica oleracea var. gemmifera",
+    categoria: PlantCategory.HORTALICAS,
     cicloMinimoDias: 140,
     cicloMaximoDias: 140,
     phMinimo: 6.0,
@@ -966,6 +1035,7 @@ export const plantsData = [
   {
     nome: "Couve-flor",
     nomeCientifico: "Brassica oleracea var. botrytis",
+    categoria: PlantCategory.HORTALICAS,
     cicloMinimoDias: 140,
     cicloMaximoDias: 140,
     phMinimo: 6.0,
@@ -992,6 +1062,7 @@ export const plantsData = [
   {
     nome: "Repolho",
     nomeCientifico: "Brassica oleracea var. capitata",
+    categoria: PlantCategory.HORTALICAS,
     cicloMinimoDias: 70,
     cicloMaximoDias: 165,
     phMinimo: 6.0,
@@ -1018,6 +1089,7 @@ export const plantsData = [
   {
     nome: "Aipo",
     nomeCientifico: "Apium graveolens",
+    categoria: PlantCategory.HORTALICAS,
     cicloMinimoDias: 210,
     cicloMaximoDias: 210,
     phMinimo: 5.8,
@@ -1044,6 +1116,7 @@ export const plantsData = [
   {
     nome: "Alho",
     nomeCientifico: "Allium sativum",
+    categoria: PlantCategory.HORTALICAS,
     cicloMinimoDias: 150,
     cicloMaximoDias: 150,
     phMinimo: 5.5,
@@ -1068,8 +1141,9 @@ export const plantsData = [
     unidadeNpk: null,
   },
   {
-    nome: "Cebola (seca)",
+    nome: "Cebola",
     nomeCientifico: "Allium cepa",
+    categoria: PlantCategory.HORTALICAS,
     cicloMinimoDias: 90,
     cicloMaximoDias: 210,
     phMinimo: 6.0,
@@ -1096,6 +1170,7 @@ export const plantsData = [
   {
     nome: "Cebola (verde)",
     nomeCientifico: "Allium cepa (verde)",
+    categoria: PlantCategory.HORTALICAS,
     cicloMinimoDias: 180,
     cicloMaximoDias: 180,
     phMinimo: 5.8,
@@ -1122,6 +1197,7 @@ export const plantsData = [
   {
     nome: "Cebola (semente)",
     nomeCientifico: "Allium cepa (semente)",
+    categoria: PlantCategory.HORTALICAS,
     cicloMinimoDias: 275,
     cicloMaximoDias: 275,
     phMinimo: 5.8,
@@ -1148,6 +1224,7 @@ export const plantsData = [
   {
     nome: "Alcachofra",
     nomeCientifico: "Cynara cardunculus var. scolymus",
+    categoria: PlantCategory.HORTALICAS,
     cicloMinimoDias: 250,
     cicloMaximoDias: 250,
     phMinimo: 6.0,
@@ -1174,6 +1251,7 @@ export const plantsData = [
   {
     nome: "Aspargo",
     nomeCientifico: "Asparagus officinalis",
+    categoria: PlantCategory.HORTALICAS,
     cicloMinimoDias: 240,
     cicloMaximoDias: 240,
     phMinimo: 6.0,
@@ -1200,6 +1278,7 @@ export const plantsData = [
   {
     nome: "Hortelã",
     nomeCientifico: "Mentha spp.",
+    categoria: PlantCategory.HORTALICAS,
     cicloMinimoDias: 120,
     cicloMaximoDias: 120,
     phMinimo: 6.0,
@@ -1223,6 +1302,33 @@ export const plantsData = [
     potassio: null,
     unidadeNpk: null,
   },
+  {
+    nome: "Pimenta-do-reino",
+    nomeCientifico: "Piper nigrum",
+    categoria: PlantCategory.HORTALICAS,
+    cicloMinimoDias: 240,
+    cicloMaximoDias: 365,
+    phMinimo: 5.0,
+    phMaximo: 6.5,
+    temperaturaMinima: 22,
+    temperaturaMaxima: 32,
+    precipitacaoMinima: 1500,
+    precipitacaoMaxima: 3000,
+    necessidadeLuz: "moderada",
+    necessidadeAgua: "alta",
+    texturaSolo: "médio, orgânico",
+    kcIni: 0.6,
+    kcMid: 1.0,
+    kcEnd: 0.9,
+    iniDays: 30,
+    devDays: 60,
+    midDays: 180,
+    lateDays: 30,
+    nitrogenio: null,
+    fosforo: null,
+    potassio: null,
+    unidadeNpk: null,
+  },
 
   // ============================================================
   // HORTALIÇAS — SOLANÁCEAS E CUCURBITÁCEAS
@@ -1231,6 +1337,7 @@ export const plantsData = [
   {
     nome: "Tomate",
     nomeCientifico: "Solanum lycopersicum",
+    categoria: PlantCategory.HORTALICAS,
     cicloMinimoDias: 90,
     cicloMaximoDias: 180,
     phMinimo: 5.5,
@@ -1257,6 +1364,7 @@ export const plantsData = [
   {
     nome: "Berinjela",
     nomeCientifico: "Solanum melongena",
+    categoria: PlantCategory.HORTALICAS,
     cicloMinimoDias: 130,
     cicloMaximoDias: 130,
     phMinimo: 5.5,
@@ -1283,6 +1391,7 @@ export const plantsData = [
   {
     nome: "Pimentão",
     nomeCientifico: "Capsicum annuum",
+    categoria: PlantCategory.HORTALICAS,
     cicloMinimoDias: 210,
     cicloMaximoDias: 210,
     phMinimo: 5.5,
@@ -1309,6 +1418,7 @@ export const plantsData = [
   {
     nome: "Pepino",
     nomeCientifico: "Cucumis sativus",
+    categoria: PlantCategory.HORTALICAS,
     cicloMinimoDias: 130,
     cicloMaximoDias: 130,
     phMinimo: 5.5,
@@ -1333,34 +1443,9 @@ export const plantsData = [
     unidadeNpk: null,
   },
   {
-    nome: "Melão Cantalupo",
-    nomeCientifico: "Cucumis melo var. cantalupensis",
-    cicloMinimoDias: 120,
-    cicloMaximoDias: 120,
-    phMinimo: 5.5,
-    phMaximo: 7.5,
-    temperaturaMinima: 18,
-    temperaturaMaxima: 35,
-    precipitacaoMinima: 400,
-    precipitacaoMaxima: 800,
-    necessidadeLuz: "muito alta",
-    necessidadeAgua: "moderada",
-    texturaSolo: "leve, médio",
-    kcIni: 0.5,
-    kcMid: 0.85,
-    kcEnd: 0.6,
-    iniDays: 30,
-    devDays: 45,
-    midDays: 35,
-    lateDays: 10,
-    nitrogenio: null,
-    fosforo: null,
-    potassio: null,
-    unidadeNpk: null,
-  },
-  {
     nome: "Abóbora",
     nomeCientifico: "Cucurbita moschata",
+    categoria: PlantCategory.HORTALICAS,
     cicloMinimoDias: 120,
     cicloMaximoDias: 120,
     phMinimo: 5.5,
@@ -1387,6 +1472,7 @@ export const plantsData = [
   {
     nome: "Abobrinha",
     nomeCientifico: "Cucurbita pepo",
+    categoria: PlantCategory.HORTALICAS,
     cicloMinimoDias: 100,
     cicloMaximoDias: 100,
     phMinimo: 5.5,
@@ -1410,58 +1496,6 @@ export const plantsData = [
     potassio: null,
     unidadeNpk: null,
   },
-  {
-    nome: "Melão",
-    nomeCientifico: "Cucumis melo",
-    cicloMinimoDias: 160,
-    cicloMaximoDias: 160,
-    phMinimo: 5.5,
-    phMaximo: 7.5,
-    temperaturaMinima: 18,
-    temperaturaMaxima: 35,
-    precipitacaoMinima: 400,
-    precipitacaoMaxima: 800,
-    necessidadeLuz: "muito alta",
-    necessidadeAgua: "moderada",
-    texturaSolo: "leve, médio",
-    kcIni: 0.5,
-    kcMid: 1.05,
-    kcEnd: 0.75,
-    iniDays: 30,
-    devDays: 45,
-    midDays: 65,
-    lateDays: 20,
-    nitrogenio: null,
-    fosforo: null,
-    potassio: null,
-    unidadeNpk: null,
-  },
-  {
-    nome: "Melancia",
-    nomeCientifico: "Citrullus lanatus",
-    cicloMinimoDias: 110,
-    cicloMaximoDias: 110,
-    phMinimo: 5.5,
-    phMaximo: 7.0,
-    temperaturaMinima: 20,
-    temperaturaMaxima: 35,
-    precipitacaoMinima: 400,
-    precipitacaoMaxima: 800,
-    necessidadeLuz: "muito alta",
-    necessidadeAgua: "moderada",
-    texturaSolo: "leve, médio",
-    kcIni: 0.4,
-    kcMid: 1.0,
-    kcEnd: 0.75,
-    iniDays: 20,
-    devDays: 30,
-    midDays: 30,
-    lateDays: 30,
-    nitrogenio: null,
-    fosforo: null,
-    potassio: null,
-    unidadeNpk: null,
-  },
 
   // ============================================================
   // FIBRAS — FAO-56 Tab. 12 / Tab. 11
@@ -1469,6 +1503,7 @@ export const plantsData = [
   {
     nome: "Algodão",
     nomeCientifico: "Gossypium hirsutum",
+    categoria: PlantCategory.FIBRAS,
     cicloMinimoDias: 150,
     cicloMaximoDias: 200,
     phMinimo: 5.8,
@@ -1495,6 +1530,7 @@ export const plantsData = [
   {
     nome: "Sisal",
     nomeCientifico: "Agave sisalana",
+    categoria: PlantCategory.FIBRAS,
     cicloMinimoDias: 730,
     cicloMaximoDias: 1095,
     phMinimo: 6.0,
@@ -1525,6 +1561,7 @@ export const plantsData = [
   {
     nome: "Girassol",
     nomeCientifico: "Helianthus annuus",
+    categoria: PlantCategory.OLEAGINOSAS,
     cicloMinimoDias: 90,
     cicloMaximoDias: 130,
     phMinimo: 6.0,
@@ -1551,6 +1588,7 @@ export const plantsData = [
   {
     nome: "Canola",
     nomeCientifico: "Brassica napus",
+    categoria: PlantCategory.OLEAGINOSAS,
     cicloMinimoDias: 90,
     cicloMaximoDias: 150,
     phMinimo: 5.5,
@@ -1577,6 +1615,7 @@ export const plantsData = [
   {
     nome: "Linho",
     nomeCientifico: "Linum usitatissimum",
+    categoria: PlantCategory.OLEAGINOSAS,
     cicloMinimoDias: 90,
     cicloMaximoDias: 130,
     phMinimo: 5.5,
@@ -1603,6 +1642,7 @@ export const plantsData = [
   {
     nome: "Cártamo",
     nomeCientifico: "Carthamus tinctorius",
+    categoria: PlantCategory.OLEAGINOSAS,
     cicloMinimoDias: 100,
     cicloMaximoDias: 150,
     phMinimo: 5.5,
@@ -1629,6 +1669,7 @@ export const plantsData = [
   {
     nome: "Gergelim",
     nomeCientifico: "Sesamum indicum",
+    categoria: PlantCategory.OLEAGINOSAS,
     cicloMinimoDias: 80,
     cicloMaximoDias: 130,
     phMinimo: 5.5,
@@ -1655,6 +1696,7 @@ export const plantsData = [
   {
     nome: "Mamona",
     nomeCientifico: "Ricinus communis",
+    categoria: PlantCategory.OLEAGINOSAS,
     cicloMinimoDias: 120,
     cicloMaximoDias: 180,
     phMinimo: 5.0,
@@ -1680,9 +1722,9 @@ export const plantsData = [
   },
   {
     // NOTA: Kc aproximado — baseado em oleaginosas arbustivas similares.
-    // Pinhão-manso não tem entrada própria na FAO-56.
     nome: "Pinhão-manso",
     nomeCientifico: "Jatropha curcas",
+    categoria: PlantCategory.OLEAGINOSAS,
     cicloMinimoDias: 240,
     cicloMaximoDias: 365,
     phMinimo: 5.0,
@@ -1709,6 +1751,7 @@ export const plantsData = [
   {
     nome: "Colza",
     nomeCientifico: "Brassica rapa subsp. oleifera",
+    categoria: PlantCategory.OLEAGINOSAS,
     cicloMinimoDias: 90,
     cicloMaximoDias: 150,
     phMinimo: 5.5,
@@ -1735,11 +1778,11 @@ export const plantsData = [
 
   // ============================================================
   // FRUTAS — FAO-56 Tab. 12 / Tab. 11
-  // Exceção: Pinhão (aproximação de conífera)
   // ============================================================
   {
     nome: "Banana",
     nomeCientifico: "Musa spp.",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 300,
     cicloMaximoDias: 390,
     phMinimo: 5.0,
@@ -1764,60 +1807,9 @@ export const plantsData = [
     unidadeNpk: null,
   },
   {
-    nome: "Café Arábica",
-    nomeCientifico: "Coffea arabica",
-    cicloMinimoDias: 240,
-    cicloMaximoDias: 365,
-    phMinimo: 5.5,
-    phMaximo: 6.5,
-    temperaturaMinima: 15,
-    temperaturaMaxima: 24,
-    precipitacaoMinima: 1200,
-    precipitacaoMaxima: 1800,
-    necessidadeLuz: "moderada",
-    necessidadeAgua: "moderada",
-    texturaSolo: "médio, orgânico",
-    kcIni: 0.7,
-    kcMid: 0.95,
-    kcEnd: 0.8,
-    iniDays: 30,
-    devDays: 60,
-    midDays: 150,
-    lateDays: 60,
-    nitrogenio: null,
-    fosforo: null,
-    potassio: null,
-    unidadeNpk: null,
-  },
-  {
-    nome: "Café Robusta",
-    nomeCientifico: "Coffea canephora",
-    cicloMinimoDias: 240,
-    cicloMaximoDias: 365,
-    phMinimo: 5.0,
-    phMaximo: 6.5,
-    temperaturaMinima: 18,
-    temperaturaMaxima: 30,
-    precipitacaoMinima: 1500,
-    precipitacaoMaxima: 2500,
-    necessidadeLuz: "moderada",
-    necessidadeAgua: "alta",
-    texturaSolo: "médio, orgânico",
-    kcIni: 0.7,
-    kcMid: 1.0,
-    kcEnd: 0.85,
-    iniDays: 30,
-    devDays: 60,
-    midDays: 150,
-    lateDays: 60,
-    nitrogenio: null,
-    fosforo: null,
-    potassio: null,
-    unidadeNpk: null,
-  },
-  {
     nome: "Laranja",
     nomeCientifico: "Citrus sinensis",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 300,
     cicloMaximoDias: 365,
     phMinimo: 5.5,
@@ -1844,6 +1836,7 @@ export const plantsData = [
   {
     nome: "Manga",
     nomeCientifico: "Mangifera indica",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 240,
     cicloMaximoDias: 365,
     phMinimo: 5.5,
@@ -1870,6 +1863,7 @@ export const plantsData = [
   {
     nome: "Uva",
     nomeCientifico: "Vitis vinifera",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 150,
     cicloMaximoDias: 210,
     phMinimo: 5.5,
@@ -1896,6 +1890,7 @@ export const plantsData = [
   {
     nome: "Abacaxi",
     nomeCientifico: "Ananas comosus",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 270,
     cicloMaximoDias: 420,
     phMinimo: 4.5,
@@ -1922,6 +1917,7 @@ export const plantsData = [
   {
     nome: "Mamão",
     nomeCientifico: "Carica papaya",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 240,
     cicloMaximoDias: 365,
     phMinimo: 5.5,
@@ -1946,34 +1942,9 @@ export const plantsData = [
     unidadeNpk: null,
   },
   {
-    nome: "Cacau",
-    nomeCientifico: "Theobroma cacao",
-    cicloMinimoDias: 365,
-    cicloMaximoDias: 540,
-    phMinimo: 5.0,
-    phMaximo: 7.0,
-    temperaturaMinima: 20,
-    temperaturaMaxima: 32,
-    precipitacaoMinima: 1500,
-    precipitacaoMaxima: 3000,
-    necessidadeLuz: "moderada",
-    necessidadeAgua: "muito alta",
-    texturaSolo: "orgânico, profundo",
-    kcIni: 0.7,
-    kcMid: 1.05,
-    kcEnd: 0.95,
-    iniDays: 30,
-    devDays: 60,
-    midDays: 200,
-    lateDays: 90,
-    nitrogenio: null,
-    fosforo: null,
-    potassio: null,
-    unidadeNpk: null,
-  },
-  {
     nome: "Coco",
     nomeCientifico: "Cocos nucifera",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 365,
     cicloMaximoDias: 540,
     phMinimo: 5.0,
@@ -2000,6 +1971,7 @@ export const plantsData = [
   {
     nome: "Dendê",
     nomeCientifico: "Elaeis guineensis",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 365,
     cicloMaximoDias: 540,
     phMinimo: 4.5,
@@ -2026,6 +1998,7 @@ export const plantsData = [
   {
     nome: "Morango",
     nomeCientifico: "Fragaria × ananassa",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 120,
     cicloMaximoDias: 180,
     phMinimo: 5.5,
@@ -2050,8 +2023,90 @@ export const plantsData = [
     unidadeNpk: null,
   },
   {
+    nome: "Melão Cantalupo",
+    nomeCientifico: "Cucumis melo var. cantalupensis",
+    categoria: PlantCategory.FRUTAS,
+    cicloMinimoDias: 120,
+    cicloMaximoDias: 120,
+    phMinimo: 5.5,
+    phMaximo: 7.5,
+    temperaturaMinima: 18,
+    temperaturaMaxima: 35,
+    precipitacaoMinima: 400,
+    precipitacaoMaxima: 800,
+    necessidadeLuz: "muito alta",
+    necessidadeAgua: "moderada",
+    texturaSolo: "leve, médio",
+    kcIni: 0.5,
+    kcMid: 0.85,
+    kcEnd: 0.6,
+    iniDays: 30,
+    devDays: 45,
+    midDays: 35,
+    lateDays: 10,
+    nitrogenio: null,
+    fosforo: null,
+    potassio: null,
+    unidadeNpk: null,
+  },
+  {
+    nome: "Melão",
+    nomeCientifico: "Cucumis melo",
+    categoria: PlantCategory.FRUTAS,
+    cicloMinimoDias: 160,
+    cicloMaximoDias: 160,
+    phMinimo: 5.5,
+    phMaximo: 7.5,
+    temperaturaMinima: 18,
+    temperaturaMaxima: 35,
+    precipitacaoMinima: 400,
+    precipitacaoMaxima: 800,
+    necessidadeLuz: "muito alta",
+    necessidadeAgua: "moderada",
+    texturaSolo: "leve, médio",
+    kcIni: 0.5,
+    kcMid: 1.05,
+    kcEnd: 0.75,
+    iniDays: 30,
+    devDays: 45,
+    midDays: 65,
+    lateDays: 20,
+    nitrogenio: null,
+    fosforo: null,
+    potassio: null,
+    unidadeNpk: null,
+  },
+  {
+    nome: "Melancia",
+    nomeCientifico: "Citrullus lanatus",
+    categoria: PlantCategory.FRUTAS,
+    cicloMinimoDias: 110,
+    cicloMaximoDias: 110,
+    phMinimo: 5.5,
+    phMaximo: 7.0,
+    temperaturaMinima: 20,
+    temperaturaMaxima: 35,
+    precipitacaoMinima: 400,
+    precipitacaoMaxima: 800,
+    necessidadeLuz: "muito alta",
+    necessidadeAgua: "moderada",
+    texturaSolo: "leve, médio",
+    kcIni: 0.4,
+    kcMid: 1.0,
+    kcEnd: 0.75,
+    iniDays: 20,
+    devDays: 30,
+    midDays: 30,
+    lateDays: 30,
+    nitrogenio: null,
+    fosforo: null,
+    potassio: null,
+    unidadeNpk: null,
+  },
+  {
     nome: "Tamareira",
     nomeCientifico: "Phoenix dactylifera",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 360,
     cicloMaximoDias: 360,
     phMinimo: 6.0,
@@ -2078,6 +2133,7 @@ export const plantsData = [
   {
     nome: "Palmeira (geral)",
     nomeCientifico: "Arecaceae",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 360,
     cicloMaximoDias: 360,
     phMinimo: null,
@@ -2102,34 +2158,9 @@ export const plantsData = [
     unidadeNpk: null,
   },
   {
-    nome: "Chá",
-    nomeCientifico: "Camellia sinensis",
-    cicloMinimoDias: 360,
-    cicloMaximoDias: 360,
-    phMinimo: 4.5,
-    phMaximo: 6.0,
-    temperaturaMinima: 12,
-    temperaturaMaxima: 30,
-    precipitacaoMinima: 1200,
-    precipitacaoMaxima: 2500,
-    necessidadeLuz: "moderada",
-    necessidadeAgua: "alta",
-    texturaSolo: "ácido, profundo",
-    kcIni: 0.95,
-    kcMid: 1.0,
-    kcEnd: 1.0,
-    iniDays: 30,
-    devDays: 60,
-    midDays: 180,
-    lateDays: 90,
-    nitrogenio: null,
-    fosforo: null,
-    potassio: null,
-    unidadeNpk: null,
-  },
-  {
     nome: "Amora (arbusto)",
     nomeCientifico: "Rubus spp.",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 180,
     cicloMaximoDias: 180,
     phMinimo: 5.0,
@@ -2154,34 +2185,9 @@ export const plantsData = [
     unidadeNpk: null,
   },
   {
-    nome: "Lúpulo",
-    nomeCientifico: "Humulus lupulus",
-    cicloMinimoDias: 150,
-    cicloMaximoDias: 150,
-    phMinimo: 6.0,
-    phMaximo: 7.5,
-    temperaturaMinima: 10,
-    temperaturaMaxima: 25,
-    precipitacaoMinima: 500,
-    precipitacaoMaxima: 900,
-    necessidadeLuz: "alta",
-    necessidadeAgua: "moderada",
-    texturaSolo: "médio, profundo",
-    kcIni: 0.3,
-    kcMid: 1.05,
-    kcEnd: 0.85,
-    iniDays: 25,
-    devDays: 40,
-    midDays: 60,
-    lateDays: 25,
-    nitrogenio: null,
-    fosforo: null,
-    potassio: null,
-    unidadeNpk: null,
-  },
-  {
     nome: "Amendoeira",
     nomeCientifico: "Prunus dulcis",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 240,
     cicloMaximoDias: 240,
     phMinimo: 6.0,
@@ -2208,6 +2214,7 @@ export const plantsData = [
   {
     nome: "Macieira",
     nomeCientifico: "Malus domestica",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 240,
     cicloMaximoDias: 240,
     phMinimo: 5.5,
@@ -2234,6 +2241,7 @@ export const plantsData = [
   {
     nome: "Damasco / Pêssego",
     nomeCientifico: "Prunus armeniaca / Prunus persica",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 240,
     cicloMaximoDias: 240,
     phMinimo: 5.5,
@@ -2260,6 +2268,7 @@ export const plantsData = [
   {
     nome: "Abacate",
     nomeCientifico: "Persea americana",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 360,
     cicloMaximoDias: 360,
     phMinimo: 5.5,
@@ -2287,6 +2296,7 @@ export const plantsData = [
     // NOTA: Kc varia com a cobertura da copa. 70% = pomar adulto.
     nome: "Citros (70% copa)",
     nomeCientifico: "Citrus spp. (70% copa)",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 360,
     cicloMaximoDias: 360,
     phMinimo: 5.5,
@@ -2314,6 +2324,7 @@ export const plantsData = [
     // NOTA: 50% = pomar em formação.
     nome: "Citros (50% copa)",
     nomeCientifico: "Citrus spp. (50% copa)",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 360,
     cicloMaximoDias: 360,
     phMinimo: 5.5,
@@ -2341,6 +2352,7 @@ export const plantsData = [
     // NOTA: 20% = pomar jovem.
     nome: "Citros (20% copa)",
     nomeCientifico: "Citrus spp. (20% copa)",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 360,
     cicloMaximoDias: 360,
     phMinimo: 5.5,
@@ -2367,6 +2379,7 @@ export const plantsData = [
   {
     nome: "Kiwi",
     nomeCientifico: "Actinidia deliciosa",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 240,
     cicloMaximoDias: 240,
     phMinimo: 5.5,
@@ -2393,6 +2406,7 @@ export const plantsData = [
   {
     nome: "Oliveira",
     nomeCientifico: "Olea europaea",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 360,
     cicloMaximoDias: 360,
     phMinimo: 6.0,
@@ -2419,6 +2433,7 @@ export const plantsData = [
   {
     nome: "Pistache",
     nomeCientifico: "Pistacia vera",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 240,
     cicloMaximoDias: 240,
     phMinimo: 6.5,
@@ -2445,6 +2460,7 @@ export const plantsData = [
   {
     nome: "Nogueira",
     nomeCientifico: "Juglans regia",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 240,
     cicloMaximoDias: 240,
     phMinimo: 5.5,
@@ -2470,9 +2486,9 @@ export const plantsData = [
   },
   {
     // NOTA: Kc aproximado de conífera (FAO-56 Tab. 12).
-    // Não há dados específicos para Araucaria angustifolia.
     nome: "Pinhão",
     nomeCientifico: "Araucaria angustifolia",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 360,
     cicloMaximoDias: 540,
     phMinimo: 6.0,
@@ -2499,13 +2515,12 @@ export const plantsData = [
 
   // ============================================================
   // FORRAGEIRAS — FAO-56 Tab. 12 / Tab. 11
-  // Exceções: Braquiária, Mombaça, Capim-elefante,
-  //           Capim-marandu, Estilosantes (Kc adaptado)
   // ============================================================
   {
     // NOTA: Kc adaptado de Brachiaria/Panicum (FAO-56).
     nome: "Braquiária",
     nomeCientifico: "Urochloa spp.",
+    categoria: PlantCategory.FORRAGEIRAS,
     cicloMinimoDias: 90,
     cicloMaximoDias: 180,
     phMinimo: 4.5,
@@ -2531,9 +2546,9 @@ export const plantsData = [
   },
   {
     // NOTA: Kc adaptado de Brachiaria/Panicum (FAO-56).
-    // Cultivar de Urochloa brizantha — principal no Brasil.
     nome: "Capim-marandu",
     nomeCientifico: "Urochloa brizantha cv. Marandu",
+    categoria: PlantCategory.FORRAGEIRAS,
     cicloMinimoDias: 90,
     cicloMaximoDias: 180,
     phMinimo: 4.5,
@@ -2561,6 +2576,7 @@ export const plantsData = [
     // NOTA: Kc adaptado de forrageiras tropicais.
     nome: "Mombaça",
     nomeCientifico: "Megathyrsus maximus",
+    categoria: PlantCategory.FORRAGEIRAS,
     cicloMinimoDias: 90,
     cicloMaximoDias: 180,
     phMinimo: 4.5,
@@ -2588,6 +2604,7 @@ export const plantsData = [
     // NOTA: Kc adaptado de forrageiras tropicais.
     nome: "Capim-elefante",
     nomeCientifico: "Pennisetum purpureum",
+    categoria: PlantCategory.FORRAGEIRAS,
     cicloMinimoDias: 90,
     cicloMaximoDias: 180,
     phMinimo: 5.0,
@@ -2613,9 +2630,9 @@ export const plantsData = [
   },
   {
     // NOTA: Kc adaptado de leguminosas forrageiras (FAO-56).
-    // Estilosantes não tem entrada própria na FAO-56.
     nome: "Estilosantes",
     nomeCientifico: "Stylosanthes spp.",
+    categoria: PlantCategory.FORRAGEIRAS,
     cicloMinimoDias: 120,
     cicloMaximoDias: 180,
     phMinimo: 4.5,
@@ -2642,6 +2659,7 @@ export const plantsData = [
   {
     nome: "Alfafa",
     nomeCientifico: "Medicago sativa",
+    categoria: PlantCategory.FORRAGEIRAS,
     cicloMinimoDias: 120,
     cicloMaximoDias: 240,
     phMinimo: 6.0,
@@ -2668,6 +2686,7 @@ export const plantsData = [
   {
     nome: "Azevém",
     nomeCientifico: "Lolium perenne",
+    categoria: PlantCategory.FORRAGEIRAS,
     cicloMinimoDias: 120,
     cicloMaximoDias: 120,
     phMinimo: 5.5,
@@ -2694,6 +2713,7 @@ export const plantsData = [
   {
     nome: "Capim-sudão",
     nomeCientifico: "Sorghum × drummondii",
+    categoria: PlantCategory.FORRAGEIRAS,
     cicloMinimoDias: 100,
     cicloMaximoDias: 100,
     phMinimo: 5.5,
@@ -2720,6 +2740,7 @@ export const plantsData = [
   {
     nome: "Trevo",
     nomeCientifico: "Trifolium spp.",
+    categoria: PlantCategory.FORRAGEIRAS,
     cicloMinimoDias: 120,
     cicloMaximoDias: 120,
     phMinimo: 5.5,
@@ -2745,11 +2766,178 @@ export const plantsData = [
   },
 
   // ============================================================
-  // AÇÚCAR — FAO-56 Tab. 12 / Tab. 11
+  // ESTIMULANTES
+  // ============================================================
+  {
+    nome: "Café Arábica",
+    nomeCientifico: "Coffea arabica",
+    categoria: PlantCategory.ESTIMULANTES,
+    cicloMinimoDias: 240,
+    cicloMaximoDias: 365,
+    phMinimo: 5.5,
+    phMaximo: 6.5,
+    temperaturaMinima: 15,
+    temperaturaMaxima: 24,
+    precipitacaoMinima: 1200,
+    precipitacaoMaxima: 1800,
+    necessidadeLuz: "moderada",
+    necessidadeAgua: "moderada",
+    texturaSolo: "médio, orgânico",
+    kcIni: 0.7,
+    kcMid: 0.95,
+    kcEnd: 0.8,
+    iniDays: 30,
+    devDays: 60,
+    midDays: 150,
+    lateDays: 60,
+    nitrogenio: null,
+    fosforo: null,
+    potassio: null,
+    unidadeNpk: null,
+  },
+  {
+    nome: "Café Robusta",
+    nomeCientifico: "Coffea canephora",
+    categoria: PlantCategory.ESTIMULANTES,
+    cicloMinimoDias: 240,
+    cicloMaximoDias: 365,
+    phMinimo: 5.0,
+    phMaximo: 6.5,
+    temperaturaMinima: 18,
+    temperaturaMaxima: 30,
+    precipitacaoMinima: 1500,
+    precipitacaoMaxima: 2500,
+    necessidadeLuz: "moderada",
+    necessidadeAgua: "alta",
+    texturaSolo: "médio, orgânico",
+    kcIni: 0.7,
+    kcMid: 1.0,
+    kcEnd: 0.85,
+    iniDays: 30,
+    devDays: 60,
+    midDays: 150,
+    lateDays: 60,
+    nitrogenio: null,
+    fosforo: null,
+    potassio: null,
+    unidadeNpk: null,
+  },
+  {
+    nome: "Chá-da-índia",
+    nomeCientifico: "Camellia sinensis",
+    categoria: PlantCategory.ESTIMULANTES,
+    cicloMinimoDias: 360,
+    cicloMaximoDias: 360,
+    phMinimo: 4.5,
+    phMaximo: 6.0,
+    temperaturaMinima: 12,
+    temperaturaMaxima: 30,
+    precipitacaoMinima: 1200,
+    precipitacaoMaxima: 2500,
+    necessidadeLuz: "moderada",
+    necessidadeAgua: "alta",
+    texturaSolo: "ácido, profundo",
+    kcIni: 0.95,
+    kcMid: 1.0,
+    kcEnd: 1.0,
+    iniDays: 30,
+    devDays: 60,
+    midDays: 180,
+    lateDays: 90,
+    nitrogenio: null,
+    fosforo: null,
+    potassio: null,
+    unidadeNpk: null,
+  },
+  {
+    nome: "Erva-mate",
+    nomeCientifico: "Ilex paraguariensis",
+    categoria: PlantCategory.ESTIMULANTES,
+    cicloMinimoDias: 365,
+    cicloMaximoDias: 540,
+    phMinimo: 5.0,
+    phMaximo: 6.5,
+    temperaturaMinima: 12,
+    temperaturaMaxima: 28,
+    precipitacaoMinima: 1000,
+    precipitacaoMaxima: 2000,
+    necessidadeLuz: "moderada",
+    necessidadeAgua: "alta",
+    texturaSolo: "ácido, profundo",
+    kcIni: 0.8,
+    kcMid: 0.95,
+    kcEnd: 0.95,
+    iniDays: 30,
+    devDays: 60,
+    midDays: 200,
+    lateDays: 75,
+    nitrogenio: null,
+    fosforo: null,
+    potassio: null,
+    unidadeNpk: null,
+  },
+  {
+    nome: "Cacau",
+    nomeCientifico: "Theobroma cacao",
+    categoria: PlantCategory.ESTIMULANTES,
+    cicloMinimoDias: 365,
+    cicloMaximoDias: 540,
+    phMinimo: 5.0,
+    phMaximo: 7.0,
+    temperaturaMinima: 20,
+    temperaturaMaxima: 32,
+    precipitacaoMinima: 1500,
+    precipitacaoMaxima: 3000,
+    necessidadeLuz: "moderada",
+    necessidadeAgua: "muito alta",
+    texturaSolo: "orgânico, profundo",
+    kcIni: 0.7,
+    kcMid: 1.05,
+    kcEnd: 0.95,
+    iniDays: 30,
+    devDays: 60,
+    midDays: 200,
+    lateDays: 90,
+    nitrogenio: null,
+    fosforo: null,
+    potassio: null,
+    unidadeNpk: null,
+  },
+  {
+    nome: "Lúpulo",
+    nomeCientifico: "Humulus lupulus",
+    categoria: PlantCategory.ESTIMULANTES,
+    cicloMinimoDias: 150,
+    cicloMaximoDias: 150,
+    phMinimo: 6.0,
+    phMaximo: 7.5,
+    temperaturaMinima: 10,
+    temperaturaMaxima: 25,
+    precipitacaoMinima: 500,
+    precipitacaoMaxima: 900,
+    necessidadeLuz: "alta",
+    necessidadeAgua: "moderada",
+    texturaSolo: "médio, profundo",
+    kcIni: 0.3,
+    kcMid: 1.05,
+    kcEnd: 0.85,
+    iniDays: 25,
+    devDays: 40,
+    midDays: 60,
+    lateDays: 25,
+    nitrogenio: null,
+    fosforo: null,
+    potassio: null,
+    unidadeNpk: null,
+  },
+
+  // ============================================================
+  // ADOCANTES
   // ============================================================
   {
     nome: "Cana-de-açúcar",
     nomeCientifico: "Saccharum officinarum",
+    categoria: PlantCategory.ADOCANTES,
     cicloMinimoDias: 300,
     cicloMaximoDias: 540,
     phMinimo: 5.5,
@@ -2775,11 +2963,12 @@ export const plantsData = [
   },
 
   // ============================================================
-  // INDUSTRIAIS — FAO-56 Tab. 12 / Tab. 11
+  // INDUSTRIAIS
   // ============================================================
   {
     nome: "Seringueira",
     nomeCientifico: "Hevea brasiliensis",
+    categoria: PlantCategory.INDUSTRIAIS,
     cicloMinimoDias: 365,
     cicloMaximoDias: 540,
     phMinimo: 4.5,
@@ -2807,11 +2996,11 @@ export const plantsData = [
   // ============================================================
   // CULTURAS BRASILEIRAS
   // Kc: Embrapa / Rev. Bras. Frutic. / Irriga / SciELO / UESPI
-  // Dados agronômicos: EcoCrop
   // ============================================================
   {
     nome: "Maracujá",
     nomeCientifico: "Passiflora edulis",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 300,
     cicloMaximoDias: 365,
     phMinimo: 5.5,
@@ -2838,6 +3027,7 @@ export const plantsData = [
   {
     nome: "Caju",
     nomeCientifico: "Anacardium occidentale",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 365,
     cicloMaximoDias: 540,
     phMinimo: 5.0,
@@ -2864,6 +3054,7 @@ export const plantsData = [
   {
     nome: "Goiaba",
     nomeCientifico: "Psidium guajava",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 240,
     cicloMaximoDias: 365,
     phMinimo: 5.0,
@@ -2889,9 +3080,9 @@ export const plantsData = [
   },
   {
     // Kc único de 1.39 (UESPI, 2014). Adaptado para 3 fases.
-    // Principal destino: indústria (polpa, vitamina C).
     nome: "Acerola",
     nomeCientifico: "Malpighia emarginata",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 240,
     cicloMaximoDias: 365,
     phMinimo: 5.5,
@@ -2919,6 +3110,7 @@ export const plantsData = [
     // Kc de DripPro / Silva (2003). Não consta na FAO-56.
     nome: "Graviola",
     nomeCientifico: "Annona muricata",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 300,
     cicloMaximoDias: 420,
     phMinimo: 5.5,
@@ -2943,60 +3135,9 @@ export const plantsData = [
     unidadeNpk: null,
   },
   {
-    nome: "Pimenta-do-reino",
-    nomeCientifico: "Piper nigrum",
-    cicloMinimoDias: 240,
-    cicloMaximoDias: 365,
-    phMinimo: 5.0,
-    phMaximo: 6.5,
-    temperaturaMinima: 22,
-    temperaturaMaxima: 32,
-    precipitacaoMinima: 1500,
-    precipitacaoMaxima: 3000,
-    necessidadeLuz: "moderada",
-    necessidadeAgua: "alta",
-    texturaSolo: "médio, orgânico",
-    kcIni: 0.6,
-    kcMid: 1.0,
-    kcEnd: 0.9,
-    iniDays: 30,
-    devDays: 60,
-    midDays: 180,
-    lateDays: 30,
-    nitrogenio: null,
-    fosforo: null,
-    potassio: null,
-    unidadeNpk: null,
-  },
-  {
-    nome: "Erva-mate",
-    nomeCientifico: "Ilex paraguariensis",
-    cicloMinimoDias: 365,
-    cicloMaximoDias: 540,
-    phMinimo: 5.0,
-    phMaximo: 6.5,
-    temperaturaMinima: 12,
-    temperaturaMaxima: 28,
-    precipitacaoMinima: 1000,
-    precipitacaoMaxima: 2000,
-    necessidadeLuz: "moderada",
-    necessidadeAgua: "alta",
-    texturaSolo: "ácido, profundo",
-    kcIni: 0.8,
-    kcMid: 0.95,
-    kcEnd: 0.95,
-    iniDays: 30,
-    devDays: 60,
-    midDays: 200,
-    lateDays: 75,
-    nitrogenio: null,
-    fosforo: null,
-    potassio: null,
-    unidadeNpk: null,
-  },
-  {
     nome: "Açaí",
     nomeCientifico: "Euterpe oleracea",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 365,
     cicloMaximoDias: 540,
     phMinimo: 4.5,
@@ -3023,6 +3164,7 @@ export const plantsData = [
   {
     nome: "Cupuaçu",
     nomeCientifico: "Theobroma grandiflorum",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 365,
     cicloMaximoDias: 540,
     phMinimo: 5.0,
@@ -3049,6 +3191,7 @@ export const plantsData = [
   {
     nome: "Pupunha",
     nomeCientifico: "Bactris gasipaes",
+    categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 365,
     cicloMaximoDias: 540,
     phMinimo: 5.0,

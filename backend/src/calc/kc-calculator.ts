@@ -1,4 +1,4 @@
-interface CropCoefficients {
+export interface CropCoefficients {
   kcIni: number;
   kcIniMax?: number;
 

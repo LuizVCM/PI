@@ -1,6 +1,7 @@
 @import url("../global.css");
 @import url("../utils/modal.css");
 @import url("../utils/buttons.css");
+@import url("../utils/form-message.css");
 
 #main-content .funcao.culturas i {
   color: #6b8e23;
@@ -51,7 +52,7 @@
 
 .campo-busca {
   flex: 1;
-  height: 48px;
+  height: 2.7rem;
   padding: 0 1.2rem;
   border-radius: 12px;
   border: 1.5px solid #d4ddd0;
@@ -74,7 +75,7 @@
   justify-content: center;
   gap: 0.5rem;
   padding: 0 1.4rem;
-  height: 48px;
+  height: 2.7rem;
   border-radius: 12px;
   border: none;
   background: var(--verde-profundo);
@@ -126,11 +127,13 @@
   padding: 0.8rem 1rem;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 0.6rem;
   transition:
     transform 0.2s,
     box-shadow 0.2s;
   overflow-x: auto;
+  overflow-y: hidden;
   scrollbar-width: thin;
 }
 .semente-cadastrada:hover {
@@ -143,12 +146,19 @@
   height: 36px;
   min-width: 36px;
   border-radius: 10px;
-  background: var(--verde-opcao);
+  background: var(--cat); /* aplica cor da categoria */
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
+}
+
+.acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin: 0.5rem
 }
 
 .opcao-semente {
@@ -165,32 +175,19 @@
   border-left: none;
 }
 
-.opcao-semente.editar,
-.opcao-semente.excluir {
+.opcao-semente.btn-editar,
+.opcao-semente.btn-excluir {
   border-left: none;
   border-radius: 8px;
   padding: 0 0.6rem;
   cursor: pointer;
   transition: background 0.2s;
 }
-.opcao-semente.editar {
-  color: var(--verde-opcoes-click);
-  margin-left: auto;
-}
-.opcao-semente.excluir {
-  color: #c05151;
-}
-.opcao-semente.editar:hover {
-  background: var(--verde-selecionar);
-}
-.opcao-semente.excluir:hover {
-  background: #fde8e8;
-}
 
 .form-painel {
   width: 380px;
   min-width: 340px;
-  max-height: 68vh;
+  min-height: auto;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -337,12 +334,12 @@
   border-color: #fff;
 }
 
-.Salvarlote {
+.salvar-lote {
   background: var(--verde-circulo);
   color: var(--verde-dark);
   border: none;
 }
-.Salvarlote:hover {
+.salvar-lote:hover {
   background: #8fdb70;
 }
 
@@ -394,6 +391,14 @@
   font-weight: 700;
   white-space: nowrap;
 }
+.recomendacao-card .tag.category {
+  background: var(--cat);
+  color: var(--branco)
+}
+.recomendacao-card .tags {
+  display: flex;
+  gap: 0.5rem;
+}
 
 .nome-cientifico {
   font-style: italic;
@@ -437,7 +442,7 @@
   border-radius: 16px;
   padding: 1.3rem 1.4rem;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
-  border-left: 6px solid var(--verde-opcoes-click);
+  border-left: 6px solid var(--cat);
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
@@ -479,9 +484,6 @@
     min-width: 0;
     max-height: none;
   }
-  .form-painel {
-    max-height: 70vh;
-  }
 }
 
 @media (max-width: 600px) {
@@ -493,11 +495,14 @@
   .btn-novo {
     width: 100%;
   }
+  .campo-busca {
+    min-height: 3rem
+  }
   .btn-novo {
     justify-content: center;
   }
 
-  .sementeCadastrada {
+  .semente-cadastrada {
     flex-wrap: wrap;
     gap: 0.5rem;
   }
@@ -583,4 +588,44 @@
 }
 .fontes-aviso i {
   color: var(--verde-claro);
+}
+
+/* cores de categoria */
+[data-categoria="cereais"] {
+  --cat: #c9a227;
+}
+[data-categoria="leguminosas"] {
+  --cat: #6b8e23;
+}
+[data-categoria="tubérculos"] {
+  --cat: #8b5a2b;
+}
+[data-categoria="hortaliças"] {
+  --cat: #4caf50;
+}
+[data-categoria="frutas"] {
+  --cat: #e85d75;
+}
+[data-categoria="oleaginosas"] {
+  --cat: #e08e30;
+}
+[data-categoria="fibras"] {
+  --cat: #a68a64;
+}
+[data-categoria="forrageiras"] {
+  --cat: #558b2f;
+}
+[data-categoria="estimulantes"] {
+  --cat: #6f4e37;
+}
+[data-categoria="adoçantes"] {
+  --cat: #b8556c;
+}
+[data-categoria="industriais"] {
+  --cat: #607d8b;
+}
+
+.planta-card h3 {
+  color: var(--cat);
+  margin: 0;
 }

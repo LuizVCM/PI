@@ -34,19 +34,18 @@ body {
 }
 
 .foto-usuario {
-   width: 170px;
-  height: 170px;
-
-  border-radius: 50%;
-  border: 4px solid #1d5c2f;
-
-  /*background-image: url("https://i.pinimg.com/736x/87/11/22/87112262ddd3b09a89efcaf0f8822ca3.jpg");*/
-  background-image: url("https://www.cfra.org/sites/default/files/styles/page_image/public/page-images/Sandro%20Lopes_0.jpg?h=56d0ca2e&itok=OZHNqUoL");
-  background-size: cover;
+  display: flex;
   background-repeat: no-repeat;
-
-  /* Altere esta linha */
-  background-position: center 2%;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--verde-opcoes-click);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  color: white;
 }
 
 .dados-usuario {

@@ -68,16 +68,6 @@
     box-sizing: border-box;
 }
 
-.gestao-inicio h1 {
-    text-align: center;
-    color: var(--verde-profundo);
-    font-size: 3vw;
-    margin: 0 0 30px 0;
-    font-family: "DM Sans", sans-serif;
-    font-weight: 700;
-    
-}
-
 @media (max-width: 550px) {
    .gestao-inicio h1{
         font-size:1.5rem;
@@ -89,56 +79,38 @@
    OPÇÕES DA GESTÃO
 ========================= */
 
-.gestao-inicio .acessos {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    flex: 1;
-}
+#main-content .funcao.plantacao-cad i {
+    color: #6b8e23;
+  }
+  
+  #main-content .funcao.plantacao-cad:hover::before {
+    background: #6b8e23;
+  }
+  
+  #main-content .funcao.insumos i {
+    color: #3a7d6a;
+  }
+  
+  #main-content .funcao.insumos:hover::before {
+    background: #3a7d6a;
+  }
+  
+  #main-content .funcao.agenda i {
+    color: #3f6f8f;
+  }
 
-.gestao-inicio .acessos .funcao {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  #main-content .funcao.agenda:hover::before {
+    background: #3f6f8f;
+  }
 
-    width: 75%;
-    height: 13%;
-    padding: 35px 45px;
-    font-size: 1.3vw;
+  #main-content .funcao.estoque i {
+    color: #c98232;
+  }
+  
+  #main-content .funcao.estoque:hover::before {
+    background: #c98232;
+  }
 
-    background: linear-gradient(
-        to right,
-        #C8E6A0,
-        #7b977f
-    );
-
-    border-radius: 10px;
-    border: none;
-
-    padding: 50px;
-
-    font-family: "DM Sans", sans-serif;
-    font-weight: 750;
-    color: #0D1F0E;
-    font-size: 1.5vw;
-
-    box-shadow: 6px 5px rgba(22, 78, 14, 0.897);
-
-    cursor: pointer;
-
-    transition: 0.2s;
-}
-
-.gestao-inicio .acessos .funcao:hover {
-    transform: translateY(-2px);
-}
-
-.gestao-inicio .acessos .funcao i {
-    transform: scaleX(1) scale(1.8);
-}
 /* =========================
    CADASTRO
 ========================= */
