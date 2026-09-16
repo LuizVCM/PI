@@ -35,23 +35,26 @@
   }
 
   .local h3 {
-    font-size: 0.5rem;
+    font-size: 1.1rem;
   }
 
   .local h1 {
-    font-size: 0.5rem;
+    font-size: 1.2rem;
     line-height: 1.2;
   }
 
   .local p {
-    font-size: 0.2rem;
+    font-size: 0.9rem;
     margin-top: 5px;
   }
 
   .nuvem {
-    width: 45%;
-    height: 50px;
+    width: 50%;
+    height: 40px;
     text-align: right;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: -10%;
   }
 
   .nuvem p {
@@ -166,8 +169,8 @@
   .dias {
     flex: 0 0 82px;
 
-    width: 82px;
-    min-width: 82px;
+    width: 100px;
+    min-width: 100px;
 
     height: 135px;
 
