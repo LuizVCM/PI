@@ -4,9 +4,22 @@ const valor = document.querySelector(".valor-grande")
 
 async function barra() {
     
-    const api = "https://api.open-meteo.com/v1/forecast?latitude=-29.7603&longitude=-51.1472&daily=temperature_2m_min,temperature_2m_max,precipitation_sum,precipitation_probability_max,et0_fao_evapotranspiration,wind_speed_10m_max&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,rain,evapotranspiration,et0_fao_evapotranspiration,vapour_pressure_deficit,wind_speed_10m&minutely_15=temperature_2m,relative_humidity_2m,rain,precipitation,apparent_temperature,global_tilted_irradiance,wind_speed_10m,shortwave_radiation&timezone=America%2FSao_Paulo"
+  
 
-    try {
+    try { 
+        const user = "http://localhost:3000/users/me"
+      const consumo0 = await fetch(user, { credentials: 'include' });
+      const usuario0 = await consumo0.json();
+
+
+      const coordenadasGeograficas = `https://brasilapi.com.br/api/cep/v2/${usuario0.territorios[0].cep}`;
+      const coordenar = await fetch(coordenadasGeograficas);
+      const coordenadasCidade = await coordenar.json();
+
+      console.log(coordenadasCidade)
+      console.log("teswte");
+
+        const api = `https://api.open-meteo.com/v1/forecast?latitude=${coordenadasCidade.location.coordinates.latitude}&longitude=${coordenadasCidade.location.coordinates.longitude}&daily=temperature_2m_min,temperature_2m_max,precipitation_sum,precipitation_probability_max,et0_fao_evapotranspiration,wind_speed_10m_max&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,rain,evapotranspiration,et0_fao_evapotranspiration,vapour_pressure_deficit,wind_speed_10m&minutely_15=temperature_2m,relative_humidity_2m,rain,precipitation,apparent_temperature,global_tilted_irradiance,wind_speed_10m,shortwave_radiation&timezone=America%2FSao_Paulo`
         const resposta = await fetch(api)
         const dados = await resposta.json()
 
@@ -23,4 +36,4 @@ async function barra() {
     }
 }
 barra()
-setInterval(barra, 1000)
+setInterval(barra, 100000)
