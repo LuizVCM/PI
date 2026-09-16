@@ -2,7 +2,7 @@
 // TELAS
 // =========================
 
-const telaHome = document.querySelector("#tela-inicio");
+const telaHome = document.querySelector("#main-content");
 const telaCadastro = document.querySelector("#tela-cadastro");
 const telaAgenda = document.querySelector("#tela-agenda");
 const telaInsumos = document.querySelector("#tela-insumos");
