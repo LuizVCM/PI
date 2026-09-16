@@ -156,3 +156,41 @@ if (btnLimpar) {
     });
 
 }
+ // =========================
+    // MODAL - NOVO INSUMO
+   // =========================
+
+const btnNovoInsumo = document.querySelector("#btnNovoInsumo");
+const modalNovoInsumo = document.querySelector("#modalNovoInsumo");
+const btnFecharModal = document.querySelector("#btnFecharModal");
+const btnCancelarModal = document.querySelector("#btnCancelarModal");
+const formNovoInsumo = document.querySelector("#formNovoInsumo");
+
+// Abrir modal
+if (btnNovoInsumo && modalNovoInsumo) {
+
+    btnNovoInsumo.addEventListener("click", () => {
+        modalNovoInsumo.classList.remove("hidden");
+    });
+
+}
+
+// Fechar pelo X
+btnFecharModal.addEventListener("click", () => {
+    modalNovoInsumo.classList.add("hidden");
+});
+
+// Fechar pelo botão Cancelar
+btnCancelarModal.addEventListener("click", () => {
+    modalNovoInsumo.classList.add("hidden");
+});
+
+// Cadastrar
+formNovoInsumo.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    alert("Insumo cadastrado com sucesso!");
+
+    formNovoInsumo.reset();
+    modalNovoInsumo.classList.add("hidden");
+}); 

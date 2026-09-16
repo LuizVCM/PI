@@ -15,7 +15,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     margin-bottom: 30px;
 }
 
@@ -38,7 +37,7 @@
 }
 
 .resumo {
-    background: white;
+   background: rgb(185, 228, 176);
 
     padding: 22px;
 

@@ -21,10 +21,6 @@
 }
 
 
-/* =========================
-   TELA INICIAL DA GESTÃO
-========================= */
-
 .gestao-inicio {
     width: 100%;
     height: 87vh;
@@ -72,9 +68,9 @@
     align-items: center;
     justify-content: space-between;
 
-    width: 75%;
-    height: 13%;
-    padding: 35px 45px;
+    width: 65%;
+    height: 5%;
+    padding: 25px 25px;
     font-size: 1.3vw;
 
     background: linear-gradient(

@@ -69,7 +69,7 @@
 }
 
 .card-insumo {
-    background: white;
+    background: rgb(185, 228, 176);
 
     padding: 25px;
 
@@ -154,6 +154,132 @@
 
     font-size: 12px;
     font-weight: 600;
+}
+/* =========================
+   MODAL - NOVO INSUMO
+========================= */
+
+.modal-insumo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Esconde o modal */
+.modal-insumo.hidden {
+    display: none;
+}
+
+/* Caixa do modal */
+.modal-conteudo {
+    width: 50%;
+    max-width: 530px;
+    background: #a5c089f1;
+    border-radius: 12px;
+    padding: 25px;
+    box-sizing: border-box;
+    border-color: #000000
+}
+
+/* Cabeçalho */
+.modal-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+}
+
+.modal-cabecalho h2 {
+    margin: 0;
+    color: #000000;
+}
+
+.modal-cabecalho button {
+    border: none;
+    background: transparent;
+
+    font-size: 1.4rem;
+    cursor: pointer;
+
+    color: #747474;
+}
+
+/* Campos */
+.campo-modal {
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+    margin-bottom: 18px;
+}
+
+.campo-modal label {
+    font-weight: 600;
+   color: #000000;
+}
+
+.campo-modal input,
+.campo-modal select {
+    width: 100%;
+
+    padding: 11px;
+
+    border: 1px solid #d5d8d6d8;
+    border-radius: 7px;
+
+    box-sizing: border-box;
+
+    font-size: 1rem;
+}
+
+/* Dois campos na mesma linha */
+.linha-modal {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+/* Botões */
+.modal-acoes {
+    display: flex;
+    justify-content: flex-end;
+
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.btn-cancelar,
+.btn-salvar {
+    border: none;
+    border-radius: 7px;
+
+    padding: 11px 20px;
+
+    cursor: pointer;
+
+    font-size: 1rem;
+}
+
+.btn-cancelar {
+    background: #eee;
+    color: #000000;
+}
+
+.btn-salvar {
+    background: #91d156;
+    color: rgb(0, 0, 0);
+}
+
+.btn-salvar:hover {
+    opacity: 0.9;
 }
 @media (max-width: 768px) {
 
