@@ -19,7 +19,9 @@ export const createFinanceSchema = z.object({
     .max(255, "No máximo 255 caracteres")
     .nullable()
     .optional(),
-  data: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Data inválida"),
+  data: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "Data deve estar no formato YYYY-MM-DD"),
 });
 export const updateFinanceSchema = createFinanceSchema.partial();
 export type CreateFinanceDTO = z.infer<typeof createFinanceSchema>;
