@@ -13,11 +13,14 @@ export enum PlantCategory {
   LEGUMINOSAS = "leguminosas",
   TUBERCULOS = "tubérculos",
   HORTALICAS = "hortaliças",
-  FIBRAS = "fibras",
-  OLEAGINOSAS = "oleaginosas",
   FRUTAS = "frutas",
-  FORRAGEIRAS = "forrageiras"
-}
+  OLEAGINOSAS = "oleaginosas",
+  FIBRAS ="fibras",
+  FORRAGEIRAS ="forrageiras",
+  ESTIMULANTES = "estimulantes",
+  ADOCANTES = "adoçantes",
+  INDUSTRIAIS = "industriais",
+};
 
 @Entity("plantas")
 export class Plant extends BaseModel {

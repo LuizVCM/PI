@@ -7,6 +7,8 @@ export class PlantMapper {
       id: plant.id,
       nome: plant.nome,
       nomeCientifico: plant.nomeCientifico,
+      categoria: plant.categoria,
+
       cicloMinimoDias: plant.cicloMinimoDias,
       cicloMaximoDias: plant.cicloMaximoDias,
 
@@ -36,6 +38,7 @@ export class PlantMapper {
       id: plant.id,
       nome: plant.nome,
       nomeCientifico: plant.nomeCientifico,
+      categoria: plant.categoria,
     };
   }
   static toResponseWithRelation(plant: Plant) {
@@ -43,6 +46,8 @@ export class PlantMapper {
       id: plant.id,
       nome: plant.nome,
       nomeCientifico: plant.nomeCientifico,
+      categoria: plant.categoria,
+
       cicloMinimoDias: plant.cicloMinimoDias,
       cicloMaximoDias: plant.cicloMaximoDias,
 
