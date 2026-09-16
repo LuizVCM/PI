@@ -108,7 +108,8 @@ aside {
   height: auto; 
   flex-direction: column;
   align-items: center;
-  gap: 5px;
+  gap: 1rem;
+  padding-top: 1rem;
   display: flex;
   position: relative;
   transition: width 0.3s linear;
@@ -116,7 +117,7 @@ aside {
 
 .aside-encolhido {
   background-color: var(--verde-sidebar);
-  width: 60px;
+  width: 5em;
   height: auto;
   display: flex;
   position: relative;
@@ -156,7 +157,7 @@ aside .opcao {
   background-color: var(--verde-opcao);
   color: var(--verde-selecionar);
   padding-left: 10%;
-  gap: 15px;
+  gap: 1em;
 }
 
 .opcao:hover {
