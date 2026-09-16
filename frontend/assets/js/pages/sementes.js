@@ -568,21 +568,21 @@ document.addEventListener("DOMContentLoaded", () => {
     "buscar-lote",
     () => estado.sementes,
     renderSementes,
-    (s) => [s.id, s.planta?.nome, s.fornecedor, s.unidadePeso]
+    (s) => [s.planta?.nome, s.fornecedor, s.unidadePeso]
   );
 
   configurarBusca(
     "buscar-recomendacao",
     () => estado.sementes,
     renderRecomendacoes,
-    (s) => [s.id, s.planta?.nome, s.planta?.nomeCientifico, s.fornecedor]
+    (s) => [s.planta?.nome, s.planta?.nomeCientifico, s.fornecedor]
   );
 
   configurarBusca(
     "buscar-cultura",
     () => estado.sementes,
     renderDisponiveis,
-    (s) => [s.id, s.planta?.nome, s.fornecedor]
+    (s) => [s.planta?.nome, s.fornecedor]
   );
 
   configurarBusca(
