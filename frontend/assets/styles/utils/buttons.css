@@ -71,6 +71,6 @@
 }
 .btn-excluir:hover {
   background: #fee2e2;
-  color: #dc2626;
+  color: var(--err);
   transform: scale(1.05);
 }

@@ -124,7 +124,9 @@ function renderSementes(sementes) {
 
     html += `
       <div class="semente-cadastrada" data-id="${s.id}">
-        <div class="semente-icon" data-categoria="${p.categoria}">${inicial}</div>
+        <div class="semente-icon" data-categoria="${
+          p.categoria
+        }">${inicial}</div>
         <span class="opcao-semente">Cultura: ${p.nome}</span>
         <span class="opcao-semente">Fornecedor: ${s.fornecedor}</span>
         <span class="opcao-semente">Data de compra: ${formatarData(
@@ -137,26 +139,28 @@ function renderSementes(sementes) {
           s.dataValidade
         )}</span>
 
-        <span class="opcao-semente editar" data-id="${s.id}">
-          <i class="fa-solid fa-pen-to-square"></i>
+        <div class="acoes">
+        <span class="opcao-semente btn-editar" data-id="${s.id}">
+          <i class="fa-solid fa-pen"></i>
         </span>
-        <span class="opcao-semente excluir" data-id="${s.id}">
-          <i class="fa-solid fa-trash"></i>
+        <span class="opcao-semente btn-excluir" data-id="${s.id}">
+          <i class="fa-solid fa-trash-can"></i>
         </span>
+        </div>
       </div>
     `;
   });
 
   container.innerHTML = html;
 
-  container.querySelectorAll(".editar").forEach((btn) => {
+  container.querySelectorAll(".btn-editar").forEach((btn) => {
     btn.addEventListener("click", () => {
       const s = sementes.find((x) => String(x.id) === String(btn.dataset.id));
       if (s) editarSemente(s);
     });
   });
 
-  container.querySelectorAll(".excluir").forEach((btn) => {
+  container.querySelectorAll(".btn-excluir").forEach((btn) => {
     btn.addEventListener("click", () => excluirSemente(btn.dataset.id));
   });
 }
@@ -311,7 +315,10 @@ function renderRecomendacoes(sementes) {
       <div class="recomendacao-card">
         <div class="cabecalho">
           <h3>${p.nome}</h3>
+          <div class="tags">
           <span class="tag">Lote #${s.id}</span>
+          <span class="tag category" data-categoria="${p.categoria}">${capitalizar(p.categoria)}</span>
+          </div>
         </div>
 
         <p class="nome-cientifico"><em>${p.nomeCientifico}</em></p>
@@ -402,7 +409,9 @@ function renderDisponiveis(sementes) {
 
     html += `
       <div class="semente-cadastrada" data-id="${s.id}">
-        <div class="semente-icon" data-categoria="${p.categoria}">${inicial}</div>
+        <div class="semente-icon" data-categoria="${
+          p.categoria
+        }">${inicial}</div>
         <span class="opcao-semente">Cultura: ${p.nome}</span>
         <span class="opcao-semente">Quantidade: ${s.quantidade} ${
       s.unidadePeso
@@ -435,6 +444,7 @@ function renderPlantas(plantas) {
       <div class="planta-card" data-categoria="${p.categoria}">
         <h3>${p.nome}</h3>
         <p class="nome-cientifico"><em>${p.nomeCientifico}</em></p>
+        <p><strong>Categoria:</strong> ${capitalizar(p.categoria)}</span>
         <p><strong>Ciclo:</strong> ${formatarIntervalo(
           p.cicloMinimoDias,
           p.cicloMaximoDias,
