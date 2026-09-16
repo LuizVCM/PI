@@ -10,8 +10,17 @@ export async function openMateo() {
       const plantas = await teste.json()
       console.log("Plantas: ",{plantas})
        
-         const textoSelecionado = select.options[select.selectedIndex].text;
-   console.log(textoSelecionado)
+       const plantaSalva = JSON.parse(localStorage.getItem('plantaSelecionada'));
+
+if (!plantaSalva) {
+  console.log("Nenhuma planta selecionada ainda — abortando cálculo.");
+  return;
+}
+
+console.log(select.value)
+
+const textoSelecionado = plantaSalva.nomeExibido; // valor idêntico ao que foi exibido na tela
+console.log(textoSelecionado)
 
       // pega cep
         const user = "http://localhost:3000/users/me"
@@ -65,10 +74,10 @@ console.log("Média calculada:", mediaRn);
 
         // recebida por API meteorológica
         let G = 20 // valor imaginário de fluxo de calor recebido por sensor de temperatura do solo
-        let u2 = (dados.minutely_15.wind_speed_10m.at(1))// valor imaginário de vento recebido por API meteorológica  
-        let UR = (dados.minutely_15.relative_humidity_2m.at(1)) // umidade relativa do ar recebido por API meteorológica
+        let u2 = (dados.hourly.wind_speed_10m[atual])// valor imaginário de vento recebido por API meteorológica  
+        let UR = (dados.hourly.relative_humidity_2m[atual]) // umidade relativa do ar recebido por API meteorológica
 
-        let precipitacaoAtual = (dados.minutely_15.precipitation.at(1))
+        let precipitacaoAtual = (dados.hourly.precipitation[atual])
 
         let rs = 70  // valor médio de resistência de superfície preescrito pela FAO
 
@@ -88,7 +97,7 @@ console.log("Média calculada:", mediaRn);
 
         let ea = es * (UR / 100)
 
-        let deltaE = (dados.hourly.vapour_pressure_deficit[0])
+        let deltaE = (dados.hourly.vapour_pressure_deficit[atual])
 
         // resistência estomatos
         let k = y * (900 / (T + 273)) * u2 * deltaE
@@ -100,14 +109,15 @@ console.log("Média calculada:", mediaRn);
 
 
         // evaporanspiração de cultura
+        const Kc = Number(textoSelecionado)
 
-        let ETc = ETo * ((Number(faoKcData.Broccoli.kc_end) + Number(faoKcData.Broccoli.kc_ini) + Number(faoKcData.Broccoli.kc_mid)) / 3)  // O consumo de 3 valores do objeto é para representar uma média do coeficiente de cultivo Kc
+        let ETc = ETo * (Kc)  // O consumo de 3 valores do objeto é para representar uma média do coeficiente de cultivo Kc
 
         console.log(`pressão atmosférica: ${P} kPa\n`)
         console.log(`temperatura: ${T} °C\n`)
         console.log(`radiação útil: ${mediaRn}\n`)
         console.log(`fluxo de calor: ${G} °C \n`)
-        console.log(`vento: ${u2} \n`)
+        console.log(`vento: ${u2} \n`)  
         console.log(`umidade relativa do ar: ${UR} %`)
         console.log(`resistência da superfície da planta: ${rs} mm\n`)
         console.log("-------------------------------------------------\n")
