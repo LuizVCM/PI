@@ -26,7 +26,7 @@ menuToggle.addEventListener("click", () => {
   aside.classList.toggle("aside-encolhido");
 });
 
-async function carregarUsuario() {
+export async function carregarUsuario() {
   try {
     const usuario = await apiFetch("/users/me", { method: "GET" });
     document.getElementById(
@@ -35,6 +35,7 @@ async function carregarUsuario() {
     document.getElementById(
       "user-abbrev"
     ).textContent = `${usuario.nome.substring(0, 2)}`;
+    return usuario;
   } catch (error) {
     console.error(error);
   }
