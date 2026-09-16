@@ -35,16 +35,13 @@ body {
 
 .ubicacao {
     width: 73vw;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     padding: 25px;
-
+    margin-top: 40px;
     background: rgba(255, 255, 255, 0);
     backdrop-filter: blur(15px);
-
     border-radius: 10px;
 }
 
