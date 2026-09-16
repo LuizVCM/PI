@@ -1,0 +1,62 @@
+@media (max-width: 380px) {
+  .cabecalho-perfil {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 10px;
+  }
+
+  .foto-usuario {
+    width: 35%;
+    min-height: 120px;
+    height: 120px;
+  }
+
+  .dados-usuario {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .dados-usuario h1 {
+    font-size: 1.7rem;
+    height: 45px;
+  }
+
+  .dados-usuario p {
+    font-size: 1.2rem;
+  }
+
+  .cargo-usuario {
+    width: 200px;
+    height: 40px;
+
+    border-radius: 100px;
+    border: 1.8px solid rgb(17, 223, 69);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .titulo-secao {
+    font-size: 1.4rem;
+  }
+
+  .info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .info-titulo {
+    font-size: 1.4rem;
+  }
+
+  .info-valor {
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: flex-start;
+}
+}
