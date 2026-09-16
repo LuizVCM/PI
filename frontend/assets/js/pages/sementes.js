@@ -124,7 +124,7 @@ function renderSementes(sementes) {
 
     html += `
       <div class="semente-cadastrada" data-id="${s.id}">
-        <div class="semente-icon">${inicial}</div>
+        <div class="semente-icon" data-categoria="${p.categoria}">${inicial}</div>
         <span class="opcao-semente">Cultura: ${p.nome}</span>
         <span class="opcao-semente">Fornecedor: ${s.fornecedor}</span>
         <span class="opcao-semente">Data de compra: ${formatarData(
@@ -402,15 +402,15 @@ function renderDisponiveis(sementes) {
 
     html += `
       <div class="semente-cadastrada" data-id="${s.id}">
-        <div class="semente-icon">${inicial}</div>
-        <span class="opcao-semente">cultura: ${p.nome}</span>
-        <span class="opcao-semente">quantidade: ${s.quantidade} ${
+        <div class="semente-icon" data-categoria="${p.categoria}">${inicial}</div>
+        <span class="opcao-semente">Cultura: ${p.nome}</span>
+        <span class="opcao-semente">Quantidade: ${s.quantidade} ${
       s.unidadePeso
     }</span>
-        <span class="opcao-semente">validade: ${formatarData(
+        <span class="opcao-semente">Validade: ${formatarData(
           s.dataValidade
         )}</span>
-        <span class="opcao-semente">fornecedor: ${s.fornecedor}</span>
+        <span class="opcao-semente">Fornecedor: ${s.fornecedor}</span>
       </div>
     `;
   });
@@ -432,7 +432,7 @@ function renderPlantas(plantas) {
 
   plantas.forEach((p) => {
     html += `
-      <div class="planta-card">
+      <div class="planta-card" data-categoria="${p.categoria}">
         <h3>${p.nome}</h3>
         <p class="nome-cientifico"><em>${p.nomeCientifico}</em></p>
         <p><strong>Ciclo:</strong> ${formatarIntervalo(

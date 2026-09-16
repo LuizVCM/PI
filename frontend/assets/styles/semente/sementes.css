@@ -143,7 +143,7 @@
   height: 36px;
   min-width: 36px;
   border-radius: 10px;
-  background: var(--verde-opcao);
+  background: var(--cat); /* aplica cor da categoria */
   color: #fff;
   display: flex;
   align-items: center;
@@ -178,10 +178,10 @@
   margin-left: auto;
 }
 .opcao-semente.excluir {
-  color: var(--err)
+  color: var(--err);
 }
 .opcao-semente.editar:hover {
-  background: var(--sucess);
+  background: var(--success);
 }
 .opcao-semente.excluir:hover {
   background: #fde8e8;
@@ -437,7 +437,7 @@
   border-radius: 16px;
   padding: 1.3rem 1.4rem;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
-  border-left: 6px solid var(--verde-opcoes-click);
+  border-left: 6px solid var(--cat);
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
@@ -583,4 +583,44 @@
 }
 .fontes-aviso i {
   color: var(--verde-claro);
+}
+
+/* cores de categoria */
+[data-categoria="cereais"] {
+  --cat: #c9a227;
+}
+[data-categoria="leguminosas"] {
+  --cat: #6b8e23;
+}
+[data-categoria="tubérculos"] {
+  --cat: #8b5a2b;
+}
+[data-categoria="hortaliças"] {
+  --cat: #4caf50;
+}
+[data-categoria="frutas"] {
+  --cat: #e85d75;
+}
+[data-categoria="oleaginosas"] {
+  --cat: #e08e30;
+}
+[data-categoria="fibras"] {
+  --cat: #a68a64;
+}
+[data-categoria="forrageiras"] {
+  --cat: #558b2f;
+}
+[data-categoria="estimulantes"] {
+  --cat: #6f4e37;
+}
+[data-categoria="adoçantes"] {
+  --cat: #d45d79;
+}
+[data-categoria="industriais"] {
+  --cat: #607d8b;
+}
+
+.planta-card h3 {
+  color: var(--cat);
+  margin: 0;
 }
