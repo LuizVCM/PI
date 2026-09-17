@@ -108,8 +108,7 @@ aside {
   height: auto; 
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  padding-top: 1rem;
+  gap: 0.5rem;
   display: flex;
   position: relative;
   transition: width 0.3s linear;
