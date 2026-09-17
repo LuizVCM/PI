@@ -43,37 +43,6 @@
    OPÇÕES DA GESTÃO
 ========================= */
 
-#main-content .funcao.plantacao-cad i {
-    color: #6b8e23;
-  }
-  
-  #main-content .funcao.plantacao-cad:hover::before {
-    background: #6b8e23;
-  }
-  
-  #main-content .funcao.insumos i {
-    color: #3a7d6a;
-  }
-  
-  #main-content .funcao.insumos:hover::before {
-    background: #3a7d6a;
-  }
-  
-  #main-content .funcao.agenda i {
-    color: #3f6f8f;
-  }
-
-  #main-content .funcao.agenda:hover::before {
-    background: #3f6f8f;
-  }
-
-  #main-content .funcao.estoque i {
-    color: #c98232;
-  }
-  
-  #main-content .funcao.estoque:hover::before {
-    background: #c98232;
-  }
 
 /* =========================
    CADASTRO

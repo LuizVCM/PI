@@ -13,6 +13,7 @@ import {
 import { apiFetch } from "../config/api.js";
 import { formatarData, escapeHtml, capitalizar } from "../utils/formatter.js";
 import { mostrarConteudo } from "../utils/change-content.js";
+import { carregarPlantas, carregarSementes } from "../utils/load-user-data.js";
 
 const PLANTACAO_INDISPONIVEL = "plantação indisponível";
 
@@ -68,32 +69,11 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-async function carregarPlantas() {
-  try {
-    return await apiFetch("/plants/all", { method: "GET" });
-  } catch (error) {
-    console.error(error);
-    abrirModalErro("Erro ao carregar plantas.");
-    return [];
-  }
-}
-
-async function carregarSementes() {
-  try {
-    return await apiFetch("/seeds/me", { method: "GET" });
-  } catch (error) {
-    console.error(error);
-    abrirModalErro("Erro ao carregar sementes.");
-    return [];
-  }
-}
-
 async function preencherSelectPlantas() {
   const plantas = await carregarPlantas();
   estado.plantas = plantas;
   const select = document.getElementById("especie-semente");
   if (!select) return;
-  select.innerHTML = '<option value="">Selecione...</option>';
   plantas.forEach((p) => {
     select.insertAdjacentHTML(
       "beforeend",
@@ -184,7 +164,7 @@ function editarSemente(s) {
   document.getElementById("titulo-form-semente").textContent =
     "Atualizar cultura";
   document.getElementById("novo-lote").textContent = "Atualizar";
-  document.querySelector(".salvar-lote").textContent = "Salvar alterações";
+  document.querySelector(".salvar").textContent = "Salvar alterações";
   document.getElementById("form-registro-semente").classList.remove("hidden");
 }
 
@@ -223,7 +203,7 @@ async function salvarSemente(event) {
     observacoes,
   };
 
-  const botao = form.querySelector(".salvar-lote");
+  const botao = form.querySelector(".salvar");
   const editando = Boolean(sementeEditandoId);
 
   botao.disabled = true;
@@ -269,7 +249,7 @@ function resetarFormulario() {
   form.reset();
   form.classList.add("hidden");
 
-  document.querySelector(".salvar-lote").textContent = "Salvar lote";
+  document.querySelector(".salvar").textContent = "Salvar lote";
   document.getElementById("nova-semente").textContent = "Nova semente";
   document.getElementById("titulo-form-semente").textContent =
     "Registrar nova cultura";

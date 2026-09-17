@@ -31,7 +31,6 @@
 }
 
 .btn-novo,
-.btn-voltar,
 .btn-editar {
     border: none;
     border-radius: 8px;
@@ -46,10 +45,6 @@
 .btn-novo {
     background: var(--verde-profundo);
     color: white;
-}
-
-.btn-voltar {
-    background: #e8e8e8;
 }
 
 .cards-estoque {

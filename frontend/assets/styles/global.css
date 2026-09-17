@@ -197,3 +197,20 @@ main .content {
 .content.hidden {
   display: none !important;
 }
+
+.descricao-secao {
+  width: 90%;
+  max-width: 900px;
+  margin: 0 0 1rem;
+  color: #4b5c4d;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .descricao-secao {
+    width: 100%;
+    text-align: left;
+  }
+}
