@@ -1,3 +1,5 @@
+@import url(../utils/buttons.css);
+
 * {
   margin: 0;
   padding: 0;
@@ -19,7 +21,29 @@ body {
   gap: 10%;
   justify-content: space-between;
 }
-
+.btns{
+  display:flex;
+  width: 100%;
+  gap: 20px;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 15px
+}
+.btns button{
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  font-size: 20px;
+  transition: all 0.1s linear;
+  color: white;
+  font-weight: 700;
+  background-color: rgba(9, 85, 9, 0.637);
+  
+}
+.btns button:hover{
+  transform: translateY(-5px);
+  box-shadow: 0px 5px black;
+}
 /* ===================== CABEÇALHO ===================== */
 
 .cabecalho-perfil {
@@ -131,3 +155,4 @@ body {
   font-size: 24px;
   color: #555;
 }
+

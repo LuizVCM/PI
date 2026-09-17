@@ -20,7 +20,13 @@ if (!plantaSalva) {
 console.log(select.value)
 
 const textoSelecionado = plantaSalva.nomeExibido; // valor idêntico ao que foi exibido na tela
-console.log(textoSelecionado)
+console.log("Txto sececionado: "+textoSelecionado)
+const plantaEncontrada = plantas.find(
+    (planta) => planta.nome.toLowerCase() === textoSelecionado.toLowerCase()
+  );
+
+  console.log("Coeficiente: ", plantaEncontrada.kcMedio)
+
 
       // pega cep
         const user = "http://localhost:3000/users/me"
@@ -62,7 +68,7 @@ console.log(textoSelecionado)
     elementosPercorridosRn++;
   }
 }
-  const mediaRn = elementosPercorridosRn > 0 ? somaRn / elementosPercorridosRn : 0;
+  let mediaRn = elementosPercorridosRn > 0 ? somaRn / elementosPercorridosRn : 0;
 
 console.log("Soma total do período:", somaRn);      
 console.log("Elementos lidos:", elementosPercorridosRn);
@@ -107,11 +113,14 @@ console.log("Média calculada:", mediaRn);
         // evapotranspiração de referência
         let ETo = (0.408 * delta1 * (mediaRn - G) + (y * 900 * u2 * (es - ea) / (T + 273))) / (delta1 + (y * (1 + 0.34 * u2)))
 
-
+          
         // evaporanspiração de cultura
-        const Kc = Number(textoSelecionado)
+        let Kc = plantaEncontrada.kcMedio
+        console.log("Coeficiente C "+ Kc)
 
-        let ETc = ETo * (Kc)  // O consumo de 3 valores do objeto é para representar uma média do coeficiente de cultivo Kc
+        let ETc = (ETo * Number(Kc))  // O consumo de 3 valores do objeto é para representar uma média do coeficiente de cultivo Kc
+
+        console.log(`Tipo de dado de coeficiente `+  typeof(ETc));
 
         console.log(`pressão atmosférica: ${P} kPa\n`)
         console.log(`temperatura: ${T} °C\n`)
@@ -131,12 +140,29 @@ console.log("Média calculada:", mediaRn);
         console.log(`contante K: ${k}\n`)
         console.log(`Evapotranspiração da planta: ${E}\n`)
         console.log(`Evapotranspiração de referência: ${ETo}\n`)
+
         console.log(`evapotranspiração da cultura: ${ETc}`)
 
         console.log(`precipitação do dia: ${precipitacaoAtual}mm/h`)
     
+        // VERIFICAÇÃO DE AVISOS -----------------------------------------------------------------------------
+        async function previsaoRegs() {
+          // previsao maximo tempo 
+          const previsaoMaxima = `https://api.open-meteo.com/v1/forecast?latitude=${coordenadasCidade.location.coordinates.latitude}&longitude=${coordenadasCidade.location.coordinates.longitude}&daily=precipitation_probability_max&forecast_days=1`;
 
+          const tempo = await fetch(previsaoMaxima);
+          const dadosPrevisaoTempo = await tempo.json();
+          console.log(dadosPrevisaoTempo)
+          let NIR = ETc - Number(dadosPrevisaoTempo.daily.precipitation_probability_max[0]);
 
+          console.log("NIR: "+NIR);
+          
+          const umidadeSolo = 40 // valor que deve receber no sensor
+
+        }
+
+        previsaoRegs()
+        setInterval(previsaoRegs, 15000 )
         // capturar informações 
     } catch (error) {
         console.log(`deu errado na comunicação: ${error}`)
