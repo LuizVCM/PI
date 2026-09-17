@@ -6,6 +6,8 @@ import { BaseModel } from "./BaseModel";
 export enum SensorType {
   UMIDADE_AR = "umidade do ar",
   TEMPERATURA_AR = "temperatura do ar",
+  UMIDADE_SOLO = "umidade do solo",
+  TEMPERATURA_SOLO = "temperatura do solo",
   PRESSAO = "pressão",
 }
 
@@ -29,6 +31,10 @@ export class Sensor extends BaseModel {
       case SensorType.UMIDADE_AR:
         return "%";
       case SensorType.TEMPERATURA_AR:
+        return "°C";
+      case SensorType.UMIDADE_SOLO:
+        return "%";
+      case SensorType.TEMPERATURA_SOLO:
         return "°C";
       case SensorType.PRESSAO:
         return "hPa"; // ver qual unidade vai ser, outras comuns: "mmHg" e "atm"

@@ -15,10 +15,18 @@ export enum StockUnit {
   UNIDADE = "un",
 }
 
+export enum StockCategory {
+  FERTILIZANTES = "fertilizantes",
+  DEFENSIVOS = "defensivos",
+  FERRAMENTAS = "ferramentas",
+}
+
 @Entity("estoque_insumos")
 export class Stock extends BaseModel {
   @Column({ length: 100 })
   nome: string;
+  @Column({ type: "enum", enum: StockCategory, nullable: false })
+  categoria: StockCategory;
   @Column({ type: "decimal", scale: 2, precision: 5, nullable: false })
   quantidade: number;
   @Column({ type: "enum", enum: StockUnit, nullable: false })
