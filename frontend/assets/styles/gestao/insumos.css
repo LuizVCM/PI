@@ -179,7 +179,7 @@
 
 /* Caixa do modal */
 .modal-conteudo {
-    width: 50%;
+    width: 100%;
     max-width: 530px;
     background: #a5c089f1;
     border-radius: 12px;
@@ -336,3 +336,40 @@
     }
 }
 
+/* =========================
+   CELULAR
+========================= */
+
+@media (max-width: 530px) {
+
+    .modal-insumo {
+        padding: 10px;
+    }
+
+    .modal-conteudo {
+        width: 100%;
+        max-height: 90vh;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .modal-conteudo h2 {
+        font-size: 1.3rem;
+    }
+}
+
+
+/* =========================
+   CELULAR PEQUENO
+========================= */
+
+@media (max-width: 375px) {
+
+    .modal-conteudo {
+        padding: 15px;
+    }
+
+    .modal-conteudo h2 {
+        font-size: 1.15rem;
+    }
+}
