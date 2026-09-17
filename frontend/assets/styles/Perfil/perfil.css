@@ -44,6 +44,10 @@ body {
   transform: translateY(-5px);
   box-shadow: 0px 5px black;
 }
+
+.btn-editar, .btn-excluir{
+  margin-right: 5px;
+}
 /* ===================== CABEÇALHO ===================== */
 
 .cabecalho-perfil {
