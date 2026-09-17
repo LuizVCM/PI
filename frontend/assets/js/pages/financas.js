@@ -3,15 +3,25 @@ import {
   fecharModalErro,
   abrirModalConfirmacao,
   fecharModalConfirmacao,
-  acaoConfirmada
+  acaoConfirmada,
 } from "../utils/modals.js";
-import { showErrorMessage, removeMessage, showErrors } from "../utils/show-message.js";
+import {
+  showErrorMessage,
+  removeMessage,
+  showErrors,
+} from "../utils/show-message.js";
 import { apiFetch } from "../config/api.js";
 import { formatarData, escapeHtml, capitalizar } from "../utils/formatter.js";
 import { mostrarConteudo } from "../utils/change-content.js";
 
-
 let registroEditandoId = null;
+
+const estado = {
+  registros: [],
+  filtroData: "mes", 
+  dataInicio: null,
+  dataFim: null,
+};
 
 // evento de modal de erro
 
@@ -39,81 +49,203 @@ async function carregarRegistros() {
 
 async function exibirRegistros() {
   const container = document.getElementById("lista-registros");
+  if (!container) return;
 
   container.classList.add("no-content");
+  container.replaceChildren(criarMensagem("Carregando registros..."));
 
-  container.innerHTML = "<p>Carregando registros...</p>";
-
-  const registros = await carregarRegistros();
-
-  if (registros.length === 0) {
-    container.innerHTML =
-      '<p class="no-content">Nenhum registro encontrado.</p>';
+  try {
+    estado.registros = await carregarRegistros();
+  } catch (err) {
+    console.error("Falha ao carregar registros:", err);
+    container.replaceChildren(criarMensagem("Erro ao carregar registros."));
     return;
   }
 
-  let html = "";
+  aplicarFiltro();
+}
 
-  registros.sort((a, b) => new Date(b.data) - new Date(a.data));
+function aplicarFiltro() {
+  const filtrados = filtrarPorData(estado.registros);
+  renderRegistros(filtrados);
+}
 
-  registros.forEach((registro) => {
-    const ganho = registro.tipo === "ganho";
+function filtrarPorData(registros) {
+  const { filtroData, dataInicio, dataFim } = estado;
+  if (filtroData === "tudo") return registros;
 
-    const tipoClasse = ganho ? "ganho" : "despesa";
+  const agora = new Date();
+  let inicio;
+  let fim;
 
-    const tipoTexto = ganho ? "Ganho" : "Despesa";
+  switch (filtroData) {
+    case "hoje":
+      inicio = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate());
+      fim = new Date(
+        agora.getFullYear(),
+        agora.getMonth(),
+        agora.getDate() + 1,
+      );
+      break;
 
-    const valorFormatado = Number(registro.valor).toFixed(2).replace(".", ",");
+    case "semana": {
+      const dia = agora.getDay(); // 0 = domingo
+      const diffParaSegunda = (dia + 6) % 7;
+      inicio = new Date(
+        agora.getFullYear(),
+        agora.getMonth(),
+        agora.getDate() - diffParaSegunda,
+      );
+      fim = new Date(inicio);
+      fim.setDate(fim.getDate() + 7);
+      break;
+    }
 
-    html += `
-<div class="finance-card ${tipoClasse}" data-id="${registro.id}">
-  <div class="tooltip">
-    <span class="tooltiptext">Clique para ver os detalhes e observações</span>
-  <div class="finance-card__top">
-    <span class="finance-tag ${tipoClasse}">${tipoTexto}</span>
-    <span class="finance-date">${formatarData(registro.data)}</span>
-  </div>
-  <div class="finance-card__value">
-    R$ ${valorFormatado}
-  </div>
-  <div class="finance-card__actions">
-    <button class="btn-editar" data-id="${registro.id}">
-      <i class="fa-solid fa-pen"></i>
-    </button>
-    <button class="btn-excluir" data-id="${registro.id}">
-      <i class="fa-solid fa-trash-can"></i>
-    </button>
-  </div>
-  </div>
-</div>
-`;
+    case "mes":
+      inicio = new Date(agora.getFullYear(), agora.getMonth(), 1);
+      fim = new Date(agora.getFullYear(), agora.getMonth() + 1, 1);
+      break;
+
+    case "mes-passado":
+      inicio = new Date(agora.getFullYear(), agora.getMonth() - 1, 1);
+      fim = new Date(agora.getFullYear(), agora.getMonth(), 1);
+      break;
+
+    case "ano":
+      inicio = new Date(agora.getFullYear(), 0, 1);
+      fim = new Date(agora.getFullYear() + 1, 0, 1);
+      break;
+
+    case "custom": {
+      if (!dataInicio || !dataFim) return registros;
+      inicio = new Date(dataInicio + "T00:00:00");
+      fim = new Date(dataFim + "T00:00:00");
+      fim.setDate(fim.getDate() + 1); // inclui o dia final
+      break;
+    }
+
+    default:
+      return registros;
+  }
+
+  return registros.filter((r) => {
+    const d = new Date(r.data);
+    return d >= inicio && d < fim;
   });
+}
 
-  container.innerHTML = html;
+function renderRegistros(registros) {
+  const container = document.getElementById("lista-registros");
+  if (!container) return;
 
-  // eventos de edição
+  if (!Array.isArray(registros) || registros.length === 0) {
+    container.classList.add("no-content");
+    container.replaceChildren(
+      criarMensagem("Nenhum registro no período selecionado.", "no-content"),
+    );
+    return;
+  }
+
+  container.classList.remove("no-content");
+
+  const ordenados = [...registros].sort(
+    (a, b) => new Date(b.data) - new Date(a.data),
+  );
+
+  const fragment = document.createDocumentFragment();
+  for (const registro of ordenados) {
+    fragment.appendChild(criarCard(registro));
+  }
+  container.replaceChildren(fragment);
+
   container.querySelectorAll(".btn-editar").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const id = btn.dataset.id;
-
-      editarRegistro(id, registros);
-    });
+    btn.addEventListener("click", () => editarRegistro(btn.dataset.id));
   });
 
-  // eventos de exclusão
   container.querySelectorAll(".btn-excluir").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const id = btn.dataset.id;
-
-      excluirRegistro(id);
-    });
+    btn.addEventListener("click", () => excluirRegistro(btn.dataset.id));
   });
+}
+
+function criarMensagem(texto, classe = "") {
+  const p = document.createElement("p");
+  if (classe) p.className = classe;
+  p.textContent = texto;
+  return p;
+}
+
+function criarCard(registro) {
+  const id = String(registro.id ?? "");
+  const ehGanho = registro.tipo === "ganho";
+  const tipoClasse = ehGanho ? "ganho" : "despesa";
+  const tipoTexto = ehGanho ? "Ganho" : "Despesa";
+
+  const valorNum = Number(registro.valor);
+  const valorFormatado = Number.isFinite(valorNum)
+    ? valorNum.toFixed(2).replace(".", ",")
+    : "0,00";
+
+  const card = document.createElement("div");
+  card.className = `finance-card ${tipoClasse}`;
+  card.dataset.id = id;
+
+  // tooltip
+  const tooltip = document.createElement("div");
+  tooltip.className = "tooltip";
+  const tooltipText = document.createElement("span");
+  tooltipText.className = "tooltiptext";
+  tooltipText.textContent = "Clique para ver os detalhes e observações";
+  tooltip.appendChild(tooltipText);
+
+  // topo
+  const top = document.createElement("div");
+  top.className = "finance-card__top";
+
+  const tag = document.createElement("span");
+  tag.className = `finance-tag ${tipoClasse}`;
+  tag.textContent = tipoTexto;
+
+  const data = document.createElement("span");
+  data.className = "finance-date";
+  data.textContent = formatarData(registro.data);
+
+  top.append(tag, data);
+
+  // valor
+  const valor = document.createElement("div");
+  valor.className = "finance-card__value";
+  valor.textContent = `R$ ${valorFormatado}`;
+
+  // ações
+  const actions = document.createElement("div");
+  actions.className = "finance-card__actions";
+
+  const btnEditar = document.createElement("button");
+  btnEditar.className = "btn-editar";
+  btnEditar.dataset.id = id;
+  btnEditar.type = "button";
+  btnEditar.setAttribute("aria-label", "Editar registro");
+  btnEditar.innerHTML = '<i class="fa-solid fa-pen"></i>';
+
+  const btnExcluir = document.createElement("button");
+  btnExcluir.className = "btn-excluir";
+  btnExcluir.dataset.id = id;
+  btnExcluir.type = "button";
+  btnExcluir.setAttribute("aria-label", "Excluir registro");
+  btnExcluir.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+
+  actions.append(btnEditar, btnExcluir);
+
+  card.append(tooltip, top, valor, actions);
+  return card;
 }
 
 // editar
 
-function editarRegistro(id, registros) {
-  const registro = registros.find((item) => String(item.id) === String(id));
+function editarRegistro(id) {
+  const registro = estado.registros.find(
+    (item) => String(item.id) === String(id),
+  );
 
   if (!registro) {
     abrirModalErro("Registro não encontrado.");
@@ -123,27 +255,16 @@ function editarRegistro(id, registros) {
   registroEditandoId = registro.id;
 
   document.getElementById("tipo-registro-financas").value = registro.tipo;
-
   document.getElementById("valor-registro-financas").value = registro.valor;
-
-  document.getElementById("data-financa").value = registro.data.substring(
-    0,
-    10
-  );
-
+  document.getElementById("data-financa").value = registro.data.substring(0, 10);
   document.getElementById("observacao-registro-financas").value =
     registro.observacoes || "";
-
   document.getElementById("detalhe-registro-financas").value =
     registro.detalhes || "";
 
   document.getElementById("titulo-form-financa").textContent =
     "Editar registro";
-
-  document.querySelector(".btn-salvar").innerHTML = `
-    Salvar alterações
-  `;
-
+  document.querySelector(".btn-salvar").innerHTML = `Salvar alterações`;
   document.getElementById("cancelar-edicao-btn").classList.remove("hidden");
 
   mostrarConteudo("novo-registro-content");
@@ -161,7 +282,7 @@ async function salvarNovoRegistro(event) {
   const tipo = document.getElementById("tipo-registro-financas").value;
 
   const valor = Number(
-    document.getElementById("valor-registro-financas").value
+    document.getElementById("valor-registro-financas").value,
   );
 
   const data = document.getElementById("data-financa").value;
@@ -243,8 +364,7 @@ function resetarFormulario() {
 
   document.getElementById("form-novo-registro").reset();
 
-  document.getElementById("titulo-form-financa").textContent =
-    "Novo registro";
+  document.getElementById("titulo-form-financa").textContent = "Novo registro";
 
   document.querySelector(".btn-salvar").innerHTML = `
     Salvar registro
@@ -272,11 +392,11 @@ async function excluirRegistro(id) {
 
         abrirModalErro(
           error.message || "Não foi possível excluir o registro.",
-          "Erro ao excluir"
+          "Erro ao excluir",
         );
       }
     },
-    "Excluir registro"
+    "Excluir registro",
   );
 }
 
@@ -332,6 +452,36 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+  const selectFiltro = document.getElementById("filtro-data-financas");
+  const blocoCustom = document.getElementById("filtro-custom");
+  const inputInicio = document.getElementById("filtro-data-inicio");
+  const inputFim = document.getElementById("filtro-data-fim");
+
+  selectFiltro?.addEventListener("change", () => {
+    estado.filtroData = selectFiltro.value;
+
+    if (estado.filtroData === "custom") {
+      blocoCustom?.classList.remove("hidden");
+    } else {
+      blocoCustom?.classList.add("hidden");
+      estado.dataInicio = null;
+      estado.dataFim = null;
+      if (inputInicio) inputInicio.value = "";
+      if (inputFim) inputFim.value = "";
+    }
+
+    aplicarFiltro();
+  });
+
+  inputInicio?.addEventListener("change", () => {
+    estado.dataInicio = inputInicio.value;
+    aplicarFiltro();
+  });
+
+  inputFim?.addEventListener("change", () => {
+    estado.dataFim = inputFim.value;
+    aplicarFiltro();
+  });
 });
 
 // modal de visualizar
@@ -348,11 +498,10 @@ async function abrirModalVisualizacao(id) {
     // preencher os campos
     document.getElementById("modal-visualizar-tipo").textContent =
       registro.tipo === "ganho" ? "Ganho" : "Despesa";
-    document.getElementById(
-      "modal-visualizar-valor"
-    ).textContent = `R$ ${Number(registro.valor).toFixed(2).replace(".", ",")}`;
+    document.getElementById("modal-visualizar-valor").textContent =
+      `R$ ${Number(registro.valor).toFixed(2).replace(".", ",")}`;
     document.getElementById("modal-visualizar-data").textContent = formatarData(
-      registro.data
+      registro.data,
     );
     document.getElementById("modal-visualizar-obs").textContent =
       capitalizar(escapeHtml(registro.observacoes)) || "—";
@@ -418,7 +567,6 @@ document.addEventListener("keydown", (e) => {
 document
   .getElementById("modal-confirmacao-confirmar")
   .addEventListener("click", async () => {
-
     if (acaoConfirmada) {
       await acaoConfirmada();
     }
@@ -559,7 +707,7 @@ async function criarGraficoAno() {
   });
 
   const lucroPorMes = ganhosPorMes.map(
-    (ganho, mes) => ganho - despesasPorMes[mes]
+    (ganho, mes) => ganho - despesasPorMes[mes],
   );
 
   const meses = [

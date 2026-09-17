@@ -4,7 +4,7 @@ export const createFinanceSchema = z.object({
   tipo: z.enum(FinanceType, "Tipo de finança inválido"),
   valor: z.coerce
     .number("O valor deve ser um número")
-    .positive("O valor deve ser positivo"),
+    .positive("O valor deve ser positivo").max(999999.99, "Apenas valores abaixo de 1 milhão"),
   observacoes: z
     .string()
     .trim()

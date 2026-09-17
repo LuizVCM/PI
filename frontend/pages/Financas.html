@@ -118,6 +118,25 @@
 
           <h1 class="title meus-registros">Meus registros</h1>
 
+          <div class="filtro-financas">
+            <label for="filtro-data-financas">Período:</label>
+
+            <select id="filtro-data-financas">
+              <option value="mes">Este mês</option>
+              <option value="hoje">Hoje</option>
+              <option value="semana">Esta semana</option>
+              <option value="mes-passado">Mês passado</option>
+              <option value="ano">Este ano</option>
+              <option value="tudo">Tudo</option>
+              <option value="custom">Personalizado</option>
+            </select>
+
+            <div id="filtro-custom" class="hidden">
+              <input type="date" id="filtro-data-inicio" />
+              <input type="date" id="filtro-data-fim" />
+            </div>
+          </div>
+
           <div id="lista-registros"></div>
         </section>
       </div>
