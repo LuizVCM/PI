@@ -24,29 +24,32 @@ async function trazerPlantas() {
     );
   });
 function valor(){
-   const textoSelecionado = select.options[select.selectedIndex].text;
-   console.log(plantas)
+    const textoSelecionado = select.options[select.selectedIndex].text;
+  console.log(plantas)
 
-nome.textContent = `nome: ${textoSelecionado}`
+  nome.textContent = `nome: ${textoSelecionado}`
 
-const plantaEncontrada = plantas.find(
-  (planta) => planta.nome.toLowerCase() === textoSelecionado.toLowerCase()
-);
+  const plantaEncontrada = plantas.find(
+    (planta) => planta.nome.toLowerCase() === textoSelecionado.toLowerCase()
+  );
 
-console.log(plantaEncontrada)
-fonecedor.textContent = `fornecedor: ${plantaEncontrada.sementes[0].fornecedor}`
-expecativa.textContent = `de ${plantaEncontrada.cicloMinimoDias} a ${plantaEncontrada.cicloMaximoDias} dias`
-const chavePermanente = nome.textContent 
+  console.log(plantaEncontrada)
+  fonecedor.textContent = `fornecedor: ${plantaEncontrada.sementes[0].fornecedor}`
+  expecativa.textContent = `de ${plantaEncontrada.cicloMinimoDias} a ${plantaEncontrada.cicloMaximoDias} dias`
+  observacoes.textContent = `${plantaEncontrada.sementes[0].observacoes}`
 
- localStorage.setItem(chavePermanente, plantaEncontrada.sementes[0].fornecedor);
+  // chave FIXA, sempre a mesma — facilita recuperar no outro arquivo
+  localStorage.setItem('plantaSelecionada', JSON.stringify({
+    nomeExibido: textoSelecionado,           // exatamente o que aparece no textContent
+    fornecedor: plantaEncontrada.sementes[0].fornecedor,
+    id: plantaEncontrada.id
+  }));
 
- observacoes.textContent = `${plantaEncontrada.sementes[0].observacoes}`
+  // dispara o cálculo só depois que o dado já está salvo
+  openMateo();
 }
 const botao = document.querySelector(".acessando");
 botao.addEventListener("click", valor)
-
-// cálculo 
-openMateo()
 
     }catch(error){
 console.log("deu errado na requisição de plantas: "+ error)
