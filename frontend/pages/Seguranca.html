@@ -8,6 +8,7 @@
   <link rel="icon" href="../assets/icon/logo.ico" />
   <link rel="stylesheet" href="../assets/styles/seguranca/all.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.45.1/apexcharts.min.js"></script>
 </head>
 
 <body>
@@ -107,20 +108,7 @@
         </header>
 
         <section class="hero">
-          <div class="cartao cartao-anel">
-            <span class="rotulo-topo">Tempo para colheita</span>
-            <div class="anel-svg">
-              <svg viewBox="0 0 160 160" width="170" height="170">
-                <circle cx="80" cy="80" r="68" fill="none" stroke="#eee7d3" stroke-width="14" />
-                <circle id="anelProgresso" cx="80" cy="80" r="68" fill="none" stroke="var(--verde-700)"
-                  stroke-width="14" stroke-linecap="round" />
-              </svg>
-              <div class="anel-numero">
-                <span class="dias" id="diasRestantes">--</span>
-                <span class="dias-label">dias restantes</span>
-              </div>
-            </div>
-          </div>
+          <div id="chart"></div>
 
           <div class="cartao cartao-umidade">
             <div>
@@ -161,10 +149,11 @@
 
   <script type="module" src="../assets/js/home.js"></script>
   <script type="module" src="../assets/js/seguranca.js"></script>
-  <script type="module" src="../assets/js/chart.js"></script>
+
   <script type="module" src="../assets/js/informação/gráficoUmidade.js"></script>
   <script type="module" src="../assets/js/informação/api.js"></script>
-  <script type="module" src="../assets/js/Cálculos.js"></script>
+  <script type="module" src="../assets/js/Cálculos.js"></script> 
+   <script type="module" src="../assets/js/chart.js"></script>
 </body>
 
 </html>

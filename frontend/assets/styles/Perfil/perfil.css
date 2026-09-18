@@ -1,4 +1,5 @@
 @import url(../utils/buttons.css);
+@import url(../utils/modal.css);
 
 * {
   margin: 0;
@@ -8,6 +9,9 @@
 
 body {
   overflow: hidden;
+}
+button:hover{
+  cursor: pointer;
 }
 
 .content {
@@ -21,6 +25,18 @@ body {
   gap: 10%;
   justify-content: space-between;
 }
+
+#editarPerfil{
+  display: flex;
+  position: fixed;
+  min-width: 300px;
+  min-height: 400px;
+  box-shadow: -1px 2px 5px black;
+  background-color: white;
+  margin: 0 auto;
+  width: 30%;
+  border-radius: 15px;
+}
 .btns{
   display:flex;
   width: 100%;
@@ -28,6 +44,9 @@ body {
   align-items: center;
   justify-content: flex-start;
   margin-bottom: 15px
+}
+.botoes{
+  display: flex;
 }
 .btns button{
   padding: 10px;
