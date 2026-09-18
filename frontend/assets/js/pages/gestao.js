@@ -16,9 +16,7 @@ import { mostrarConteudo } from "../utils/change-content.js";
 import { carregarSementes } from "../utils/load-user-data.js";
 import { carregarUsuario } from "../home.js";
 
-// ============================================================
-// ESTADO
-// ============================================================
+const PLANTACAO_INDISPONIVEL = "plantação indisponível";
 
 let cropEditandoId = null;
 let insumoEditandoId = null;
@@ -73,9 +71,7 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-// ============================================================
-// MODAL INSUMO
-// ============================================================
+
 
 const modalNovoInsumo = document.getElementById("modalNovoInsumo");
 const formNovoInsumo = document.getElementById("formNovoInsumo");
@@ -196,11 +192,12 @@ function renderCrops(crops) {
     const inicial = (culturaNome[0] ?? "?").toUpperCase();
     const categoria = c.sementes?.planta?.categoria ?? "";
     let areaFormatada = c.unidadeArea ?? "";
+    let unidadeArea;
     switch (areaFormatada) {
       case "m2":
         unidadeArea = "m²";
       case "km2":
-        return "km²";
+        unidadeArea = "km²";
       default:
         break;
     }
