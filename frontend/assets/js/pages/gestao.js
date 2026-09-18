@@ -250,9 +250,15 @@ function renderCrops(crops) {
 function editarCrop(c) {
   cropEditandoId = c.id;
 
+  const select = document.getElementById("cultura");
+  select.insertAdjacentHTML(
+    "beforeend",
+    `<option value="${c.cultura.planta.id}">${c.cultura.planta.nome}</option>`
+  );
+
   document.getElementById("nome-plantacao").value = c.nome ?? "";
-  document.getElementById("cultura").value = c.sementes?.id ?? "";
-  document.getElementById("area").value = c.areaM2 ?? "";
+  document.getElementById("cultura").value = c.cultura.planta.id ?? "";
+  document.getElementById("area").value = c.area ?? "";
   document.getElementById("unidade").value = c.unidadeArea ?? "m2";
   document.getElementById("variedade").value = c.variedade ?? "";
   document.getElementById("responsavel").value = c.responsavel ?? "";
@@ -593,10 +599,14 @@ function renderStocks(stocks) {
         <td>${s.dataValidade ? formatarData(s.dataValidade) : "—"}</td>
         <td><span class="status ${classe}">${label}</span></td>
         <td class="acoes">
-          <button type="button" class="btn-editar-insumo btn-editar" data-id="${s.id}">
+          <button type="button" class="btn-editar-insumo btn-editar" data-id="${
+            s.id
+          }">
             <i class="fa-solid fa-pen"></i>
           </button>
-          <button type="button" class="btn-excluir-insumo btn-editar" data-id="${s.id}">
+          <button type="button" class="btn-excluir-insumo btn-editar" data-id="${
+            s.id
+          }">
             <i class="fa-solid fa-trash"></i>
           </button>
         </td>

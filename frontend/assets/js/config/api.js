@@ -25,6 +25,13 @@ export async function apiFetch(path, options = {}) {
       }, 3000);
       return;
     }
+    if (response.status === 403) {
+      abrirModalErro(
+        result.info,
+        "Negado",
+      );
+      return;
+    }
     if (result.message) {
       abrirModalErro(result.message);
     }

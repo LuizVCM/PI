@@ -1,5 +1,7 @@
+import { ForbiddenError } from "../errors/ForbiddenError";
 import { InternalServerError } from "../errors/InternalServerError";
 import { NotFoundError } from "../errors/NotFoundError";
+import { UnauthorizedError } from "../errors/UnauthorizedError";
 import { SeedMapper } from "../mappers/SeedMapper";
 import { PlantRepository } from "../repositories/PlantRepository";
 import { SeedRepository } from "../repositories/SeedRepository";
@@ -63,6 +65,12 @@ export class SeedService {
       throw new NotFoundError("semente");
     }
     AuthorizationService.ensureOwnership(seed, loggedUserId, "semente");
+    if (seed.plantacao) {
+      throw new ForbiddenError(
+        "semente",
+        "Não é possível excluir uma semente que possui relação ativa"
+      );
+    }
     const result = await this.repo.base.softDelete(id);
     if (result.affected === 0) {
       throw new InternalServerError("Não foi possível deletar");
