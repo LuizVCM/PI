@@ -1,5 +1,6 @@
 import { abrirModalErro } from "../utils/modals.js";
 import { apiFetch } from "../config/api.js";
+
 export async function carregarPlantas() {
   try {
     return await apiFetch("/plants/all", { method: "GET" });

@@ -1,0 +1,73 @@
+.modal-content h2 {
+  font-size: 1.2rem;
+  color: var(--verde-profundo, #1f6b3a);
+  margin: 0 0 0.3rem;
+}
+
+.modal-subtitulo {
+  font-size: 0.85rem;
+  color: #5a6b5d;
+  margin: 0 0 1.2rem;
+}
+
+#formNovoInsumo,
+#formColheita {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.campo-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.campo-modal label {
+  font-size: 0.82rem;
+  color: var(--verde-dark, #1e2a24);
+  font-weight: 600;
+}
+
+.campo-modal input,
+.campo-modal select,
+.campo-modal textarea {
+  padding: 0.65rem 0.8rem;
+  border: 1px solid #dfe5e1;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: var(--verde-dark, #1e2a24);
+  background: #fff;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.campo-modal input:focus,
+.campo-modal select:focus,
+.campo-modal textarea:focus {
+  border-color: var(--verde-claro, #6b8e23);
+  box-shadow: 0 0 0 3px rgba(107, 142, 35, 0.12);
+}
+
+.linha-modal {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem;
+}
+
+@media (max-width: 480px) {
+  .linha-modal {
+    grid-template-columns: 1fr;
+  }
+}
+
+#colheita-info {
+  display: block;
+  background: var(--verde-conteudo, #eef6f0);
+  border-left: 3px solid var(--verde-circulo, #6b8e23);
+  border-radius: 8px;
+  padding: 0.6rem 0.9rem;
+  color: var(--verde-profundo, #1f6b3a);
+  font-size: 0.85rem;
+  font-style: normal;
+}

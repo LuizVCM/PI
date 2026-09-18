@@ -3,6 +3,8 @@
 @import url("../utils/buttons.css");
 @import url("../utils/panel.css");
 @import url("../utils/form-message.css");
+@import url("./modal.css");
+@import url("./alertas.css");
 
 #main-content .funcao.minhas-plantacoes i {
   color: #6b8e23;
@@ -28,10 +30,278 @@
   background: #3f6f8f;
 }
 
-#main-content .funcao.estoque i {
+#main-content .funcao.alertas i {
   color: #c98232;
 }
 
-#main-content .funcao.estoque:hover::before {
+#main-content .funcao.alertas:hover::before {
   background: #c98232;
 }
+
+/* ---------------------------------------------------------
+   Card de plantação (equivalente ao .semente-cadastrada)
+---------------------------------------------------------- */
+.plantacao-cadastrada {
+  background: #fff;
+  border-radius: 13px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 0.8rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+.plantacao-cadastrada:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Ícone (equivalente ao .semente-icon) */
+.plantacao-icon {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 10px;
+  background: var(--cat, #6b8e23); /* usa cor da categoria quando disponível */
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+/* Ações (lápis / lixeira) */
+.plantacao-cadastrada .acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin: 0.5rem;
+}
+
+/* ppção / campo do card (equivalente ao .opcao-semente) */
+.opcao-plantacao {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 0.8rem;
+  font-size: 0.82rem;
+  color: var(--verde-dark);
+  white-space: nowrap;
+  border-left: 1px solid #e2e8e0;
+  height: 28px;
+}
+.opcao-plantacao:first-of-type {
+  border-left: none;
+}
+
+.opcao-plantacao.btn-editar,
+.opcao-plantacao.btn-excluir {
+  border-left: none;
+  border-radius: 8px;
+  padding: 0 0.6rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.opcao-plantacao.btn-editar:hover,
+.opcao-plantacao.btn-excluir:hover {
+  background: #eef6f0;
+}
+
+/* form de plantação */
+.registro-plantacao {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.registro-plantacao span {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--verde-circulo);
+  text-transform: uppercase;
+}
+.registro-plantacao h5 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/*  aviso */
+.aviso-sistema {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  background: var(--verde-conteudo, #eef6f0);
+  border-left: 3px solid var(--verde-circulo, #6b8e23);
+  border-radius: 8px;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.82rem;
+  color: var(--verde-profundo, #1f6b3a);
+  margin: 0.5rem 0 1rem;
+  line-height: 1.4;
+}
+.aviso-sistema i {
+  color: var(--verde-claro, #6b8e23);
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+/* ---------------------------------------------------------
+   Tabelas internas (estoque / agenda / insumos)
+   Mantidas para não quebrar o layout atual
+---------------------------------------------------------- */
+.tabela-container {
+  width: 100%;
+  overflow-x: auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  padding: 0.5rem;
+  margin-top: 1rem;
+}
+
+.tabela-estoque,
+.tabela-agenda,
+.tabela-insumos {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.tabela-estoque th,
+.tabela-agenda th,
+.tabela-insumos th {
+  text-align: left;
+  padding: 0.8rem 0.9rem;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--verde-claro, #6b8e23);
+  border-bottom: 1px solid #e2e8e0;
+}
+.tabela-estoque td,
+.tabela-agenda td,
+.tabela-insumos td {
+  padding: 0.8rem 0.9rem;
+  border-bottom: 1px solid #f0f3f0;
+  color: var(--verde-dark, #1e2a24);
+}
+
+/* Status com cores */
+.status {
+  display: inline-block;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.status.pendente { background: #fff3d6; color: #a07000; }
+.status.andamento { background: #e3f0ff; color: #2c6fb5; }
+.status.concluido { background: #e6f6ea; color: #2f7a44; }
+.status.disponivel { background: #e6f6ea; color: #2f7a44; }
+.status.baixo { background: #fff3d6; color: #a07000; }
+.status.falta { background: #fde2e2; color: #b13030; }
+
+.entrada { color: #2f7a44; font-weight: 600; }
+.saida { color: #b13030; font-weight: 600; }
+
+/* ---------------------------------------------------------
+   Cores por categoria (mesmas do sementes)
+   Basta o elemento com data-categoria="..." receber o --cat
+---------------------------------------------------------- */
+[data-categoria="cereais"] { --cat: #c9a227; }
+[data-categoria="leguminosas"] { --cat: #6b8e23; }
+[data-categoria="tubérculos"] { --cat: #8b5a2b; }
+[data-categoria="hortaliças"] { --cat: #4caf50; }
+[data-categoria="frutas"] { --cat: #e85d75; }
+[data-categoria="oleaginosas"] { --cat: #e08e30; }
+[data-categoria="fibras"] { --cat: #a68a64; }
+[data-categoria="forrageiras"] { --cat: #558b2f; }
+[data-categoria="estimulantes"] { --cat: #6f4e37; }
+[data-categoria="adoçantes"] { --cat: #b8556c; }
+[data-categoria="industriais"] { --cat: #607d8b; }
+
+/* ---------------------------------------------------------
+   Responsivo (mesmo breakpoint do sementes)
+---------------------------------------------------------- */
+@media (max-width: 600px) {
+  .barra-acoes {
+    flex-direction: column;
+    width: 100%;
+  }
+  .campo-busca,
+  .btn-novo {
+    width: 100%;
+  }
+  .campo-busca {
+    min-height: 3rem;
+  }
+  .btn-novo {
+    justify-content: center;
+  }
+
+  .plantacao-cadastrada {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .opcao-plantacao {
+    font-size: 0.78rem;
+    height: auto;
+    padding: 0.3rem 0.5rem;
+    border-left: none;
+  }
+  .descricao-secao {
+    width: 100%;
+    text-align: left;
+  }
+}
+
+.cards-resumo {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.cards-resumo .resumo {
+  background: #fff;
+  border-radius: 13px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  min-width: 5em;
+  padding: 1.2rem 1rem;
+  text-align: center;
+  border-left: 5px solid var(--verde-claro, #6b8e23);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.cards-resumo .resumo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+.cards-resumo .resumo h2 {
+  font-size: 1.7rem;
+  color: var(--verde-profundo, #1f6b3a);
+  margin: 0 0 0.2rem;
+  font-weight: 700;
+}
+.cards-resumo .resumo span {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #5a6b5d;
+  font-weight: 600;
+}
+
+#tela-insumos .cards-resumo .resumo:nth-child(1) { border-left-color: #3a7d6a; }
+#tela-insumos .cards-resumo .resumo:nth-child(2) { border-left-color: #c98232; }
+#tela-insumos .cards-resumo .resumo:nth-child(3) { border-left-color: #b13030; }
+
+#tela-agenda .cards-resumo .resumo:nth-child(1) { border-left-color: #3f6f8f; }
+#tela-agenda .cards-resumo .resumo:nth-child(2) { border-left-color: #6b8e23; }
+#tela-agenda .cards-resumo .resumo:nth-child(3) { border-left-color: #c98232; }
+#tela-agenda .cards-resumo .resumo:nth-child(4) { border-left-color: #2f7a44; }
+
+#tela-alertas .cards-resumo .resumo:nth-child(1) { border-left-color: #b13030; }
+#tela-alertas .cards-resumo .resumo:nth-child(2) { border-left-color: #c98232; }
+#tela-alertas .cards-resumo .resumo:nth-child(3) { border-left-color: #3f6f8f; }

@@ -236,8 +236,9 @@ function criarCard(registro) {
 
   actions.append(btnEditar, btnExcluir);
 
-  card.append(tooltip, top, valor, actions);
-  return card;
+  card.append(top, valor, actions);
+  tooltip.append(card);
+  return tooltip;
 }
 
 // editar

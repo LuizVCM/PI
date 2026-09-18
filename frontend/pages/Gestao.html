@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
@@ -16,11 +16,9 @@
       <button class="btn-menu menu-toggle">
         <i class="fa-solid fa-bars"></i>
       </button>
-
       <button class="btn-menu menu-mobile">
         <i class="fa-solid fa-bars"></i>
       </button>
-
       <div class="message-div">
         <span class="bem-vindo" id="welcome-message"></span>
         <div class="user" id="user-abbrev"></div>
@@ -32,96 +30,80 @@
     <main>
       <aside class="aside">
         <button class="opcao clima">
-          <i class="fa-solid fa-cloud selecao"></i>
-          Clima
+          <i class="fa-solid fa-cloud selecao"></i> Clima
         </button>
-
         <button class="opcao gestao">
-          <i class="fa-solid fa-calendar-days selecao"></i>
-          Gestão
+          <i class="fa-solid fa-calendar-days selecao"></i> Gestão
         </button>
-
         <button class="opcao segurancas">
-          <i class="fa-solid fa-circle-info selecao"></i>
-          Informações
+          <i class="fa-solid fa-circle-info selecao"></i> Informações
         </button>
-
         <button class="opcao sementes">
-          <i class="fa-solid fa-seedling selecao"></i>
-          Culturas
+          <i class="fa-solid fa-seedling selecao"></i> Culturas
         </button>
-
         <button class="opcao financas">
-          <i class="fa-solid fa-coins selecao"></i>
-          Finanças
+          <i class="fa-solid fa-coins selecao"></i> Finanças
         </button>
-
         <button class="opcao suporte">
-          <i class="fa-solid fa-circle-question selecao"></i>
-          Suporte
+          <i class="fa-solid fa-circle-question selecao"></i> Suporte
         </button>
-
         <button class="opcao relatorio">
-          <i class="fa-solid fa-file-lines selecao"></i>
-          Relatório
+          <i class="fa-solid fa-file-lines selecao"></i> Relatório
         </button>
-
         <button class="opcao perfil">
-          <i class="fa-solid fa-circle-user selecao"></i>
-          Perfil
+          <i class="fa-solid fa-circle-user selecao"></i> Perfil
         </button>
       </aside>
 
-      <!-- Tela principal -->
-      <div id="main-content" class="content gestao-inicio tela ativa">
+      <div class="content" id="main-content">
         <section class="secao-conteudo">
           <div class="div-title">
             <h1 class="title title--principal">Gestão</h1>
           </div>
+
           <div class="acessos">
             <button class="funcao minhas-plantacoes" id="minhas-plantacoes-btn">
               <h2>Minhas plantações</h2>
               <i class="fa-solid fa-seedling"></i>
             </button>
-            <button class="funcao insumos" id="btnInsumos">
-              <h2>Insumos disponíveis</h2>
+
+            <button class="funcao insumos" id="insumos-btn">
+              <h2>Meus insumos</h2>
               <i class="fa-solid fa-list"></i>
             </button>
-            <button class="funcao agenda" id="btnAgenda">
+
+            <button class="funcao agenda" id="agenda-btn">
               <h2>Agenda de colheita</h2>
               <i class="fa-solid fa-calendar-days"></i>
             </button>
-            <button class="funcao estoque" id="btnEstoque">
-              <h2>Controle de estoque</h2>
-              <i class="fa-solid fa-clipboard-list"></i>
+
+            <button class="funcao alertas" id="alertas-btn">
+              <h2>Alertas</h2>
+              <i class="fa-solid fa-bell"></i>
             </button>
           </div>
         </section>
       </div>
 
-      <!-- tela de "minhas plantações" -->
-      <div
-        class="content content-secundario tela tela-cadastro hidden"
-        id="tela-cadastro"
-      >
+      <!-- minhas plantações -->
+      <div class="content content-secundario hidden" id="tela-cadastro">
         <section class="secao-conteudo">
           <button class="btn-voltar" data-target="main-content">
             <i class="fa-solid fa-arrow-left"></i> Voltar
           </button>
 
-          <h1 class="title minhas-plantacoes">Cadastro de Plantação</h1>
+          <h1 class="title minhas-plantacoes">Minhas plantações</h1>
 
           <p class="descricao-secao">
-            Cadastre uma nova área de cultivo para acompanhar todo o ciclo
-            produtivo.
+            Cadastre e acompanhe suas áreas de cultivo.
           </p>
 
           <div class="barra-acoes">
             <input
               type="text"
-              id="buscar-lote"
+              id="buscar-plantacao"
               class="campo-busca"
-              placeholder="Buscar por cultura, nome ou data..."
+              placeholder="Buscar por cultura, nome ou responsável..."
             />
             <button class="btn-novo" id="nova-plantacao-btn">
               <i class="fa-solid fa-plus"></i>
@@ -146,14 +128,13 @@
                   <label for="nome-plantacao">Nome da área</label>
                   <input
                     type="text"
-                    name="nome-plantacao"
                     id="nome-plantacao"
-                    placeholder="Ex.: Fernando da hortaliça 401"
+                    placeholder="Ex.: Talhão Norte 401"
                   />
                 </div>
                 <div class="campo-cad">
-                  <label for="cultura"> Cultura </label>
-                  <select name="cultura" id="cultura">
+                  <label for="cultura">Cultura</label>
+                  <select id="cultura">
                     <option value="">Selecione...</option>
                   </select>
                 </div>
@@ -162,16 +143,11 @@
               <div class="cadastro">
                 <div class="campo-cad">
                   <label for="area">Extensão da área</label>
-                  <input
-                    type="number"
-                    name="area"
-                    id="area"
-                    placeholder="Ex.: 15"
-                  />
+                  <input type="number" id="area" placeholder="Ex.: 15" />
                 </div>
                 <div class="campo-cad">
                   <label for="unidade">Unidade de área</label>
-                  <select name="unidade" id="unidade">
+                  <select id="unidade">
                     <option value="m2">Metros quadrados</option>
                     <option value="ha">Hectares</option>
                     <option value="km2">Quilômetros quadrados</option>
@@ -184,16 +160,14 @@
                   <label for="variedade">Variedade</label>
                   <input
                     type="text"
-                    name="variedade"
                     id="variedade"
                     placeholder="Ex.: BRS 1001"
                   />
                 </div>
                 <div class="campo-cad">
-                  <label for="responsavel"> Responsável </label>
+                  <label for="responsavel">Responsável</label>
                   <input
                     type="text"
-                    name="responsavel"
                     id="responsavel"
                     placeholder="Nome do responsável"
                   />
@@ -202,27 +176,14 @@
 
               <div class="cadastro">
                 <div class="campo-cad">
-                  <label for="data-plantio"> Data de Plantio </label>
-                  <input type="date" name="data-plantio" id="plantio" />
+                  <label for="plantio">Data de plantio</label>
+                  <input type="date" id="plantio" />
                 </div>
                 <div class="campo-cad">
-                  <label for="data-colheita-real"> Data de Colheita </label>
-                  <input
-                    type="date"
-                    name="data-colheita-real"
-                    id="data-colheita-real"
-                    disabled
-                  />
-                </div>
-              </div>
-
-              <div class="cadastro">
-                <div class="campo-cad">
-                  <label for="status"> Status</label>
+                  <label for="status">Status</label>
                   <select id="status">
                     <option value="planejada">Planejada</option>
                     <option value="em_andamento">Em andamento</option>
-                    <option value="concluida">Concluída</option>
                     <option value="cancelada">Cancelada</option>
                   </select>
                 </div>
@@ -230,431 +191,372 @@
 
               <div class="cadastro">
                 <div class="campo-cad">
-                  <label for="observacaos">Observações</label>
+                  <label for="observacoes">Observações</label>
                   <textarea
                     id="observacoes"
-                    rows="5"
+                    rows="4"
                     placeholder="Escreva observações importantes sobre esta plantação..."
-                  >
-                  </textarea>
+                  ></textarea>
                 </div>
               </div>
+
+              <p class="aviso-sistema">
+                <i class="fa-solid fa-circle-info"></i>
+                A data de colheita prevista será calculada pelo sistema com base
+                no ciclo da cultura.
+              </p>
+
               <div class="btn">
                 <button type="button" class="cancelar">Cancelar</button>
-                <button type="button" class="salvar">Salvar</button>
+                <button type="submit" class="salvar">Salvar</button>
               </div>
             </form>
           </div>
         </section>
       </div>
 
-      <!-- tela de estoque -->
-      <div id="tela-estoque" class="tela tela-estoque hidden">
-        <!-- Cabeçalho -->
-        <div class="cabecalho-estoque">
-          <h2>Controle de Estoque</h2>
-          <div class="acoes-estoque">
-            <button class="btn-novo" type="button">
-              <i class="fa-solid fa-plus"></i>
-              Nova Movimentação
-            </button>
-
-            <button id="btnVoltarEstoque" class="btn-voltar" type="button">
-              <i class="fa-solid fa-arrow-left"></i>
-              Voltar
-            </button>
-          </div>
-        </div>
-
-        <!-- Resumo do estoque -->
-        <div class="cards-estoque">
-          <div class="card-estoque">
-            <h3>120</h3>
-            <p>Entradas</p>
-          </div>
-          <div class="card-estoque">
-            <h3>85</h3>
-            <p>Saídas</p>
-          </div>
-          <div class="card-estoque">
-            <h3>35</h3>
-            <p>Saldo Atual</p>
-          </div>
-        </div>
-
-        <!-- Tabela -->
-        <div class="tabela-container">
-          <table class="tabela-estoque">
-            <thead>
-              <tr>
-                <th>Produto</th>
-                <th>Movimentação</th>
-                <th>Quantidade</th>
-                <th>Data</th>
-                <th>Responsável</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Milho</td>
-                <td>
-                  <span class="entrada"> Entrada </span>
-                </td>
-                <td>50 Kg</td>
-                <td>29/07/2026</td>
-                <td>John</td>
-                <td class="acoes">
-                  <button type="button">
-                    <i class="fa-solid fa-pen"></i>
-                  </button>
-                  <button type="button">
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-                </td>
-              </tr>
-
-              <tr>
-                <td>Adubo NPK</td>
-                <td>
-                  <span class="saida"> Saída </span>
-                </td>
-                <td>10 Sacos</td>
-                <td>28/07/2026</td>
-                <td>John</td>
-                <td class="acoes">
-                  <button type="button">
-                    <i class="fa-solid fa-pen"></i>
-                  </button>
-                  <button type="button">
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- =========================
-             TELA - AGENDA DE COLHEITA
-        ========================== -->
-      <div id="tela-agenda" class="tela tela-agenda hidden">
-        <!-- Cabeçalho -->
-        <div class="cabecalho-agenda">
-          <div>
-            <h1>Agenda de Colheita</h1>
-            <p>Acompanhe todas as colheitas cadastradas.</p>
-          </div>
-          <button class="btn-voltar" class="btn-voltar" id="btnVoltarAgenda">
-            <i class="fa-solid fa-arrow-left"></i>
-            Voltar
+      <!-- meus insumos -->
+      <div class="content content-secundario hidden" id="tela-insumos">
+        <section class="secao-conteudo">
+          <button class="btn-voltar" data-target="main-content">
+            <i class="fa-solid fa-arrow-left"></i> Voltar
           </button>
-        </div>
 
-        <!-- Resumo -->
-        <div class="cards-resumo">
-          <div class="resumo">
-            <h2>15</h2>
-            <span>Total</span>
-          </div>
-          <div class="resumo">
-            <h2>4</h2>
-            <span>Pendentes</span>
-          </div>
-          <div class="resumo">
-            <h2>2</h2>
-            <span>Hoje</span>
-          </div>
-          <div class="resumo">
-            <h2>9</h2>
-            <span>Concluídas</span>
-          </div>
-        </div>
+          <h1 class="title insumos">Meus insumos</h1>
 
-        <!-- Pesquisa -->
-        <div class="pesquisa">
-          <i class="fa-solid fa-magnifying-glass"></i>
-          <input type="text" placeholder="Pesquisar plantação..." />
-        </div>
-        <!-- Tabela -->
-        <div class="card tabela-container">
-          <table class="tabela-agenda">
-            <thead>
-              <tr>
-                <th>Área</th>
-                <th>Cultura</th>
-                <th>Colheita</th>
-                <th>Status</th>
-                <th>Responsável</th>
-                <th>Editar</th>
-              </tr>
-            </thead>
+          <p class="descricao-secao">
+            Acompanhe os insumos disponíveis e suas quantidades.
+          </p>
 
-            <tbody>
-              <tr>
-                <td>senacSul</td>
-                <td>Soja</td>
-                <td>20/08/2026</td>
-                <td>
-                  <span class="status pendente"> Pendente </span>
-                </td>
-                <td>johnSuperbee</td>
-
-                <td class="acoes">
-                  <button type="button">
-                    <i class="fa-solid fa-pen"></i>
-                  </button>
-                  <button type="button">
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-                </td>
-              </tr>
-
-              <tr>
-                <td>senacNorte</td>
-                <td>Milho</td>
-                <td>28/08/2026</td>
-                <td>
-                  <span class="status andamento"> Em andamento </span>
-                </td>
-
-                <td>johnGithub</td>
-
-                <td class="acoes">
-                  <button type="button">
-                    <i class="fa-solid fa-pen"></i>
-                  </button>
-
-                  <button type="button">
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>SenacCentral</td>
-                <td>Trigo</td>
-                <td>05/09/2026</td>
-                <td>
-                  <span class="status concluido"> Concluído </span>
-                </td>
-                <td>john007</td>
-                <td class="acoes">
-                  <button type="button">
-                    <i class="fa-solid fa-pen"></i>
-                  </button>
-                  <button type="button">
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- =========================
-             TELA - INSUMOS DISPONÍVEIS
-        ========================== -->
-      <div id="tela-insumos" class="tela tela-insumos hidden">
-        <!-- Cabeçalho -->
-        <div class="cabecalho-insumos">
-          <h2>Insumos Disponíveis</h2>
-          <div class="acoes-insumos">
+          <div class="barra-acoes">
+            <input
+              type="text"
+              id="buscar-insumo"
+              class="campo-busca"
+              placeholder="Pesquisar insumo..."
+            />
+            <select id="filtro-categoria" class="campo-busca">
+              <option value="">Todas as categorias</option>
+              <option value="fertilizantes">Fertilizantes</option>
+              <option value="defensivos">Defensivos</option>
+              <option value="ferramentas">Ferramentas</option>
+            </select>
             <button id="btnNovoInsumo" class="btn-novo" type="button">
               <i class="fa-solid fa-plus"></i>
               Novo Insumo
             </button>
-            <button id="btnVoltarInsumos" class="btn-voltar" type="button">
-              <i class="fa-solid fa-arrow-left"></i>
-              Voltar
-            </button>
           </div>
-        </div>
 
-        <!-- Filtros -->
-        <div class="filtros-insumos">
-          <div class="campo-pesquisa">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Pesquisar insumo..." />
+          <div class="cards-resumo">
+            <div class="resumo">
+              <h2 id="total-insumos">0</h2>
+              <span>Total</span>
+            </div>
+            <div class="resumo">
+              <h2 id="estoque-baixo">0</h2>
+              <span>Estoque Baixo</span>
+            </div>
+            <div class="resumo">
+              <h2 id="em-falta">0</h2>
+              <span>Em Falta</span>
+            </div>
           </div>
-          <select>
-            <option>Todas as categorias</option>
-            <option>Sementes</option>
-            <option>Fertilizantes</option>
-            <option>Ferramentas</option>
-            <option>Defensivos</option>
-          </select>
-        </div>
 
-        <!-- Resumo -->
-        <div class="cards-insumos">
-          <div class="card-insumo">
-            <h3>42</h3>
-            <p>Total de Insumos</p>
+          <div class="tabela-container">
+            <table class="tabela-insumos">
+              <thead>
+                <tr>
+                  <th>Insumo</th>
+                  <th>Categoria</th>
+                  <th>Quantidade</th>
+                  <th>Unidade</th>
+                  <th>Validade</th>
+                  <th>Status</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-insumos"></tbody>
+            </table>
           </div>
-          <div class="card-insumo">
-            <h3>5</h3>
-            <p>Estoque Baixo</p>
+        </section>
+      </div>
+
+      <!-- agenda -->
+      <div class="content content-secundario hidden" id="tela-agenda">
+        <section class="secao-conteudo">
+          <button class="btn-voltar" data-target="main-content">
+            <i class="fa-solid fa-arrow-left"></i> Voltar
+          </button>
+
+          <h1 class="title agenda">Agenda de Colheita</h1>
+
+          <p class="descricao-secao">
+            Acompanhe as colheitas previstas e registre as realizadas.
+          </p>
+
+          <div class="cards-resumo">
+            <div class="resumo">
+              <h2 id="agenda-total">0</h2>
+              <span>Total</span>
+            </div>
+            <div class="resumo">
+              <h2 id="agenda-hoje">0</h2>
+              <span>Hoje</span>
+            </div>
+            <div class="resumo">
+              <h2 id="agenda-pendentes">0</h2>
+              <span>Pendentes</span>
+            </div>
+            <div class="resumo">
+              <h2 id="agenda-concluidas">0</h2>
+              <span>Concluídas</span>
+            </div>
           </div>
-          <div class="card-insumo">
-            <h3>2</h3>
-            <p>Em Falta</p>
+
+          <div class="barra-acoes">
+            <input
+              type="text"
+              id="buscar-agenda"
+              class="campo-busca"
+              placeholder="Pesquisar plantação..."
+            />
           </div>
-        </div>
 
-        <!-- Tabela -->
-        <div class="tabela-container">
-          <table class="tabela-insumos">
-            <thead>
-              <tr>
-                <th>Insumo</th>
-                <th>Categoria</th>
-                <th>Quantidade</th>
-                <th>Unidade</th>
-                <th>Status</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Milho</td>
-                <td>Sementes</td>
-                <td>120</td>
-                <td>Kg</td>
-                <td>
-                  <span class="status disponivel"> Disponível </span>
-                </td>
-                <td class="acoes">
-                  <button type="button">
-                    <i class="fa-solid fa-pen"></i>
-                  </button>
-                  <button type="button">
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>Adubo NPK</td>
-                <td>Fertilizante</td>
-                <td>15</td>
-                <td>Sacos</td>
+          <div class="tabela-container">
+            <table class="tabela-agenda">
+              <thead>
+                <tr>
+                  <th>Área</th>
+                  <th>Cultura</th>
+                  <th>Prevista</th>
+                  <th>Real</th>
+                  <th>Status</th>
+                  <th>Ação</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-agenda"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
 
-                <td>
-                  <span class="status baixo"> Baixo </span>
-                </td>
+      <!-- alertas -->
+      <div class="content content-secundario hidden" id="tela-alertas">
+        <section class="secao-conteudo">
+          <button class="btn-voltar" data-target="main-content">
+            <i class="fa-solid fa-arrow-left"></i> Voltar
+          </button>
 
-                <td class="acoes">
-                  <button type="button">
-                    <i class="fa-solid fa-pen"></i>
-                  </button>
-                  <button type="button">
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>Herbicida</td>
-                <td>Defensivo</td>
-                <td>0</td>
-                <td>Litros</td>
-                <td>
-                  <span class="status falta"> Em falta </span>
-                </td>
-                <td class="acoes">
-                  <button type="button">
-                    <i class="fa-solid fa-pen"></i>
-                  </button>
-                  <button type="button">
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+          <h1 class="title alertas">Alertas</h1>
 
-        <div id="modalNovoInsumo" class="modal-insumo hidden">
-          <div class="modal-conteudo">
-            <!-- Cabeçalho do modal -->
-            <div class="modal-cabecalho">
-              <h2>Novo Insumo</h2>
+          <p class="descricao-secao">
+            Avisos importantes sobre suas plantações e insumos.
+          </p>
 
-              <button id="btnFecharModal" type="button">
-                <i class="fa-solid fa-xmark"></i>
-              </button>
+          <div class="cards-resumo">
+            <div class="resumo">
+              <h2 id="alertas-criticos">0</h2>
+              <span>Críticos</span>
+            </div>
+            <div class="resumo">
+              <h2 id="alertas-atencao">0</h2>
+              <span>Atenção</span>
+            </div>
+            <div class="resumo">
+              <h2 id="alertas-total">0</h2>
+              <span>Total</span>
+            </div>
+          </div>
+
+          <div class="lista-alertas" id="lista-alertas"></div>
+        </section>
+      </div>
+
+      <!-- modal de insumos -->
+      <div id="modalNovoInsumo" class="modal hidden">
+        <div class="modal-overlay" id="modalNovoInsumo-overlay"></div>
+
+        <div class="modal-content">
+          <button class="modal-close" id="btnFecharModal" type="button">
+            &times;
+          </button>
+
+          <h2 id="titulo-modal-insumo">Novo Insumo</h2>
+
+          <form id="formNovoInsumo">
+            <div class="campo-modal">
+              <label for="nomeInsumo">Nome do insumo</label>
+              <input
+                type="text"
+                id="nomeInsumo"
+                placeholder="Ex: Adubo NPK"
+                required
+              />
             </div>
 
-            <!-- Formulário -->
-            <form id="formNovoInsumo">
+            <div class="campo-modal">
+              <label for="categoriaInsumo">Categoria</label>
+              <select id="categoriaInsumo" required>
+                <option value="">Selecione uma categoria</option>
+                <option value="fertilizantes">Fertilizantes</option>
+                <option value="defensivos">Defensivos</option>
+                <option value="ferramentas">Ferramentas</option>
+              </select>
+            </div>
+
+            <div class="linha-modal">
               <div class="campo-modal">
-                <label for="nomeInsumo">Nome do insumo</label>
+                <label for="quantidadeInsumo">Quantidade</label>
                 <input
-                  type="text"
-                  id="nomeInsumo"
-                  placeholder="Ex: Milho"
+                  type="number"
+                  id="quantidadeInsumo"
+                  min="0"
+                  step="0.01"
+                  placeholder="Ex: 50"
                   required
                 />
               </div>
 
               <div class="campo-modal">
-                <label for="categoriaInsumo">Categoria</label>
-
-                <select id="categoriaInsumo" required>
-                  <option value="">Selecione uma categoria</option>
-                  <option value="sementes">Sementes</option>
-                  <option value="fertilizantes">Fertilizantes</option>
-                  <option value="ferramentas">Ferramentas</option>
-                  <option value="defensivos">Defensivos</option>
+                <label for="unidadeInsumo">Unidade</label>
+                <select id="unidadeInsumo" required>
+                  <option value="">Selecione</option>
+                  <option value="g">g</option>
+                  <option value="kg">kg</option>
+                  <option value="ton">ton</option>
+                  <option value="ml">ml</option>
+                  <option value="l">l</option>
+                  <option value="sacas">sacas</option>
+                  <option value="un">un</option>
                 </select>
               </div>
+            </div>
 
-              <div class="linha-modal">
-                <div class="campo-modal">
-                  <label for="quantidadeInsumo">Quantidade</label>
+            <div class="campo-modal">
+              <label for="validadeInsumo">Data de validade (opcional)</label>
+              <input type="date" id="validadeInsumo" />
+            </div>
 
-                  <input
-                    type="number"
-                    id="quantidadeInsumo"
-                    min="0"
-                    placeholder="Ex: 50"
-                    required
-                  />
-                </div>
+            <div class="modal-actions">
+              <button
+                id="btnCancelarModal"
+                class="btn-action btn-cancelar"
+                type="button"
+              >
+                Cancelar
+              </button>
+              <button class="btn-action btn-confirmar" type="submit">
+                Salvar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
 
-                <div class="campo-modal">
-                  <label for="unidadeInsumo">Unidade</label>
+      <!-- registrar colheita -->
+      <div id="modalColheita" class="modal hidden">
+        <div class="modal-overlay" id="modalColheita-overlay"></div>
 
-                  <select id="unidadeInsumo" required>
-                    <option value="">Selecione</option>
-                    <option value="kg">Kg</option>
-                    <option value="sacos">Sacos</option>
-                    <option value="litros">Litros</option>
-                    <option value="unidades">Unidades</option>
-                  </select>
-                </div>
-              </div>
+        <div class="modal-content">
+          <button class="modal-close" id="btnFecharColheita" type="button">
+            &times;
+          </button>
 
-              <!-- Botões -->
-              <div class="modal-acoes">
-                <button
-                  id="btnCancelarModal"
-                  class="btn-cancelar"
-                  type="button"
-                >
-                  Cancelar
-                </button>
+          <h2>Registrar colheita</h2>
 
-                <button class="btn-salvar" type="submit">Cadastrar</button>
-              </div>
-            </form>
+          <p class="modal-subtitulo">
+            <span id="colheita-info"></span>
+          </p>
+
+          <form id="formColheita">
+            <div class="campo-modal">
+              <label for="dataColheitaReal">Data da colheita</label>
+              <input type="date" id="dataColheitaReal" required />
+            </div>
+
+            <div class="modal-actions">
+              <button
+                id="btnCancelarColheita"
+                class="btn-action btn-cancelar"
+                type="button"
+              >
+                Cancelar
+              </button>
+              <button class="btn-action btn-confirmar" type="submit">
+                Confirmar colheita
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- modal confirmar -->
+      <div id="modal-confirmacao" class="modal hidden">
+        <div class="modal-overlay" id="modal-confirmacao-overlay"></div>
+
+        <div class="modal-content modal-confirmacao-content">
+          <button class="modal-close" id="modal-confirmacao-close">
+            &times;
+          </button>
+
+          <div class="modal-confirmacao-icon">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+          </div>
+
+          <h2 id="modal-confirmacao-title">Confirmar exclusão</h2>
+          <p id="modal-confirmacao-message">
+            Tem certeza que deseja continuar?
+          </p>
+
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn-action btn-cancelar"
+              id="modal-confirmacao-cancelar"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn-action btn-confirmar"
+              id="modal-confirmacao-confirmar"
+            >
+              Confirmar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- modal erro -->
+      <div id="modal-erro" class="modal hidden">
+        <div class="modal-overlay" id="modal-erro-overlay"></div>
+
+        <div class="modal-content modal-erro-content">
+          <button class="modal-close" id="modal-erro-close">&times;</button>
+
+          <div class="modal-erro-icon">
+            <i class="fa-solid fa-circle-exclamation"></i>
+          </div>
+
+          <h2 id="modal-erro-title">Ocorreu um erro</h2>
+          <p id="modal-erro-message">
+            Não foi possível realizar esta operação.
+          </p>
+
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn-action btn-cancelar"
+              id="modal-erro-fechar"
+            >
+              Fechar
+            </button>
           </div>
         </div>
       </div>
     </main>
-    <!-- JavaScript da Gestão -->
-    <script type="module" src="../assets/js/gestao.js"></script>
-    <!-- JavaScript geral -->
+
+    <script type="module" src="../assets/js/pages/gestao.js"></script>
     <script type="module" src="../assets/js/home.js"></script>
   </body>
 </html>
