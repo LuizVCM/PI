@@ -1,0 +1,5 @@
+- o sensor é de cravar no chão 
+- um unico sensor para  quantos metros
+- a temperatura de umidades dos solo 
+- os tipos de sensores 
+- 
