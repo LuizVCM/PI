@@ -29,6 +29,9 @@ body {
   justify-content: flex-start;
   margin-bottom: 15px
 }
+.botoes{
+  display: flex;
+}
 .btns button{
   padding: 10px;
   border-radius: 8px;
