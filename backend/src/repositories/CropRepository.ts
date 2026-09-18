@@ -18,33 +18,36 @@ interface CropData {
 export class CropRepository {
   public base = createBaseRepository(Crop);
   async findAllWithRelations() {
-    return this.base.findAll({ relations: { territorio: true, sementes: true } });
+    return this.base.findAll({
+      relations: { territorio: { usuario: true }, sementes: { planta: true } },
+    });
   }
   /** retorna o usuário */
   async findByTerritoryId(territoryId: number) {
     return this.base.getRepository().find({
       where: { territorio: { id: territoryId } },
-      relations: { territorio: true, sementes: true },
-      select: { territorio: { usuario: true } },
+      relations: { territorio: { usuario: true }, sementes: { planta: true } },
     });
   }
   /** retorna o usuário */
   async findByIdWithRelations(id: number) {
     return this.base.findById(id, {
-      relations: { territorio: true, sementes: true },
-      select: { territorio: { usuario: true } },
+      relations: { territorio: { usuario: true }, sementes: { planta: true } },
     });
   }
   /** retorna o usuário */
   async findAllByUserId(userId: number) {
     return this.base.findAll({
       where: { territorio: { usuario: { id: userId } } },
-      relations: { territorio: true, sementes: true },
-      select: { territorio: { usuario: true } },
+      relations: { territorio: { usuario: true }, sementes: { planta: true } },
     });
   }
-  async create(data: CropData, territory: Territory, seed: Seed ) {
-    const crop = this.base.create({ ...data, territorio: territory, sementes: seed });
+  async create(data: CropData, territory: Territory, seed: Seed) {
+    const crop = this.base.create({
+      ...data,
+      territorio: territory,
+      sementes: seed,
+    });
     return this.base.save(crop);
   }
 }

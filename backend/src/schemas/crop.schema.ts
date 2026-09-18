@@ -3,11 +3,10 @@ import { CropStatus } from "../models/Crop";
 import { AreaUnit } from "../calc/area-converter";
 
 export const createCropSchema = z.object({
-  nome: z.string().min(3, "Nome é obrigatório").max(100, "Nome é muito longo"),
+  nome: z.string().min(1, "Nome é obrigatório").max(100, "Nome é muito longo"),
   sementeId: z.coerce.number("ID inválido").positive("ID inválido"),
   variedade: z
     .string()
-    .min(3, "Variedade é muito curta")
     .max(100, "Variedade é muito longa")
     .nullable()
     .optional(),
@@ -20,7 +19,6 @@ export const createCropSchema = z.object({
     .regex(/^\d{4}-\d{2}-\d{2}$/, "Data deve estar no formato YYYY-MM-DD"),
   responsavel: z
     .string()
-    .min(3, "Nome do responsável é muito curto")
     .max(100, "Nome do responsável é muito longo")
     .nullable()
     .optional(),
@@ -39,7 +37,6 @@ export const updateCropSchema = z
     sementeId: z.coerce.number("ID inválido").positive("ID inválido"),
     variedade: z
       .string()
-      .min(3, "Variedade é muito curta")
       .max(100, "Variedade é muita longa")
       .nullable()
       .optional(),
@@ -55,7 +52,6 @@ export const updateCropSchema = z
       .optional(),
     responsavel: z
       .string()
-      .min(1, "Nome do responsável é muito curto")
       .max(100, "Nome é muito longo")
       .nullable()
       .optional(),

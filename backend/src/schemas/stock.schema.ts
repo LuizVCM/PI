@@ -13,7 +13,9 @@ export const createStockSchema = z.object({
   unidade: z.enum(StockUnit, "Tipo de unidade inválido"),
   dataValidade: z
     .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, "Data deve estar no formato YYYY-MM-DD"),
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "Data deve estar no formato YYYY-MM-DD")
+    .nullable()
+    .optional(),
 });
 export const updateStockSchema = createStockSchema.partial();
 export type CreateStockDTO = z.infer<typeof createStockSchema>;

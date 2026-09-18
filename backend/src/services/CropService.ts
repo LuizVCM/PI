@@ -66,7 +66,7 @@ export class CropService {
       "território"
     );
     AuthorizationService.ensureOwnership(territory, loggedUserId, "território");
-    const seed = await this.seedRepo.base.findById(data.sementeId);
+    const seed = await this.seedRepo.findByIdWithRelations(data.sementeId);
     if (!seed) {
       throw new NotFoundError("cultura");
     }

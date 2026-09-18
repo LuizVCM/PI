@@ -2212,7 +2212,7 @@ export const plantsData: PlantData[] = [
     unidadeNpk: null,
   },
   {
-    nome: "Macieira",
+    nome: "Maçã",
     nomeCientifico: "Malus domestica",
     categoria: PlantCategory.FRUTAS,
     cicloMinimoDias: 240,
