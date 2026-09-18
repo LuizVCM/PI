@@ -337,7 +337,13 @@
     flex-shrink:0;
     margin-top: 2px;
   }
-
+ #chart {
+    background: var(--bg-card);
+    border: 2px solid #fdf1d8 ;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
   .carregando{
     color: var(--texto-fraco);
     font-family: var(--fonte-dado);

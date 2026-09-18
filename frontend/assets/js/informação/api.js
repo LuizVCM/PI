@@ -40,7 +40,7 @@ function valor(){
 
   // chave FIXA, sempre a mesma — facilita recuperar no outro arquivo
   localStorage.setItem('plantaSelecionada', JSON.stringify({
-    nomeExibido: textoSelecionado,           // exatamente o que aparece no textContent
+    nomeExibido: textoSelecionado,          
     fornecedor: plantaEncontrada.sementes[0].fornecedor,
     id: plantaEncontrada.id
   }));

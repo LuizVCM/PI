@@ -23,9 +23,10 @@ async function barra() {
         const resposta = await fetch(api)
         const dados = await resposta.json()
 
-        console.log(dados)
+        console.log("daos: "+dados)
+   const horaAtual = new Date().getHours() - 1;
 
-        const umidade = dados.minutely_15.relative_humidity_2m.at(-1)
+        const umidade = dados.hourly.relative_humidity_2m[horaAtual]// aq entra os gráficos, mas estou consumindo dado de API só para ter alguma informação validada
 
         console.log("Umidade:", umidade)
         barraNível.style.width = `${umidade}%`
