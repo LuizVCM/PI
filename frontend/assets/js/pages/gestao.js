@@ -207,7 +207,7 @@ function renderCrops(crops) {
         <div class="plantacao-icon" data-categoria="${categoria}">${inicial}</div>
         <span class="opcao-plantacao">Área: ${escapeHtml(c.nome ?? "")}</span>
         <span class="opcao-plantacao">Cultura: ${escapeHtml(culturaNome)}</span>
-        <span class="opcao-plantacao">Extensão: ${c.areaM2 ?? "—"} ${unidadeArea}</span>
+        <span class="opcao-plantacao">Extensão: ${c.area ?? "—"} ${unidadeArea}</span>
         <span class="opcao-plantacao">Plantio: ${formatarData(
           c.dataPlantio,
         )}</span>
