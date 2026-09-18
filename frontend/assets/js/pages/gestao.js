@@ -71,8 +71,6 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-
-
 const modalNovoInsumo = document.getElementById("modalNovoInsumo");
 const formNovoInsumo = document.getElementById("formNovoInsumo");
 
@@ -115,10 +113,11 @@ function abrirModalColheita(crop) {
   cropColheitaId = crop.id;
 
   const culturaNome = crop.sementes?.planta?.nome ?? "—";
-  document.getElementById("colheita-info").textContent =
-    `${crop.nome} · ${culturaNome} · prevista para ${formatarData(
-      crop.dataColheitaPrevista,
-    )}`;
+  document.getElementById("colheita-info").textContent = `${
+    crop.nome
+  } · ${culturaNome} · prevista para ${formatarData(
+    crop.dataColheitaPrevista
+  )}`;
 
   // default = hoje
   document.getElementById("dataColheitaReal").value = new Date()
@@ -136,25 +135,24 @@ function fecharModalColheita() {
   document.getElementById("formColheita")?.reset();
 }
 
-// ============================================================
-// DADOS - SEMENTES
-// ============================================================
-
 async function preencherSelectSementes() {
   try {
     const sementes = await carregarSementes();
-    estado.sementes = sementes;
+    const disponiveis = sementes.filter(
+      (s) => s.plantacao === PLANTACAO_INDISPONIVEL
+    );
+    estado.sementes = disponiveis;
 
     const select = document.getElementById("cultura");
     if (!select) return;
 
     select.innerHTML = '<option value="">Selecione...</option>';
-    sementes.forEach((s) => {
+    disponiveis.forEach((s) => {
       select.insertAdjacentHTML(
         "beforeend",
         `<option value="${s.id}">${escapeHtml(
-          s.planta?.nome ?? "Sem nome",
-        )}</option>`,
+          s.planta?.nome ?? "Sem nome"
+        )}</option>`
       );
     });
   } catch (err) {
@@ -196,9 +194,12 @@ function renderCrops(crops) {
     switch (areaFormatada) {
       case "m2":
         unidadeArea = "m²";
+        break;
       case "km2":
         unidadeArea = "km²";
+        break;
       default:
+        unidadeArea = "ha";
         break;
     }
 
@@ -207,14 +208,18 @@ function renderCrops(crops) {
         <div class="plantacao-icon" data-categoria="${categoria}">${inicial}</div>
         <span class="opcao-plantacao">Área: ${escapeHtml(c.nome ?? "")}</span>
         <span class="opcao-plantacao">Cultura: ${escapeHtml(culturaNome)}</span>
-        <span class="opcao-plantacao">Extensão: ${c.area ?? "—"} ${unidadeArea}</span>
+        <span class="opcao-plantacao">Extensão: ${
+          c.area ?? "—"
+        } ${unidadeArea}</span>
         <span class="opcao-plantacao">Plantio: ${formatarData(
-          c.dataPlantio,
+          c.dataPlantio
         )}</span>
         <span class="opcao-plantacao">Prevista: ${formatarData(
-          c.dataColheitaPrevista,
+          c.dataColheitaPrevista
         )}</span>
-        <span class="opcao-plantacao">Status: ${capitalizar(c.status ?? "")}</span>
+        <span class="opcao-plantacao">Status: ${capitalizar(
+          c.status ?? ""
+        )}</span>
 
         <div class="acoes">
           <span class="opcao-plantacao btn-editar" data-id="${c.id}">
@@ -349,7 +354,7 @@ function resetarFormulario() {
 
   form.reset();
   form.classList.add("hidden");
-
+  preencherSelectSementes();
   form.querySelector(".salvar").textContent = "Salvar";
   document.getElementById("nova-plantacao").textContent = "Nova plantação";
   document.getElementById("titulo-form-plantacao").textContent =
@@ -370,11 +375,11 @@ async function excluirCrop(id) {
         console.error(error);
         abrirModalErro(
           error.message || "Não foi possível excluir a plantação.",
-          "Erro ao excluir",
+          "Erro ao excluir"
         );
       }
     },
-    "Excluir plantação",
+    "Excluir plantação"
   );
 }
 
@@ -417,8 +422,10 @@ function renderAgenda(crops) {
   let html = "";
 
   ordenados.forEach((c) => {
-    const culturaNome = c.sementes?.planta?.nome ?? "—";
-    const concluida = Boolean(c.dataColheitaReal);
+    const culturaNome = c.cultura?.planta?.nome ?? "—";
+    const concluida = Boolean(
+      c.dataColheitaReal === "indisponível" ? false : true
+    );
     const vencida =
       !concluida &&
       c.dataColheitaPrevista &&
@@ -447,14 +454,16 @@ function renderAgenda(crops) {
         <td class="acoes">
           ${
             concluida
-              ? `<button type="button" disabled title="Já colhida">
+              ? `<button class="btn-editar" type="button" disabled title="Já colhida">
                    <i class="fa-solid fa-check"></i>
                  </button>`
-              : `<button type="button" class="btn-registrar-colheita" data-id="${c.id}" title="Registrar colheita">
+              : `<button type="button" class="btn-registrar-colheita btn-editar" data-id="${c.id}" title="Registrar colheita">
                    <i class="fa-solid fa-wheat-awn"></i>
                  </button>`
           }
-          <button type="button" class="btn-editar-crop" data-id="${c.id}" title="Editar plantação">
+          <button type="button" class="btn-editar-crop btn-editar" data-id="${
+            c.id
+          }" title="Editar plantação">
             <i class="fa-solid fa-pen"></i>
           </button>
         </td>
@@ -488,13 +497,13 @@ function atualizarCardsAgenda(crops) {
 
   document.getElementById("agenda-total").textContent = comPrevisao.length;
   document.getElementById("agenda-hoje").textContent = comPrevisao.filter(
-    (c) => c.dataColheitaPrevista === hoje && !c.dataColheitaReal,
+    (c) => c.dataColheitaPrevista === hoje && !c.dataColheitaReal
   ).length;
   document.getElementById("agenda-pendentes").textContent = comPrevisao.filter(
-    (c) => c.dataColheitaPrevista > hoje && !c.dataColheitaReal,
+    (c) => c.dataColheitaPrevista > hoje && !c.dataColheitaReal
   ).length;
   document.getElementById("agenda-concluidas").textContent = crops.filter(
-    (c) => c.dataColheitaReal,
+    (c) => c.dataColheitaReal
   ).length;
 }
 
@@ -504,6 +513,7 @@ async function registrarColheita(event) {
   if (!cropColheitaId) return;
 
   const dataColheitaReal = document.getElementById("dataColheitaReal").value;
+
   if (!dataColheitaReal) return;
 
   const btn = event.target.querySelector("button[type='submit']");
@@ -515,7 +525,6 @@ async function registrarColheita(event) {
       method: "PUT",
       body: JSON.stringify({
         dataColheitaReal,
-        status: "concluida",
       }),
     });
 
@@ -525,17 +534,13 @@ async function registrarColheita(event) {
     console.error(error);
     abrirModalErro(
       error.message || "Não foi possível registrar a colheita.",
-      "Erro",
+      "Erro"
     );
   } finally {
     btn.disabled = false;
     btn.textContent = "Confirmar colheita";
   }
 }
-
-// ============================================================
-// CRUD STOCKS
-// ============================================================
 
 async function exibirStocks() {
   try {
@@ -562,10 +567,10 @@ function renderStocks(stocks) {
   document.getElementById("total-insumos").textContent = stocks.length;
   document.getElementById("estoque-baixo").textContent = stocks.filter(
     (s) =>
-      Number(s.quantidade) > 0 && Number(s.quantidade) <= LIMITE_ESTOQUE_BAIXO,
+      Number(s.quantidade) > 0 && Number(s.quantidade) <= LIMITE_ESTOQUE_BAIXO
   ).length;
   document.getElementById("em-falta").textContent = stocks.filter(
-    (s) => Number(s.quantidade) === 0,
+    (s) => Number(s.quantidade) === 0
   ).length;
 
   if (!stocks.length) {
@@ -588,10 +593,10 @@ function renderStocks(stocks) {
         <td>${s.dataValidade ? formatarData(s.dataValidade) : "—"}</td>
         <td><span class="status ${classe}">${label}</span></td>
         <td class="acoes">
-          <button type="button" class="btn-editar-insumo" data-id="${s.id}">
+          <button type="button" class="btn-editar-insumo btn-editar" data-id="${s.id}">
             <i class="fa-solid fa-pen"></i>
           </button>
-          <button type="button" class="btn-excluir-insumo" data-id="${s.id}">
+          <button type="button" class="btn-excluir-insumo btn-editar" data-id="${s.id}">
             <i class="fa-solid fa-trash"></i>
           </button>
         </td>
@@ -656,7 +661,7 @@ async function salvarInsumo(event) {
     console.error(error);
     abrirModalErro(
       error.message || "Não foi possível salvar o insumo.",
-      "Erro",
+      "Erro"
     );
   } finally {
     btn.disabled = false;
@@ -675,11 +680,11 @@ async function excluirInsumo(id) {
         console.error(error);
         abrirModalErro(
           error.message || "Não foi possível excluir o insumo.",
-          "Erro ao excluir",
+          "Erro ao excluir"
         );
       }
     },
-    "Excluir insumo",
+    "Excluir insumo"
   );
 }
 
@@ -704,8 +709,8 @@ function configurarBusca(inputId, dadosArray, renderizar, extrator) {
       extrator(item).some((v) =>
         String(v ?? "")
           .toLowerCase()
-          .includes(termo),
-      ),
+          .includes(termo)
+      )
     );
 
     renderizar(filtrados);
@@ -813,21 +818,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     "buscar-plantacao",
     () => estado.crops,
     renderCrops,
-    (c) => [c.nome, c.responsavel, c.sementes?.planta?.nome, c.variedade],
+    (c) => [c.nome, c.responsavel, c.sementes?.planta?.nome, c.variedade]
   );
 
   configurarBusca(
     "buscar-agenda",
     () => estado.crops,
     renderAgenda,
-    (c) => [c.nome, c.sementes?.planta?.nome, c.responsavel],
+    (c) => [c.nome, c.sementes?.planta?.nome, c.responsavel]
   );
 
   configurarBusca(
     "buscar-insumo",
     () => estado.stocks,
     renderStocks,
-    (s) => [s.nome, s.categoria],
+    (s) => [s.nome, s.categoria]
   );
 
   // ---------- filtro de categoria em insumos ----------
@@ -890,7 +895,7 @@ function montarAlertas(crops, stocks) {
           tag: "Atrasada",
           titulo: `Colheita atrasada: ${c.nome}`,
           descricao: `${culturaNome} · prevista para ${formatarData(
-            prevista,
+            prevista
           )} (${Math.abs(dias)} dia${Math.abs(dias) === 1 ? "" : "s"} atrás)`,
           cropId: c.id,
         });
@@ -919,7 +924,9 @@ function montarAlertas(crops, stocks) {
         icone: "fa-circle-xmark",
         tag: "Em falta",
         titulo: `Insumo em falta: ${s.nome}`,
-        descricao: `Categoria: ${capitalizar(s.categoria ?? "")} · reponha o estoque`,
+        descricao: `Categoria: ${capitalizar(
+          s.categoria ?? ""
+        )} · reponha o estoque`,
       });
     } else if (q <= LIMITE_ESTOQUE_BAIXO) {
       alertas.push({
@@ -928,7 +935,7 @@ function montarAlertas(crops, stocks) {
         tag: "Baixo",
         titulo: `Estoque baixo: ${s.nome}`,
         descricao: `Restam ${q} ${unidade} · categoria: ${capitalizar(
-          s.categoria ?? "",
+          s.categoria ?? ""
         )}`,
       });
     }
@@ -943,9 +950,9 @@ function montarAlertas(crops, stocks) {
           icone: "fa-calendar-xmark",
           tag: "Vencido",
           titulo: `Insumo vencido: ${s.nome}`,
-          descricao: `Venceu em ${formatarData(
-            s.dataValidade,
-          )} (${Math.abs(dias)} dia${Math.abs(dias) === 1 ? "" : "s"} atrás)`,
+          descricao: `Venceu em ${formatarData(s.dataValidade)} (${Math.abs(
+            dias
+          )} dia${Math.abs(dias) === 1 ? "" : "s"} atrás)`,
         });
       } else if (dias <= DIAS_VALIDADE_PROXIMA) {
         alertas.push({

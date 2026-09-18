@@ -21,6 +21,9 @@ export class CropMapper {
       dataColheitaPrevista: crop.dataColheitaPrevista
         ? crop.dataColheitaPrevista
         : "não foi possível calcular",
+      dataColheitaReal: crop.dataColheitaReal
+        ? crop.dataColheitaReal
+        : "indisponível",
       responsavel: crop.responsavel
         ? crop.responsavel
         : "responsável não informado",
@@ -45,6 +48,9 @@ export class CropMapper {
       dataColheitaPrevista: crop.dataColheitaPrevista
         ? crop.dataColheitaPrevista
         : "não foi possível calcular",
+      dataColheitaReal: crop.dataColheitaReal
+        ? crop.dataColheitaReal
+        : "indisponível",
       responsavel: crop.responsavel
         ? crop.responsavel
         : "responsável não informado",

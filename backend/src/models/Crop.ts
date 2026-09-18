@@ -37,11 +37,11 @@ export class Crop extends BaseModel {
   unidadeArea: AreaUnit;
   @Index()
   @Column({ type: "date", nullable: true })
-  dataPlantio: Date | null;
+  dataPlantio: string | null;
   @Column({ type: "date", nullable: true })
-  dataColheitaReal: Date | null;
+  dataColheitaReal: string | null;
   @Column({ type: "date", nullable: true })
-  dataColheitaPrevista: Date | null;
+  dataColheitaPrevista: string | null;
   @Column({ type: "varchar", length: 100, nullable: true })
   responsavel: string | null;
   @Index()

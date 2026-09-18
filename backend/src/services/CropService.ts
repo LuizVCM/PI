@@ -1,13 +1,14 @@
 import { InternalServerError } from "../errors/InternalServerError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { CropMapper } from "../mappers/CropMapper";
+import { CropStatus } from "../models/Crop";
 import { CropRepository } from "../repositories/CropRepository";
 import { SeedRepository } from "../repositories/SeedRepository";
 import { TerritoryRepository } from "../repositories/TerritoryRepository";
 import { UserRepository } from "../repositories/UserRepository";
 import { CreateCropDTO, UpdateCropDTO } from "../schemas/crop.schema";
 import { dataFilter } from "../utils/data-filter";
-import { setHarvestForecast } from "../utils/date-utils";
+import { formateDateToString, setHarvestForecast } from "../utils/date-utils";
 import { AuthorizationService } from "./AuthorizationService";
 
 export class CropService {
@@ -95,18 +96,30 @@ export class CropService {
       const novaDataPlantio = new Date(data.dataPlantio);
       const cicloMedio = crop.sementes.planta.getCicloMedioDias();
       const novaPrevista = setHarvestForecast(novaDataPlantio, cicloMedio);
-      crop.dataPlantio = novaDataPlantio;
-      crop.dataColheitaPrevista = novaPrevista;
+      crop.dataPlantio = formateDateToString(novaDataPlantio);
+      crop.dataColheitaPrevista = formateDateToString(novaPrevista);
     } else if (data.dataPlantio === null) {
       // se o usuário removeu a data, limpa a previsão também
       crop.dataPlantio = null;
       crop.dataColheitaPrevista = null;
+    } else if (data.dataColheitaReal) {
+      crop.dataColheitaReal = formateDateToString(
+        new Date(data.dataColheitaReal)
+      );
+      let hoje = new Date();
+      if (
+        hoje === new Date(data.dataColheitaReal) ||
+        hoje >= new Date(data.dataColheitaReal)
+      ) {
+        crop.status = CropStatus.CONCLUIDA;
+      }
     }
     const cropData = CropMapper.toUpdateEntity(data);
     dataFilter(crop, cropData);
     const cropUpdated = await this.repo.base.save(crop);
     return CropMapper.toSummaryResponse(cropUpdated);
   }
+  /* plantação precisa ser delete físico */
   async delete(id: number, loggedUserId: number) {
     const crop = await this.repo.findByIdWithRelations(id);
     if (!crop) {
@@ -122,7 +135,7 @@ export class CropService {
       loggedUserId,
       "plantação"
     );
-    const result = await this.repo.base.softDelete(id);
+    const result = await this.repo.base.delete(id);
     if (result.affected === 0) {
       throw new InternalServerError("Não foi possível deletar");
     }
