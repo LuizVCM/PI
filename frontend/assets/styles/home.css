@@ -7,7 +7,6 @@ main {
   width: 100%;
 }
 
-
 body {
   min-height: 100vh;
   display: flex;
@@ -288,4 +287,36 @@ main .content {
     opacity: 1;
     visibility: visible;
   }
+}
+
+#main-content .funcao.culturas i {
+  color: #6b8e23;
+}
+
+#main-content .funcao.culturas:hover::before {
+  background: #6b8e23;
+}
+
+#main-content .funcao.gestao i {
+  color: #3a7d6a;
+}
+
+#main-content .funcao.gestao:hover::before {
+  background: #3a7d6a;
+}
+
+#main-content .funcao.clima i {
+  color: #3f6f8f;
+}
+
+#main-content .funcao.clima:hover::before {
+  background: #3f6f8f;
+}
+
+#main-content .funcao.suporte i {
+  color: #c98232;
+}
+
+#main-content .funcao.suporte:hover::before {
+  background: #c98232;
 }
