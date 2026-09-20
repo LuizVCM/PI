@@ -8,6 +8,10 @@
   box-sizing: border-box;
 }
 
+a {
+  text-decoration: none;
+}
+
 :root {
   --verde-circulo: #7ecc5f;
   --verde-sidebar: #2d5c2f;
