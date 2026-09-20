@@ -118,6 +118,7 @@ aside {
   width: 5em;
   height: auto;
   display: flex;
+  justify-content: center;
   position: relative;
   transition: width 0.3s linear;
 }

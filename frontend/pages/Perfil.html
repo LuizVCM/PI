@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TerraFarr - Perfil</title>
+    <title>TerraFarr – Perfil</title>
     <link rel="icon" href="../assets/icon/logo.ico" />
     <link rel="stylesheet" href="../assets/styles/Perfil/all.css" />
     <link
@@ -32,9 +32,19 @@
 
     <main>
       <aside class="aside">
+        <button class="opcao home">
+          <i class="fa-solid fa-house selecao"></i>
+          Início
+        </button>
+
         <button class="opcao clima">
           <i class="fa-solid fa-cloud selecao"></i>
           Clima
+        </button>
+
+        <button class="opcao sementes">
+          <i class="fa-solid fa-seedling selecao"></i>
+          Culturas
         </button>
 
         <button class="opcao gestao">
@@ -47,24 +57,19 @@
           Informações
         </button>
 
-        <button class="opcao sementes">
-          <i class="fa-solid fa-seedling selecao"></i>
-          Culturas
-        </button>
-
         <button class="opcao financas">
           <i class="fa-solid fa-coins selecao"></i>
           Finanças
         </button>
 
-        <button class="opcao suporte">
-          <i class="fa-solid fa-circle-question selecao"></i>
-          Suporte
-        </button>
-
         <button class="opcao relatorio">
           <i class="fa-solid fa-file-lines selecao"></i>
           Relatório
+        </button>
+
+        <button class="opcao suporte">
+          <i class="fa-solid fa-circle-question selecao"></i>
+          Suporte
         </button>
 
         <button class="opcao perfil">
@@ -82,17 +87,15 @@
             <h1 class="nome-usuario"></h1>
           </div>
         </section>
-         
+
         <section class="informacoes-perfil">
           <div class="btns">
-           <div class="perfil">
-             <button type="button" class="btn-salvar b">editar perfil</button>
- 
-          <button type="button" class="btn-salvar b">excluir perfil</button>
+            <div class="perfil">
+              <button type="button" class="btn-salvar b">editar perfil</button>
 
-           </div>
-           
-         </div>
+              <button type="button" class="btn-salvar b">excluir perfil</button>
+            </div>
+          </div>
           <h2 class="titulo-secao">Informações do Perfil</h2>
 
           <div class="info-item">
@@ -102,16 +105,16 @@
 
           <div class="info-item">
             <span class="info-titulo">Localização:</span>
-           
-            <span class="info-valor localizacao"></span> 
-           <div class="botoes">
-             <button class="btn-editar">
-              <i class="fa-solid fa-pen"></i>
-            </button>
-             <button class="btn-excluir ">
-              <i class="fa-solid fa-trash-can"></i>
-             </button>
-           </div>
+
+            <span class="info-valor localizacao"></span>
+            <div class="botoes">
+              <button class="btn-editar">
+                <i class="fa-solid fa-pen"></i>
+              </button>
+              <button class="btn-excluir">
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            </div>
           </div>
 
           <div class="info-item">
@@ -127,7 +130,7 @@
       </div>
     </main>
 
-    <script type="module" src="../assets/js/home.js"></script>
-    <script type="module" src="../assets/js/pages/perfil.js"></script>
+    <script type="module" src="../assets/scripts/pages/home.js"></script>
+    <script type="module" src="../assets/scripts/pages/perfil.js"></script>
   </body>
 </html>
