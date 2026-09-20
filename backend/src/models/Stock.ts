@@ -33,6 +33,8 @@ export class Stock extends BaseModel {
   unidade: StockUnit;
   @Column({ type: "date", nullable: true })
   dataValidade: Date;
+  @Column({ type: "decimal", scale: 2, precision: 5, nullable: true })
+  limiteMinimo: number | null;
   @ManyToOne(() => User, (usuario) => usuario.insumos)
   usuario: User;
 }

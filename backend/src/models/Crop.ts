@@ -56,6 +56,6 @@ export class Crop extends BaseModel {
   @ManyToOne(() => Territory, (territorio) => territorio.plantacoes)
   territorio: Territory;
   @JoinColumn()
-  @OneToOne(() => Seed, (sementes) => sementes.plantacao)
-  sementes: Seed;
+  @OneToOne(() => Seed, (sementes) => sementes.plantacao, { nullable: true })
+  sementes: Seed | null;
 }
