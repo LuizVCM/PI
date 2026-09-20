@@ -2,7 +2,7 @@ import { Crop, CropStatus } from "../models/Crop";
 import { Plant } from "../models/Plant";
 import { CreateCropDTO, UpdateCropDTO } from "../schemas/crop.schema";
 import { fromSquareMeters, toSquareMeters } from "../calc/area-converter";
-import { setHarvestForecast } from "../utils/date-utils";
+import { formateDateToString, setHarvestForecast } from "../utils/date-utils";
 import { TerritoryMapper } from "./TerritoryMapper";
 import { SeedMapper } from "./SeedMapper";
 
@@ -70,8 +70,8 @@ export class CropMapper {
       variedade: data.variedade ?? null,
       areaM2: toSquareMeters(data.area, data.unidadeArea),
       unidadeArea: data.unidadeArea,
-      dataPlantio: data.dataPlantio ? new Date(data.dataPlantio) : null,
-      dataColheitaPrevista: dataColheitaPrevista,
+      dataPlantio: data.dataPlantio ? formateDateToString(new Date(data.dataPlantio)) : null,
+      dataColheitaPrevista: formateDateToString(dataColheitaPrevista),
       responsavel: data.responsavel ?? null,
       status: data.status ?? CropStatus.PLANEJADA,
       observacoes: data.observacoes ?? null,

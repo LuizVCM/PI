@@ -9,6 +9,7 @@ export class StockMapper {
       quantidade: stock.quantidade,
       unidade: stock.unidade,
       categoria: stock.categoria,
+      limiteMinimo: stock.limiteMinimo ?? null,
       dataValidade: stock.dataValidade,
       usuario: stock.usuario
         ? UserMapper.toSummaryResponse(stock.usuario)

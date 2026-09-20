@@ -1,7 +1,8 @@
 import { InternalServerError } from "../errors/InternalServerError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { CropMapper } from "../mappers/CropMapper";
-import { CropStatus } from "../models/Crop";
+import { Crop, CropStatus } from "../models/Crop";
+import { Seed } from "../models/Seed";
 import { CropRepository } from "../repositories/CropRepository";
 import { SeedRepository } from "../repositories/SeedRepository";
 import { TerritoryRepository } from "../repositories/TerritoryRepository";
@@ -16,6 +17,12 @@ export class CropService {
   private userRepo = new UserRepository();
   private territoryRepo = new TerritoryRepository();
   private seedRepo = new SeedRepository();
+
+  async setRelationNull(crop: Crop): Promise<void> {
+    if (!crop.sementes) return;
+    await this.seedRepo.base.save({ id: crop.sementes.id, plantacao: null });
+  }
+
   async listAll() {
     const crops = await this.repo.findAllWithRelations();
     return CropMapper.toResponseList(crops);
@@ -82,6 +89,7 @@ export class CropService {
     if (!crop) {
       throw new NotFoundError("plantação");
     }
+
     AuthorizationService.ensureRelationActive(
       crop.territorio,
       "plantação",
@@ -90,41 +98,102 @@ export class CropService {
     AuthorizationService.ensureOwnership(
       crop.territorio,
       loggedUserId,
-      "plantação"
+      "território"
     );
-    if (data.dataPlantio) {
-      const novaDataPlantio = new Date(data.dataPlantio);
-      const cicloMedio = crop.sementes.planta.getCicloMedioDias();
-      const novaPrevista = setHarvestForecast(novaDataPlantio, cicloMedio);
-      crop.dataPlantio = formateDateToString(novaDataPlantio);
-      crop.dataColheitaPrevista = formateDateToString(novaPrevista);
-    } else if (data.dataPlantio === null) {
-      // se o usuário removeu a data, limpa a previsão também
-      crop.dataPlantio = null;
-      crop.dataColheitaPrevista = null;
-    } else if (data.dataColheitaReal) {
-      crop.dataColheitaReal = formateDateToString(
-        new Date(data.dataColheitaReal)
-      );
-      let hoje = new Date();
-      if (
-        hoje === new Date(data.dataColheitaReal) ||
-        hoje >= new Date(data.dataColheitaReal)
-      ) {
-        crop.status = CropStatus.CONCLUIDA;
+
+    // se vai trocar de semente
+    const trocandoSemente =
+      data.sementeId !== undefined && data.sementeId !== crop.sementes?.id;
+
+    // valida e autoriza a nova semente antes de qualquer alteração
+    let novaSeed: Seed | null = null;
+    if (trocandoSemente) {
+      novaSeed = await this.seedRepo.findByIdWithRelations(data.sementeId!);
+      if (!novaSeed) {
+        throw new NotFoundError("semente");
       }
+      AuthorizationService.ensureRelationActive(
+        novaSeed,
+        "plantação",
+        "semente"
+      );
+      AuthorizationService.ensureOwnership(novaSeed, loggedUserId, "semente");
     }
-    const cropData = CropMapper.toUpdateEntity(data);
-    dataFilter(crop, cropData);
-    const cropUpdated = await this.repo.base.save(crop);
-    return CropMapper.toSummaryResponse(cropUpdated);
+
+    const cancelando =
+      data.status === CropStatus.CANCELADA &&
+      crop.status !== CropStatus.CANCELADA;
+
+    return await this.repo.base
+      .getRepository()
+      .manager.transaction(async (manager) => {
+        const seedRepo = manager.getRepository(Seed);
+        const cropRepo = manager.getRepository(Crop);
+
+        // desvincula a semente / cultura antiga
+        if ((trocandoSemente || cancelando) && crop.sementes) {
+          await seedRepo.save({ id: crop.sementes.id, plantacao: null });
+        }
+
+        // vincula a nova semente / cultura
+        if (trocandoSemente && novaSeed) {
+          await seedRepo.save({ id: novaSeed.id, plantacao: crop });
+          crop.sementes = novaSeed;
+        }
+
+        if (cancelando) {
+          crop.sementes = null;
+        }
+
+        if (data.dataPlantio) {
+          const seedParaCalculo = novaSeed ?? crop.sementes;
+          if (!seedParaCalculo?.planta) {
+            throw new InternalServerError("Plantação sem semente associada");
+          }
+          const novaDataPlantio = new Date(data.dataPlantio);
+          const cicloMedio = seedParaCalculo.planta.getCicloMedioDias();
+          const novaPrevista = setHarvestForecast(novaDataPlantio, cicloMedio);
+          crop.dataPlantio = formateDateToString(novaDataPlantio);
+          crop.dataColheitaPrevista = formateDateToString(novaPrevista);
+        } else if (data.dataPlantio === null) {
+          crop.dataPlantio = null;
+          crop.dataColheitaPrevista = null;
+        } else if (trocandoSemente && crop.dataPlantio && novaSeed?.planta) {
+          // se trocou a semente sem mandar nova data, recalcula previsão
+          const cicloMedio = novaSeed.planta.getCicloMedioDias();
+          const novaPrevista = setHarvestForecast(
+            new Date(crop.dataPlantio),
+            cicloMedio
+          );
+          crop.dataColheitaPrevista = formateDateToString(novaPrevista);
+        }
+
+        if (data.dataColheitaReal) {
+          const colheitaReal = new Date(data.dataColheitaReal);
+          crop.dataColheitaReal = formateDateToString(colheitaReal);
+          if (new Date() >= colheitaReal) {
+            crop.status = CropStatus.CONCLUIDA;
+          }
+        }
+
+        const {
+          dataPlantio,
+          dataColheitaReal,
+          dataColheitaPrevista,
+          status,
+          sementes,
+          ...cropData
+        } = CropMapper.toUpdateEntity(data);
+        dataFilter(crop, cropData);
+
+        const cropUpdated = await cropRepo.save(crop);
+        return CropMapper.toSummaryResponse(cropUpdated);
+      });
   }
-  /* plantação precisa ser delete físico */
   async delete(id: number, loggedUserId: number) {
     const crop = await this.repo.findByIdWithRelations(id);
-    if (!crop) {
-      throw new NotFoundError("plantação");
-    }
+    if (!crop) throw new NotFoundError("plantação");
+
     AuthorizationService.ensureRelationActive(
       crop.territorio,
       "plantação",
@@ -133,12 +202,21 @@ export class CropService {
     AuthorizationService.ensureOwnership(
       crop.territorio,
       loggedUserId,
-      "plantação"
+      "território"
     );
-    const result = await this.repo.base.delete(id);
-    if (result.affected === 0) {
-      throw new InternalServerError("Não foi possível deletar");
-    }
-    return result;
+
+    return await this.repo.base
+      .getRepository()
+      .manager.transaction(async (manager) => {
+        if (crop.sementes) {
+          await manager
+            .getRepository(Seed)
+            .save({ id: crop.sementes.id, plantacao: null });
+        }
+        const result = await manager.softDelete(Crop, id);
+        if (result.affected === 0)
+          throw new InternalServerError("Não foi possível deletar");
+        return result;
+      });
   }
 }
