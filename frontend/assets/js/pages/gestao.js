@@ -14,13 +14,14 @@ import { apiFetch } from "../config/api.js";
 import { formatarData, escapeHtml, capitalizar } from "../utils/formatter.js";
 import { mostrarConteudo } from "../utils/change-content.js";
 import { carregarSementes } from "../utils/load-user-data.js";
-import { carregarUsuario } from "../home.js";
+import { carregarUsuario } from "../utils/load-user-data.js";
 
 const PLANTACAO_INDISPONIVEL = "plantação indisponível";
 
 let cropEditandoId = null;
 let insumoEditandoId = null;
 let cropColheitaId = null;
+let insumoConsumoId = null;
 
 const estado = {
   crops: [],
@@ -28,12 +29,6 @@ const estado = {
   stocks: [],
   territorioId: null,
 };
-
-const LIMITE_ESTOQUE_BAIXO = 10;
-
-// ============================================================
-// MODAIS GLOBAIS
-// ============================================================
 
 document
   .getElementById("modal-erro-close")
@@ -68,6 +63,7 @@ document.addEventListener("keydown", (e) => {
     fecharModalConfirmacao();
     fecharModalInsumo();
     fecharModalColheita();
+    fecharModalConsumo();
   }
 });
 
@@ -90,6 +86,8 @@ function abrirModalInsumo(insumo = null) {
     document.getElementById("unidadeInsumo").value = insumo.unidade ?? "";
     document.getElementById("validadeInsumo").value =
       insumo.dataValidade?.substring(0, 10) ?? "";
+    document.getElementById("limiteMinimoInsumo").value =
+      insumo.limiteMinimo ?? "";
   }
 
   modalNovoInsumo.classList.remove("hidden");
@@ -103,10 +101,6 @@ function fecharModalInsumo() {
   formNovoInsumo?.reset();
 }
 
-// ============================================================
-// MODAL COLHEITA
-// ============================================================
-
 const modalColheita = document.getElementById("modalColheita");
 
 function abrirModalColheita(crop) {
@@ -116,7 +110,7 @@ function abrirModalColheita(crop) {
   document.getElementById("colheita-info").textContent = `${
     crop.nome
   } · ${culturaNome} · prevista para ${formatarData(
-    crop.dataColheitaPrevista
+    crop.dataColheitaPrevista,
   )}`;
 
   // default = hoje
@@ -135,11 +129,102 @@ function fecharModalColheita() {
   document.getElementById("formColheita")?.reset();
 }
 
+const modalConsumo = document.getElementById("modalConsumo");
+const formConsumo = document.getElementById("formConsumo");
+
+function abrirModalConsumo(insumo) {
+  insumoConsumoId = insumo.id;
+
+  document.getElementById("consumo-info").textContent =
+    `${insumo.nome} · saldo atual: ${insumo.quantidade} ${
+      insumo.unidade ?? ""
+    }`;
+
+  formConsumo.reset();
+  document.getElementById("quantidadeConsumo").value = "";
+
+  modalConsumo.classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+}
+
+function fecharModalConsumo() {
+  modalConsumo?.classList.add("hidden");
+  document.body.style.overflow = "";
+  insumoConsumoId = null;
+  formConsumo?.reset();
+}
+
+async function registrarConsumo(event) {
+  event.preventDefault();
+
+  if (!insumoConsumoId) return;
+
+  const insumo = estado.stocks.find(
+    (s) => String(s.id) === String(insumoConsumoId),
+  );
+  if (!insumo) return;
+
+  const consumido = Number(document.getElementById("quantidadeConsumo").value);
+
+  if (!consumido || consumido <= 0) return;
+
+  const saldoAtual = Number(insumo.quantidade ?? 0);
+  const novoSaldo = Math.max(0, saldoAtual - consumido);
+
+  const btn = event.target.querySelector("button[type='submit']");
+  btn.disabled = true;
+  btn.textContent = "Salvando...";
+
+  try {
+    await apiFetch(`/stocks/${insumoConsumoId}`, {
+      method: "PUT",
+      body: JSON.stringify({ quantidade: novoSaldo }),
+    });
+
+    fecharModalConsumo();
+    await exibirStocks();
+  } catch (error) {
+    console.error(error);
+    abrirModalErro(
+      error.message || "Não foi possível registrar o consumo.",
+      "Erro",
+    );
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Confirmar consumo";
+  }
+}
+
+async function zerarInsumo(id) {
+  const insumo = estado.stocks.find((s) => String(s.id) === String(id));
+  if (!insumo) return;
+
+  abrirModalConfirmacao(
+    `Zerar o estoque de "${insumo.nome}"? Isso define a quantidade para 0.`,
+    async () => {
+      try {
+        await apiFetch(`/stocks/${id}`, {
+          method: "PUT",
+          body: JSON.stringify({ quantidade: 0 }),
+        });
+        await exibirStocks();
+      } catch (error) {
+        console.error(error);
+        abrirModalErro(
+          error.message || "Não foi possível zerar o insumo.",
+          "Erro",
+        );
+      }
+    },
+    "Zerar estoque",
+  );
+}
+
 async function preencherSelectSementes() {
   try {
     const sementes = await carregarSementes();
     const disponiveis = sementes.filter(
-      (s) => s.plantacao === PLANTACAO_INDISPONIVEL
+      (s) => s.plantacao === PLANTACAO_INDISPONIVEL,
     );
     estado.sementes = disponiveis;
 
@@ -151,18 +236,14 @@ async function preencherSelectSementes() {
       select.insertAdjacentHTML(
         "beforeend",
         `<option value="${s.id}">${escapeHtml(
-          s.planta?.nome ?? "Sem nome"
-        )}</option>`
+          s.planta?.nome ?? "Sem nome",
+        )}</option>`,
       );
     });
   } catch (err) {
     console.error(err);
   }
 }
-
-// ============================================================
-// CRUD CROPS
-// ============================================================
 
 async function exibirCrops() {
   try {
@@ -188,7 +269,7 @@ function renderCrops(crops) {
   crops.forEach((c) => {
     const culturaNome = c.cultura?.planta?.nome ?? "—";
     const inicial = (culturaNome[0] ?? "?").toUpperCase();
-    const categoria = c.sementes?.planta?.categoria ?? "";
+    const categoria = c.cultura?.planta?.categoria ?? "";
     let areaFormatada = c.unidadeArea ?? "";
     let unidadeArea;
     switch (areaFormatada) {
@@ -212,13 +293,13 @@ function renderCrops(crops) {
           c.area ?? "—"
         } ${unidadeArea}</span>
         <span class="opcao-plantacao">Plantio: ${formatarData(
-          c.dataPlantio
+          c.dataPlantio,
         )}</span>
         <span class="opcao-plantacao">Prevista: ${formatarData(
-          c.dataColheitaPrevista
+          c.dataColheitaPrevista,
         )}</span>
         <span class="opcao-plantacao">Status: ${capitalizar(
-          c.status ?? ""
+          c.status ?? "",
         )}</span>
 
         <div class="acoes">
@@ -251,10 +332,16 @@ function editarCrop(c) {
   cropEditandoId = c.id;
 
   const select = document.getElementById("cultura");
-  select.insertAdjacentHTML(
-    "beforeend",
-    `<option value="${c.cultura.planta.id}">${c.cultura.planta.nome}</option>`
+  const jaExiste = [...select.options].some(
+    (o) => o.value === String(c.cultura.planta.id),
   );
+  if (!jaExiste) {
+    select.insertAdjacentHTML(
+      "beforeend",
+      `<option value="${c.cultura.planta.id}">${c.cultura.planta.nome}</option>`,
+    );
+  }
+  select.value = c.cultura.planta.id;
 
   document.getElementById("nome-plantacao").value = c.nome ?? "";
   document.getElementById("cultura").value = c.cultura.planta.id ?? "";
@@ -381,17 +468,13 @@ async function excluirCrop(id) {
         console.error(error);
         abrirModalErro(
           error.message || "Não foi possível excluir a plantação.",
-          "Erro ao excluir"
+          "Erro ao excluir",
         );
       }
     },
-    "Excluir plantação"
+    "Excluir plantação",
   );
 }
-
-// ============================================================
-// AGENDA
-// ============================================================
 
 function hojeISO() {
   return new Date().toISOString().substring(0, 10);
@@ -430,7 +513,7 @@ function renderAgenda(crops) {
   ordenados.forEach((c) => {
     const culturaNome = c.cultura?.planta?.nome ?? "—";
     const concluida = Boolean(
-      c.dataColheitaReal === "indisponível" ? false : true
+      c.dataColheitaReal === "indisponível" ? false : true,
     );
     const vencida =
       !concluida &&
@@ -503,13 +586,13 @@ function atualizarCardsAgenda(crops) {
 
   document.getElementById("agenda-total").textContent = comPrevisao.length;
   document.getElementById("agenda-hoje").textContent = comPrevisao.filter(
-    (c) => c.dataColheitaPrevista === hoje && !c.dataColheitaReal
+    (c) => c.dataColheitaPrevista === hoje && !c.dataColheitaReal,
   ).length;
   document.getElementById("agenda-pendentes").textContent = comPrevisao.filter(
-    (c) => c.dataColheitaPrevista > hoje && !c.dataColheitaReal
+    (c) => c.dataColheitaPrevista > hoje && !c.dataColheitaReal,
   ).length;
   document.getElementById("agenda-concluidas").textContent = crops.filter(
-    (c) => c.dataColheitaReal
+    (c) => c.dataColheitaReal,
   ).length;
 }
 
@@ -540,7 +623,7 @@ async function registrarColheita(event) {
     console.error(error);
     abrirModalErro(
       error.message || "Não foi possível registrar a colheita.",
-      "Erro"
+      "Erro",
     );
   } finally {
     btn.disabled = false;
@@ -558,10 +641,15 @@ async function exibirStocks() {
   }
 }
 
-function classificarStatusInsumo(quantidade) {
-  const q = Number(quantidade ?? 0);
+function classificarStatusInsumo(insumo) {
+  const q = Number(insumo.quantidade ?? 0);
+  const limite =
+    insumo.limiteMinimo != null ? Number(insumo.limiteMinimo) : null;
+
   if (q === 0) return { label: "Em falta", classe: "falta" };
-  if (q <= LIMITE_ESTOQUE_BAIXO) return { label: "Baixo", classe: "baixo" };
+  if (limite != null && q <= limite) {
+    return { label: "Baixo", classe: "baixo" };
+  }
   return { label: "Disponível", classe: "disponivel" };
 }
 
@@ -571,12 +659,13 @@ function renderStocks(stocks) {
 
   // cards
   document.getElementById("total-insumos").textContent = stocks.length;
-  document.getElementById("estoque-baixo").textContent = stocks.filter(
-    (s) =>
-      Number(s.quantidade) > 0 && Number(s.quantidade) <= LIMITE_ESTOQUE_BAIXO
-  ).length;
+  document.getElementById("estoque-baixo").textContent = stocks.filter((s) => {
+    const q = Number(s.quantidade ?? 0);
+    const limite = s.limiteMinimo != null ? Number(s.limiteMinimo) : null;
+    return q > 0 && limite != null && q <= limite;
+  }).length;
   document.getElementById("em-falta").textContent = stocks.filter(
-    (s) => Number(s.quantidade) === 0
+    (s) => Number(s.quantidade) === 0,
   ).length;
 
   if (!stocks.length) {
@@ -588,8 +677,7 @@ function renderStocks(stocks) {
   let html = "";
 
   stocks.forEach((s) => {
-    const { label, classe } = classificarStatusInsumo(s.quantidade);
-
+    const { label, classe } = classificarStatusInsumo(s);
     html += `
       <tr>
         <td>${escapeHtml(s.nome ?? "")}</td>
@@ -604,10 +692,16 @@ function renderStocks(stocks) {
           }">
             <i class="fa-solid fa-pen"></i>
           </button>
-          <button type="button" class="btn-excluir-insumo btn-editar" data-id="${
+          <button type="button" class="btn-excluir-insumo btn-excluir" data-id="${
             s.id
           }">
             <i class="fa-solid fa-trash"></i>
+          </button>
+          <button type="button" class="btn-consumir-insumo btn-editar" data-id="${s.id}" title="Registrar consumo">
+          <i class="fa-solid fa-minus"></i>
+          </button>
+          <button type="button" class="btn-zerar-insumo btn-excluir" data-id="${s.id}" title="Zerar estoque">
+          <i class="fa-solid fa-0"></i>
           </button>
         </td>
       </tr>
@@ -626,6 +720,17 @@ function renderStocks(stocks) {
   tbody.querySelectorAll(".btn-excluir-insumo").forEach((btn) => {
     btn.addEventListener("click", () => excluirInsumo(btn.dataset.id));
   });
+
+  tbody.querySelectorAll(".btn-consumir-insumo").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const s = stocks.find((x) => String(x.id) === String(btn.dataset.id));
+      if (s) abrirModalConsumo(s);
+    });
+  });
+
+  tbody.querySelectorAll(".btn-zerar-insumo").forEach((btn) => {
+    btn.addEventListener("click", () => zerarInsumo(btn.dataset.id));
+  });
 }
 
 async function salvarInsumo(event) {
@@ -636,8 +741,7 @@ async function salvarInsumo(event) {
   const quantidade = Number(document.getElementById("quantidadeInsumo").value);
   const unidade = document.getElementById("unidadeInsumo").value;
   const dataValidade = document.getElementById("validadeInsumo").value;
-
-  console.log(dataValidade);
+  const limite = document.getElementById("limiteMinimoInsumo").value;
 
   if (!nome || !categoria || !unidade) return;
 
@@ -646,7 +750,10 @@ async function salvarInsumo(event) {
     categoria,
     quantidade,
     unidade,
+    limiteMinimo: limite ? Number(limite) : null,
   };
+
+  if (dataValidade) body.dataValidade = dataValidade;
 
   if (dataValidade) {
     body.dataValidade = dataValidade;
@@ -671,7 +778,7 @@ async function salvarInsumo(event) {
     console.error(error);
     abrirModalErro(
       error.message || "Não foi possível salvar o insumo.",
-      "Erro"
+      "Erro",
     );
   } finally {
     btn.disabled = false;
@@ -690,17 +797,13 @@ async function excluirInsumo(id) {
         console.error(error);
         abrirModalErro(
           error.message || "Não foi possível excluir o insumo.",
-          "Erro ao excluir"
+          "Erro ao excluir",
         );
       }
     },
-    "Excluir insumo"
+    "Excluir insumo",
   );
 }
-
-// ============================================================
-// BUSCA GENÉRICA
-// ============================================================
 
 function configurarBusca(inputId, dadosArray, renderizar, extrator) {
   const input = document.getElementById(inputId);
@@ -719,17 +822,13 @@ function configurarBusca(inputId, dadosArray, renderizar, extrator) {
       extrator(item).some((v) =>
         String(v ?? "")
           .toLowerCase()
-          .includes(termo)
-      )
+          .includes(termo),
+      ),
     );
 
     renderizar(filtrados);
   });
 }
-
-// ============================================================
-// INICIALIZAÇÃO
-// ============================================================
 
 document.addEventListener("DOMContentLoaded", async () => {
   // ---------- usuário + território ----------
@@ -786,6 +885,18 @@ document.addEventListener("DOMContentLoaded", async () => {
   document
     .getElementById("btnNovoInsumo")
     ?.addEventListener("click", () => abrirModalInsumo());
+  document
+    .getElementById("formConsumo")
+    ?.addEventListener("submit", registrarConsumo);
+  document
+    .getElementById("btnFecharConsumo")
+    ?.addEventListener("click", fecharModalConsumo);
+  document
+    .getElementById("btnCancelarConsumo")
+    ?.addEventListener("click", fecharModalConsumo);
+  document
+    .getElementById("modalConsumo-overlay")
+    ?.addEventListener("click", fecharModalConsumo);
 
   // ---------- navegação ----------
   document
@@ -811,7 +922,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     .getElementById("alertas-btn")
     ?.addEventListener("click", async () => {
       mostrarConteudo("tela-alertas");
-      await exibirCrops();
+      await exibirAlertas();
     });
 
   // ---------- botões voltar ----------
@@ -828,21 +939,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     "buscar-plantacao",
     () => estado.crops,
     renderCrops,
-    (c) => [c.nome, c.responsavel, c.sementes?.planta?.nome, c.variedade]
+    (c) => [c.nome, c.responsavel, c.sementes?.planta?.nome, c.variedade],
   );
 
   configurarBusca(
     "buscar-agenda",
     () => estado.crops,
     renderAgenda,
-    (c) => [c.nome, c.sementes?.planta?.nome, c.responsavel]
+    (c) => [c.nome, c.sementes?.planta?.nome, c.responsavel],
   );
 
   configurarBusca(
     "buscar-insumo",
     () => estado.stocks,
     renderStocks,
-    (s) => [s.nome, s.categoria]
+    (s) => [s.nome, s.categoria],
   );
 
   // ---------- filtro de categoria em insumos ----------
@@ -890,7 +1001,7 @@ function montarAlertas(crops, stocks) {
   const alertas = [];
   const hoje = new Date();
 
-  // ---------- Colheitas ----------
+  // ---------- colheitas ----------
   crops.forEach((c) => {
     const culturaNome = c.sementes?.planta?.nome ?? "—";
     const prevista = c.dataColheitaPrevista;
@@ -905,7 +1016,7 @@ function montarAlertas(crops, stocks) {
           tag: "Atrasada",
           titulo: `Colheita atrasada: ${c.nome}`,
           descricao: `${culturaNome} · prevista para ${formatarData(
-            prevista
+            prevista,
           )} (${Math.abs(dias)} dia${Math.abs(dias) === 1 ? "" : "s"} atrás)`,
           cropId: c.id,
         });
@@ -922,35 +1033,31 @@ function montarAlertas(crops, stocks) {
     }
   });
 
-  // ---------- Insumos ----------
+  // ---------- insumos ----------
   stocks.forEach((s) => {
     const q = Number(s.quantidade ?? 0);
     const unidade = s.unidade ?? "";
+    const limite = s.limiteMinimo != null ? Number(s.limiteMinimo) : null;
 
-    // Em falta
     if (q === 0) {
       alertas.push({
         tipo: "critico",
         icone: "fa-circle-xmark",
         tag: "Em falta",
         titulo: `Insumo em falta: ${s.nome}`,
-        descricao: `Categoria: ${capitalizar(
-          s.categoria ?? ""
-        )} · reponha o estoque`,
+        descricao: `Categoria: ${capitalizar(s.categoria ?? "")} · reponha o estoque`,
       });
-    } else if (q <= LIMITE_ESTOQUE_BAIXO) {
+    } else if (limite != null && q <= limite) {
       alertas.push({
         tipo: "atencao",
         icone: "fa-arrow-down",
         tag: "Baixo",
         titulo: `Estoque baixo: ${s.nome}`,
-        descricao: `Restam ${q} ${unidade} · categoria: ${capitalizar(
-          s.categoria ?? ""
-        )}`,
+        descricao: `Restam ${q} ${unidade} · limite de alerta: ${limite}`,
       });
     }
 
-    // Validade
+    // validade
     if (s.dataValidade) {
       const dias = diasEntre(s.dataValidade, hoje);
 
@@ -961,7 +1068,7 @@ function montarAlertas(crops, stocks) {
           tag: "Vencido",
           titulo: `Insumo vencido: ${s.nome}`,
           descricao: `Venceu em ${formatarData(s.dataValidade)} (${Math.abs(
-            dias
+            dias,
           )} dia${Math.abs(dias) === 1 ? "" : "s"} atrás)`,
         });
       } else if (dias <= DIAS_VALIDADE_PROXIMA) {
@@ -976,7 +1083,7 @@ function montarAlertas(crops, stocks) {
     }
   });
 
-  // Ordena: críticos primeiro, depois atenção, depois info
+  // ordena: críticos primeiro, depois atenção, depois info
   const ordem = { critico: 0, atencao: 1, info: 2 };
   alertas.sort((a, b) => ordem[a.tipo] - ordem[b.tipo]);
 
@@ -1028,7 +1135,7 @@ function renderAlertas(alertas) {
 
   container.innerHTML = html;
 
-  // Clicar num alerta de colheita leva para a Agenda
+  // clicar num alerta de colheita leva para a agenda
   container.querySelectorAll(".alerta-link").forEach((el) => {
     el.style.cursor = "pointer";
     el.addEventListener("click", async () => {

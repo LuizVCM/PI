@@ -420,16 +420,32 @@
               <div class="campo-modal">
                 <label for="unidadeInsumo">Unidade</label>
                 <select id="unidadeInsumo" required>
-                  <option value="">Selecione</option>
-                  <option value="g">g</option>
-                  <option value="kg">kg</option>
-                  <option value="ton">ton</option>
-                  <option value="ml">ml</option>
-                  <option value="l">l</option>
-                  <option value="sacas">sacas</option>
-                  <option value="un">un</option>
+                  <option value="">Selecione...</option>
+                  <option value="g">Gramas</option>
+                  <option value="kg">Quilogramas</option>
+                  <option value="ton">Toneladas</option>
+                  <option value="ml">Mililitros</option>
+                  <option value="l">Litros</option>
+                  <option value="sacas">Sacas</option>
+                  <option value="un">Unidades</option>
                 </select>
               </div>
+            </div>
+
+            <div class="campo-modal">
+              <label for="limiteMinimoInsumo">
+                Alerta de estoque baixo, insira um valor
+                <span class="campo-dica"
+                  >(avisar quando restar menos que isso)</span
+                >
+              </label>
+              <input
+                type="number"
+                id="limiteMinimoInsumo"
+                min="0"
+                step="0.01"
+                placeholder="Deixe vazio para não alertar"
+              />
             </div>
 
             <div class="campo-modal">
@@ -484,6 +500,50 @@
               </button>
               <button class="btn-action btn-confirmar" type="submit">
                 Confirmar colheita
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- registrar consumo de insumo -->
+      <div id="modalConsumo" class="modal hidden">
+        <div class="modal-overlay" id="modalConsumo-overlay"></div>
+
+        <div class="modal-content">
+          <button class="modal-close" id="btnFecharConsumo" type="button">
+            &times;
+          </button>
+
+          <h2>Registrar consumo</h2>
+
+          <p class="modal-subtitulo">
+            <span id="consumo-info"></span>
+          </p>
+
+          <form id="formConsumo">
+            <div class="campo-modal">
+              <label for="quantidadeConsumo">Quantidade consumida</label>
+              <input
+                type="number"
+                id="quantidadeConsumo"
+                min="0.01"
+                step="0.01"
+                placeholder="Ex: 5"
+                required
+              />
+            </div>
+
+            <div class="modal-actions">
+              <button
+                id="btnCancelarConsumo"
+                class="btn-action btn-cancelar"
+                type="button"
+              >
+                Cancelar
+              </button>
+              <button class="btn-action btn-confirmar" type="submit">
+                Confirmar consumo
               </button>
             </div>
           </form>

@@ -39,7 +39,7 @@
 }
 
 /* ---------------------------------------------------------
-   Card de plantação (equivalente ao .semente-cadastrada)
+   card de plantação (equivalente ao .semente-cadastrada)
 ---------------------------------------------------------- */
 .plantacao-cadastrada {
   background: #fff;
@@ -60,13 +60,12 @@
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
 
-/* Ícone (equivalente ao .semente-icon) */
 .plantacao-icon {
   width: 36px;
   height: 36px;
   min-width: 36px;
   border-radius: 10px;
-  background: var(--cat, #6b8e23); /* usa cor da categoria quando disponível */
+  background: var(--cat);
   color: #fff;
   display: flex;
   align-items: center;
@@ -82,7 +81,7 @@
   margin: 0.5rem;
 }
 
-/* ppção / campo do card (equivalente ao .opcao-semente) */
+/* opção / campo do card (equivalente ao .opcao-semente) */
 .opcao-plantacao {
   display: inline-flex;
   align-items: center;
@@ -149,10 +148,6 @@
   flex-shrink: 0;
 }
 
-/* ---------------------------------------------------------
-   Tabelas internas (estoque / agenda / insumos)
-   Mantidas para não quebrar o layout atual
----------------------------------------------------------- */
 .tabela-container {
   width: 100%;
   overflow-x: auto;
@@ -188,8 +183,67 @@
   border-bottom: 1px solid #f0f3f0;
   color: var(--verde-dark, #1e2a24);
 }
+.tabela-insumos .acoes .btn-consumir-insumo:hover {
+  background: #fff3d6;
+  color: #a07000;
+}
 
-/* Status com cores */
+.tabela-agenda .acoes,
+.tabela-insumos .acoes,
+.tabela-estoque .acoes {
+  display: inline-flex;
+  gap: 0.35rem;
+  justify-content: flex-end;
+}
+
+.tabela-agenda .acoes button,
+.tabela-insumos .acoes button,
+.tabela-estoque .acoes button {
+  background: transparent;
+  border: 1px solid #e2e8e0;
+  border-radius: 8px;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.78rem;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+
+.tabela-insumos .acoes .btn-zerar-insumo {
+  margin-right: 0.4rem;
+  position: relative;
+}
+.tabela-insumos .acoes .btn-zerar-insumo::after {
+  content: "";
+  position: absolute;
+  right: -0.35rem;
+  top: 4px;
+  bottom: 4px;
+  width: 1px;
+  background: #e2e8e0;
+}
+
+/* Mobile: dedo grande */
+@media (max-width: 600px) {
+  .tabela-agenda .acoes button,
+  .tabela-insumos .acoes button,
+  .tabela-estoque .acoes button {
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
+  }
+  .tabela-agenda .acoes,
+  .tabela-insumos .acoes,
+  .tabela-estoque .acoes {
+    gap: 0.5rem;
+  }
+}
+
+/* status com cores */
 .status {
   display: inline-block;
   padding: 0.25rem 0.7rem;
@@ -208,7 +262,7 @@
 .saida { color: #b13030; font-weight: 600; }
 
 /* ---------------------------------------------------------
-   Cores por categoria (mesmas do sementes)
+   cores por categoria (mesmas do sementes)
    Basta o elemento com data-categoria="..." receber o --cat
 ---------------------------------------------------------- */
 [data-categoria="cereais"] { --cat: #c9a227; }
@@ -223,9 +277,7 @@
 [data-categoria="adoçantes"] { --cat: #b8556c; }
 [data-categoria="industriais"] { --cat: #607d8b; }
 
-/* ---------------------------------------------------------
-   Responsivo (mesmo breakpoint do sementes)
----------------------------------------------------------- */
+
 @media (max-width: 600px) {
   .barra-acoes {
     flex-direction: column;
