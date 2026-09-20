@@ -18,11 +18,6 @@ export class CropService {
   private territoryRepo = new TerritoryRepository();
   private seedRepo = new SeedRepository();
 
-  async setRelationNull(crop: Crop): Promise<void> {
-    if (!crop.sementes) return;
-    await this.seedRepo.base.save({ id: crop.sementes.id, plantacao: null });
-  }
-
   async listAll() {
     const crops = await this.repo.findAllWithRelations();
     return CropMapper.toResponseList(crops);
