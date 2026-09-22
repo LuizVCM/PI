@@ -333,18 +333,18 @@ function editarCrop(c) {
 
   const select = document.getElementById("cultura");
   const jaExiste = [...select.options].some(
-    (o) => o.value === String(c.cultura.planta.id),
+    (o) => o.value === String(c.cultura.id),
   );
   if (!jaExiste) {
     select.insertAdjacentHTML(
       "beforeend",
-      `<option value="${c.cultura.planta.id}">${c.cultura.planta.nome}</option>`,
+      `<option value="${c.cultura.id}">${c.cultura.planta.nome}</option>`,
     );
   }
-  select.value = c.cultura.planta.id;
+  select.value = c.cultura.id;
 
   document.getElementById("nome-plantacao").value = c.nome ?? "";
-  document.getElementById("cultura").value = c.cultura.planta.id ?? "";
+  document.getElementById("cultura").value = c.cultura.id ?? "";
   document.getElementById("area").value = c.area ?? "";
   document.getElementById("unidade").value = c.unidadeArea ?? "m2";
   document.getElementById("variedade").value = c.variedade ?? "";
