@@ -1,7 +1,6 @@
-import { ForbiddenError } from "../errors/ForbiddenError";
+import { ConflictError } from "../errors/ConflictError";
 import { InternalServerError } from "../errors/InternalServerError";
 import { NotFoundError } from "../errors/NotFoundError";
-import { UnauthorizedError } from "../errors/UnauthorizedError";
 import { SeedMapper } from "../mappers/SeedMapper";
 import { PlantRepository } from "../repositories/PlantRepository";
 import { SeedRepository } from "../repositories/SeedRepository";
@@ -66,10 +65,11 @@ export class SeedService {
     }
     AuthorizationService.ensureOwnership(seed, loggedUserId, "semente");
     if (seed.plantacao) {
-      throw new ForbiddenError(
-        "semente",
-        "Não é possível excluir uma semente que possui relação ativa"
-      );
+      throw new ConflictError({
+        fields: ["semente"],
+        info: "Não é possível excluir uma semente que está reservada para uma plantação",
+        message: "Não é possível excluir uma semente que está reservada para uma plantação",
+      });
     }
     const result = await this.repo.base.softDelete(id);
     if (result.affected === 0) {
