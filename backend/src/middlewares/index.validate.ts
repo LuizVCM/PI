@@ -1,5 +1,5 @@
 import { createCropSchema, updateCropSchema } from "../schemas/crop.schema";
-import { createDataSensorSchema } from "../schemas/data-sensor.schema";
+import { createSensorDataSchema } from "../schemas/sensor-data.schema";
 import {
   createFinanceSchema,
   updateFinanceSchema,
@@ -39,4 +39,4 @@ export const validateSeedUpdate = validate(updateSeedSchema);
 export const validateWeatherCreate = validate(createWeatherSchema);
 export const validateSensorCreate = validate(createSensorSchema);
 export const validateSensorUpdate = validate(updateSensorSchema);
-export const validateDataSensorCreate = validate(createDataSensorSchema);
+export const validateSensorDataCreate = validate(createSensorDataSchema);
