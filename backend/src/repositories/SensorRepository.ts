@@ -6,26 +6,48 @@ import { createBaseRepository } from "./BaseRepository";
 export class SensorRepository {
   public base = createBaseRepository(Sensor);
   async findAllWithRelations() {
-    return this.base.findAll({ relations: { territorio: true, dados: true } });
+    return this.base.findAll({
+      relations: { territorio: true, dados: true },
+    });
   }
   async findAllByTerritoryId(territoryId: number): Promise<Sensor[]> {
     return this.base.getRepository().find({
-      where: { territorio: { id: territoryId } },
-      relations: { territorio: true },
+      where: {
+        territorio: {
+          id: territoryId,
+        },
+      },
+      relations: {
+        territorio: {
+          usuario: true,
+        },
+      },
     });
   }
   async findAllByUserId(userId: number): Promise<Sensor[]> {
-    return this.base
-      .getRepository()
-      .find({
-        where: { territorio: { usuario: { id: userId } } },
-        relations: { territorio: true },
-      });
+    return this.base.getRepository().find({
+      where: {
+        territorio: {
+          usuario: {
+            id: userId,
+          },
+        },
+      },
+      relations: {
+        territorio: {
+          usuario: true,
+        },
+      },
+    });
   }
   async findByIdWithRelations(id: number) {
     return this.base.findById(id, {
-      relations: { territorio: true, dados: true },
-      select: { territorio: { usuario: true } },
+      relations: {
+        territorio: {
+          usuario: true,
+        },
+        dados: true,
+      },
     });
   }
   async create(data: CreateSensorDTO, territory: Territory): Promise<Sensor> {

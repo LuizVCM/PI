@@ -5,6 +5,12 @@ export class AuthorizationService {
     loggedUserId: number,
     entityName: string
   ) {
+    if (!entity) {
+      throw new ForbiddenError(
+        entityName,
+        `${entityName} não possui um proprietário ativo`
+      );
+    }
     if (!entity.usuario) {
       throw new ForbiddenError(
         entityName,

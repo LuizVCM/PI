@@ -38,6 +38,11 @@ export class SensorService {
     if (!territory) {
       throw new NotFoundError("território");
     }
+    AuthorizationService.ensureRelationActive(
+      territory,
+      "território",
+      "usuário"
+    );
     AuthorizationService.ensureOwnership(territory, loggedUserId, "território");
     const sensors = await this.repo.findAllByTerritoryId(territoryId);
     return SensorMapper.toResponseList(sensors);
@@ -59,8 +64,8 @@ export class SensorService {
     }
     AuthorizationService.ensureRelationActive(
       territory,
-      "sensor",
-      "território"
+      "território",
+      "usuário"
     );
     AuthorizationService.ensureOwnership(territory, loggedUserId, "território");
     const sensor = await this.repo.create(data, territory);
@@ -83,7 +88,7 @@ export class SensorService {
     );
     dataFilter(sensor, data);
     const sensorUpdated = await this.repo.base.save(sensor);
-    return sensorUpdated;
+    return SensorMapper.toResponse(sensorUpdated);
   }
   async delete(id: number, loggedUserId: number) {
     const sensor = await this.repo.findByIdWithRelations(id);

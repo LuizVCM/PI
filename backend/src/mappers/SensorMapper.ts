@@ -1,5 +1,5 @@
 import { Sensor } from "./../models/Sensor";
-import { DataSensorMapper } from "./DataSensor";
+import { SensorDataMapper } from "./SensorDataMapper";
 import { TerritoryMapper } from "./TerritoryMapper";
 
 export class SensorMapper {
@@ -9,11 +9,11 @@ export class SensorMapper {
       modelo: sensor.modelo,
       tipo: sensor.tipo,
       unidade: sensor.getUnidade(),
-      territorios: sensor.territorio
+      territorio: sensor.territorio
         ? TerritoryMapper.toSummaryResponse(sensor.territorio)
         : "indisponível",
       dados: sensor.dados
-        ? DataSensorMapper.toSummaryResponseList(sensor.dados)
+        ? SensorDataMapper.toSummaryResponseList(sensor.dados)
         : "sem dados",
     };
   }
@@ -23,6 +23,7 @@ export class SensorMapper {
       modelo: sensor.modelo,
       tipo: sensor.tipo,
       unidade: sensor.getUnidade(),
+      territorio: TerritoryMapper.toSummaryResponse(sensor.territorio)
     };
   }
   static toResponseList(sensorList: Sensor[]) {

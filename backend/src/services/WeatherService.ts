@@ -33,7 +33,9 @@ export class WeatherService {
     return WeatherMapper.toResponse(weatherData);
   }
   async findByTerritoryId(territoryId: number, loggedUserId: number) {
-    const territory = await this.territoryRepo.base.findById(territoryId);
+    const territory = await this.territoryRepo.findByIdWithRelations(
+      territoryId
+    );
     if (!territory) {
       throw new NotFoundError("território");
     }
@@ -60,8 +62,17 @@ export class WeatherService {
     }
     const conflict = await this.repo.findConflicts(territoryId);
     if (conflict) {
-      throw new ConflictError(["data"], "Já poosui registro para o dia atual");
+      throw new ConflictError({
+        fields: ["data"],
+        info: "Já poosui registro para o dia atual",
+        message: "Já poosui registro para o dia atual",
+      });
     }
+    AuthorizationService.ensureRelationActive(
+      territory.usuario,
+      "território",
+      "usuário"
+    );
     AuthorizationService.ensureOwnership(territory, loggedUserId, "território");
     const weatherData = {
       data: data.daily.time[0],
@@ -73,5 +84,35 @@ export class WeatherService {
     };
     const weather = await this.repo.create(weatherData, territory);
     return WeatherMapper.toResponse(weather);
+  }
+  async populate(
+    territoryId: number,
+    weatherData: CreateWeatherDTO,
+    userId: number
+  ) {
+    const territory = await this.territoryRepo.findByIdWithUser(territoryId);
+    if (!territory) {
+      throw new NotFoundError("Território não encontrado");
+    }
+    AuthorizationService.ensureOwnership(territory, userId, "Território");
+    const { daily } = weatherData;
+    for (let i = 0; i < daily.time.length; i++) {
+      const data = daily.time[i];
+      const exists = await this.repo.findByDateAndTerritory(territoryId, data);
+      if (exists) {
+        continue;
+      }
+      await this.repo.create(
+        {
+          data,
+          temperaturaMinima: daily.temperature_2m_min[i],
+          temperaturaMaxima: daily.temperature_2m_max[i],
+          precipitacao: daily.precipitation_sum[i],
+          velocidadeVentoMaxima: daily.wind_speed_10m_max[i],
+          evapotranspiracao: daily.et0_fao_evapotranspiration[i],
+        },
+        territory
+      );
+    }
   }
 }
