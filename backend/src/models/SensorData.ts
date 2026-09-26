@@ -8,11 +8,11 @@ import {
 import { Sensor } from "./Sensor";
 
 @Entity("dados_sensor")
-export class DataSensor {
+export class SensorData {
   @PrimaryGeneratedColumn()
   id: number;
-  @Column({ type: "decimal", scale: 2, precision: 5, nullable: false })
-  valor: number;
+  @Column({ type: "json", nullable: true })
+  configuracoes: Record<string, any>;
   // a unidade é definida pelo tipo de sensor
   @CreateDateColumn()
   dataLeitura: Date;
