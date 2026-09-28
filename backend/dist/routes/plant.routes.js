@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const PlantController_1 = require("../controllers/PlantController");
+const auth_middleware_1 = require("../middlewares/auth-middleware");
+const plantRoutes = (0, express_1.Router)();
+const plantController = new PlantController_1.PlantController();
+plantRoutes.get("/all", plantController.listAll.bind(plantController));
+plantRoutes.get("/me", auth_middleware_1.authMiddleware, plantController.listByUserLogged.bind(plantController));
+plantRoutes.get("/seed/:id", auth_middleware_1.authMiddleware, plantController.listBySeedId.bind(plantController));
+plantRoutes.get("/:id", plantController.getById.bind(plantController));
+exports.default = plantRoutes;

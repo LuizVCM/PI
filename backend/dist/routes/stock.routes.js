@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const StockController_1 = require("../controllers/StockController");
+const auth_middleware_1 = require("../middlewares/auth-middleware");
+const index_validate_1 = require("../middlewares/index.validate");
+const admin_middleware_1 = require("../middlewares/admin-middleware");
+const stockRoutes = (0, express_1.Router)();
+const stockController = new StockController_1.StockController();
+stockRoutes.get("/all", auth_middleware_1.authMiddleware, (0, admin_middleware_1.adminMiddleware)("estoques"), stockController.listAll.bind(stockController));
+stockRoutes.get("/me", auth_middleware_1.authMiddleware, stockController.listMyStock.bind(stockController));
+stockRoutes.get("/:id", auth_middleware_1.authMiddleware, stockController.getById.bind(stockController));
+stockRoutes.post("/", auth_middleware_1.authMiddleware, index_validate_1.validateStockCreate, stockController.create.bind(stockController));
+stockRoutes.put("/:id", auth_middleware_1.authMiddleware, index_validate_1.validateStockUpdate, stockController.update.bind(stockController));
+stockRoutes.delete("/:id", auth_middleware_1.authMiddleware, stockController.delete.bind(stockController));
+exports.default = stockRoutes;

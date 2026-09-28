@@ -39,7 +39,7 @@ territoryRoutes.put(
   territoryController.update.bind(territoryController)
 );
 territoryRoutes.delete(
-  "/:id",
+  "/me",
   authMiddleware,
   territoryController.delete.bind(territoryController)
 );

@@ -10,7 +10,7 @@ export class ConflictError extends AppError {
   readonly fields: string[];
   readonly info?: string;
 
-  constructor({ fields = [], info, message }: ConflictErrorParams = {}) {
+  constructor({ fields = [], message, info}: ConflictErrorParams = {}) {
     super(
       message ??
         (fields.length > 1
