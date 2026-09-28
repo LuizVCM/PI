@@ -1,136 +1,164 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TerraFarr – Perfil</title>
-    <link rel="icon" href="../assets/icon/logo.ico" />
-    <link rel="stylesheet" href="../assets/styles/Perfil/all.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-    />
-  </head>
 
-  <body>
-    <header>
-      <button class="btn-menu menu-toggle">
-        <i class="fa-solid fa-bars"></i>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TerraFarr – Perfil</title>
+  <link rel="icon" href="../assets/icon/logo.ico" />
+  <link rel="stylesheet" href="../assets/styles/Perfil/all.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+</head>
+
+<body>
+  <header>
+    <button class="btn-menu menu-toggle">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <button class="btn-menu menu-mobile">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <div class="message-div">
+      <span class="bem-vindo" id="welcome-message"></span>
+      <div class="user" id="user-abbrev"></div>
+    </div>
+  </header>
+
+  <div class="overlay"></div>
+
+  <main>
+    <aside class="aside">
+      <button class="opcao home">
+        <i class="fa-solid fa-house selecao"></i>
+        Início
       </button>
 
-      <button class="btn-menu menu-mobile">
-        <i class="fa-solid fa-bars"></i>
+      <button class="opcao clima">
+        <i class="fa-solid fa-cloud selecao"></i>
+        Clima
       </button>
 
-      <div class="message-div">
-        <span class="bem-vindo" id="welcome-message"></span>
-        <div class="user" id="user-abbrev"></div>
+      <button class="opcao sementes">
+        <i class="fa-solid fa-seedling selecao"></i>
+        Culturas
+      </button>
+
+      <button class="opcao gestao">
+        <i class="fa-solid fa-calendar-days selecao"></i>
+        Gestão
+      </button>
+
+      <button class="opcao segurancas">
+        <i class="fa-solid fa-circle-info selecao"></i>
+        Informações
+      </button>
+
+      <button class="opcao financas">
+        <i class="fa-solid fa-coins selecao"></i>
+        Finanças
+      </button>
+
+      <button class="opcao relatorio">
+        <i class="fa-solid fa-file-lines selecao"></i>
+        Relatório
+      </button>
+
+      <button class="opcao suporte">
+        <i class="fa-solid fa-circle-question selecao"></i>
+        Suporte
+      </button>
+
+      <button class="opcao perfil">
+        <i class="fa-solid fa-circle-user selecao"></i>
+        Perfil
+      </button>
+    </aside>
+
+    <div class="content q">
+      <div class="modal-overlay2">
+        <div id="editarPerfil">
+          <div class="parts">
+            <label for="email">Email:</label>
+            <input type="email" class="email-cad">
+          </div>
+          <div class="parts">
+            <label for="nome">Nome:</label>
+            <input type="text" class="nome-cad">
+          </div>
+          <div class="parts">
+            <label for="sobrenome">Sobrenome:</label>
+            <input type="text" class="sobrenome-cad">
+          </div>
+          <div class="parts">
+            <label for="cpf">CPF:</label>
+            <input type="text" class="cpf-cad">
+          </div>
+          <div class="parts">
+            <label for="fone">Telefone:</label>
+            <input type="text" class="fone-cad">
+          </div>
+
+          <div class="boto">
+            <button type="button" class="cancellaarr">Cancelar</button>
+            <button type="submit" class="confirmar">Confirmar</button>
+          </div>
+
+        </div>
       </div>
-    </header>
+      <section class="cabecalho-perfil">
+        <div class="foto-usuario"></div>
 
-    <div class="overlay"></div>
+        <div class="dados-usuario">
+          <h1 class="nome-usuario"></h1>
+        </div>
+      </section>
 
-    <main>
-      <aside class="aside">
-        <button class="opcao home">
-          <i class="fa-solid fa-house selecao"></i>
-          Início
-        </button>
+      <section class="informacoes-perfil">
+        <div class="btns">
+          <div class="perfil">
+            <button type="button" class="btn-editar2 b">editar perfil</button>
 
-        <button class="opcao clima">
-          <i class="fa-solid fa-cloud selecao"></i>
-          Clima
-        </button>
-
-        <button class="opcao sementes">
-          <i class="fa-solid fa-seedling selecao"></i>
-          Culturas
-        </button>
-
-        <button class="opcao gestao">
-          <i class="fa-solid fa-calendar-days selecao"></i>
-          Gestão
-        </button>
-
-        <button class="opcao segurancas">
-          <i class="fa-solid fa-circle-info selecao"></i>
-          Informações
-        </button>
-
-        <button class="opcao financas">
-          <i class="fa-solid fa-coins selecao"></i>
-          Finanças
-        </button>
-
-        <button class="opcao relatorio">
-          <i class="fa-solid fa-file-lines selecao"></i>
-          Relatório
-        </button>
-
-        <button class="opcao suporte">
-          <i class="fa-solid fa-circle-question selecao"></i>
-          Suporte
-        </button>
-
-        <button class="opcao perfil">
-          <i class="fa-solid fa-circle-user selecao"></i>
-          Perfil
-        </button>
-      </aside>
-
-      <div class="content q">
-        <div id="editarPerfil"></div>
-        <section class="cabecalho-perfil">
-          <div class="foto-usuario"></div>
-
-          <div class="dados-usuario">
-            <h1 class="nome-usuario"></h1>
+            <button type="button" class="btn-salvar b">excluir perfil</button>
           </div>
-        </section>
+        </div>
+        <h2 class="titulo-secao">Informações do Perfil</h2>
 
-        <section class="informacoes-perfil">
-          <div class="btns">
-            <div class="perfil">
-              <button type="button" class="btn-salvar b">editar perfil</button>
+        <div class="info-item">
+          <span class="info-titulo">E-mail:</span>
+          <span class="info-valor email"></span>
+        </div>
 
-              <button type="button" class="btn-salvar b">excluir perfil</button>
-            </div>
+        <div class="info-item">
+          <span class="info-titulo">Localização:</span>
+
+          <span class="info-valor localizacao"></span>
+          <div class="botoes">
+            <button class="btn-editar">
+              <i class="fa-solid fa-pen"></i>
+            </button>
+            <button class="btn-excluir">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
           </div>
-          <h2 class="titulo-secao">Informações do Perfil</h2>
+        </div>
 
-          <div class="info-item">
-            <span class="info-titulo">E-mail:</span>
-            <span class="info-valor email"></span>
-          </div>
+        <div class="info-item">
+          <span class="info-titulo">Telefone:</span>
+          <span class="info-valor telefone"></span>
+        </div>
 
-          <div class="info-item">
-            <span class="info-titulo">Localização:</span>
+        <div class="info-item">
+          <span class="info-titulo">CPF:</span>
+          <span class="info-valor cpf"></span>
+        </div>
+      </section>
+    </div>
+  </main>
 
-            <span class="info-valor localizacao"></span>
-            <div class="botoes">
-              <button class="btn-editar">
-                <i class="fa-solid fa-pen"></i>
-              </button>
-              <button class="btn-excluir">
-                <i class="fa-solid fa-trash-can"></i>
-              </button>
-            </div>
-          </div>
+  <script type="module" src="../assets/scripts/pages/home.js"></script>
+  <script type="module" src="../assets/scripts/pages/perfil.js"></script>
+</body>
 
-          <div class="info-item">
-            <span class="info-titulo">Telefone:</span>
-            <span class="info-valor telefone"></span>
-          </div>
-
-          <div class="info-item">
-            <span class="info-titulo">CPF:</span>
-            <span class="info-valor cpf"></span>
-          </div>
-        </section>
-      </div>
-    </main>
-
-    <script type="module" src="../assets/scripts/pages/home.js"></script>
-    <script type="module" src="../assets/scripts/pages/perfil.js"></script>
-  </body>
 </html>
