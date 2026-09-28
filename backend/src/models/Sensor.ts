@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
-import { DataSensor } from "./DataSensor";
+import { SensorData } from "./SensorData";
 import { Territory } from "./Territory";
 import { BaseModel } from "./BaseModel";
 
@@ -23,8 +23,8 @@ export class Sensor extends BaseModel {
   tipo: SensorType;
   @ManyToOne(() => Territory, (territorio) => territorio.sensores)
   territorio: Territory;
-  @OneToMany(() => DataSensor, (data) => data.sensor)
-  dados: DataSensor[];
+  @OneToMany(() => SensorData, (data) => data.sensor)
+  dados: SensorData[];
 
   getUnidade(): string {
     switch (this.tipo) {

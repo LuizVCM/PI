@@ -23,9 +23,17 @@ export class WeatherRepository {
       where: { territorio: { id: territoryId }, data: date! },
     });
   }
+  async findByDateAndTerritory(territoryId: number, data: string) {
+    return this.base.findOne({
+      where: {
+        territorio: { id: territoryId },
+        data,
+      },
+    });
+  }
   async findByIdWithTeritory(id: number) {
     return this.base.findById(id, {
-      relations: { territorio: true },
+      relations: { territorio: { usuario: true } },
     });
   }
   async findByTerritoryId(territoryId: number): Promise<Weather[]> {
@@ -37,7 +45,10 @@ export class WeatherRepository {
   async findAllByUserId(userId: number) {
     return this.base
       .getRepository()
-      .find({ where: { territorio: { usuario: { id: userId } } }, relations: { territorio: true } });
+      .find({
+        where: { territorio: { usuario: { id: userId } } },
+        relations: { territorio: { usuario: true } },
+      });
   }
   async create(data: WeatherData, territory: Territory): Promise<Weather> {
     const weather = this.base.create({ ...data, territorio: territory });
