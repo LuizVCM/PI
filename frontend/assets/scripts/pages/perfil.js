@@ -4,7 +4,11 @@ const btnExcluirPerfil = document.querySelector(".btn-excluir2")
 const overflow = document.querySelector(".content .modal-overlay2");
 const cancelar = document.querySelector(".cancellaarr");
 const cancelarExclusao = document.querySelector(".cancelarExclusao");
-const confirmarExclusao = document.querySelector(".confirmarExclusao")
+const confirmarExclusao = document.querySelector(".confirmarExclusao");
+
+const cancelarExclusaoTerritorio = document.querySelector(".cancelarExclusaoT")
+const confirmarExclusaoTerritorio = document.querySelector(".confirmarExclusaoT")
+
 
 // aq pega cada valor nos campos de edição
 const campoNome = document.querySelector(".nome-cad");
@@ -14,6 +18,8 @@ const campoCpf = document.querySelector(".cpf-cad");
 const campoFone = document.querySelector(".fone-cad");
 
 const exclusaoPerfil = document.querySelector(".exclusao-perfil")
+
+const exclusaoTerritorio = document.querySelector(".exclusao-territorio")
 async function usuario() {
   try {
     const user = await carregarUsuario();
@@ -66,7 +72,6 @@ async function excluirPerfil() {
     // Ações após excluir com sucesso:
     alert('Perfil excluído com sucesso!');
     
-    // Exemplo 1: Esconder o modal de exclusão
     exclusaoPerfil.classList.add("esconderrr");
     
 
@@ -77,11 +82,37 @@ async function excluirPerfil() {
     alert("Erro ao tentar excluir o perfil.");
   }
 }
+const btnExcluirTerritorio = document.querySelector(".botoes .btn-excluir");
+async function excluirTerritorio(){
+  const api3 = `http://localhost:3000/territories/me`
+     try{
+      const resposta = await fetch(api3, {
+      credentials: 'include',
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+      })
+      if (!resposta.ok) {
+      throw new Error('Não foi possível excluir o território.');
+    }
+    alert('Território excluído com sucesso!');
+
+      exclusaoTerritorio.classList.add("esconderrr");
+    
+
+     window.location.href = './formulario.html';
+
+     }catch(error){
+      console.log("Deu erro ao excluir território: "+ error)
+     }
+}
 
 
 usuario(); 
 btnEditar.addEventListener("click", () => {
   overflow.classList.toggle("esconderrr")});
+  
   cancelar.addEventListener("click", () => {
     overflow.classList.toggle("esconderrr")
   });
@@ -94,3 +125,13 @@ btnEditar.addEventListener("click", () => {
   })
 
   confirmarExclusao.addEventListener("click", excluirPerfil);
+
+  btnExcluirTerritorio.addEventListener("click", () => {
+    exclusaoTerritorio.classList.toggle("esconderrr");
+  })
+  cancelarExclusaoTerritorio.addEventListener("click", () => {
+    exclusaoTerritorio.classList.toggle("esconderrr")
+  })
+
+confirmarExclusaoTerritorio.addEventListener("click", excluirTerritorio);
+

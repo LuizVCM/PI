@@ -50,7 +50,7 @@ button:hover{
   align-items:center;
   justify-content: space-between;
 }
-.modal-overlay2, .exclusao-perfil{
+.modal-overlay2, .exclusao-perfil, .exclusao-territorio{
   display:none;
   align-items:center;
   justify-content:center;
@@ -71,11 +71,12 @@ button:hover{
  padding: 15px;
  margin-top: 20px;
 }
-.exclusao-perfil #editarPerfil h1{
+.exclusao-perfil #editarPerfil h1, .exclusao-territorio #editarPerfil h1{
   font-size: 1.5rem;
   font-weight: 700;
 
 }
+
 .boto button{
   width: 40%;
   height: 50px;
