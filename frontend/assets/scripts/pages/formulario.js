@@ -1,5 +1,9 @@
 import { API_URL } from "../config/api.js";
-import { showErrorMessage, removeMessage, showErrors } from "../utils/show-message.js";
+import {
+  showErrorMessage,
+  removeMessage,
+  showErrors,
+} from "../utils/show-message.js";
 import { capitalizar } from "../utils/formatter.js";
 
 // todos os painéis
@@ -13,7 +17,7 @@ const entrar = document.getElementById("entrar");
 const cadastroPainel = document.getElementById("cadastro-painel");
 const loginPainel = document.getElementById("login-painel");
 const territorioPainel = document.getElementById("territorio-painel");
-
+const sensorPainel = document.getElementById("sensor-painel");
 
 // função pra facilitar
 function showPanel(panel) {
@@ -36,7 +40,9 @@ const sobrenomeInput = document.getElementById("sobrenome-cad");
 function validateName(input) {
   input.addEventListener("input", () => {
     // cada primeira letra fica maiuscula
-    input.value = input.value.replace(/(^|\s)\S/g, (letra) => letra.toUpperCase());
+    input.value = input.value.replace(/(^|\s)\S/g, (letra) =>
+      letra.toUpperCase()
+    );
   });
 }
 
@@ -55,13 +61,13 @@ telefone.addEventListener("input", () => {
     // se tiver 10 dígitos, formata como fixo (4 dígitos antes do traço)
     telefone.value = `(${valor.substring(0, 2)}) ${valor.substring(
       2,
-      6,
+      6
     )}-${valor.substring(6)}`;
   } else {
     // se tiver 11 dígitos, formata como celular (5 dígitos antes do traço)
     telefone.value = `(${valor.substring(0, 2)}) ${valor.substring(
       2,
-      7,
+      7
     )}-${valor.substring(7)}`;
   }
 });
@@ -225,7 +231,30 @@ loginForm.addEventListener("submit", async (event) => {
         setTimeout(() => showPanel(territorioPainel), 2000);
         return;
       } else {
-        setTimeout(() => (window.location.href = "./home.html"), 2000);
+        try {
+          const response = await fetch(`${API_URL}/sensors/me`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          });
+          if (!response.ok)
+            showErrorMessage("Falha ao buscar dados", loginForm);
+          const result = await response.json();
+          if (result.length === 0) {
+            setTimeout(() => showPanel(sensorPainel), 2000);
+            return;
+          } else {
+            setTimeout(() => (window.location.href = "./home.html"), 2000);
+            return;
+          }
+        } catch (error) {
+          showErrorMessage(
+            "Erro interno do servidor. Tente novamente.",
+            loginForm
+          );
+        }
       }
     } catch (error) {
       showErrorMessage("Erro interno do servidor. Tente novamente.", loginForm);
@@ -303,14 +332,130 @@ territorioForm.addEventListener("submit", async (event) => {
     mensagemTer.classList.add("form-success");
     mensagemTer.textContent = "Cadastrado com sucesso! Redirecionando...";
 
-    setTimeout(() => {
-      window.location.href = "./home.html";
-    }, 2000);
+    try {
+      const response = await fetch(`${API_URL}/sensors/me`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+      if (!response.ok)
+        showErrorMessage("Falha ao buscar dados", territorioForm);
+      const result = await response.json();
+      if (result.length === 0) {
+        setTimeout(() => showPanel(sensorPainel), 2000);
+        return;
+      } else {
+        setTimeout(() => (window.location.href = "./home.html"), 2000);
+        return;
+      }
+    } catch (error) {
+      showErrorMessage(
+        "Erro interno do servidor. Tente novamente.",
+        territorioForm
+      );
+    }
   } catch (error) {
     console.error(error);
     showErrorMessage("Erro ao conectar com o servidor", territorioForm);
   } finally {
     btnCadTer.disabled = false;
     btnCadTer.textContent = "Cadastrar território";
+  }
+});
+
+const sensorForm = document.getElementById("sensores");
+const btnCadSen = document.getElementById("btn-cadastrar-sensor");
+const mensagemSen = document.getElementById("mensagem-sensor");
+const acoesSen = document.getElementById("acoes-sensor");
+
+sensorForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  removeMessage(sensorForm);
+
+  const body = {
+    modelo: document.getElementById("modelo").value,
+    tipo: document.getElementById("tipo").value,
+  };
+
+  btnCadSen.disabled = true;
+  btnCadSen.textContent = "Cadastrando...";
+
+  let territorioId;
+  try {
+    const response = await fetch(`${API_URL}/users/me`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+    if (!response.ok) {
+      showErrorMessage("Erro ao conectar com o servidor", sensorForm);
+    }
+    const usuario = await response.json();
+    territorioId = usuario.territorios[0].id;
+  } catch (error) {
+    console.error("Erro ao carregar usuário: " + error);
+  }
+
+  try {
+    const response = await fetch(
+      `${API_URL}/sensors/territory/${territorioId}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(body),
+      }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      if (result.message) {
+        showErrorMessage(result.message, sensorForm);
+      }
+      if (result.errors) {
+        const errors = result.errors ? Object.values(result.errors).flat() : {};
+        if (errors.length === 1) {
+          showErrorMessage(errors[0], sensorForm);
+        } else {
+          showErrors(errors, sensorForm);
+        }
+      }
+      return;
+    }
+
+    mensagemSen.classList.remove("hidden");
+    mensagemSen.classList.add("form-success");
+    mensagemSen.textContent = "Cadastrado com sucesso!";
+    acoesSen.classList.remove("hidden");
+    acoesSen.classList.add("form-message");
+
+    const btnCadNov = document.getElementById("btn-cad-nov");
+    const btnPular = document.getElementById("btn-pular");
+
+    btnCadNov.addEventListener("click", () => {
+      acoesSen.classList.add("hidden");
+      removeMessage(sensorForm);
+      return;
+    });
+
+    btnPular.addEventListener("click", () => {
+      setTimeout(() => {
+        window.location.href = "./home.html";
+      }, 2000);
+    });
+  } catch (error) {
+    console.error(error);
+    showErrorMessage("Erro ao conectar com o servidor", sensorForm);
+  } finally {
+    btnCadSen.disabled = false;
+    btnCadSen.textContent = "Cadastrar sensor";
   }
 });
