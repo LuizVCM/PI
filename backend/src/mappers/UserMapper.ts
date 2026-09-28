@@ -1,7 +1,4 @@
 import { User } from "../models/User";
-import { FinanceMapper } from "./FinanceMapper";
-import { SeedMapper } from "./SeedMapper";
-import { StockMapper } from "./StockMapper";
 import { TerritoryMapper } from "./TerritoryMapper";
 
 export class UserMapper {
@@ -24,9 +21,6 @@ export class UserMapper {
       telefone: usuario.telefone,
       cpf: usuario.cpf,
       territorios: usuario.territorios ? TerritoryMapper.toSummaryResponseList(usuario.territorios) : [],
-      sementes: usuario.sementes ? SeedMapper.toSummaryResponseList(usuario.sementes) : [],
-      financas: usuario.financas ? FinanceMapper.toSummaryResponseList(usuario.financas) : [],
-      insumos: usuario.insumos ? StockMapper.toSummaryResponseList(usuario.insumos) : [],
     };
   }
   static toSummaryResponse(usuario: User) {

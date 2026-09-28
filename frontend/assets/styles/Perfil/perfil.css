@@ -1,3 +1,6 @@
+@import url(../utils/buttons.css);
+@import url(../utils/modal.css);
+
 * {
   margin: 0;
   padding: 0;
@@ -6,6 +9,9 @@
 
 body {
   overflow: hidden;
+}
+button:hover{
+  cursor: pointer;
 }
 
 .content {
@@ -20,6 +26,47 @@ body {
   justify-content: space-between;
 }
 
+#editarPerfil{
+  display: flex;
+  position: fixed;
+  min-width: 300px;
+  min-height: 400px;
+  box-shadow: -1px 2px 5px black;
+  background-color: white;
+  margin: 0 auto;
+  width: 30%;
+  border-radius: 15px;
+}
+.btns{
+  display:flex;
+  width: 100%;
+  gap: 20px;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 15px
+}
+.botoes{
+  display: flex;
+}
+.btns button{
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  font-size: 20px;
+  transition: all 0.1s linear;
+  color: white;
+  font-weight: 700;
+  background-color: rgba(9, 85, 9, 0.637);
+  
+}
+.btns button:hover{
+  transform: translateY(-5px);
+  box-shadow: 0px 5px black;
+}
+
+.btn-editar, .btn-excluir{
+  margin-right: 5px;
+}
 /* ===================== CABEÇALHO ===================== */
 
 .cabecalho-perfil {
@@ -34,19 +81,18 @@ body {
 }
 
 .foto-usuario {
-   width: 170px;
-  height: 170px;
-
-  border-radius: 50%;
-  border: 4px solid #1d5c2f;
-
-  /*background-image: url("https://i.pinimg.com/736x/87/11/22/87112262ddd3b09a89efcaf0f8822ca3.jpg");*/
-  background-image: url("https://www.cfra.org/sites/default/files/styles/page_image/public/page-images/Sandro%20Lopes_0.jpg?h=56d0ca2e&itok=OZHNqUoL");
-  background-size: cover;
+  display: flex;
   background-repeat: no-repeat;
-
-  /* Altere esta linha */
-  background-position: center 2%;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--verde-opcoes-click);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  color: white;
 }
 
 .dados-usuario {
@@ -132,3 +178,4 @@ body {
   font-size: 24px;
   color: #555;
 }
+

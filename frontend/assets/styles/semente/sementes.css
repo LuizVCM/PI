@@ -1,0 +1,380 @@
+@import url("../global.css");
+@import url("../utils/modal.css");
+@import url("../utils/buttons.css");
+@import url("../utils/panel.css");
+@import url("../utils/form-message.css");
+
+#main-content .funcao.culturas i {
+  color: #6b8e23;
+}
+#main-content .funcao.culturas:hover::before {
+  background: #6b8e23;
+}
+
+#main-content .funcao.plantas i {
+  color: #3a7d6a;
+}
+#main-content .funcao.plantas:hover::before {
+  background: #3a7d6a;
+}
+
+#main-content .funcao.disponivel i {
+  color: #3f6f8f;
+}
+#main-content .funcao.disponivel:hover::before {
+  background: #3f6f8f;
+}
+
+#main-content .funcao.recomendacoes i {
+  color: #c98232;
+}
+#main-content .funcao.recomendacoes:hover::before {
+  background: #c98232;
+}
+
+.semente-cadastrada {
+  background: #fff;
+  border-radius: 13px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 0.8rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+.semente-cadastrada:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.semente-icon {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 10px;
+  background: var(--cat); /* aplica cor da categoria */
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin: 0.5rem;
+}
+
+.opcao-semente {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 0.8rem;
+  font-size: 0.82rem;
+  color: var(--verde-dark);
+  white-space: nowrap;
+  border-left: 1px solid #e2e8e0;
+  height: 28px;
+}
+.opcao-semente:first-of-type {
+  border-left: none;
+}
+
+.opcao-semente.btn-editar,
+.opcao-semente.btn-excluir {
+  border-left: none;
+  border-radius: 8px;
+  padding: 0 0.6rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.registro-semente {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.registro-semente span {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--verde-circulo);
+  text-transform: uppercase;
+}
+.registro-semente h5 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.lista-recomendacoes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  width: 90%;
+  max-width: 1100px;
+  margin-top: 1rem;
+}
+
+.recomendacao-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.3rem 1.4rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  border-left: 6px solid var(--verde-claro);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.recomendacao-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+}
+
+.recomendacao-card .cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.recomendacao-card .cabecalho h3 {
+  font-size: 1.15rem;
+  color: var(--verde-profundo);
+  margin: 0;
+}
+.recomendacao-card .tag {
+  background: var(--verde-selecionar);
+  color: var(--verde-profundo);
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.recomendacao-card .tag.category {
+  background: var(--cat);
+  color: var(--branco);
+}
+.recomendacao-card .tags {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.nome-cientifico {
+  font-style: italic;
+  color: #5a6b5d;
+  font-size: 0.9rem;
+  margin: -0.4rem 0 0;
+}
+
+.recomendacao-card .bloco {
+  background: var(--verde-conteudo);
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+  border-left: 3px solid var(--verde-circulo);
+}
+.recomendacao-card .bloco h4 {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--verde-claro);
+  margin: 0 0 0.4rem;
+  font-weight: 700;
+}
+.recomendacao-card .bloco p {
+  font-size: 0.88rem;
+  color: var(--verde-dark);
+  margin: 0.15rem 0;
+  line-height: 1.4;
+}
+
+.lista-plantas {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  width: 90%;
+  max-width: 1100px;
+  margin-top: 1rem;
+}
+
+.planta-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.3rem 1.4rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  border-left: 6px solid var(--cat);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.planta-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+}
+.planta-card h3 {
+  font-size: 1.1rem;
+  color: var(--verde-profundo);
+  margin: 0 0 0.2rem;
+}
+.planta-card p {
+  font-size: 0.88rem;
+  color: var(--verde-dark);
+  margin: 0.1rem 0;
+  line-height: 1.4;
+}
+
+@media (min-width: 900px) {
+  .lista-recomendacoes,
+  .lista-plantas {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .barra-acoes {
+    flex-direction: column;
+    width: 100%;
+  }
+  .campo-busca,
+  .btn-novo {
+    width: 100%;
+  }
+  .campo-busca {
+    min-height: 3rem;
+  }
+  .btn-novo {
+    justify-content: center;
+  }
+
+  .semente-cadastrada {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .opcao-semente {
+    font-size: 0.78rem;
+    height: auto;
+    padding: 0.3rem 0.5rem;
+    border-left: none;
+  }
+  .descricao-secao {
+    width: 100%;
+    text-align: left;
+  }
+}
+
+.container-fontes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  width: 90%;
+  max-width: 900px;
+  margin-top: 2rem;
+  padding: 1rem;
+  border-top: 1px solid #d4ddd0;
+  color: #5a6b5d;
+  font-size: 0.88rem;
+}
+
+.container-fontes i {
+  color: var(--verde-claro);
+  font-size: 1.1rem;
+}
+
+.link-fontes {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--verde-opcoes-click);
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.link-fontes:hover {
+  color: var(--verde-profundo);
+}
+
+.fonte-descricao {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--verde-dark);
+  margin: 0.3rem 0 1rem;
+}
+
+.fonte-descricao a {
+  color: var(--verde-opcoes-click);
+  font-weight: 600;
+  text-decoration: none;
+  margin-left: 0.3rem;
+}
+.fonte-descricao a:hover {
+  text-decoration: underline;
+}
+
+.fontes-aviso {
+  background: var(--verde-conteudo);
+  border-left: 3px solid var(--verde-circulo);
+  border-radius: 8px;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.85rem;
+  color: var(--verde-profundo);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0 0;
+}
+.fontes-aviso i {
+  color: var(--verde-claro);
+}
+
+/* cores de categoria */
+[data-categoria="cereais"] {
+  --cat: #c9a227;
+}
+[data-categoria="leguminosas"] {
+  --cat: #6b8e23;
+}
+[data-categoria="tubérculos"] {
+  --cat: #8b5a2b;
+}
+[data-categoria="hortaliças"] {
+  --cat: #4caf50;
+}
+[data-categoria="frutas"] {
+  --cat: #e85d75;
+}
+[data-categoria="oleaginosas"] {
+  --cat: #e08e30;
+}
+[data-categoria="fibras"] {
+  --cat: #a68a64;
+}
+[data-categoria="forrageiras"] {
+  --cat: #558b2f;
+}
+[data-categoria="estimulantes"] {
+  --cat: #6f4e37;
+}
+[data-categoria="adoçantes"] {
+  --cat: #b8556c;
+}
+[data-categoria="industriais"] {
+  --cat: #607d8b;
+}
+
+.planta-card h3 {
+  color: var(--cat);
+  margin: 0;
+}

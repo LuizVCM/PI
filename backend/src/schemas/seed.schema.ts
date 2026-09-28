@@ -4,9 +4,13 @@ import { WeightUnit } from "../models/Seed";
 const seedFields = {
   plantaId: z.coerce.number("ID inválido").positive("ID inválido"),
 
-  dataCompra: z.coerce.date("Data deve estar no formato YYYY-MM-DD"),
+  dataCompra: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "Data deve estar no formato YYYY-MM-DD"),
 
-  dataValidade: z.coerce.date("Data deve estar no formato YYYY-MM-DD"),
+  dataValidade: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "Data deve estar no formato YYYY-MM-DD"),
 
   quantidade: z.coerce
     .number("Quantidade deve ser um número")
@@ -17,7 +21,6 @@ const seedFields = {
   fornecedor: z
     .string()
     .trim()
-    .min(1, "Nome do fornecedor é muito curto")
     .max(100, "Nome do fornecedor é muito longo")
     .optional()
     .nullable(),

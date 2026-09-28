@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const SeedController_1 = require("../controllers/SeedController");
+const auth_middleware_1 = require("../middlewares/auth-middleware");
+const admin_middleware_1 = require("../middlewares/admin-middleware");
+const index_validate_1 = require("../middlewares/index.validate");
+const seedRoutes = (0, express_1.Router)();
+const seedController = new SeedController_1.SeedController();
+seedRoutes.get("/all", auth_middleware_1.authMiddleware, (0, admin_middleware_1.adminMiddleware)("sementes"), seedController.listAll.bind(seedController));
+seedRoutes.get("/me", auth_middleware_1.authMiddleware, seedController.listMySeeds.bind(seedController));
+seedRoutes.get("/:id", auth_middleware_1.authMiddleware, seedController.getById.bind(seedController));
+seedRoutes.post("/", auth_middleware_1.authMiddleware, index_validate_1.validateSeedCreate, seedController.create.bind(seedController));
+seedRoutes.put("/:id", auth_middleware_1.authMiddleware, index_validate_1.validateSeedUpdate, seedController.update.bind(seedController));
+seedRoutes.delete("/:id", auth_middleware_1.authMiddleware, seedController.delete.bind(seedController));
+exports.default = seedRoutes;

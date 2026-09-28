@@ -13,8 +13,10 @@ export const AppDataSource = new DataSource({
   username: DB_USER,
   password: DB_PASSWORD,
   database: DB_NAME,
-  synchronize: true,
+  entities: [__dirname + "/../models/*.{js,ts}"],
+  migrations: [__dirname + "/../migrations/*.{js,ts}"],
+  synchronize: true, // true -> ambiente de desenvolvimento, false -> ambiente de produção
   logging: true,
+  ssl: { rejectUnauthorized: false }, // true -> certificado
   dateStrings: ["DATE"], // para não quebrar as datas (estavam sempre vindo com um dia anterior)
-  entities: ["src/models/*.ts"],
 });

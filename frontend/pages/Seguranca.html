@@ -3,13 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TerraFarr - Informações</title>
+    <title>TerraFarr – Informações</title>
     <link rel="icon" href="../assets/icon/logo.ico" />
     <link rel="stylesheet" href="../assets/styles/seguranca/all.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.45.1/apexcharts.min.js"></script>
   </head>
 
   <body>
@@ -32,54 +33,80 @@
 
     <main>
       <aside class="aside">
+        <button class="opcao home">
+          <i class="fa-solid fa-house selecao"></i>
+          Início
+        </button>
+
         <button class="opcao clima">
-          <i class="fa-solid fa-cloud selecao"></i> Clima
+          <i class="fa-solid fa-cloud selecao"></i>
+          Clima
         </button>
-        <button class="opcao gestao">
-          <i class="fa-brands fa-buffer selecao"></i> Gestão
-        </button>
-        <button class="opcao segurancas">
-          <i class="fa-solid fa-building-shield selecao"></i> Informações
-        </button>
+
         <button class="opcao sementes">
-          <i class="fa-solid fa-seedling selecao"></i> Sementes
+          <i class="fa-solid fa-seedling selecao"></i>
+          Culturas
         </button>
+
+        <button class="opcao gestao">
+          <i class="fa-solid fa-calendar-days selecao"></i>
+          Gestão
+        </button>
+
+        <button class="opcao segurancas">
+          <i class="fa-solid fa-circle-info selecao"></i>
+          Informações
+        </button>
+
         <button class="opcao financas">
-          <i class="fa-solid fa-building-columns selecao"></i> Finanças
+          <i class="fa-solid fa-coins selecao"></i>
+          Finanças
         </button>
-        <button class="opcao suporte">
-          <i class="fa-solid fa-comments-dollar selecao"></i> Suporte
-        </button>
+
         <button class="opcao relatorio">
-          <i class="fa-solid fa-envelope-open selecao"></i> Relatório
+          <i class="fa-solid fa-file-lines selecao"></i>
+          Relatório
         </button>
+
+        <button class="opcao suporte">
+          <i class="fa-solid fa-circle-question selecao"></i>
+          Suporte
+        </button>
+
         <button class="opcao perfil">
-          <i class="fa-solid fa-circle-user selecao"></i>Perfil
+          <i class="fa-solid fa-circle-user selecao"></i>
+          Perfil
         </button>
       </aside>
 
-      <div class="content">
-        <div class="info">
+      <div class="content i">
+        <section class="info">
           <label for="semente">Selecione aqui a sua planta</label>
-          <select name="semente" id="sementeInfo">
+          <select name="semente" id="sementeInfo" class="plantas">
             <option value="Nenhuma planta encontrada">
               Nenhuma planta encontrada
             </option>
             <option value="teste">planta teste</option>
           </select>
-          <button type="button" class="acessando">Acessar</button>
-        </div>
+          <button type="button" class="acessando btn-action">Acessar</button>
+        </section>
       </div>
 
       <!-- Seção onde irá aparecer as informações do momento atual da plantação escolhida -->
       <div class="informations toggle1">
+        <div class="botao">
+          <button class="btn-voltar" id="btnVoltarAgenda">
+            <i class="fa-solid fa-arrow-left"></i>
+            Voltar
+          </button>
+        </div>
         <div class="painel">
           <header class="cabecalho">
             <div class="identidade">
               <div class="icone-folha">🌱</div>
-              <div>
+              <div class="loteIdent">
                 <h1 id="nomePlanta">Carregando…</h1>
-                <div class="lote" id="numeroLote">lote --</div>
+                <div class="lote" id="numeroLote">fornecedor --</div>
               </div>
             </div>
             <div class="badge-vida">
@@ -88,35 +115,7 @@
           </header>
 
           <section class="hero">
-            <div class="cartao cartao-anel">
-              <span class="rotulo-topo">Tempo para colheita</span>
-              <div class="anel-svg">
-                <svg viewBox="0 0 160 160" width="170" height="170">
-                  <circle
-                    cx="80"
-                    cy="80"
-                    r="68"
-                    fill="none"
-                    stroke="#eee7d3"
-                    stroke-width="14"
-                  />
-                  <circle
-                    id="anelProgresso"
-                    cx="80"
-                    cy="80"
-                    r="68"
-                    fill="none"
-                    stroke="var(--verde-700)"
-                    stroke-width="14"
-                    stroke-linecap="round"
-                  />
-                </svg>
-                <div class="anel-numero">
-                  <span class="dias" id="diasRestantes">--</span>
-                  <span class="dias-label">dias restantes</span>
-                </div>
-              </div>
-            </div>
+            <div id="chart"></div>
 
             <div class="cartao cartao-umidade">
               <div>
@@ -150,7 +149,7 @@
           </section>
 
           <section class="cartao secao-sugestoes">
-            <h2>🌾 Sugestões para esse lote</h2>
+            <h2>🌾 observações para esse plantio</h2>
             <ul class="lista-sugestoes" id="listaSugestoes">
               <li class="carregando">carregando sugestões…</li>
             </ul>
@@ -159,10 +158,15 @@
       </div>
     </main>
 
-    <script type="module" src="../assets/js/home.js"></script>
-    <script type="module" src="../assets/js/seguranca.js"></script>
-    <script type="module" src="../assets/js/chart2.js"></script>
-    <script type="module" src="../assets/js/chart.js"></script>
-    <script type="module" src="../assets/js/informação/gráficoUmidade.js"></script>
+    <script type="module" src="../assets/scripts/pages/home.js"></script>
+    <script type="module" src="../assets/scripts/seguranca.js"></script>
+
+    <script
+      type="module"
+      src="../assets/scripts/informação/gráficoUmidade.js"
+    ></script>
+    <script type="module" src="../assets/scripts/informação/api.js"></script>
+    <script type="module" src="../assets/scripts/Cálculos.js"></script>
+    <script type="module" src="../assets/scripts/chart.js"></script>
   </body>
 </html>

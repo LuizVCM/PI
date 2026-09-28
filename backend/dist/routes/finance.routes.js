@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const admin_middleware_1 = require("../middlewares/admin-middleware");
+const auth_middleware_1 = require("../middlewares/auth-middleware");
+const index_validate_1 = require("../middlewares/index.validate");
+const FinanceController_1 = require("./../controllers/FinanceController");
+const express_1 = require("express");
+const financeRoutes = (0, express_1.Router)();
+const financeController = new FinanceController_1.FinanceController();
+financeRoutes.get("/all", auth_middleware_1.authMiddleware, (0, admin_middleware_1.adminMiddleware)("registros financeiros"), financeController.listAll.bind(financeController));
+financeRoutes.get("/me", auth_middleware_1.authMiddleware, financeController.listMyFinances.bind(financeController));
+financeRoutes.get("/:id", auth_middleware_1.authMiddleware, financeController.getById.bind(financeController));
+financeRoutes.post("/", auth_middleware_1.authMiddleware, index_validate_1.validateFinanceCreate, financeController.create.bind(financeController));
+financeRoutes.put("/:id", auth_middleware_1.authMiddleware, index_validate_1.validateFinanceUpdate, financeController.update.bind(financeController));
+financeRoutes.delete("/:id", auth_middleware_1.authMiddleware, financeController.delete.bind(financeController));
+exports.default = financeRoutes;
