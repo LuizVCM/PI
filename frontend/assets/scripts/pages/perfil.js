@@ -83,9 +83,16 @@ async function excluirPerfil() {
   }
 }
 const btnExcluirTerritorio = document.querySelector(".botoes .btn-excluir");
+
 async function excluirTerritorio(){
-  const api3 = `http://localhost:3000/territories/me`
+
+
      try{
+        const user = await carregarUsuario();
+      const id = user.territorios[0].id;
+
+        const api3 = `http://localhost:3000/territories/${id}`
+        
       const resposta = await fetch(api3, {
       credentials: 'include',
       method: 'DELETE',
