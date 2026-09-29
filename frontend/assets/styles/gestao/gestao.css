@@ -320,6 +320,9 @@
     width: 100%;
     text-align: left;
   }
+  .cards-resumo {
+    flex-direction: column !important;
+  }
 }
 
 .cards-resumo {
