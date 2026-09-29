@@ -104,7 +104,9 @@ header .user {
 aside {
   background-color: var(--verde-opcao);
   width: 300px;
-  height: auto; 
+  height: 91vh; 
+  overflow: hidden;
+  overflow-y: auto;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;

@@ -134,31 +134,55 @@
       </form>
     </div>
 
-    <!-- cadastrar sensor-->
+    <!-- cadastrar sensor -->
     <div class="fundo" id="sensor-painel">
       <div class="cima">
-        <h3>2 de 2</h3>
+        <h3>Vamos começar</h3>
+        <p>2 de 2</p>
         <p>Cadastre seu sensor</p>
       </div>
       <form action="#" class="formulario" id="sensores">
-        <label for="tipos">Cadastre a função do sensor</label>
-        <select name="tipo" id="tipos">
-          <option value="umidade">umidade de solo</option>
-          <option value="temperatura">temperatura ambiente e de solo</option>
-          <option value="vento">vento e umidade de ambiente</option>
+        <label for="tipo">Cadastre a função do sensor</label>
+        <select name="tipo" id="tipo">
+          <option value="umidade do ar">Umidade do ar</option>
+          <option value="temperatura do ar">Temperatura do ar</option>
+          <option value="umidade do solo">Umidade do solo</option>
+          <option value="temperatura do solo">Temperatura do solo</option>
+          <option value="pressão">Pressão</option>
         </select>
 
-        <label for="nomeSensor">Cadastre o nome de sensor</label>
+        <label for="modelo">Cadastre o modelo do sensor</label>
         <input
           type="text"
-          name="nomeSensor"
-          id="nomeSensor"
+          name="modelo"
+          id="modelo"
+          maxlength="100"
           placeholder="Ex: DHT11, BMP280... "
         />
 
-        <button type="button" class="entrar" id="btnCadastrarSensor">
+        <button type="submit" class="entrar" id="btn-cadastrar-sensor">
           Cadastrar sensor
         </button>
+        <div id="mensagem-sensor" class="hidden"></div>
+        <div id="acoes-sensor" class="hidden">
+          <p>Cadastrar novamente?</p>
+          <div class="btn-acoes">
+            <button
+              type="button"
+              class="btn-action btn-confirmar"
+              id="btn-cad-nov"
+            >
+              Sim
+            </button>
+            <button
+              type="button"
+              class="btn-action btn-cancelar"
+              id="btn-pular"
+            >
+              Não
+            </button>
+          </div>
+        </div>
       </form>
     </div>
 

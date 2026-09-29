@@ -8,6 +8,8 @@ const sensores = document.querySelector(".sensores span");
 
 const requisicao = `http://localhost:3000/plants/me`;
 const requisicaoClima = `http://localhost:3000/weather/me`;
+const sensoresRequisicao = `http://localhost:3000/sensors/me`;
+const insumosRequisicao = `http://localhost:3000/stocks/me`;
 
 const mesesLabels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 
@@ -76,9 +78,21 @@ async function gráficosValidaçãoData() {
     const plantas = await dadosPlantas.json();
 
     console.log('plantas recebidas:', plantas.length);
-
+// infos de plantas em quantidade
     if (plantaTamanho) plantaTamanho.textContent = `${plantas.length}`;
     if (pMon) pMon.textContent = `${plantas.length}`;
+// infos de sensores em quantidade
+    const dadosSensores = await fetch(sensoresRequisicao, {credentials: 'include'});
+    if (!dadosSensores.ok) throw new Error(`erro ao buscar sensores: status ${dadosSensores.status}`);
+    const sensoress = await dadosSensores.json();
+
+    if(sensores) sensores.textContent = `${sensoress.length}`; 
+    // infos em insumos em quantidade
+    const dadosInsumos = await fetch(insumosRequisicao, {credentials: 'include'});
+    const insumos = await dadosInsumos.json();
+
+    if(lotes) lotes.textContent = `${insumos.length}`;
+
 
     // --- dados de clima ---
     const dadosClimaResp = await fetch(requisicaoClima, { credentials: 'include' });

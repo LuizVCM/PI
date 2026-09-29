@@ -188,6 +188,18 @@
   color: #a07000;
 }
 
+/* subtitulo do modal especifico de gestao */
+#colheita-info {
+  display: block;
+  background: var(--verde-conteudo, #eef6f0);
+  border-left: 3px solid var(--verde-circulo, #6b8e23);
+  border-radius: 8px;
+  padding: 0.6rem 0.9rem;
+  color: var(--verde-profundo, #1f6b3a);
+  font-size: 0.85rem;
+  font-style: normal;
+}
+
 .tabela-agenda .acoes,
 .tabela-insumos .acoes,
 .tabela-estoque .acoes {

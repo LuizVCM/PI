@@ -11,17 +11,14 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
     />
   </head>
-
   <body>
     <header>
       <button class="btn-menu menu-toggle">
         <i class="fa-solid fa-bars"></i>
       </button>
-
       <button class="btn-menu menu-mobile">
         <i class="fa-solid fa-bars"></i>
       </button>
-
       <div class="message-div">
         <span class="bem-vindo" id="welcome-message"></span>
         <div class="user" id="user-abbrev"></div>
@@ -33,85 +30,82 @@
     <main>
       <aside class="aside">
         <button class="opcao home">
-          <i class="fa-solid fa-house selecao"></i>
-          Início
+          <i class="fa-solid fa-house selecao"></i> Início
         </button>
-
         <button class="opcao clima">
-          <i class="fa-solid fa-cloud selecao"></i>
-          Clima
+          <i class="fa-solid fa-cloud selecao"></i> Clima
         </button>
-
         <button class="opcao sementes">
-          <i class="fa-solid fa-seedling selecao"></i>
-          Culturas
+          <i class="fa-solid fa-seedling selecao"></i> Culturas
         </button>
-
         <button class="opcao gestao">
-          <i class="fa-solid fa-calendar-days selecao"></i>
-          Gestão
+          <i class="fa-solid fa-calendar-days selecao"></i> Gestão
         </button>
-
         <button class="opcao segurancas">
-          <i class="fa-solid fa-circle-info selecao"></i>
-          Informações
+          <i class="fa-solid fa-circle-info selecao"></i> Informações
         </button>
-
         <button class="opcao financas">
-          <i class="fa-solid fa-coins selecao"></i>
-          Finanças
+          <i class="fa-solid fa-coins selecao"></i> Finanças
         </button>
-
         <button class="opcao relatorio">
-          <i class="fa-solid fa-file-lines selecao"></i>
-          Relatório
+          <i class="fa-solid fa-file-lines selecao"></i> Relatório
         </button>
-
         <button class="opcao suporte">
-          <i class="fa-solid fa-circle-question selecao"></i>
-          Suporte
+          <i class="fa-solid fa-circle-question selecao"></i> Suporte
         </button>
-
         <button class="opcao perfil">
-          <i class="fa-solid fa-circle-user selecao"></i>
-          Perfil
+          <i class="fa-solid fa-circle-user selecao"></i> Perfil
         </button>
       </aside>
 
-      <div class="content q">
-        <div id="editarPerfil"></div>
+      <div class="content" id="main-content">
         <section class="cabecalho-perfil">
-          <div class="foto-usuario"></div>
-
+          <div class="foto-usuario" id="foto-usuario"></div>
           <div class="dados-usuario">
-            <h1 class="nome-usuario"></h1>
+            <h1 class="nome-usuario" id="nome-usuario"></h1>
           </div>
         </section>
 
         <section class="informacoes-perfil">
           <div class="btns">
-            <div class="perfil">
-              <button type="button" class="btn-salvar b">editar perfil</button>
-
-              <button type="button" class="btn-salvar b">excluir perfil</button>
-            </div>
+            <button type="button" class="btn-novo" id="btn-editar-perfil">
+              <i class="fa-solid fa-pen"></i> Editar perfil
+            </button>
+            <button
+              type="button"
+              class="btn-novo btn-perigo"
+              id="btn-excluir-perfil"
+            >
+              <i class="fa-solid fa-trash-can"></i> Excluir perfil
+            </button>
           </div>
+
           <h2 class="titulo-secao">Informações do Perfil</h2>
 
           <div class="info-item">
             <span class="info-titulo">E-mail:</span>
-            <span class="info-valor email"></span>
+            <span class="info-valor" id="info-email"></span>
           </div>
 
           <div class="info-item">
             <span class="info-titulo">Localização:</span>
+            <span class="info-valor" id="info-localizacao"></span>
 
-            <span class="info-valor localizacao"></span>
-            <div class="botoes">
-              <button class="btn-editar">
+            <div class="acoes">
+              <button
+                type="button"
+                class="btn-editar"
+                id="btn-editar-territorio"
+                title="Editar território"
+              >
                 <i class="fa-solid fa-pen"></i>
               </button>
-              <button class="btn-excluir">
+              <button
+                type="button"
+                class="btn-excluir"
+                id="btn-excluir-territorio"
+                title="Excluir território"
+              >
                 <i class="fa-solid fa-trash-can"></i>
               </button>
             </div>
@@ -119,14 +113,228 @@
 
           <div class="info-item">
             <span class="info-titulo">Telefone:</span>
-            <span class="info-valor telefone"></span>
+            <span class="info-valor" id="info-telefone"></span>
           </div>
 
           <div class="info-item">
             <span class="info-titulo">CPF:</span>
-            <span class="info-valor cpf"></span>
+            <span class="info-valor" id="info-cpf"></span>
           </div>
         </section>
+      </div>
+
+      <!-- modal editar perfil -->
+      <div id="modal-editar-perfil" class="modal hidden">
+        <div class="modal-overlay" id="modal-editar-perfil-overlay"></div>
+
+        <div class="modal-content">
+          <button
+            class="modal-close"
+            id="modal-editar-perfil-close"
+            type="button"
+          >
+            &times;
+          </button>
+
+          <h2>Editar perfil</h2>
+
+          <form id="form-editar-perfil" class="modal-form">
+            <div class="campo-modal">
+              <label for="edit-nome">Nome</label>
+              <input
+                type="text"
+                id="edit-nome"
+                autocomplete="given-name"
+                required
+              />
+            </div>
+
+            <div class="campo-modal">
+              <label for="edit-sobrenome">Sobrenome</label>
+              <input
+                type="text"
+                id="edit-sobrenome"
+                autocomplete="family-name"
+                required
+              />
+            </div>
+
+            <div class="campo-modal">
+              <label for="edit-email">E-mail</label>
+              <input
+                type="email"
+                id="edit-email"
+                autocomplete="email"
+                required
+              />
+            </div>
+
+            <div class="campo-modal">
+              <label for="edit-cpf">CPF</label>
+              <input
+                type="text"
+                id="edit-cpf"
+                inputmode="numeric"
+                maxlength="14"
+              />
+            </div>
+
+            <div class="campo-modal">
+              <label for="edit-telefone">Telefone</label>
+              <input
+                type="text"
+                id="edit-telefone"
+                inputmode="tel"
+                maxlength="15"
+              />
+            </div>
+
+            <div class="modal-actions">
+              <button
+                id="btn-cancelar-edicao"
+                class="btn-action btn-cancelar"
+                type="button"
+              >
+                Cancelar
+              </button>
+              <button class="btn-action btn-confirmar" type="submit">
+                Salvar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- modal editar territorio -->
+      <div id="modal-editar-territorio" class="modal hidden">
+        <div class="modal-overlay" id="modal-editar-territorio-overlay"></div>
+
+        <div class="modal-content">
+          <button
+            class="modal-close"
+            id="modal-editar-territorio-close"
+            type="button"
+          >
+            &times;
+          </button>
+
+          <h2>Editar território</h2>
+
+          <form id="form-editar-territorio"  class="modal-form">
+            <div class="campo-modal">
+              <label for="edit-cep">CEP</label>
+              <input
+                type="text"
+                id="edit-cep"
+                inputmode="numeric"
+                maxlength="9"
+                placeholder="00000-000"
+                required
+              />
+            </div>
+
+            <div class="linha-modal">
+              <div class="campo-modal">
+                <label for="edit-area">Área</label>
+                <input
+                  type="number"
+                  id="edit-area"
+                  min="0"
+                  step="0.01"
+                  placeholder="Ex.: 15"
+                  required
+                />
+              </div>
+
+              <div class="campo-modal">
+                <label for="edit-unidade">Unidade</label>
+                <select id="edit-unidade" required>
+                  <option value="m2">Metros quadrados</option>
+                  <option value="ha">Hectares</option>
+                  <option value="km2">Quilômetros quadrados</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="modal-actions">
+              <button
+                id="btn-cancelar-territorio"
+                class="btn-action btn-cancelar"
+                type="button"
+              >
+                Cancelar
+              </button>
+              <button class="btn-action btn-confirmar" type="submit">
+                Salvar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- modal confirmacao -->
+      <div id="modal-confirmacao" class="modal hidden">
+        <div class="modal-overlay" id="modal-confirmacao-overlay"></div>
+
+        <div class="modal-content modal-confirmacao-content">
+          <button class="modal-close" id="modal-confirmacao-close">
+            &times;
+          </button>
+
+          <div class="modal-confirmacao-icon">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+          </div>
+
+          <h2 id="modal-confirmacao-title">Confirmar ação</h2>
+          <p id="modal-confirmacao-message">
+            Tem certeza que deseja continuar?
+          </p>
+
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn-action btn-cancelar"
+              id="modal-confirmacao-cancelar"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn-action btn-confirmar"
+              id="modal-confirmacao-confirmar"
+            >
+              Confirmar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- modal erro -->
+      <div id="modal-erro" class="modal hidden">
+        <div class="modal-overlay" id="modal-erro-overlay"></div>
+
+        <div class="modal-content modal-erro-content">
+          <button class="modal-close" id="modal-erro-close">&times;</button>
+
+          <div class="modal-erro-icon">
+            <i class="fa-solid fa-circle-exclamation"></i>
+          </div>
+
+          <h2 id="modal-erro-title">Ocorreu um erro</h2>
+          <p id="modal-erro-message">
+            Não foi possível realizar esta operação.
+          </p>
+
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn-action btn-cancelar"
+              id="modal-erro-fechar"
+            >
+              Fechar
+            </button>
+          </div>
+        </div>
       </div>
     </main>
 
