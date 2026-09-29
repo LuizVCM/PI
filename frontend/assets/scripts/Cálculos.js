@@ -146,29 +146,60 @@ console.log("Média calculada:", mediaRn);
 
         console.log(`precipitação do dia: ${precipitacaoAtual}mm/h`)
     
-        // VERIFICAÇÃO DE AVISOS -----------------------------------------------------------------------------
-        async function previsaoRegs() {
-          // previsao maximo tempo 
-          const previsaoMaxima = `https://api.open-meteo.com/v1/forecast?latitude=${coordenadasCidade.location.coordinates.latitude}&longitude=${coordenadasCidade.location.coordinates.longitude}&daily=precipitation_probability_max&forecast_days=1`;
+    // VERIFICAÇÃO DE AVISOS -----------------------------------------------------------------------------
 
-          const tempo = await fetch(previsaoMaxima);
-          const dadosPrevisaoTempo = await tempo.json();
-          console.log(dadosPrevisaoTempo)
-          let NIR = ETc - Number(dadosPrevisaoTempo.daily.precipitation_probability_max[0]);
+    const mensagemAlerta = document.getElementById("alertaRega");
+        // previsao maximo tempo 
+        const previsaoMaxima = `https://api.open-meteo.com/v1/forecast?latitude=${coordenadasCidade.location.coordinates.latitude}&longitude=${coordenadasCidade.location.coordinates.longitude}&daily=precipitation_sum&forecast_days=1`;
 
-          console.log("NIR: "+NIR+" ml");
-          
-          const umidadeSolo = 40 // valor que deve receber no sensor
+        const tempo = await fetch(previsaoMaxima);
+        const dadosPrevisaoTempo = await tempo.json();
+        console.log(dadosPrevisaoTempo)
+        let NIR = ETc - Number(dadosPrevisaoTempo.daily.precipitation_sum[0]);
 
+        console.log("NIR: " + NIR + " mm");
+
+        // limites do solo (%) — ajuste CC para o seu solo
+        const PMP = 11;
+        const CC = 30;
+        const p = 0.5;
+        const limiteIrrigacao = CC - p * (CC - PMP);
+
+        // para testar: 3 = dia seco, -2 = chuva, null = usa o NIR real
+        const NIR_TESTE = null;
+        const NIRAlerta = NIR_TESTE ?? NIR;
+        // decisão dos alertas
+       function avaliarAlerta(umidade, NIR) {
+            if (umidade <= PMP) {
+                return 'Alerta crítico: solo no ponto de murcha permanente! Irrigar imediatamente.';
+            }
+ 
+            if (umidade <= limiteIrrigacao) {
+                if (NIR > 0) {
+                    return `Alerta crítico: Irrigação necessária. Aplicar  ${NIR.toFixed(1)} mm e água.`;
+                }
+                return 'Alerta de economia: Irrigação suspensa. A chuva prevista suprirá a cultura.';
+            }
+ 
+            return 'Nenhum alerta prescrito: Umidade do solo em nível seguro.';
         }
-
-        previsaoRegs()
-        setInterval(previsaoRegs, 15000 )
-        // capturar informações 
+ 
+        // leitura do sensor (simulada: 5% a 40%) + escreve no console e na tela
+        function lerSensor() {
+            const umidadeSoloAtual = Math.floor(Math.random() * 36) + 5;
+            console.log("valor: " + umidadeSoloAtual);
+ 
+            const aviso = avaliarAlerta(umidadeSoloAtual, NIRAlerta);
+            console.log(aviso);
+ 
+            if (mensagemAlerta) mensagemAlerta.textContent = aviso;
+        }
+ 
+        lerSensor();
+        setInterval(lerSensor, 10000);
     } catch (error) {
         console.log(`deu errado na comunicação: ${error}`)
     }
 }
 
 openMateo()
-
