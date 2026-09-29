@@ -40,6 +40,21 @@
   border-radius: 20px;
 }
 
+.form-message {
+  grid-column: 1 / -1 !important;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+
+  padding: 2px 12px;
+  border-radius: 20px;
+
+  margin-top: 0.8em !important;
+  justify-content: center;
+
+  font-size: 1rem !important;
+}
+
 .form-success {
   grid-column: 1 / -1 !important;
   display: flex;
