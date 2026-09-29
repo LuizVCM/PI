@@ -46,7 +46,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 25px;
-    margin-top: 40px;
+    margin-top: 10vh;
     background: rgba(255, 255, 255, 0);
     backdrop-filter: blur(15px);
     border-radius: 10px;

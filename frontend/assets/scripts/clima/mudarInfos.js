@@ -110,6 +110,8 @@ if (jaExisteHoje) {
 
         // pega as infomrações exatas de hj
         const hoje = document.querySelector(".local p")
+
+        function hj(){
         let diaNome = new Date().toLocaleDateString('pt-BR', { weekday: 'long' })
         let diaNum = new Date().getDate()
         // aq ele lê o número do mês atual, converte o seu significado para string e traduz na língua portuguesa
@@ -118,7 +120,8 @@ if (jaExisteHoje) {
         let minute = new Date().getMinutes()
         // impede q seja minuto 0, mas ss 00 até chegar o 10
         hoje.textContent = `${diaNome}, ${diaNum} ${mes} - ${hora}:${minute} `
-
+        }
+        setInterval(hj, 1000)
 
         const dia1 = document.querySelector(".d1")
         const dia2 = document.querySelector(".d2")
