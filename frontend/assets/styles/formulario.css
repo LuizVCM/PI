@@ -2,6 +2,7 @@
 
 @import url("./global.css");
 @import url("./utils/form-message.css");
+@import url("./utils/buttons.css");
 
 body {
   margin: 0;
@@ -389,6 +390,20 @@ body {
   color: var(--verde-sidebar);
 
   text-shadow: 0 0 10px rgba(40, 100, 60, 0.2);
+}
+
+#acoes-sensor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.btn-acoes {
+  display: flex;
+  flex-direction: row;
+  padding: 0.2em;
+  gap: 1em;
 }
 
 #cadastro .form-error-list {

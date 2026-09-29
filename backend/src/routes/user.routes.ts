@@ -36,13 +36,13 @@ userRoutes.post(
   userController.create.bind(userController)
 );
 userRoutes.put(
-  "/me",
+  "/",
   authMiddleware,
   validateUserUpdate,
   userController.update.bind(userController)
 );
 userRoutes.delete(
-  "/me",
+  "/",
   authMiddleware,
   userController.delete.bind(userController)
 );
