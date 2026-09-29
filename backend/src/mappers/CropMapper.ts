@@ -2,16 +2,18 @@ import { Crop, CropStatus } from "../models/Crop";
 import { Plant } from "../models/Plant";
 import { CreateCropDTO, UpdateCropDTO } from "../schemas/crop.schema";
 import { fromSquareMeters, toSquareMeters } from "../calc/area-converter";
-import { setHarvestForecast } from "../utils/date-utils";
-import { PlantMapper } from "./PlantMapper";
+import { formateDateToString, setHarvestForecast } from "../utils/date-utils";
 import { TerritoryMapper } from "./TerritoryMapper";
+import { SeedMapper } from "./SeedMapper";
 
 export class CropMapper {
   static toResponse(crop: Crop) {
     return {
       id: crop.id,
       nome: crop.nome,
-      cultura: PlantMapper.toResponse(crop.sementes.planta),
+      cultura: crop.sementes
+        ? SeedMapper.toSummaryResponse(crop.sementes)
+        : "indisponível",
       variedade: crop.variedade ? crop.variedade : "variedade não informada",
       area: fromSquareMeters(crop.areaM2, crop.unidadeArea),
       unidadeArea: crop.unidadeArea,
@@ -19,6 +21,9 @@ export class CropMapper {
       dataColheitaPrevista: crop.dataColheitaPrevista
         ? crop.dataColheitaPrevista
         : "não foi possível calcular",
+      dataColheitaReal: crop.dataColheitaReal
+        ? crop.dataColheitaReal
+        : "indisponível",
       responsavel: crop.responsavel
         ? crop.responsavel
         : "responsável não informado",
@@ -33,7 +38,9 @@ export class CropMapper {
     return {
       id: crop.id,
       nome: crop.nome,
-      cultura: PlantMapper.toResponse(crop.sementes.planta),
+      cultura: crop.sementes
+        ? SeedMapper.toSummaryResponse(crop.sementes)
+        : "indisponível",
       variedade: crop.variedade ? crop.variedade : "variedade não informada",
       area: fromSquareMeters(crop.areaM2, crop.unidadeArea),
       unidadeArea: crop.unidadeArea,
@@ -41,6 +48,9 @@ export class CropMapper {
       dataColheitaPrevista: crop.dataColheitaPrevista
         ? crop.dataColheitaPrevista
         : "não foi possível calcular",
+      dataColheitaReal: crop.dataColheitaReal
+        ? crop.dataColheitaReal
+        : "indisponível",
       responsavel: crop.responsavel
         ? crop.responsavel
         : "responsável não informado",
@@ -54,17 +64,14 @@ export class CropMapper {
   static toCreateEntity(data: CreateCropDTO, cultivation: Plant) {
     const dataPlantio = data.dataPlantio ? new Date(data.dataPlantio) : null;
     const cicloMedio = cultivation.getCicloMedioDias();
-    const dataColheitaPrevista = setHarvestForecast(
-      dataPlantio,
-      cicloMedio
-    );
+    const dataColheitaPrevista = setHarvestForecast(dataPlantio, cicloMedio);
     return {
       nome: data.nome,
       variedade: data.variedade ?? null,
       areaM2: toSquareMeters(data.area, data.unidadeArea),
       unidadeArea: data.unidadeArea,
-      dataPlantio: data.dataPlantio ? new Date(data.dataPlantio) : null,
-      dataColheitaPrevista: dataColheitaPrevista,
+      dataPlantio: data.dataPlantio ? formateDateToString(new Date(data.dataPlantio)) : null,
+      dataColheitaPrevista: formateDateToString(dataColheitaPrevista),
       responsavel: data.responsavel ?? null,
       status: data.status ?? CropStatus.PLANEJADA,
       observacoes: data.observacoes ?? null,

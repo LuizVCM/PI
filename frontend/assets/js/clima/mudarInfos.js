@@ -1,5 +1,8 @@
 const temperaturaMedia = document.querySelector(".graus h3");
-const umidadeMedia = document.querySelector(".um h1");
+const umidadeMedia = document
+
+
+
 const ventoMedio = document.querySelector(".Vento h1");
 const chuva = document.querySelector(".Chuva h1");
 const visibilidade = document.querySelector(".Visib h1");

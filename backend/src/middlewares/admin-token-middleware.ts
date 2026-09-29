@@ -1,6 +1,9 @@
+import * as dotenv from "dotenv";
 import { Request, Response, NextFunction } from "express";
 import { InternalServerError } from "../errors/InternalServerError";
 import { UnauthorizedError } from "../errors/UnauthorizedError";
+
+dotenv.config();
 
 export function adminTokenMiddleware(
   req: Request,

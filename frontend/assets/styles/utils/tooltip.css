@@ -7,7 +7,7 @@
 }
 
 .tooltip .tooltiptext {
-  visibility: hidden;
+  opacity: 0;  
   width: fit-content;
   background-color: var(--verde-sidebar);
   color: var(--verde-selecionar);
@@ -19,7 +19,7 @@
 
   position: absolute;
   z-index: 1;
-  bottom: 125%;
+  bottom: 110%;
   left: 50%;
   transform: translateX(-50%);
 
@@ -38,7 +38,23 @@
   border-color: var(--verde-profundo) transparent transparent transparent;
 }
 
+/* quando passa o mouse, inicia a animação */
 .tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
+  animation: fadeOut 2s forwards; 
+}
+
+/* animação: aparece e depois desaparece */
+@keyframes fadeOut {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1; 
+  }
+  80% {
+    opacity: 1; 
+  }
+  100% {
+    opacity: 0; 
+  }
 }

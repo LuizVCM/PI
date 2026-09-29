@@ -18,7 +18,7 @@ import { UserRole } from "../models/User";
 export class UserService {
   private repo = new UserRepository();
   async listAllWithRelations() {
-    const users = await this.repo.listAllWithRelations();
+    const users = await this.repo.listAllWithTerritory();
     return UserMapper.toResponseList(users);
   }
   async listByEmail(email: string) {
@@ -32,7 +32,7 @@ export class UserService {
     return UserMapper.toResponse(user);
   }
   async getInfoUser(id: number) {
-    const user = await this.repo.findUserWithRelations(id);
+    const user = await this.repo.findUserWithTerritory(id);
     if (!user) {
       throw new NotFoundError("usuário");
     }
@@ -63,7 +63,7 @@ export class UserService {
       if (alreadyInUse.telefone) fields.push("telefone");
       if (alreadyInUse.email) fields.push("e-mail");
       if (fields.length > 0) {
-        throw new ConflictError(fields);
+        throw new ConflictError({ fields: fields });
       }
     }
     const passHash = await bcrypt.hash(data.senha, 10);
@@ -109,7 +109,7 @@ export class UserService {
     return {
       id: user.id,
       email: user.email,
-      role: user.role
+      role: user.role,
     };
   }
   async checkUserPassword(email: string, pass: string) {
@@ -126,7 +126,7 @@ export class UserService {
   async createAdmin(data: CreateAdminDTO) {
     const existingUser = await this.repo.findByEmail(data.email);
     if (existingUser) {
-      throw new ConflictError(["e-mail"]);
+      throw new ConflictError({ fields: ["e-mail"] });
     }
     const adminExists = await this.repo.existsByRole(UserRole.ADMIN);
     if (adminExists) {

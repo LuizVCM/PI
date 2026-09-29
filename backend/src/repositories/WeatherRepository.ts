@@ -1,14 +1,15 @@
+import { Territory } from "./../models/Territory";
 import { Weather } from "../models/Weather";
-import { Territory } from "../models/Territory";
 import { createBaseRepository } from "./BaseRepository";
+import { formateDateToString } from "../utils/date-utils";
 
 interface WeatherData {
-  data: string,
-  temperaturaMinima: number,
-  temperaturaMaxima: number,
-  precipitacao: number,
-  velocidadeVentoMaxima: number,
-  evapotranspiracao: number
+  data: string;
+  temperaturaMinima: number;
+  temperaturaMaxima: number;
+  precipitacao: number;
+  velocidadeVentoMaxima: number;
+  evapotranspiracao: number;
 }
 
 export class WeatherRepository {
@@ -16,9 +17,23 @@ export class WeatherRepository {
   async findAllWithTerritory() {
     return this.base.findAll({ relations: { territorio: true } });
   }
+  async findConflicts(territoryId: number) {
+    const date = formateDateToString(new Date());
+    return await this.base.findOne({
+      where: { territorio: { id: territoryId }, data: date! },
+    });
+  }
+  async findByDateAndTerritory(territoryId: number, data: string) {
+    return this.base.findOne({
+      where: {
+        territorio: { id: territoryId },
+        data,
+      },
+    });
+  }
   async findByIdWithTeritory(id: number) {
     return this.base.findById(id, {
-      relations: { territorio: true },
+      relations: { territorio: { usuario: true } },
     });
   }
   async findByTerritoryId(territoryId: number): Promise<Weather[]> {
@@ -30,7 +45,10 @@ export class WeatherRepository {
   async findAllByUserId(userId: number) {
     return this.base
       .getRepository()
-      .find({ where: { territorio: { usuario: { id: userId } } } });
+      .find({
+        where: { territorio: { usuario: { id: userId } } },
+        relations: { territorio: { usuario: true } },
+      });
   }
   async create(data: WeatherData, territory: Territory): Promise<Weather> {
     const weather = this.base.create({ ...data, territorio: territory });

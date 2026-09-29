@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const TerritoryController_1 = require("../controllers/TerritoryController");
+const auth_middleware_1 = require("../middlewares/auth-middleware");
+const index_validate_1 = require("../middlewares/index.validate");
+const admin_middleware_1 = require("../middlewares/admin-middleware");
+const territoryRoutes = (0, express_1.Router)();
+const territoryController = new TerritoryController_1.TerritoryController();
+territoryRoutes.get("/all", auth_middleware_1.authMiddleware, (0, admin_middleware_1.adminMiddleware)("territórios"), territoryController.listAll.bind(territoryController));
+territoryRoutes.get("/me", auth_middleware_1.authMiddleware, territoryController.listMyTerritories.bind(territoryController));
+territoryRoutes.get("/:id", auth_middleware_1.authMiddleware, territoryController.getById.bind(territoryController));
+territoryRoutes.post("/", auth_middleware_1.authMiddleware, index_validate_1.validateTerritoryCreate, territoryController.create.bind(territoryController));
+territoryRoutes.put("/:id", auth_middleware_1.authMiddleware, index_validate_1.validateTerritoryUpdate, territoryController.update.bind(territoryController));
+territoryRoutes.delete("/:id", auth_middleware_1.authMiddleware, territoryController.delete.bind(territoryController));
+exports.default = territoryRoutes;

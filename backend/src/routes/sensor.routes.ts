@@ -2,6 +2,7 @@ import { Router } from "express";
 import { SensorController } from "../controllers/SensorController";
 import { authMiddleware } from "../middlewares/auth-middleware";
 import { adminMiddleware } from "../middlewares/admin-middleware";
+import { validateSensorCreate, validateSensorUpdate } from "../middlewares/index.validate";
 
 const sensorRoutes = Router();
 const sensorController = new SensorController();
@@ -25,11 +26,13 @@ sensorRoutes.get(
 sensorRoutes.post(
   "/territory/:id",
   authMiddleware,
+  validateSensorCreate,
   sensorController.create.bind(sensorController)
 );
 sensorRoutes.put(
   "/:id",
   authMiddleware,
+  validateSensorUpdate,
   sensorController.update.bind(sensorController)
 );
 sensorRoutes.delete(

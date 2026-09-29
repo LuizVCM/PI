@@ -3,18 +3,16 @@ import {
   Entity,
   Index,
   ManyToOne,
-  PrimaryGeneratedColumn,
 } from "typeorm";
 import { Territory } from "./Territory";
+import { BaseModel } from "./BaseModel";
 
 
 @Index(["territorio", "data"], { unique: true })
 @Entity("dados_clima")
-export class Weather  {
-  @PrimaryGeneratedColumn()
-  id: number;
+export class Weather extends BaseModel {
   @Column({ type: "date" })
-  data: Date;
+  data: string;
   @Column({ type: "decimal", precision: 5, scale: 2 })
   temperaturaMinima: number;
   @Column({ type: "decimal", precision: 5, scale: 2 })

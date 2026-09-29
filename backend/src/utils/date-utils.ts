@@ -12,3 +12,12 @@ export function setHarvestForecast(
   }
   return addDays(dataPlantio, cicloMedioDias);
 }
+export function formateDateToString(date: Date | null): string | null {
+  if (date) {
+    const dateToLocaleString = date.toLocaleDateString();
+    const [day, month, year] = dateToLocaleString.substring(0, 10).split("/");
+    return `${year}-${month}-${day}`;
+  } else {
+    return null;
+  }
+}

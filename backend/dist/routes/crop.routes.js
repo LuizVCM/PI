@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const CropController_1 = require("../controllers/CropController");
+const auth_middleware_1 = require("../middlewares/auth-middleware");
+const index_validate_1 = require("../middlewares/index.validate");
+const admin_middleware_1 = require("../middlewares/admin-middleware");
+const cropRoutes = (0, express_1.Router)();
+const cropController = new CropController_1.CropController();
+cropRoutes.get("/all", auth_middleware_1.authMiddleware, (0, admin_middleware_1.adminMiddleware)("plantações"), cropController.listAll.bind(cropController));
+cropRoutes.get("/me", auth_middleware_1.authMiddleware, cropController.listMyCrops.bind(cropController));
+cropRoutes.get("/:id", auth_middleware_1.authMiddleware, cropController.getById.bind(cropController));
+cropRoutes.post("/:id", auth_middleware_1.authMiddleware, index_validate_1.validateCropCreate, cropController.create.bind(cropController));
+cropRoutes.put("/:id", auth_middleware_1.authMiddleware, index_validate_1.validateCropUpdate, cropController.update.bind(cropController));
+cropRoutes.delete("/:id", auth_middleware_1.authMiddleware, cropController.delete.bind(cropController));
+exports.default = cropRoutes;
