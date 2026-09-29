@@ -1,5 +1,6 @@
 
 // consumo de API meteorológica
+
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------
 export async function openMateo() {
     const plantasAPI = 'http://localhost:3000/plants/me';
@@ -155,7 +156,7 @@ console.log("Média calculada:", mediaRn);
           console.log(dadosPrevisaoTempo)
           let NIR = ETc - Number(dadosPrevisaoTempo.daily.precipitation_probability_max[0]);
 
-          console.log("NIR: "+NIR);
+          console.log("NIR: "+NIR+" ml");
           
           const umidadeSolo = 40 // valor que deve receber no sensor
 
