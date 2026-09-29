@@ -54,14 +54,13 @@ const el = {
 
 function preencherTela(user) {
   const territorio = user.territorios?.[0];
-
   el.foto.textContent = (user.nome ?? "?").substring(0, 2);
   el.nome.textContent = `${user.nome ?? ""} ${user.sobrenome ?? ""}`.trim();
   el.infoEmail.textContent = user.email || "—";
   el.infoFone.textContent = user.telefone
     ? formatarTelefone(user.telefone)
     : "—";
-  el.infoCpf.textContent = user.cpf || "—";
+  el.infoCpf.textContent = user.cpf ? formatarCpf(user.cpf) : "—";
   el.infoLocal.textContent = territorio
     ? [territorio.logradouro, territorio.cidade].filter(Boolean).join(", ")
     : "Nenhum território cadastrado";
