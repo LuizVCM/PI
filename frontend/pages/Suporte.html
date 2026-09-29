@@ -1,150 +1,150 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TerraFarr – Suporte</title>
-    <link rel="icon" href="../assets/icon/logo.ico" />
 
-    <link rel="stylesheet" href="../assets/styles/suporte/all.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-    />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TerraFarr – Suporte</title>
+  <link rel="icon" href="../assets/icon/logo.ico" />
 
-  <body>
-    <header>
-      <button class="btn-menu menu-toggle">
-        <i class="fa-solid fa-bars"></i>
+  <link rel="stylesheet" href="../assets/styles/suporte/all.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+</head>
+
+<body>
+  <header>
+    <button class="btn-menu menu-toggle">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <button class="btn-menu menu-mobile">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <div class="message-div">
+      <span class="bem-vindo" id="welcome-message"></span>
+      <div class="user" id="user-abbrev"></div>
+    </div>
+  </header>
+
+  <div class="overlay"></div>
+
+  <main>
+    <aside class="aside">
+      <button class="opcao home">
+        <i class="fa-solid fa-house selecao"></i>
+        Início
       </button>
 
-      <button class="btn-menu menu-mobile">
-        <i class="fa-solid fa-bars"></i>
+      <button class="opcao clima">
+        <i class="fa-solid fa-cloud selecao"></i>
+        Clima
       </button>
 
-      <div class="message-div">
-        <span class="bem-vindo" id="welcome-message"></span>
-        <div class="user" id="user-abbrev"></div>
-      </div>
-    </header>
+      <button class="opcao sementes">
+        <i class="fa-solid fa-seedling selecao"></i>
+        Culturas
+      </button>
 
-    <div class="overlay"></div>
+      <button class="opcao gestao">
+        <i class="fa-solid fa-calendar-days selecao"></i>
+        Gestão
+      </button>
 
-    <main>
-      <aside class="aside">
-        <button class="opcao home">
-          <i class="fa-solid fa-house selecao"></i>
-          Início
-        </button>
+      <button class="opcao segurancas">
+        <i class="fa-solid fa-circle-info selecao"></i>
+        Informações
+      </button>
 
-        <button class="opcao clima">
-          <i class="fa-solid fa-cloud selecao"></i>
-          Clima
-        </button>
+      <button class="opcao financas">
+        <i class="fa-solid fa-coins selecao"></i>
+        Finanças
+      </button>
 
-        <button class="opcao sementes">
-          <i class="fa-solid fa-seedling selecao"></i>
-          Culturas
-        </button>
+      <button class="opcao relatorio">
+        <i class="fa-solid fa-file-lines selecao"></i>
+        Relatório
+      </button>
 
-        <button class="opcao gestao">
-          <i class="fa-solid fa-calendar-days selecao"></i>
-          Gestão
-        </button>
+      <button class="opcao suporte">
+        <i class="fa-solid fa-circle-question selecao"></i>
+        Suporte
+      </button>
 
-        <button class="opcao segurancas">
-          <i class="fa-solid fa-circle-info selecao"></i>
-          Informações
-        </button>
+      <button class="opcao perfil">
+        <i class="fa-solid fa-circle-user selecao"></i>
+        Perfil
+      </button>
+    </aside>
 
-        <button class="opcao financas">
-          <i class="fa-solid fa-coins selecao"></i>
-          Finanças
-        </button>
+    <div class="content">
+      <div class="suportes">
+        <h1>Suporte</h1>
+        <p class="descricao">Encontre respostas para as dúvidas mais comuns ou entre em contato conosco.</p>
 
-        <button class="opcao relatorio">
-          <i class="fa-solid fa-file-lines selecao"></i>
-          Relatório
-        </button>
+        <div class="pesquisa">
+          <input type="text" placeholder="Pesquisar uma dúvida..." />
+        </div>
+        <h2>Perguntas Frequentes</h2>
 
-        <button class="opcao suporte">
-          <i class="fa-solid fa-circle-question selecao"></i>
-          Suporte
-        </button>
-
-        <button class="opcao perfil">
-          <i class="fa-solid fa-circle-user selecao"></i>
-          Perfil
-        </button>
-      </aside>
-
-      <div class="content">
-        <div class="suportes">
-          <h1>Central de Suporte</h1>
-          <p class="descricao">
-            Encontre respostas para as dúvidas mais comuns ou entre em contato
-            conosco.
-          </p>
-
-          <div class="pesquisa">
-            <input type="text" placeholder="Pesquisar uma dúvida..." />
-          </div>
-
-          <h2>Perguntas Frequentes</h2>
-
+        <div class="grade-perguntas">
           <div class="pergunta">
-            <h3>Como cadastrar uma plantação?</h3>
-            <p>
-              Entre na aba Gestão, clique em "Cadastrar nova plantação",
-              preencha os campos e salve.
-            </p>
+            <h3>Como cadastrar uma plantação? <i class="fa-solid fa-seedling icone-verde"></i></h3>
+            <p>Entre na aba Gestão, clique em "Cadastrar nova plantação", preencha os campos e salve.</p>
           </div>
 
           <div class="pergunta">
-            <h3>Como cadastrar um insumo?</h3>
-            <p>
-              Acesse a tela de Insumos Disponíveis e clique em "Novo Insumo".
-            </p>
+            <h3>Como cadastrar um insumo? <i class="fa-solid fa-list-ul icone-azul"></i></h3>
+            <p>Acesse a tela de Insumos Disponíveis e clique em "Novo Insumo".</p>
           </div>
 
           <div class="pergunta">
-            <h3>Como atualizar o estoque?</h3>
-            <p>
-              Abra a tela Controle de Estoque e altere a quantidade do insumo.
-            </p>
+            <h3>Como atualizar o estoque? <i class="fa-solid fa-boxes-stacked icone-laranja"></i></h3>
+            <p>Abra a tela Controle de Estoque e altere a quantidade do insumo.</p>
           </div>
 
           <div class="pergunta">
-            <h3>Esqueci minha senha. O que fazer?</h3>
-            <p>
-              Entre em contato com o administrador do sistema para redefinir sua
-              senha.
-            </p>
+            <h3>Esqueci minha senha. O que fazer? <i class="fa-solid fa-lock icone-roxo"></i></h3>
+            <p>Entre em contato com o administrador do sistema para redefinir sua senha.</p>
           </div>
 
-          <h2>Contato</h2>
+          <div class="pergunta">
+            <h3>Como consultar a agenda de colheita? <i class="fa-solid fa-calendar-days icone-vermelho"></i></h3>
+            <p>Entre na aba Gestão e clique em "Agenda de colheita". Lá você vê as datas previstas de cada plantação
+              cadastrada.</p>
+          </div>
 
-          <div class="contato">
-            <div class="card-contato">
-              <i class="fa-solid fa-phone"></i>
-              <span>(51) 99999-9999</span>
-            </div>
+          <div class="pergunta">
+            <h3>Como funcionam os alertas? <i class="fa-solid fa-bell icone-verde-agua"></i></h3>
+            <p>Na aba Gestão, abra "Alertas" para ver avisos sobre estoque baixo, colheitas próximas e mudanças no
+              clima.</p>
+          </div>
+        </div>
 
-            <div class="card-contato">
-              <i class="fa-solid fa-envelope"></i>
-              <span>suporte@terrafar.com</span>
-            </div>
+        
+        <h2>Contato</h2>
 
-            <div class="card-contato">
-              <i class="fa-solid fa-location-dot"></i>
-              <span>São Leopoldo - RS</span>
-            </div>
+        <div class="contato">
+          <div class="card-contato">
+            <i class="fa-solid fa-phone"></i>
+            <span>(51) 99999-9999</span>
+          </div>
+
+          <div class="card-contato">
+            <i class="fa-solid fa-envelope"></i>
+            <span>suporte@terrafar.com</span>
+          </div>
+
+          <div class="card-contato">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>São Leopoldo - RS</span>
           </div>
         </div>
       </div>
-    </main>
-    <script type="module" src="../assets/scripts/pages/home.js"></script>
-    <script type="module" src="../assets/scripts/suporte.js"></script>
-  </body>
+    </div>
+  </main>
+  <script type="module" src="../assets/scripts/pages/home.js"></script>
+  <script type="module" src="../assets/scripts/suporte.js"></script>
+</body>
+
 </html>
