@@ -96,6 +96,12 @@
   background: var(--verde-opcoes-click);
   transform: translateY(-2px);
 }
+.btn-perigo {
+  background: var(--err) !important;
+}
+.btn-perigo:hover {
+  background: #8f1e17 !important;
+}
 
 .form-painel .btn {
   display: flex;

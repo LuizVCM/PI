@@ -5,6 +5,12 @@ import {
   showErrors,
 } from "../utils/show-message.js";
 import { capitalizar } from "../utils/formatter.js";
+import {
+  aplicarMascaraTelefone,
+  aplicarMascaraCpf,
+  aplicarMascaraCep,
+  aplicarCapitalizacao,
+} from "../utils/masks.js";
 
 // todos os painéis
 const fundo = document.querySelectorAll(".fundo");
@@ -37,64 +43,10 @@ const cpf = document.getElementById("cpf-cad");
 const nomeInput = document.getElementById("nome-cad");
 const sobrenomeInput = document.getElementById("sobrenome-cad");
 
-function validateName(input) {
-  input.addEventListener("input", () => {
-    // cada primeira letra fica maiuscula
-    input.value = input.value.replace(/(^|\s)\S/g, (letra) =>
-      letra.toUpperCase()
-    );
-  });
-}
-
-validateName(nomeInput);
-validateName(sobrenomeInput);
-
-telefone.addEventListener("input", () => {
-  // remove o que não for dígito e limita pra 11 caracteres
-  let valor = telefone.value.replace(/\D/g, "").substring(0, 11);
-
-  if (valor.length <= 2) {
-    telefone.value = `(${valor}`;
-  } else if (valor.length <= 6) {
-    telefone.value = `(${valor.substring(0, 2)}) ${valor.substring(2)}`;
-  } else if (valor.length <= 10) {
-    // se tiver 10 dígitos, formata como fixo (4 dígitos antes do traço)
-    telefone.value = `(${valor.substring(0, 2)}) ${valor.substring(
-      2,
-      6
-    )}-${valor.substring(6)}`;
-  } else {
-    // se tiver 11 dígitos, formata como celular (5 dígitos antes do traço)
-    telefone.value = `(${valor.substring(0, 2)}) ${valor.substring(
-      2,
-      7
-    )}-${valor.substring(7)}`;
-  }
-});
-
-cpf.addEventListener("input", () => {
-  let valor = cpf.value.replace(/\D/g, "");
-
-  // limita a 11 números
-  valor = valor.substring(0, 11);
-
-  if (valor.length <= 3) {
-    cpf.value = valor;
-  } else if (valor.length <= 6) {
-    cpf.value = `${valor.substring(0, 3)}.` + `${valor.substring(3)}`;
-  } else if (valor.length <= 9) {
-    cpf.value =
-      `${valor.substring(0, 3)}.` +
-      `${valor.substring(3, 6)}.` +
-      `${valor.substring(6)}`;
-  } else {
-    cpf.value =
-      `${valor.substring(0, 3)}.` +
-      `${valor.substring(3, 6)}.` +
-      `${valor.substring(6, 9)}-` +
-      `${valor.substring(9)}`;
-  }
-});
+aplicarCapitalizacao(nomeInput);
+aplicarCapitalizacao(sobrenomeInput);
+aplicarMascaraTelefone(telefone);
+aplicarMascaraCpf(cpf);
 
 const cadastroForm = document.getElementById("cadastro");
 const btnCadastro = document.getElementById("btn-cadastro");
@@ -273,19 +225,7 @@ const btnCadTer = document.getElementById("btn-cadastrar-territorio");
 const mensagemTer = document.getElementById("mensagem-territorio");
 
 const cep = document.getElementById("cep");
-
-cep.addEventListener("input", () => {
-  let valor = cep.value.replace(/\D/g, "");
-
-  // limita a 8 números
-  valor = valor.substring(0, 8);
-
-  if (valor.length <= 5) {
-    cep.value = valor;
-  } else if (valor.length <= 8) {
-    cep.value = `${valor.substring(0, 5)}-` + `${valor.substring(5, 8)}`;
-  }
-});
+aplicarMascaraCep(cep);
 
 territorioForm.addEventListener("submit", async (event) => {
   event.preventDefault();
