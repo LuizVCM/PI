@@ -6,5 +6,5 @@ function abrirPaginaComDelay(url, delaySegundos) {
 }
 
 window.onload = function () {
-  abrirPaginaComDelay("./pages/formulario.html", 2.6);
+  abrirPaginaComDelay("./pages/formulario.html", 3.5);
 };

@@ -5,11 +5,6 @@ const chuva = document.querySelector(".Chuva h1")
 const visibilidade = document.querySelector(".Visib h1")
 const temperaturaAtual = document.querySelector(".graus h1")
 
-
-
-
-
-
 async function TrocarTemp() {
 
   try {
