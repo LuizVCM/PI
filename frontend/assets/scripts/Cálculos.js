@@ -2,6 +2,10 @@
 // consumo de API meteorológica
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+const barraNível = document.getElementById('barraUmidade')
+const valor = document.querySelector(".valor-grande")
+
 export async function openMateo() {
     const plantasAPI = 'http://localhost:3000/plants/me';
     const select = document.getElementById("sementeInfo")
@@ -21,7 +25,7 @@ if (!plantaSalva) {
 console.log(select.value)
 
 const textoSelecionado = plantaSalva.nomeExibido; // valor idêntico ao que foi exibido na tela
-console.log("Txto sececionado: "+textoSelecionado)
+console.log("Texto selecionado: "+textoSelecionado)
 const plantaEncontrada = plantas.find(
     (planta) => planta.nome.toLowerCase() === textoSelecionado.toLowerCase()
   );
@@ -185,7 +189,7 @@ console.log("Média calculada:", mediaRn);
         }
  
         // leitura do sensor (simulada: 5% a 40%) + escreve no console e na tela
-        function lerSensor() {
+         function lerSensor() {
             const umidadeSoloAtual = Math.floor(Math.random() * 36) + 5;
             console.log("valor: " + umidadeSoloAtual);
  
@@ -193,6 +197,9 @@ console.log("Média calculada:", mediaRn);
             console.log(aviso);
  
             if (mensagemAlerta) mensagemAlerta.textContent = aviso;
+
+              barraNível.style.width = `${umidadeSoloAtual}%`
+        valor.textContent = `${umidadeSoloAtual}%`
         }
  
         lerSensor();

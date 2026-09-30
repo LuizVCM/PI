@@ -1,5 +1,3 @@
-const barraNível = document.getElementById('barraUmidade')
-const valor = document.querySelector(".valor-grande")
 
 
 async function barra() {
@@ -29,8 +27,6 @@ async function barra() {
         const umidade = dados.hourly.relative_humidity_2m[horaAtual]// aq entra os gráficos, mas estou consumindo dado de API só para ter alguma informação validada
 
         console.log("Umidade:", umidade)
-        barraNível.style.width = `${umidade}%`
-        valor.textContent = `${umidade}%`
 
     } catch (error) {
         console.log(`Erro ao conectar com a API: ${error}`)
