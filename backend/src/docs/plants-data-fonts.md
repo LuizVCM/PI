@@ -29,51 +29,44 @@ utilizados em `plantsData`
 Coeficientes obtidos de literatura nacional, complementados com dados
 agronômicos do EcoCrop.
 
-| Cultura | Kc (ini / mid / end) | Fonte | Ano |
-|---|---|---|---|
-| Maracujá | 0.42 / 1.12 / 0.80 | Embrapa / Silva & Klar | 2002 |
-| Caju | 0.20 / 0.91 / 0.65 | Embrapa | 2021 |
-| Goiaba | 0.75 / 0.93 / 0.84 | Teixeira et al. | 2003 |
-| Pimenta-do-reino | 0.60 / 1.00 / 0.90 | Literatura nacional (Embrapa) | — |
-| Erva-mate | 0.80 / 0.95 / 0.95 | Pereira et al. | 2005 |
-| Açaí | 0.90 / 1.08 / 1.00 | MDPI | 2023 |
-| Cupuaçu | 0.60 / 0.90 / 0.85 | Estimado (base: cacau) | — |
-| Pupunha | 0.80 / 1.20 / 1.10 | Embrapa | 2003 |
-| Acerola | 1.20 / 1.39 / 1.20 | UESPI | 2014 |
-| Graviola | 0.40 / 1.00 / 0.80 | DripPro / Silva | 2003 |
-| Rúcula | 0.70 / 1.05 / 0.95 | Santana et al. (IFTM) | 2016 |
-| Feijão-mungo | 0.73 / 1.24 / 1.32 | Nascimento & Dipple | 2024 |
-| Capim-marandu | 0.50 / 0.95 / 0.80 | USP / INOVAGRI | 2017 |
-| Estilosantes | 0.40 / 0.90 / 0.85 | UFGD | — |
-
-### Referências
-
-- **Silva & Klar (2002)** — Determinação do Kc para maracujazeiro.
-- **Teixeira et al. (2003)** — Coeficiente de cultura da goiabeira irrigada.
-- **Pereira et al. (2005)** — Evapotranspiração e Kc da erva-mate.
-- **MDPI (2023)** — Estudo de Kc para açaizeiro.
-- **UESPI (2014)** — Kc da acerola na região de Fortaleza, CE.
-- **DripPro / Silva (2003)** — Coeficientes para gravioleira.
-- **Santana et al. (2016)** — Kc da rúcula no IFTM, Uberaba, MG.
-- **Nascimento & Dipple (2024)** — Kc do feijão-mungo.
-- **USP / INOVAGRI (2017)** — Consumo de água e Kc do capim Marandu.
-- **UFGD** — Valores de Kc para estilosantes-campo-grande.
+| Cultura | Kc (ini / mid / end) | Chave .bib | Fonte | Ano |
+|---|---|---|---|---|
+| Maracujá | 0.42 / 1.12 / 0.80 | `silva_klar_2002` | Silva & Klar | 2002 |
+| Caju | 0.20 / 0.91 / 0.65 | `embrapa_caju_2021` | Embrapa | 2021 |
+| Goiaba | 0.75 / 0.93 / 0.84 | `teixeira_goiaba_2003` | Teixeira et al. | 2003 |
+| Pimenta-do-reino | 0.60 / 1.00 / 0.90 | `embrapa_pimenta` | Embrapa | — |
+| Açaí | 0.90 / 1.08 / 1.00 | `sousa_acai_2023` | Sousa et al. | 2023 |
+| Pupunha | 0.80 / 1.20 / 1.10 | `embrapa_pupunha_2003` | Embrapa | 2003 |
+| Acerola | 1.20 / 1.39 / 1.20 | `silva_acerola_2014` | Silva | 2014 |
+| Graviola | 0.40 / 1.00 / 0.80 | `silva_graviola_2003` | Silva | 2003 |
+| Rúcula | 0.70 / 1.05 / 0.95 | `santana_rucula_2016` | Santana et al. | 2016 |
+| Feijão-mungo | 0.73 / 1.24 / 1.32 | `nascimento_dipple_2024` | Nascimento & Dipple | 2024 |
 
 ---
 
 ## 3. Culturas com Kc aproximado
 
-Estas culturas **não constam** da Tabela 12 da FAO-56 ou não têm dado específico.
-O Kc foi adaptado por analogia a culturas próximas.
+Estas culturas **não constam** da Tabela 12 da FAO-56 ou não têm dado
+específico na literatura nacional consultada. O Kc foi adaptado por analogia
+a culturas próximas, conforme a coluna "Justificativa".
 
-| Cultura | Kc | Justificativa |
-|---|---|---|
-| Pinhão (*Araucaria angustifolia*) | 1.00 / 1.00 / 1.00 | Kc de conífera genérica (FAO-56). Não há dado específico. |
-| Pinhão-manso (*Jatropha curcas*) | 0.30 / 0.85 / 0.50 | Baseado em oleaginosas arbustivas similares. |
-| Braquiária (*Urochloa spp.*) | 0.50 / 0.95 / 0.80 | Adaptado de *Brachiaria* / *Panicum* da FAO-56. |
-| Mombaça (*Megathyrsus maximus*) | 0.55 / 1.00 / 0.85 | Adaptado de forrageiras tropicais. |
-| Capim-elefante (*Pennisetum purpureum*) | 0.60 / 1.10 / 0.90 | Adaptado de forrageiras tropicais. |
+| Cultura | Kc | Categoria | Justificativa | Base |
+|---|---|---|---|---|
+| Pinhão (*Araucaria angustifolia*) | 1.00 / 1.00 / 1.00 | 3 | Kc de conífera genérica da FAO-56. Sem dado específico. | FAO-56 |
+| Erva-mate (*Ilex paraguariensis*) | 0.80 / 0.95 / 0.95 | 3 | Kc adaptado do cafeeiro (*Coffea arabica*). Não há Kc específico para erva-mate na literatura consultada. | Sato et al. (2007) |
+| Pinhão-manso (*Jatropha curcas*) | 0.30 / 0.85 / 0.50 | 3 | Oleaginosas arbustivas similares. | — |
+| Braquiária (*Urochloa spp.*) | 0.50 / 0.95 / 0.80 | 3 | Adaptado de *Brachiaria* / *Panicum* da FAO-56. | FAO-56 |
+| Capim-marandu (*Urochloa brizantha* cv. Marandu) | 0.50 / 0.95 / 0.80 | 3 | Adaptado de *Brachiaria* / *Panicum* da FAO-56. Sem dado específico. | FAO-56 |
+| Mombaça (*Megathyrsus maximus*) | 0.55 / 1.00 / 0.85 | 3 | Forrageiras tropicais. | — |
+| Capim-elefante (*Pennisetum purpureum*) | 0.60 / 1.10 / 0.90 | 3 | Forrageiras tropicais. | — |
+| Estilosantes (*Stylosanthes spp.*) | 0.40 / 0.90 / 0.85 | 3 | Adaptado de leguminosas forrageiras da FAO-56. Sem dado específico. | FAO-56 |
+| Cupuaçu (*Theobroma grandiflorum*) | 0.60 / 0.90 / 0.85 | 3 | Estimado a partir do Kc do cacau (*Theobroma cacao*), cultura do mesmo gênero. | FAO-56 |
+| Agrião (*Nasturtium officinale*) | 0.80 / 1.10 / 1.00 | 3 | Adaptado de hortaliças folhosas da FAO-56. Sem dado específico. | FAO-56 |
+| Mostarda (*Brassica juncea*) | 0.70 / 1.00 / 0.95 | 3 | Adaptado de *small vegetables* da FAO-56. | FAO-56 |
 
+> **Nota**: as entradas marcadas com `—` na coluna "Base" não têm fonte direta
+> e são estimativas do próprio projeto, devendo ser validadas experimentalmente
+> antes de uso em produção.
 > Recomenda-se revisar estes valores com dados locais antes de uso em produção.
 
 ---
