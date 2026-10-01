@@ -27,7 +27,7 @@ export class CropMapper {
       responsavel: crop.responsavel
         ? crop.responsavel
         : "responsável não informado",
-      status: crop.status,
+      status: crop.status === CropStatus.EM_ANDAMENTO ? "em andamento" : crop.status,
       observacoes: crop.observacoes ? crop.observacoes : "sem observações",
       territorio: crop.territorio
         ? TerritoryMapper.toSummaryResponse(crop.territorio)
@@ -54,7 +54,7 @@ export class CropMapper {
       responsavel: crop.responsavel
         ? crop.responsavel
         : "responsável não informado",
-      status: crop.status,
+      status: crop.status === CropStatus.EM_ANDAMENTO ? "em andamento" : crop.status,
       observacoes: crop.observacoes ? crop.observacoes : "sem observações",
     };
   }

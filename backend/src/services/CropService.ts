@@ -136,10 +136,6 @@ export class CropService {
           crop.sementes = novaSeed;
         }
 
-        if (cancelando) {
-          crop.sementes = null;
-        }
-
         if (data.dataPlantio) {
           const seedParaCalculo = novaSeed ?? crop.sementes;
           if (!seedParaCalculo?.planta) {
@@ -163,6 +159,11 @@ export class CropService {
           crop.dataColheitaPrevista = formateDateToString(novaPrevista);
         }
 
+        if (cancelando) {
+          crop.sementes = null;
+          crop.status = CropStatus.CANCELADA;
+        }
+
         if (data.dataColheitaReal) {
           const colheitaReal = new Date(data.dataColheitaReal);
           crop.dataColheitaReal = formateDateToString(colheitaReal);
@@ -175,7 +176,6 @@ export class CropService {
           dataPlantio,
           dataColheitaReal,
           dataColheitaPrevista,
-          status,
           sementes,
           ...cropData
         } = CropMapper.toUpdateEntity(data);
