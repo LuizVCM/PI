@@ -175,12 +175,12 @@ console.log("Média calculada:", mediaRn);
         // decisão dos alertas
        function avaliarAlerta(umidade, NIR) {
             if (umidade <= PMP) {
-                return 'Alerta crítico: solo no ponto de murcha permanente! Irrigar imediatamente.';
+                return `Alerta crítico: solo no ponto de murcha permanente! Irrigar imediatamente. Aplicar  ${NIR.toFixed(1)} mm de água. `;
             }
  
             if (umidade <= limiteIrrigacao) {
                 if (NIR > 0) {
-                    return `Alerta crítico: Irrigação necessária. Aplicar  ${NIR.toFixed(1)} mm e água.`;
+                    return `Alerta crítico: Irrigação necessária. Aplicar  ${NIR.toFixed(1)} mm de água.`;
                 }
                 return 'Alerta de economia: Irrigação suspensa. A chuva prevista suprirá a cultura.';
             }
