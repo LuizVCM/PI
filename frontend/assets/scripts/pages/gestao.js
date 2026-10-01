@@ -17,6 +17,8 @@ import { carregarSementes } from "../utils/load-user-data.js";
 import { carregarUsuario } from "../utils/load-user-data.js";
 
 const PLANTACAO_INDISPONIVEL = "plantação indisponível";
+const DATA_INDISPONIVEL = "indisponível";
+const foiColhida = (crop) => Boolean(crop.dataColheitaReal) && crop.dataColheitaReal !== DATA_INDISPONIVEL;
 
 let cropEditandoId = null;
 let insumoEditandoId = null;
@@ -512,9 +514,7 @@ function renderAgenda(crops) {
 
   ordenados.forEach((c) => {
     const culturaNome = c.cultura?.planta?.nome ?? "—";
-    const concluida = Boolean(
-      c.dataColheitaReal === "indisponível" ? false : true,
-    );
+    const concluida = foiColhida(c);
     const vencida =
       !concluida &&
       c.dataColheitaPrevista &&
@@ -585,14 +585,15 @@ function atualizarCardsAgenda(crops) {
   const comPrevisao = crops.filter((c) => c.dataColheitaPrevista);
 
   document.getElementById("agenda-total").textContent = comPrevisao.length;
+  document.getElementById("agenda-concluidas").textContent =
+    crops.filter(foiColhida).length;
+
   document.getElementById("agenda-hoje").textContent = comPrevisao.filter(
-    (c) => c.dataColheitaPrevista === hoje && !c.dataColheitaReal,
+    (c) => c.dataColheitaPrevista === hoje && !foiColhida(c),
   ).length;
+
   document.getElementById("agenda-pendentes").textContent = comPrevisao.filter(
-    (c) => c.dataColheitaPrevista > hoje && !c.dataColheitaReal,
-  ).length;
-  document.getElementById("agenda-concluidas").textContent = crops.filter(
-    (c) => c.dataColheitaReal,
+    (c) => c.dataColheitaPrevista > hoje && !foiColhida(c),
   ).length;
 }
 
