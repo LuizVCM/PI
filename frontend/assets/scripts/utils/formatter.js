@@ -14,3 +14,13 @@ export function escapeHtml(texto) {
   div.textContent = texto ?? "";
   return div.innerHTML;
 }
+/** converte data */
+export function converterData(valor) {
+  if (!valor) return null;
+  // força horário local
+  if (typeof valor === "string" && /^\d{4}-\d{2}-\d{2}$/.test(valor)) {
+    return new Date(`${valor}T00:00:00`);
+  }
+  const date = valor instanceof Date ? valor : new Date(valor);
+  return Number.isNaN(date.getTime()) ? null : date;
+}
