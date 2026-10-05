@@ -149,61 +149,89 @@ console.log("Média calculada:", mediaRn);
         console.log(`evapotranspiração da cultura: ${ETc}`)
 
         console.log(`precipitação do dia: ${precipitacaoAtual}mm/h`)
-    
-    // VERIFICAÇÃO DE AVISOS -----------------------------------------------------------------------------
+const mensagemAlerta = document.getElementById("alertaRega");
 
-    const mensagemAlerta = document.getElementById("alertaRega");
-        // previsao maximo tempo 
-        const previsaoMaxima = `https://api.open-meteo.com/v1/forecast?latitude=${coordenadasCidade.location.coordinates.latitude}&longitude=${coordenadasCidade.location.coordinates.longitude}&daily=precipitation_sum&forecast_days=1`;
+const areaM2 = usuario0.territorios[0].area;
+const eficiencia = 0.75;
+const Zr = 400; // profundidade efetiva das raízes em mm
 
-        const tempo = await fetch(previsaoMaxima);
-        const dadosPrevisaoTempo = await tempo.json();
-        console.log(dadosPrevisaoTempo)
-        let NIR = ETc - Number(dadosPrevisaoTempo.daily.precipitation_sum[0]);
+// previsao maximo tempo
+const previsaoMaxima = `https://api.open-meteo.com/v1/forecast?latitude=${coordenadasCidade.location.coordinates.latitude}&longitude=${coordenadasCidade.location.coordinates.longitude}&daily=precipitation_sum&forecast_days=1`;
 
-        console.log("NIR: " + NIR + " mm");
+let chuvaPrevista = 0;
+try {
+    const tempo = await fetch(previsaoMaxima);
+    const dadosPrevisaoTempo = await tempo.json();
+    console.log(dadosPrevisaoTempo);
+    const chuvaApi = Number(dadosPrevisaoTempo.daily.precipitation_sum[0]);
+    if (!Number.isNaN(chuvaApi)) chuvaPrevista = chuvaApi;
+} catch (erro) {
+    console.error("Falha ao obter previsão de chuva:", erro);
+}
 
-        // limites do solo (%) — ajuste CC para o seu solo
-        const PMP = 11;
-        const CC = 30;
-        const p = 0.5;
-        const limiteIrrigacao = CC - p * (CC - PMP);
+// NIR do FAO (consumo do dia - chuva) — mantido como estava
+let NIR = ETc - chuvaPrevista;
+console.log("NIR: " + NIR + " mm");
 
-        // para testar: 3 = dia seco, -2 = chuva, null = usa o NIR real
-        const NIR_TESTE = null;
-        const NIRAlerta = NIR_TESTE ?? NIR;
-        // decisão dos alertas
-       function avaliarAlerta(umidade, NIR) {
-            if (umidade <= PMP) {
-                return `Alerta crítico: solo no ponto de murcha permanente! Irrigar imediatamente. Aplicar  ${NIR.toFixed(1)} mm de água. `;
-            }
- 
-            if (umidade <= limiteIrrigacao) {
-                if (NIR > 0) {
-                    return `Alerta crítico: Irrigação necessária. Aplicar  ${NIR.toFixed(1)} mm de água.`;
-                }
-                return 'Alerta de economia: Irrigação suspensa. A chuva prevista suprirá a cultura.';
-            }
- 
-            return 'Nenhum alerta prescrito: Umidade do solo em nível seguro.';
+const PMP = 11;
+const CC = 30;
+const p = 0.5;
+const limiteIrrigacao = CC - p * (CC - PMP);
+
+// para testar chuva: 0 = seco, 15 = chuva forte, null = usa a chuva real
+const CHUVA_TESTE = null;
+const chuvaUsada = CHUVA_TESTE ?? chuvaPrevista;
+
+// lâmina líquida = déficit do solo até a CC - chuva prevista (mm)
+function calcularLamina(umidade) {
+    const deficit = ((CC - umidade) / 100) * Zr;
+    return Math.max(deficit - chuvaUsada, 0);
+}
+
+// 1 mm = 1 L/m²  ->  volume (L) = (lâmina / eficiência) × área
+function calcularVolume(laminaMm) {
+    if (laminaMm <= 0) return 0;
+    return (laminaMm / eficiencia) * areaM2;
+}
+
+function formatarVolume(litros) {
+    return litros >= 1000
+        ? `${(litros / 1000).toFixed(2)} m³`
+        : `${litros.toFixed(0)} L`;
+}
+
+// decisão dos alertas
+function avaliarAlerta(umidade) {
+    const lamina = calcularLamina(umidade);
+    const volume = formatarVolume(calcularVolume(lamina));
+
+    if (umidade <= PMP) {
+        return `Alerta crítico: solo no ponto de murcha permanente! Irrigar imediatamente. Aplicar ${volume} de água em ${areaM2} m².`;
+    }
+
+    if (umidade <= limiteIrrigacao) {
+        if (lamina > 0) {
+            return `Alerta crítico: Irrigação necessária. Aplicar ${volume} de água em ${areaM2} m².`;
         }
- 
-        // leitura do sensor (simulada: 5% a 40%) + escreve no console e na tela
-         function lerSensor() {
-            const umidadeSoloAtual = Math.floor(Math.random() * 36) + 5;
-            console.log("valor: " + umidadeSoloAtual);
- 
-            const aviso = avaliarAlerta(umidadeSoloAtual, NIRAlerta);
-            console.log(aviso);
- 
-            if (mensagemAlerta) mensagemAlerta.textContent = aviso;
+        return 'Alerta de economia: Irrigação suspensa. A chuva prevista suprirá a cultura.';
+    }
 
-              barraNível.style.width = `${umidadeSoloAtual}%`
-        valor.textContent = `${umidadeSoloAtual}%`
-        }
- 
-        lerSensor();
-        setInterval(lerSensor, 10000);
+    return 'Nenhum alerta prescrito: Umidade do solo em nível seguro.';
+}
+
+function lerSensor() {
+    const umidadeSoloAtual = Math.floor(Math.random() * 36) + 5;
+    console.log("valor: " + umidadeSoloAtual);
+
+    const aviso = avaliarAlerta(umidadeSoloAtual);
+    console.log(aviso);
+
+    if (mensagemAlerta) mensagemAlerta.textContent = aviso;
+    barraNível.style.width = `${umidadeSoloAtual}%`;
+    valor.textContent = `${umidadeSoloAtual}%`;
+}
+lerSensor();
+setInterval(lerSensor, 10000);
     } catch (error) {
         console.log(`deu errado na comunicação: ${error}`)
     }
