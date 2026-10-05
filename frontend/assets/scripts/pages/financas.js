@@ -11,7 +11,7 @@ import {
   showErrors,
 } from "../utils/show-message.js";
 import { apiFetch } from "../config/api.js";
-import { formatarData, escapeHtml, capitalizar } from "../utils/formatter.js";
+import { formatarData, escapeHtml, capitalizar, converterData } from "../utils/formatter.js";
 import { mostrarConteudo } from "../utils/change-content.js";
 
 let registroEditandoId = null;
@@ -118,8 +118,8 @@ function filtrarPorData(registros) {
 
     case "custom": {
       if (!dataInicio || !dataFim) return registros;
-      inicio = new Date(dataInicio + "T00:00:00");
-      fim = new Date(dataFim + "T00:00:00");
+      inicio = converterData(dataInicio);
+      fim = converterData(dataFim);
       fim.setDate(fim.getDate() + 1); // inclui o dia final
       break;
     }
@@ -129,7 +129,7 @@ function filtrarPorData(registros) {
   }
 
   return registros.filter((r) => {
-    const d = new Date(r.data);
+    const d = converterData(r.data);
     return d >= inicio && d < fim;
   });
 }
@@ -149,7 +149,7 @@ function renderRegistros(registros) {
   container.classList.remove("no-content");
 
   const ordenados = [...registros].sort(
-    (a, b) => new Date(b.data) - new Date(a.data),
+    (a, b) => converterData(b.data) - converterData(a.data),
   );
 
   const fragment = document.createDocumentFragment();
@@ -599,7 +599,7 @@ async function criarGraficoMes() {
   let despesas = 0;
 
   registros.forEach((registro) => {
-    const data = new Date(registro.data);
+    const data = converterData(registro.data);
 
     if (data.getMonth() === mesAtual && data.getFullYear() === anoAtual) {
       const valor = Number(registro.valor);
@@ -689,7 +689,7 @@ async function criarGraficoAno() {
   const despesasPorMes = Array(12).fill(0);
 
   registros.forEach((registro) => {
-    const data = new Date(registro.data);
+    const data = converterData(registro.data);
 
     if (data.getFullYear() !== anoAtual) {
       return;
