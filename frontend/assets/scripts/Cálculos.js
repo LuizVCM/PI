@@ -196,7 +196,7 @@ function calcularVolume(laminaMm) {
 
 function formatarVolume(litros) {
     return litros >= 1000
-        ? `${(litros / 1000).toFixed(2)} m³`
+        ? `${(litros / 1000).toFixed(2)} L`
         : `${litros.toFixed(0)} L`;
 }
 
