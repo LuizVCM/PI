@@ -218,9 +218,11 @@ function avaliarAlerta(umidade) {
 
     return 'Nenhum alerta prescrito: Umidade do solo em nível seguro.';
 }
-
-function lerSensor() {
-    const umidadeSoloAtual = Math.floor(Math.random() * 36) + 5;
+    const sensoresssssss = `https://projeto-integrador-w14r.onrender.com/sensor/1`;
+async function lerSensor() {
+try{
+    const umidadeSoloAtual = await fetch(sensoresssssss);
+    const umidadeCerta = await umidadeSoloAtual.json();
     console.log("valor: " + umidadeSoloAtual);
 
     const aviso = avaliarAlerta(umidadeSoloAtual);
@@ -229,6 +231,9 @@ function lerSensor() {
     if (mensagemAlerta) mensagemAlerta.textContent = aviso;
     barraNível.style.width = `${umidadeSoloAtual}%`;
     valor.textContent = `${umidadeSoloAtual}%`;
+}catch(error){
+    console.log("Erro ao puxar dados de sensor: ", error)
+}
 }
 lerSensor();
 setInterval(lerSensor, 10000);

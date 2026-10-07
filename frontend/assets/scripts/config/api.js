@@ -1,6 +1,6 @@
 import { abrirModalErro } from "../utils/modals.js";
 /** url base do backend (por enquanto é localhost) */
-export const API_URL = "http://localhost:3000";
+export const API_URL = "https://projeto-integrador-w14r.onrender.com";
 /** função base para fazer requisições para o backend */
 export async function apiFetch(path, options = {}) {
   const response = await fetch(`${API_URL}${path}`, {

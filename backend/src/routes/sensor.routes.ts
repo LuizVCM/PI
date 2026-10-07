@@ -20,12 +20,12 @@ sensorRoutes.get(
 );
 sensorRoutes.get(
   "/:id",
-  authMiddleware,
+   authMiddleware,
   sensorController.getById.bind(sensorController)
 );
 sensorRoutes.post(
   "/territory/:id",
-  authMiddleware,
+  // authMiddleware,
   validateSensorCreate,
   sensorController.create.bind(sensorController)
 );
