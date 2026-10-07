@@ -8,7 +8,7 @@ const temperaturaAtual = document.querySelector(".graus h1")
 async function TrocarTemp() {
 
   try {
-      const user = "http://localhost:3000/users/me"
+      const user = "https://projeto-integrador-w14r.onrender.com/users/me"
       const consumo0 = await fetch(user, { credentials: 'include' });
       const usuario0 = await consumo0.json();
 
@@ -25,7 +25,7 @@ async function TrocarTemp() {
 
   const clima = `https://api.open-meteo.com/v1/forecast?latitude=${coordenadasCidade.location.coordinates.latitude}&longitude=${coordenadasCidade.location.coordinates.longitude}&daily=temperature_2m_max,temperature_2m_min,wind_speed_10m_max,precipitation_sum,et0_fao_evapotranspiration&forecast_days=1`;
 
-  const recebeDadosBackend = "http://localhost:3000/users/me"
+  const recebeDadosBackend = "https://projeto-integrador-w14r.onrender.com/users/me"
   try {
     const consumo = await fetch(recebeDadosBackend, { credentials: 'include' });
     const usuario = await consumo.json();
@@ -40,12 +40,12 @@ async function TrocarTemp() {
         const climaDiario = await fetch(clima);
         const dadosClima = await climaDiario.json()
 
-        const apiEnviar = `http://localhost:3000/weather/territory/${usuario.territorios[0].id}`
+        const apiEnviar = `https://projeto-integrador-w14r.onrender.com/weather/territory/${usuario.territorios[0].id}`
         
          const hoje = new Date().toISOString().split('T')[0];
 
         console.log(dadosClima)
-        const verificaClima = 'http://localhost:3000/weather/me'
+        const verificaClima = 'https://projeto-integrador-w14r.onrender.com/weather/me'
         const verify = await fetch(verificaClima, {credentials: 'include'});
         const ver = await verify.json()
 
